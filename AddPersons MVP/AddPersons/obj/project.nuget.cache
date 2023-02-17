@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4FpIxrw9iPsOqJMGTtbrq7iRFqeoqMCFLZbUEa6fvvn+6P5ZrCEzz6nbPp5mQmmVXc0qsfhv6krongEde+A89A==",
+  "success": true,
+  "projectFilePath": "D:\\HomeWorks\\Winform\\WinForm\\AddPersons MVP\\AddPersons\\AddPersons.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

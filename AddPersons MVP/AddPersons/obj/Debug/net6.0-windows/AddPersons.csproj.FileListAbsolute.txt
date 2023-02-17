@@ -1,0 +1,82 @@
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.exe
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.deps.json
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.runtimeconfig.json
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.dll
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.pdb
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.AssemblyReference.cache
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.Properties.Resources.resources
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.GenerateResource.cache
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfoInputs.cache
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfo.cs
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.dll
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\refint\AddPersons.dll
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.pdb
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.genruntimeconfig.cache
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\ref\AddPersons.dll
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.MainView.resources
+C:\Users\HP\source\repos\C#WPF\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.View.RedactView.resources
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.exe
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.deps.json
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.runtimeconfig.json
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.dll
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.pdb
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.AssemblyReference.cache
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.Properties.Resources.resources
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.MainView.resources
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.View.RedactView.resources
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.GenerateResource.cache
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfoInputs.cache
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfo.cs
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.dll
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\refint\AddPersons.dll
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.pdb
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.genruntimeconfig.cache
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\ref\AddPersons.dll
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\HP\source\repos\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CopyComplete
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.exe
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.deps.json
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.runtimeconfig.json
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\AddPersons.pdb
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.AssemblyReference.cache
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.Properties.Resources.resources
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.MainView.resources
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.View.RedactView.resources
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.GenerateResource.cache
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.GeneratedMSBuildEditorConfig.editorconfig
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfoInputs.cache
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfo.cs
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CoreCompileInputs.cache
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CopyComplete
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\refint\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.pdb
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\AddPersons.genruntimeconfig.cache
+D:\HomeWorks\Winform\WinForm\AddPersons\AddPersons\obj\Debug\net6.0-windows\ref\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\bin\Debug\net6.0-windows\AddPersons.exe
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\bin\Debug\net6.0-windows\AddPersons.deps.json
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\bin\Debug\net6.0-windows\AddPersons.runtimeconfig.json
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\bin\Debug\net6.0-windows\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\bin\Debug\net6.0-windows\AddPersons.pdb
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.AssemblyReference.cache
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.Properties.Resources.resources
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.MainView.resources
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.View.RedactView.resources
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.GenerateResource.cache
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.GeneratedMSBuildEditorConfig.editorconfig
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfoInputs.cache
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.AssemblyInfo.cs
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CoreCompileInputs.cache
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.csproj.CopyComplete
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\refint\AddPersons.dll
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.pdb
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\AddPersons.genruntimeconfig.cache
+D:\HomeWorks\Winform\WinForm\AddPersons MVP\AddPersons\obj\Debug\net6.0-windows\ref\AddPersons.dll
