@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FirstHw"
         mc:Ignorable="d"
-        Title="HomeWork" Height="580" Width="600"
+        Title="Calculator" Height="580" Width="600"
         MinHeight ="400" MinWidth="500">
 
-    <Grid Background ="FloralWhite">
+    <Grid Name="MainGrid" Background ="FloralWhite">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -26,26 +26,29 @@
 
         </Grid.ColumnDefinitions>
 
-        <Label Grid.ColumnSpan="3">
-
-        </Label>
-        <Button Name="Button1"  Background="Beige" Grid.Column="0" Grid.Row="2" Content="1"></Button>
-        <Button Name="Button2"  Background="Beige" Grid.Column="1" Grid.Row="2" Content="2"></Button>
-        <Button Name="Button3"  Background="Beige" Grid.Column="2" Grid.Row="2" Content="3"></Button>
-        <Button Name="Button4"  Background="Beige" Grid.Column="0" Grid.Row="3" Content="4"></Button>
-        <Button Name="Button5"  Background="Beige" Grid.Column="1" Grid.Row="3" Content="5"></Button>
-        <Button Name="Button6"  Background="Beige" Grid.Column="2" Grid.Row="3" Content="6"></Button>
-        <Button Name="Button7"  Background="Beige" Grid.Column="0" Grid.Row="4" Content="7"></Button>
-        <Button Name="Button8"  Background="Beige" Grid.Column="1" Grid.Row="4" Content="8"></Button>
-        <Button Name="Button9"  Background="Beige" Grid.Column="0" Grid.Row="6" Content="9"></Button>
-        <Button Name="Button0"  Background="Beige" Grid.Column="1" Grid.Row="5" Content="0"></Button>
-        <Button Background="Beige" Grid.Column="2" Grid.Row="5" Content="СЕ"></Button>
-        <Button Background="Beige" Grid.Column="2" Grid.Row="4" Content="С"></Button>
-        <Button Background="Beige" Grid.Column="3" Grid.Row="2" Content="*"></Button>
-        <Button Background="Beige" Grid.Column="3" Grid.Row="3" Content="/"></Button>
-        <Button Background="Beige" Grid.Column="3" Grid.Row="4" Content="+"></Button>
-        <Button Background="Beige" Grid.Column="3" Grid.Row="5" Content="-"></Button>
-
-
+        <TextBlock Name="ResTextBox" Grid.ColumnSpan="4" VerticalAlignment="Center" FontSize="30" />
+        
+        <Label  Name="ResLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" FontSize="20" ></Label>
+        
+        <Button Name="Button1" Background="Beige" Grid.Column="0" Grid.Row="2" Content="1"></Button>
+        <Button Name="Button2" Background="Beige" Grid.Column="1" Grid.Row="2" Content="2"></Button>
+        <Button Name="Button3" Background="Beige" Grid.Column="2" Grid.Row="2" Content="3"></Button>
+        <Button Name="Button4" Background="Beige" Grid.Column="0" Grid.Row="3" Content="4"></Button>
+        <Button Name="Button5" Background="Beige" Grid.Column="1" Grid.Row="3" Content="5"></Button>
+        <Button Name="Button6" Background="Beige" Grid.Column="2" Grid.Row="3" Content="6"></Button>
+        <Button Name="Button7" Background="Beige" Grid.Column="0" Grid.Row="4" Content="7"></Button>
+        <Button Name="Button8" Background="Beige" Grid.Column="1" Grid.Row="4" Content="8"></Button>
+        <Button Name="Button9" Background="Beige" Grid.Column="2" Grid.Row="4" Content="9"></Button>
+        <Button Name="Button0" Background="Beige" Grid.Column="1" Grid.Row="5" Content="0"></Button>
+        <Button Name="ButtonCЕ" Background="Beige" Grid.Column="2" Grid.Row="5" Content="CE"></Button>
+        <Button Name="ButtonC" Background="Beige" Grid.Column="0" Grid.Row="6" Content="C"></Button>
+        <Button Name="ButtonMultiplication" Background="Beige" Grid.Column="3" Grid.Row="1" Content="*"></Button>
+        <Button Name="ButtonDevide" Background="Beige" Grid.Column="3" Grid.Row="2" Content="/"></Button>
+        <Button Name="ButtonPlus" Background="Beige" Grid.Column="3" Grid.Row="3" Content="+"></Button>
+        <Button Name="ButtonMinus" Background="Beige" Grid.Column="3" Grid.Row="4" Content="-"></Button>
+        <Button Name="ButtonRes" Background="Bisque" Grid.Column="3" Grid.Row="5" Content="=" FontSize="30"></Button>
+        <Button Name="ButtonDot" Background="Beige" Grid.Column="0" Grid.Row="1" Content="," ></Button>
+        <Button Name="ButtonPercent" Background="Beige" Grid.Column="1" Grid.Row="1" Content="%" ></Button>
+        <Button Name="ButtonBracketClosed" Background="Beige" Grid.Column="2" Grid.Row="1" Content=")" ></Button>
     </Grid>
 </Window>

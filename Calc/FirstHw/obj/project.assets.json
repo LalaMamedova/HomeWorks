@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\source\\repos\\WPF\\FirstHw\\FirstHw\\FirstHw.csproj",
+      "projectUniqueName": "D:\\HomeWorks\\WPF\\Calc\\FirstHw\\FirstHw.csproj",
       "projectName": "FirstHw",
-      "projectPath": "C:\\Users\\HP\\source\\repos\\WPF\\FirstHw\\FirstHw\\FirstHw.csproj",
+      "projectPath": "D:\\HomeWorks\\WPF\\Calc\\FirstHw\\FirstHw.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\source\\repos\\WPF\\FirstHw\\FirstHw\\obj\\",
+      "outputPath": "D:\\HomeWorks\\WPF\\Calc\\FirstHw\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
