@@ -28,7 +28,7 @@
 
         <TextBlock Name="ResTextBox" Grid.ColumnSpan="4" VerticalAlignment="Center" FontSize="30" />
         
-        <Label  Name="ResLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" FontSize="20" ></Label>
+        <Label MouseDoubleClick="ResLabel_MouseDoubleClick" Name="ResLabel" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" FontSize="20" ></Label>
         
         <Button Name="Button1" Background="Beige" Grid.Column="0" Grid.Row="2" Content="1"></Button>
         <Button Name="Button2" Background="Beige" Grid.Column="1" Grid.Row="2" Content="2"></Button>

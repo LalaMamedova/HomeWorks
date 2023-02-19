@@ -16,12 +16,8 @@ using System.Windows.Shapes;
 
 namespace FirstHw
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-
         private string? prevSymb ; 
         private string? currentNums;
         private double? prevNum;
@@ -35,108 +31,129 @@ namespace FirstHw
             }
         }
 
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string str = (string)((Button)e.OriginalSource).Content;
+            string? buttonClick = (string?)((Button)e.OriginalSource).Content;
+            char? lastChar = null;
 
-            if (str != "C" && str != "CE")
+            if (!IsC(buttonClick) && buttonClick != "CE")
             {
-                ResTextBox.Text += str;
+                ResTextBox.Text += buttonClick;
 
-                if (str != "+" && str != "-" && str != "*" && str != "/" && str != "=")
-                    currentNums += str;
+                if (ResTextBox.Text.Length > 2)
+                    lastChar = ResTextBox.Text[ResTextBox.Text.Length - 2];
 
-                if (str == "+" || str == "-" || str == "*" || str == "/" || str == "=")
+                if (IsNumber(buttonClick))
+                    currentNums += buttonClick;
+
+                else if (IsMathSymbol(buttonClick) != null &&
+                    IsMathSymbol(lastChar.ToString()) != null &&
+                    IsMathSymbol(lastChar.ToString()) != IsMathSymbol(buttonClick))
                 {
-                    ReplaceSymb(str);
-                    Operations(str);
-                    prevSymb = str;
+                    ResTextBox.Text = ResTextBox.Text.Replace(lastChar.ToString(), buttonClick);
+                    ResTextBox.Text = ResTextBox.Text.Remove(ResTextBox.Text.Length - 1);
+                }
+
+                else if (IsMathSymbol(buttonClick) != null &&
+                    IsMathSymbol(lastChar.ToString()) != null &&
+                    IsMathSymbol(lastChar.ToString()) == IsMathSymbol(buttonClick))
+                    ResTextBox.Text = ResTextBox.Text.Remove(ResTextBox.Text.Length - 1);
+
+                else if (buttonClick == "=" && prevSymb != null)
+                {
+                    MathOperation();
+                    ResTextBox.Text = "";
+                    currentNums = "";
+                    prevNum = null;
+                    prevSymb = null;
+                }
+
+                else if (IsMathSymbol(buttonClick) != null && prevSymb != null)
+                {
+                    MathOperation();
+
+                    ResTextBox.Text = ResLabel.Content.ToString() + buttonClick; // отображение на текстовом боксе
+                    prevNum = Convert.ToDouble(ResLabel.Content.ToString());//предзначение
+                    currentNums = "";//нового числа пока нет
+                    prevSymb = buttonClick;// пред символом является то, что мы сейчас нажали
+                }
+             
+
+                else if (IsMathSymbol(buttonClick) != null)
+                {
+                    prevSymb = buttonClick;
                     prevNum = Convert.ToDouble(currentNums);
-                    currentNums = null;
+                    currentNums = "";
                 }
             }
 
-            else if (str == "C")
-                Click_C();
-
-            else if (str == "CE" && prevNum != null)
-                ResTextBox.Text = ClickCE(ref currentNums);
-            else
-                Click_C();
-
-        }
-        private void Operations(string symbs)
-        {
-            if (prevSymb != null)
+            else if (IsC(buttonClick))
             {
-                if (prevSymb == "+")
-                    ResLabel.Content = prevNum + Convert.ToDouble(currentNums);
-                if (prevSymb == "-")
-                    ResLabel.Content = prevNum - Convert.ToDouble(currentNums);
-                if (prevSymb == "*")
-                    ResLabel.Content = prevNum * Convert.ToDouble(currentNums);
-                if (prevSymb == "/")
-                    ResLabel.Content = prevNum / Convert.ToDouble(currentNums);
-
-                ResTextBox.Text = ResLabel.Content.ToString() + symbs;
-                currentNums = ResLabel.Content.ToString();
+                ResTextBox.Text = "";
+                currentNums = "";
                 prevNum = null;
-               
+                prevSymb = null;
             }
-        }
-
-        private void ReplaceSymb(string newsymb)
-        {
-            char currentSymb = ResTextBox.Text[ResTextBox.Text.Count() - 1];
-            char[] chararr = newsymb.ToCharArray();
-
-            if (currentSymb == '+' || currentSymb == '*' || currentSymb == '-' || currentSymb == '/')
+            else if (buttonClick == "CE")
             {
-                if (newsymb == "+" || newsymb == "-" || newsymb == "*" || newsymb == "/")
-                {
-                    ResTextBox.Text.Replace(currentSymb, chararr[0]);
-                }
+                ResTextBox.Text = ButtonCE(buttonClick, currentNums);
+                currentNums = "";
             }
         }
 
-        private void ResBut_Click(string str)
+        private double MathOperation()
         {
-            if (prevNum != 0)
+            if (prevSymb == "+")
+                ResLabel.Content = prevNum + Convert.ToDouble(currentNums);
+            else if (prevSymb == "-")
+                ResLabel.Content = prevNum - Convert.ToDouble(currentNums);
+            else if (prevSymb == "*")
+                ResLabel.Content = prevNum * Convert.ToDouble(currentNums);
+            else if (prevSymb == "/")
+                ResLabel.Content = prevNum / Convert.ToDouble(currentNums);
+
+            else if (prevSymb == "%")
             {
-                if (str == "+")
-                    ResLabel.Content = prevNum + Convert.ToDouble(currentNums);
-                if (str == "-")
-                    ResLabel.Content = prevNum - Convert.ToDouble(currentNums);
-                if (str == "*")
-                    ResLabel.Content = prevNum * Convert.ToDouble(currentNums);
-                if (str == "/")
-
-                    ResLabel.Content = prevNum / Convert.ToDouble(currentNums);
-
-                ResTextBox.Text = ResLabel.Content.ToString();
+                ResLabel.Content = (prevNum * Convert.ToDouble(currentNums));
+                ResLabel.Content = Convert.ToDouble(ResLabel.Content) / 100;
             }
-
-            prevNum = Convert.ToDouble(currentNums);
-            currentNums = null;
+            return Convert.ToDouble(ResLabel.Content);
         }
-
-        
-
-
-        private string ClickCE(ref string str)
+        private string? ButtonCE(string buttonClick,  string currentNums)
         {
-            int removeLen = ResTextBox.Text.Count() -  str.Length;
             StringBuilder stringBuilder = new(ResTextBox.Text);
-            stringBuilder.Remove(removeLen, str.Length);
-
-            str = "";
-            return stringBuilder.ToString();
-            
+            stringBuilder.Remove(stringBuilder.Length - currentNums.Length, currentNums.Length);
+            return stringBuilder.ToString();    
         }
-        private void Click_C() { ResTextBox.Text = ""; ResLabel.Content = ""; }
 
-       
+        private bool IsNumber(string? symb) {
+            char[] checkdigit = symb.ToCharArray();
 
-       
+            if (Char.IsDigit(checkdigit[0]) == true) 
+                return true;
+            return false;
+        }
+
+
+        private bool IsC(string symb)
+        {
+            if ( symb != "C")
+                return false;
+            return true;
+        }
+
+
+        private string? IsMathSymbol(string? symb)
+        {
+            if(symb == "+" || symb == "-"|| symb == "*" || symb == "/" || symb =="%")
+                return symb;            
+            return null;
+        }
+
+        private void ResLabel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ResTextBox.Text = ResLabel.Content.ToString();
+        }
     }
 }
