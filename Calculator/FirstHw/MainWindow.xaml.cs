@@ -18,9 +18,9 @@ namespace FirstHw
 {
     public partial class MainWindow : Window
     {
-        private string? prevSymb ; 
+        private string? firstSymb ; 
         private string? currentNums;
-        private double? prevNum;
+        private double? firstNum;
         public MainWindow()
         {
             InitializeComponent();
@@ -59,26 +59,26 @@ namespace FirstHw
                 else if (buttonClick == "=" && currentNums == "")//Если человек нажал на "=" без второго значения
                     ResetEveryTring();
 
-                else if (buttonClick == "=" && prevSymb != null)//Если человек нажал на "=" после обычной процедуры
+                else if (buttonClick == "=" && firstSymb != null)//Если человек нажал на "=" после обычной процедуры
                 {
                     MathOperation();
                     ResetEveryTring();
                 }
 
-                else if (IsMathSymbol(buttonClick) != null && prevSymb != null)//Простое мат.операция
+                else if (IsMathSymbol(buttonClick) != null && firstSymb != null)//Простое мат.операция
                 {
                     MathOperation();
 
                     ResTextBox.Text = ResLabel.Content.ToString() + buttonClick;
-                    prevNum = Convert.ToDouble(ResLabel.Content.ToString());
+                    firstNum = Convert.ToDouble(ResLabel.Content.ToString());
                     currentNums = "";
-                    prevSymb = buttonClick;
+                    firstSymb = buttonClick;
                 }
 
                 else if (IsMathSymbol(buttonClick) != null)//Если человек нажал на мат.действия(+,- и прочее)
                 {
-                    prevSymb = buttonClick;
-                    prevNum = Convert.ToDouble(currentNums);
+                    firstSymb = buttonClick;
+                    firstNum = Convert.ToDouble(currentNums);
                     currentNums = "";
                 }
             }
@@ -95,29 +95,32 @@ namespace FirstHw
 
         private double MathOperation()
         {
-            if (prevSymb == "+")
-                ResLabel.Content = prevNum + Convert.ToDouble(currentNums);
-            else if (prevSymb == "-")
-                ResLabel.Content = prevNum - Convert.ToDouble(currentNums);
-            else if (prevSymb == "*")
-                ResLabel.Content = prevNum * Convert.ToDouble(currentNums);
-            else if (prevSymb == "/")
-                ResLabel.Content = prevNum / Convert.ToDouble(currentNums);
-            else if (prevSymb == "²")
-                ResLabel.Content = Math.Pow(Convert.ToInt32(prevNum), Convert.ToInt32(currentNums));
-            else if (prevSymb == "%")
+            if (firstSymb == "+")
+                ResLabel.Content = firstNum + Convert.ToDouble(currentNums);
+            else if (firstSymb == "-")
+                ResLabel.Content = firstNum - Convert.ToDouble(currentNums);
+            else if (firstSymb == "*")
+                ResLabel.Content = firstNum * Convert.ToDouble(currentNums);
+            else if (firstSymb == "/")
+                ResLabel.Content = firstNum / Convert.ToDouble(currentNums);
+            else if (firstSymb == "²")
+                ResLabel.Content = Math.Pow(Convert.ToInt32(firstNum), Convert.ToInt32(currentNums));
+            else if (firstSymb == "%")
             {
-                ResLabel.Content = (prevNum * Convert.ToDouble(currentNums));
+                ResLabel.Content = (firstNum * Convert.ToDouble(currentNums));
                 ResLabel.Content = Convert.ToDouble(ResLabel.Content) / 100;
             }
                
             return Convert.ToDouble(ResLabel.Content);
         }
-        private string? ButtonCE(string buttonClick, ref string currentNums)
+        private string? ButtonCE(string buttonClick, ref string? currentNums)
         {
             StringBuilder stringBuilder = new(ResTextBox.Text);
-            stringBuilder.Remove(stringBuilder.Length - currentNums.Length, currentNums.Length);
-            currentNums = "";
+            if (currentNums != null)
+            {
+                stringBuilder.Remove(stringBuilder.Length - currentNums.Length, currentNums.Length);
+                currentNums = "";
+            }
             return stringBuilder.ToString();    
         }
 
@@ -143,10 +146,10 @@ namespace FirstHw
 
         private void ResetEveryTring()
         {
-            ResTextBox.Text  = ResTextBox.Text = null;
+            ResTextBox.Text = ResTextBox.Text = null;
             currentNums = currentNums = null;
-            prevNum = prevNum = null;
-            prevSymb = prevSymb = null;
+            firstNum = firstNum = null;
+            firstSymb = firstSymb = null;
         }
 
         private string FirstNullCheck(string symbls)
