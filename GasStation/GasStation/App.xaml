@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:GasStation"
              StartupUri="MainCashWindw.xaml">
     <Application.Resources>
-         
+       
     </Application.Resources>
 </Application>

@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace GasStation.Classes
 {
-    public enum Foods { HotDog = 0, Burger,FrienchFries,Fanta};
     public class MiniMarket
     {
-        public Foods Foods { get; set; }
-        public float Price { get; set; }
-        public int Count { get; set; }
-
-        public MiniMarket(Foods foods, float price, int count)
+        public List<Food> Foods;
+        public MiniMarket(params Food[] foods)
         {
-            Foods = foods;
-            Price = price;
-            Count = count;
+            Foods = new();
+            Foods.AddRange(foods);
         }
-
-        public MiniMarket() 
+        public MiniMarket()
         {
-            Foods foods = new();
-            foods = Foods.HotDog;
-            Price = 4.4f;
-            Count = 1;
+            Foods= new() 
+            {
+                new Food("Хотдог",2.5f),
+                new Food("Гамбургер",3.2f),
+                new Food("Картошка Фри", 4.6f),
+                new Food("Фанта",1.2f)
+
+            };
         }
     }
 }

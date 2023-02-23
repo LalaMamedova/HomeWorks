@@ -6,142 +6,244 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         xmlns:local= "clr-namespace:GasStation" 
-        Title="MainCashWindow" Height="650" Width="900" Icon="/64a7b4f4a169c2d7227855fe12e626c8.jpg">
-    
+        Title="MainCashWindow" Height="650" Width="900" MinHeight="650" MinWidth="900" Icon="/64a7b4f4a169c2d7227855fe12e626c8.jpg">
+
     <Window.Resources>
-        <Style x:Key="GasStyle" TargetType="Label">
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontSize" Value="20"/>
+        <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+            <Setter Property = "HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="0,5,150,0"/>
         </Style>
-        
-        <!--<ObjectDataProvider x:Key="dataFromEnum"
-                            MethodName="getValue"
-                            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:Status"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>-->
-    
+
+        <Style x:Key="TexBoxStyle" TargetType="TextBox">
+            <Setter Property = "HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="IsEnabled" Value="False"/>
+           
+        </Style>
+        <Style x:Key="TexBoxStyle2" TargetType="TextBox">
+            <Setter Property = "HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="IsEnabled" Value="False"/>
+        </Style>
     </Window.Resources>
 
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"></RowDefinition>
-            <RowDefinition Height="0.3*"></RowDefinition>
-            <RowDefinition Height="0.3*"></RowDefinition>
-            <RowDefinition Height="0.2*"></RowDefinition>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition ></RowDefinition>
-
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
 
-        
+
+
         <!--#region GasStation -->
-        <StackPanel Grid.RowSpan ="6" Background="AliceBlue" Grid.ColumnSpan="2" ></StackPanel>
+       
+        <StackPanel x:Name="GasStation" 
+                    Grid.RowSpan="4"
+                    Background="Moccasin"
+                    >
 
-        <Label Content="Автозаправка" FontSize="25"
-               HorizontalAlignment="Center"
-               Grid.Column="0" Grid.Row="0"/>
-
-        <Label  FontSize ="16" 
-                Content="Бензин"
-                VerticalAlignment="Center"
-                Grid.Column="0" Grid.Row="1"/>
-
-        <Label  FontSize="20" 
-                Content="Сумма"
-                Grid.Column="0" Grid.Row="3" 
-                HorizontalContentAlignment="Center"/>
-        
-        <Label  Name="sumLabel"
-                FontSize="35" 
-                Grid.Column="0" Grid.Row="4" 
-                HorizontalContentAlignment="Center"
-                />
-
-        <ComboBox Name="GasChoice" 
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Center"
-                  Width="120" Height="20" 
-                  Grid.Column="0" Grid.Row="1"
-                  Loaded="GasChoice_Loaded"
-                  ItemsSource="{Binding gasCollection.gasStation}"
+            <Label Content="Автозаправка"
+                   HorizontalAlignment="Center"
+                   FontSize="20" 
+                   FontWeight="UltraBold" 
                   />
-        
-        <RadioButton Name="gasPriceButton"
-                   Grid.Row="2" Grid.Column="0" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Content="Цена"
-                   FontSize="16"
-                   />
 
-        <RadioButton Content="Объем"
-                     Grid.Column="0" Grid.Row="2"
-                     VerticalAlignment="Bottom"
-                     FontSize="16"
-                    />
+            <DockPanel Height="15"/>
 
-        <TextBlock Name="gasVolumeBlock"
-                   Grid.Row="2" Grid.Column="0" 
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Bottom"
-                   Width="150" Height="30"
-                  />
-        
-        <TextBlock Name="gasPriceBlock"
-                   Grid.Row="2" Grid.Column="0" 
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Top"
-                   Width="150" Height="30"
-                  />
+            <DockPanel>
+                <Label Content="Бензин"
+                       FontSize="18"
+                       HorizontalAlignment="Left"/>
+                
+                <ComboBox 
+                   Loaded="GasChoice_Loaded"
+                   x:Name="GasChoice"
+                   SelectionChanged="GasChoice_SelectionChanged"
+                   HorizontalAlignment="Center"
+                   Width="150" Height="25"/>
+            </DockPanel>
+            
+            <DockPanel Height="15"/>
+            
+            <DockPanel Grid.Row="2">
+                
+                <Label Content="Цена"
+                       FontSize="18"/>
+                
+                <TextBlock Name="priceTextBox"
+                          FontSize="20"
+                          HorizontalAlignment="Right"
+                          Width="160"
+                          Background="OldLace"
+                          IsEnabled="False"/>
+            </DockPanel>
+
+            <DockPanel Height="25"/>
+
+            <StackPanel >
+                <DockPanel Height="30">
+
+                    <RadioButton
+                                 Name="countRadioButton"
+                                 Content="Кол-во"
+                                 FontSize="18"
+                                 GroupName="SumOrValue"
+                            Checked="countRadioButton_Checked"
+                            Unchecked="countRadioButton_Unchecked"/>
+
+
+
+                    <TextBox   Name="countTexBox"
+                               Background="OldLace"
+                               Width="150"  
+                               IsEnabled="False"
+                               HorizontalAlignment="Center" 
+                               TextChanged="countTexBox_TextChanged"/>
+
+                    
+                </DockPanel>
+
+
+
+                <DockPanel Height="30" >
+                    
+                    <RadioButton x:Name="SumRadioButton"
+                                Content="Сумма"
+                                 FontSize="18"
+                                 GroupName="SumOrValue"
+                                 HorizontalAlignment="Left"
+                                 Checked="SumRadioButton_Checked"
+                                 Unchecked ="SumRadioButton_Unchecked"/>
+
+                    
+                    
+                    <TextBox   Name="sumTextBox"
+                               Width="150"
+                               HorizontalAlignment="Center"
+                               IsEnabled="False"
+                               Background="OldLace" 
+                               TextChanged="sumTextBox_TextChanged"/>
+                    
+     
+                </DockPanel>
+            </StackPanel>
+
+            <DockPanel Height="40" />
+            
+            <Label Content="Оплата"
+                           FontSize="20"
+                           HorizontalAlignment = "Center"/>
+
+            <TextBlock Name="GasStationSum"
+                       FontSize="30"
+                       Text="0"
+                      />
+        </StackPanel>
+     
         <!--#endregion-->
-        
+
         <!--#region MiniMarket -->
-        
-        <StackPanel Grid.Column="2" Grid.RowSpan ="6" Background="Azure" ></StackPanel>
-        <Label Content="МиниМагазин"
-               Grid.Row="0" Grid.Column="1"
-               HorizontalAlignment="Center"
-               FontSize="25"/>
-        
-        <CheckBox Name ="CheckBoxHotDog"
-                  Grid.Row="1" Grid.Column="1"
-                  Content="Хотдог"
-                  IsChecked="{Binding miniMarket.Foods}"
-                  Checked="CheckBoxHotDog_Checked"
-                  FontSize="16"/>
-        
-        <CheckBox Name ="CheckBurger"
-                  Grid.Row="1" Grid.Column="1"
-                  Content="Бургер"
-                  VerticalAlignment="Bottom"
-                  IsChecked="{Binding miniMarket.Foods}"
-                  Checked="CheckBoxHotDog_Checked"
-                  FontSize="16"/>
-        
-        <CheckBox Name ="CheckBoxFrier"
-                  Grid.Row="1" Grid.Column="1"
-                  VerticalAlignment="Center"
-                  Content="Картошка фри"
-                  IsChecked="{Binding miniMarket.Foods}"
-                  Checked="CheckBoxHotDog_Checked"
-                  FontSize="16"/>
+        <StackPanel Grid.Column="2"
+                    Grid.RowSpan ="4"
+                    Background="#FFF5B39B">
 
-        <TextBlock Name="HotDogPrice"
-                   Text="{Binding miniMarket.Price}"
-                   IsEnabled="False"
-                   Grid.Column="1" Grid.Row="1"
-                   HorizontalAlignment="Center"/>
+            <Label Content="МАГАЗИН"
+                   HorizontalAlignment="Center"
+                   FontSize="20" 
+                   FontWeight="UltraBold"/>
+
+            <DockPanel FlowDirection="RightToLeft" >
+                <Label Content="Количество" HorizontalAlignment="Center"></Label>
+                <Label Content="Цена" Width="184"/>
+            </DockPanel>
+
+          
+            <DockPanel>
+                
+                <CheckBox 
+                           Name="hotDogCheckBox"
+                           Content="ХотДог"
+                           Style="{StaticResource CheckBoxStyle}"
+                           Margin="0,0,140,0"
+                           Checked="hotDogCheckBox_Checked"
+                           Unchecked="hotDogCheckBox_Unchecked"/>
+                
+                <TextBox   Background="#FFFDD1C1"
+                           Name="hotDogPrice"
+                           Style="{StaticResource TexBoxStyle2}"/>
+                
+                <TextBox   Background="#FFFDD1C1"
+                           Name="hoDogCountBox"
+                           Style="{StaticResource TexBoxStyle}"/>
+
+            </DockPanel>
+
+            <DockPanel>
+                <CheckBox  Name="hamburgerCheckBox"
+                           Content="Гамбургер"
+                           Style="{StaticResource CheckBoxStyle}"
+                           Margin="0,0,112,0"/>
+                
+                <TextBox   Background="#FFFDD1C1"
+                           Name="hamburgerPrice"
+                           Style="{StaticResource TexBoxStyle2}"/>
+                <TextBox   Background="#FFFDD1C1"
+                           Name="hamburgerCountBox"
+                           Style="{StaticResource TexBoxStyle}"/>
+            </DockPanel>
+            
+            <DockPanel>
+                <CheckBox  Name="potatoFriersCheckBox"
+                           Content="Картошка фри"
+                           Style="{StaticResource CheckBoxStyle}"
+                           Margin="0,0,80,0"
+                           Checked="potatoFriersCheckBox_Checked"/>
+                
+                <TextBox   Name="potatoFriersPrice"
+                           Background="#FFFDD1C1"
+                            Style="{StaticResource TexBoxStyle2}"/>
+                
+                <TextBox   Background="#FFFDD1C1"
+                           Name="potatoFriersCountBox"
+                           Style="{StaticResource TexBoxStyle}"/>
+            </DockPanel>
+            
+            <DockPanel>
+                <CheckBox Name="FantaCheckBox"
+                          Content="Фанта"
+                          Style="{StaticResource CheckBoxStyle}"
+                          Checked="FantaCheckBox_Checked"/>
+                
+                <TextBox   Background="#FFFDD1C1"
+                           Name="fantaPrice"
+                           Style="{StaticResource TexBoxStyle2}"/>
+                
+                <TextBox   Background="#FFFDD1C1"
+                           Name="fantaCountBox"
+                           Style="{StaticResource TexBoxStyle}"/>
+            </DockPanel>
+
+            <Label FontSize="20" 
+                       HorizontalAlignment="Center"
+                       Content="Оплата"/>
+            
+            <TextBlock FontSize="35" Text="0"/>
+
+        </StackPanel>
         <!--#endregion-->
 
-        <StackPanel Grid.Row="9" Grid.ColumnSpan="2" Background="PowderBlue" ></StackPanel>
+
 
     </Grid>
 

@@ -11,7 +11,7 @@ namespace GasStation.Classes
     public class Gas
     {
         public float Price { get; set; }
-        public float Value { get; set; }    
+        public float? Value { get; set; }    
         public string GasName { get; set; }
         
         public Gas(string name, float price,float value)
@@ -20,12 +20,14 @@ namespace GasStation.Classes
             Price = price;
             Value = value;
         }
-
-        public Gas() 
+        public Gas(string name, float price )
         {
-            
+            GasName = name;
+            Price = price;
         }
 
+        public Gas() {}
+       
         public override string ToString()
         {
             return GasName + Price.ToString() + Value.ToString();
