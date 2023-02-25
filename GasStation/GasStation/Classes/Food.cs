@@ -12,12 +12,7 @@ namespace GasStation.Classes
         public float Price { get; set; }
         public int Count { get; set; }
 
-        public Food(string foods, float price, int count)
-        {
-            FoodName = foods;
-            Price = price;
-            Count = count;
-        }
+
         public Food(string foods, float price)
         {
             FoodName = foods;

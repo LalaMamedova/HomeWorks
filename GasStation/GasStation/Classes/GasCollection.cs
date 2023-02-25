@@ -16,10 +16,10 @@ namespace GasStation.Classes
         
         public GasCollection()
         {
-            gasStation.Add(new Gas("A-76", 5.4f));
-            gasStation.Add(new Gas("A-85", 8.6f));
-            gasStation.Add(new Gas("A-92", 6.4f));
-
+            gasStation.Add(new Gas("Дизель", 0.3f));
+            gasStation.Add(new Gas("A-92", 0.4f));
+            gasStation.Add(new Gas("A-95", 1.5f));
+            gasStation.Add(new Gas("А-88", 1.6f));
         }
         public GasCollection(List<Gas> gasStation)
         {

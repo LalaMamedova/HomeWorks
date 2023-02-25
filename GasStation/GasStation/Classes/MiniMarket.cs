@@ -23,7 +23,6 @@ namespace GasStation.Classes
                 new Food("Гамбургер",3.2f),
                 new Food("Картошка Фри", 4.6f),
                 new Food("Фанта",1.2f)
-
             };
         }
     }

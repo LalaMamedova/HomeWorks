@@ -12,16 +12,18 @@ namespace GasStation.Classes
     {
         public static bool FloatCheck(string text)
         {
-            Regex floatReg = new("[0-9,]");
+            bool isFloat = float.TryParse(text, out float @float);
 
-            if(floatReg.IsMatch(text) == true && text.Contains('.') == false) return true;
+            if (isFloat) 
+                return true;
             return false;
 
         }
         public static bool IntCheck(string text)
         {
-            Regex intReg = new("[0-9]");
-            if (intReg.IsMatch(text) == true) return true;
+            bool isInt = Int32.TryParse(text, out int isNumber);
+            if (isInt)
+                return true;
             return false;
         }
     }
