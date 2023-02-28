@@ -1,0 +1,49 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDo.View"
+        xmlns:Classes="clr-namespace:ToDo.Classes" x:Class="ToDo.View.AddTheTaskView"
+        mc:Ignorable="d"
+        Title="AddTheTaskViewxaml" Height="200" Width="750">
+
+    <Grid Background="AntiqueWhite">
+
+        <TextBox x:Name="MainInfo" 
+                 HorizontalAlignment="Left" 
+                 VerticalAlignment="Center"
+                 Margin="50"
+                 Width="390"
+                 Height="40"
+                 Text="{Binding Discription}"/>
+
+        <DatePicker x:Name="TaskTime"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Background= "#FFFFCC87"
+                  FirstDayOfWeek="Monday"
+                  SelectedDate="{Binding Date}"/>
+
+
+        <ComboBox Name="ImportanceBox" 
+                 Width="100"
+                 Height="30"
+                 Margin="400,0,50,0"
+                 SelectedIndex="{Binding Important}">
+           
+        </ComboBox>
+
+        
+        <Button 
+             Content="Добавить"
+             FontSize="16"
+             Width="80"
+             Height="35"
+             Margin="0,120,0,0"
+             Background="#FFEDBB77"
+             Click="Button_Click"/>
+
+
+    </Grid>
+</Window>

@@ -7,4 +7,21 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="View\Pages\HomeButton.png" />
+    <None Remove="View\Pages\Untitled.png" />
+    <None Remove="View\Pages\WorkButton.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Imgs\HomeButton.png" />
+    <Resource Include="View\Imgs\Untitled.png" />
+    <Resource Include="View\Imgs\WorkButton.png" />
+  </ItemGroup>
+
 </Project>

@@ -12,17 +12,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ToDo.View.Pages;
+using ToDo.Classes;
 
-namespace ToDo
+namespace ToDo.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainToDoWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainToDoWindow : Window
     {
-        public MainWindow()
+        public MainToDoWindow()
         {
             InitializeComponent();
+        }
+
+        private void ForHomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ForHomePage();
+        }
+
+        private void ForWorkButton_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ForWork();
         }
     }
 }

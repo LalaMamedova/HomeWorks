@@ -1,0 +1,110 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ToDo.View.Pages"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:Classes="clr-namespace:ToDo.Classes" x:Class="ToDo.View.Pages.ForHomePage"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="500"
+      Title="ForHomePage">
+
+    <Page.Resources>
+        <Classes:ToDoList x:Key="ToDoLists"/>
+    </Page.Resources>
+    
+
+
+    <Grid Background="AliceBlue"          
+          DataContext="{StaticResource ToDoLists}">
+       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--<ListBox x:Name="TodoListBox"
+                 Margin="15"
+                 SelectionMode="Multiple"
+                 Background="#FFB5FFFA"
+                 FontSize="18" 
+                 ItemsSource="{Binding Path = AllTasks}"
+                 SelectedIndex="0">-->
+
+            <!--<ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="SnapsToDevicePixels" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}" >
+                                <CheckBox Name="SelectedCheckBox"
+                                          IsChecked="{Binding Path = IsSelected, Mode=TwoWay}">
+                                    <CheckBox.DataContext>
+                                        <Classes:Task/>
+                                    </CheckBox.DataContext>
+                                    <ContentPresenter />
+                                </CheckBox>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>-->
+        <!--</ListBox>-->
+
+
+        <ListBox x:Name="TodoListBox"
+                 Margin="15"
+                 SelectionMode="Extended"
+                 Background="#FFB5FFFA"
+                 FontSize="18" 
+                 ItemsSource="{Binding Path = AllTasks}">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate >
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox  IsChecked="{Binding Path =IsSelected, Mode=TwoWay}">
+                            <CheckBox.DataContext >
+                                <Classes:Task/>
+                            </CheckBox.DataContext>
+                        </CheckBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Horizontal" Grid.Row ="1" Width="250" >
+            
+            <Button 
+                Name="RedactButton"
+                Margin="10"
+                Width="60"
+                Height="50"
+                FontSize="8"
+                Background="#FF96FFCC"
+                Content="Редактировать"
+                Click="RedactButton_Click"/>
+        
+        <Button 
+                Name ="AddButton"
+                Margin="10"
+                Width="60"
+                Height="50"
+                Background="#FF60FBB0"
+                Content="Добавить" 
+                Click="AddButton_Click"/>
+        
+        <Button 
+                Name="RemoveButton"
+                Margin="10"
+                Width="60"
+                Height="50"
+                Background="#FFA0FFD1"
+                Content="Удалить"
+                Click="RemoveButton_Click"/>
+        </StackPanel>
+        
+        
+    </Grid>
+</Page>
