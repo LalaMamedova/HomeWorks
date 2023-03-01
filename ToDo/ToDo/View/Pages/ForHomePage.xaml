@@ -4,17 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ToDo.View.Pages"
-      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:Classes="clr-namespace:ToDo.Classes" x:Class="ToDo.View.Pages.ForHomePage"
       mc:Ignorable="d" 
+      Name="TodoHome"
       d:DesignHeight="550" d:DesignWidth="500"
       Title="ForHomePage">
 
     <Page.Resources>
         <Classes:ToDoList x:Key="ToDoLists"/>
+        <!--<local:ForHomePage x:Key="ToDoLists"/>-->
     </Page.Resources>
-    
-
+   
 
     <Grid Background="AliceBlue"          
           DataContext="{StaticResource ToDoLists}">
@@ -24,51 +24,24 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <!--<ListBox x:Name="TodoListBox"
-                 Margin="15"
-                 SelectionMode="Multiple"
-                 Background="#FFB5FFFA"
-                 FontSize="18" 
-                 ItemsSource="{Binding Path = AllTasks}"
-                 SelectedIndex="0">-->
-
-            <!--<ListBox.Resources>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="OverridesDefaultStyle" Value="true" />
-                    <Setter Property="SnapsToDevicePixels" Value="False" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}" >
-                                <CheckBox Name="SelectedCheckBox"
-                                          IsChecked="{Binding Path = IsSelected, Mode=TwoWay}">
-                                    <CheckBox.DataContext>
-                                        <Classes:Task/>
-                                    </CheckBox.DataContext>
-                                    <ContentPresenter />
-                                </CheckBox>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.Resources>-->
-        <!--</ListBox>-->
-
-
+        
         <ListBox x:Name="TodoListBox"
                  Margin="15"
                  SelectionMode="Extended"
                  Background="#FFB5FFFA"
                  FontSize="18" 
-                 ItemsSource="{Binding Path = AllTasks}">
+                 ItemsSource="{Binding AllTasks }">
 
             <ListBox.ItemTemplate>
                 <DataTemplate >
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox  IsChecked="{Binding Path =IsSelected, Mode=TwoWay}">
-                            <CheckBox.DataContext >
-                                <Classes:Task/>
-                            </CheckBox.DataContext>
+                        <CheckBox  IsChecked="{Binding Path = IsSelected,
+                            Mode=TwoWay}">
                         </CheckBox>
+                        <TextBlock Text="{Binding Discription}" Margin="10,0,0,0"> </TextBlock>
+                        <TextBlock Text="{Binding Date}" Margin="10,0,0,0"></TextBlock>
+                        <TextBlock Text="{Binding Important}" Margin="10,0,0,0"/>
+
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -104,7 +77,35 @@
                 Content="Удалить"
                 Click="RemoveButton_Click"/>
         </StackPanel>
-        
+
+        <!--<ListBox x:Name="TodoListBox"
+                 Margin="15"
+                 SelectionMode="Multiple"
+                 Background="#FFB5FFFA"
+                 FontSize="18" 
+                 ItemsSource="{Binding AllTasks}"
+                 SelectedIndex="0">
+
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="SnapsToDevicePixels" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}" >
+                                <CheckBox Name="SelectedCheckBox"
+                                          IsChecked="{Binding Path = IsSelected, Mode=TwoWay}">
+                                    <CheckBox.DataContext>
+                                        <Classes:Task/>
+                                    </CheckBox.DataContext>
+                                    <ContentPresenter />
+                                </CheckBox>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>-->
         
     </Grid>
 </Page>

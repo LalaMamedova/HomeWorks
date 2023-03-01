@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace ToDo.Classes
 {
-  
     public class Task
     {
         public string? Discription { get; set; }
         public bool Important { get; set; }
         public DateTime? Date { get; set; } = DateTime.Now;
-        public bool IsSelected { get; set; } 
+        public bool IsSelected { get; set; } = false;
 
         public Task(string? taskName, bool important, DateTime? date, bool ischeked)
         {

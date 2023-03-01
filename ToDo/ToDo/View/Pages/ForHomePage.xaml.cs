@@ -29,16 +29,13 @@ namespace ToDo.View.Pages
     public partial class ForHomePage : Page
     {
         public ToDoList todoListForHome = new();
+        public ObservableCollection<Task> AllTasks { get; set; } = new();
+
         public ForHomePage()
         {
             InitializeComponent();
-            todoListForHome = SerializeAndWrite.ReadAndDesiarile<ToDoList>("ForHome.json");
-
-            //todoListForHome.AllTasks.Add((new Task("Кино", true, DateTime.Parse("12.12.2002"), false)));
-            //todoListForHome.AllTasks.Add((new Task("Пойти в кафе", false, DateTime.Parse("05.08.2202"), true)));
-            //todoListForHome.AllTasks.Add((new Task("Купить мороженое", true, DateTime.Parse("08.06.2021"), true)));
-            //todoListForHome.AllTasks.Add((new Task("Работай плиз", false, DateTime.Parse("09.06.2023"), true)));
-            TodoListBox.ItemsSource = todoListForHome.AllTasks;
+     
+            //TodoListBox.ItemsSource = todoListForHome.AllTasks;
         }
     
         private void RedactButton_Click(object sender, RoutedEventArgs e)
@@ -47,20 +44,21 @@ namespace ToDo.View.Pages
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            todoListForHome = SerializeAndWrite.ReadAndDesiarile<ToDoList>("ForHome.json");
+            
             todoListForHome.AllTasks.RemoveAt(TodoListBox.SelectedIndex);
             TodoListBox.ItemsSource = todoListForHome.AllTasks;
-            SerializeAndWrite.WriteAndSerialize<ToDoList>("ForHome.json", todoListForHome);
+           
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddTheTaskView addTaskModel = new();
             addTaskModel.ShowDialog();
-            todoListForHome.AllTasks.Add(addTaskModel.AddTask());
-            TodoListBox.ItemsSource = todoListForHome.AllTasks;
 
-            SerializeAndWrite.WriteAndSerialize<ToDoList>("ForHome.json", todoListForHome);
+            todoListForHome.AllTasks.Add(addTaskModel.AddTask());
+            
+
+            //SerializeAndWrite.WriteAndSerialize<ToDoList>("ForHome.json", todoListForHome);
         }
 
     }
