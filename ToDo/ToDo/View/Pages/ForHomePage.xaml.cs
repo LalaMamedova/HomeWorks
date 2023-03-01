@@ -2,24 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ToDo.Classes.SerializeService;
-using ToDo.Classes;
-using ToDo.View;
-
 using Task = ToDo.Classes.Task;
+using ToDo.Classes;
+using System.IO;
 
 namespace ToDo.View.Pages
 {
@@ -28,38 +16,50 @@ namespace ToDo.View.Pages
     /// </summary>
     public partial class ForHomePage : Page
     {
-        public ToDoList todoListForHome = new();
-        public ObservableCollection<Task> AllTasks { get; set; } = new();
-
+        public ObservableCollection<Task> TasksForHome { get; set; } = new();
+        private MainToDoWindow mainToDoWindow;
         public ForHomePage()
         {
             InitializeComponent();
-     
-            //TodoListBox.ItemsSource = todoListForHome.AllTasks;
         }
-    
-        private void RedactButton_Click(object sender, RoutedEventArgs e)
+        public ForHomePage(MainToDoWindow mainntoDo)
         {
+            InitializeComponent();
+            mainToDoWindow = mainntoDo;
+
+            //if (FIleService.CheckFile("ForHome.json"))
+            //TasksForHome = SerializeAndWrite.ReadAndDesiarile<ObservableCollection<Task>>("ForHome.json");
+
+            TasksForHome.Add((new Task("Кино", Importance.Важно, DateTime.Parse("12.12.2022"), false)));
+            TasksForHome.Add((new Task("Пойти в кафе", Importance.Неважно, DateTime.Parse("05.08.2010"), false)));
+            TasksForHome.Add((new Task("Купить мороженое", Importance.Важно, DateTime.Parse("08.06.2021"), true)));
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            todoListForHome.AllTasks.RemoveAt(TodoListBox.SelectedIndex);
-            TodoListBox.ItemsSource = todoListForHome.AllTasks;
-           
+            TasksForHome.RemoveAt(TodoListBox.SelectedIndex);
         }
+        
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTheTaskView addTaskModel = new();
-            addTaskModel.ShowDialog();
-
-            todoListForHome.AllTasks.Add(addTaskModel.AddTask());
             
+            AddTheTaskView addTaskModel = new();
 
-            //SerializeAndWrite.WriteAndSerialize<ToDoList>("ForHome.json", todoListForHome);
+            addTaskModel.ShowDialog();
+            TasksForHome.Add(addTaskModel.AddTask());
+
+            //SerializeAndWrite.WriteAndSerialize<ObservableCollection<Task>>("ForHome.json", TasksForHome);
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //SerializeAndWrite.WriteAndSerialize<ObservableCollection<Task>>("ForHome.json", TasksForHome);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //SerializeAndWrite.WriteAndSerialize<ObservableCollection<Task>>("ForHome.json", TasksForHome);
+        }
     }
 }

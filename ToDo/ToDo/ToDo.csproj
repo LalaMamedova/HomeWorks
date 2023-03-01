@@ -8,9 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\background.png" />
+    <None Remove="View\gradient-minimalist-background_23-2150012324.avif" />
     <None Remove="View\Pages\HomeButton.png" />
     <None Remove="View\Pages\Untitled.png" />
     <None Remove="View\Pages\WorkButton.png" />
+    <None Remove="View\Untitled.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,9 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="View\background.png" />
+    <Resource Include="View\gradient-minimalist-background_23-2150012324.avif" />
     <Resource Include="View\Imgs\HomeButton.png" />
-    <Resource Include="View\Imgs\Untitled.png" />
     <Resource Include="View\Imgs\WorkButton.png" />
+    <Resource Include="View\Untitled.png" />
   </ItemGroup>
 
 </Project>

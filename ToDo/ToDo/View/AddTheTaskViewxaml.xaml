@@ -16,7 +16,8 @@
                  Margin="50"
                  Width="390"
                  Height="40"
-                 Text="{Binding Discription}"/>
+                 Text="{Binding Discription}"
+                 FontSize ="16"/>
 
         <DatePicker x:Name="TaskTime"
                   HorizontalAlignment="Right"
@@ -30,7 +31,8 @@
                  Width="100"
                  Height="30"
                  Margin="400,0,50,0"
-                 SelectedIndex="{Binding Important}">
+                 SelectedIndex="{Binding Important}"
+                  FontSize="16">
            
         </ComboBox>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -36,9 +38,10 @@ namespace ToDo.View
         {
             if (string.IsNullOrEmpty(MainInfo.Text) || TaskTime.SelectedDate == null)
             {
-                throw new Exception("Введите все поля!");
+                MessageBox.Show("Введите все поля!");
             }
-            this.Close();
+            else
+                this.Close();
         }
 
         public Task AddTask() 

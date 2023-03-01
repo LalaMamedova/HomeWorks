@@ -12,12 +12,9 @@ namespace ToDo.Classes.SerializeService
     {
         public static string ReadFromFile(string path)
         {
-            using FileStream fileStream = new(path, FileMode.Open);
-            if (fileStream.CanRead)
-            {
-                using StreamReader streamReader = new StreamReader(fileStream);
-                return streamReader.ReadToEnd();
-            }
+            var res = File.ReadAllText(path);
+            if (res.Length > 2)
+                return res;
             return null;
         }
 
@@ -27,22 +24,17 @@ namespace ToDo.Classes.SerializeService
             if (fileStream.CanWrite)
             {
                 using StreamWriter streamWriter = new(fileStream);
-                streamWriter.WriteLine(json);
+                streamWriter.Write(json);
             }
-            
         }
-
-        public static void ReWrite(string path,string? json)
+        public static bool CheckFile(string path)
         {
-            FileStream Truncate = new(path, FileMode.Truncate);
-            Truncate.Close();
-
             using FileStream fileStream = new(path, FileMode.OpenOrCreate);
-            if (fileStream.CanWrite)
-            {
-                using StreamWriter streamWriter = new(fileStream);
-                streamWriter.WriteLine(json);
-            }
+            if (fileStream.Length > 2)
+                return true;
+            return false;
         }
+
+        
     }
 }
