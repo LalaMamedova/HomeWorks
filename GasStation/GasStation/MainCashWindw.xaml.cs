@@ -131,7 +131,7 @@ namespace GasStation
             if (CheckChanged(fantaPrice.Text, 3) && fantaCountBox.Text != "")
                 res += float.Parse(fantaPrice.Text);
 
-            MarketSum.Text =Math.Round(res,1).ToString();
+            MarketSum.Text = Math.Round(res,1).ToString();
             TotalSumma();
         }
         private void InitializeAllPrice() 

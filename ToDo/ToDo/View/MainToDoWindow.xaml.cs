@@ -29,12 +29,14 @@ namespace ToDo.View
 
         private void ForHomeButton_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new ForHomePage(this);
+            Main.Content = new ForHomePage();
+            
         }
 
         private void ForWorkButton_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new ForWork(this);
+            Main.Content = new ForWork();
+            
         }
     }
 }

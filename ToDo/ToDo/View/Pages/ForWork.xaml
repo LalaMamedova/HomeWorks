@@ -9,25 +9,40 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       d:DesignHeight="550" d:DesignWidth="500"
       Title="ForWork">
-    
+
     <Page.Resources>
         <Style x:Key="StyleForTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="#FFA5FF92"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="FontSize" Value="14"></Setter>
             <EventSetter Event="TextChanged" Handler="TextBox_TextChanged"/>
         </Style>
+
     </Page.Resources>
-    
-    <Grid Background="#FF4CFF80">
+
+    <Grid Background="#FFB3FFC9">
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+            <Button
+                Name="Back"
+                Margin="0,2,450,0"
+                Width="50"
+                Height="30"
+                Background="#FF8FFFDE"
+                Content="Назад"
+                Click="BackButton_Click"/>
+        </StackPanel>
+
         <ListBox x:Name="TodoListBox"
-                 Margin="15"
+                 Margin="20,35,20,0"
                  SelectionMode="Extended"
-                 Background="#FF8FFFA5"
+                 Background="#FF85FFBF"
                  FontSize="18" 
                  ItemsSource="{Binding TasksForWork}">
 
@@ -37,7 +52,8 @@
                         <CheckBox 
                             IsChecked="{Binding Path = IsSelected,
                             Mode=TwoWay}"
-                            Checked="CheckBox_Checked"/>
+                            Checked="CheckBox_Checked"
+                            Unchecked="CheckBox_Checked"/>
 
                         <TextBox 
                                  Text="{Binding Discription }"
@@ -47,10 +63,6 @@
                                  Text="{Binding Date}" 
                                  Style="{StaticResource StyleForTextBox}"/>
 
-                        <TextBox 
-                                 Text="{Binding Important}" 
-                                 Style="{StaticResource StyleForTextBox}"/>
-
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -58,25 +70,29 @@
 
         <StackPanel Orientation="Horizontal" 
                     Grid.Row ="1" 
-                    Width="200" Height="70" >
+                    VerticalAlignment="Center"
+                    Width="200" Height="50" Margin="150,0,150,0" >
 
             <Button 
                 Name ="AddButton"
-                Margin="10,0,50,10"
+                Margin="10,10,50,0"
                 Width="60"
                 Height="40"
-                Background="#FF00D42A"
+                Background="#FF00DA2B"
                 Content="Добавить" 
                 Click="AddButton_Click" FontWeight="Bold"/>
 
             <Button 
                 Name="RemoveButton"
-                Margin="10,0,50,10"
+                Margin="10,10,50,0"
                 Width="60"
                 Height="40"
                 Background="#FF00C867"
                 Content="Удалить"
                 Click="RemoveButton_Click"/>
+
         </StackPanel>
+
+
     </Grid>
 </Page>

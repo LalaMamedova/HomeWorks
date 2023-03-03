@@ -1,0 +1,16 @@
+﻿<Application x:Class="MVVM_First_App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MVVM_First_App"
+             xmlns:ViewModel="clr-namespace:MVVM_First_App.ViewModel"
+             xmlns:View="clr-MVVM_First_App.View"
+             StartupUri="View/MainView.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate DataType="{x:Type ViewModel:MainWindowViewModel}">
+            </DataTemplate>
+
+    </Application.Resources>
+</Application>

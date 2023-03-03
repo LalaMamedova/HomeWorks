@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ToDo.View.Pages"
-      xmlns:Classes="clr-namespace:ToDo.Classes" x:Class="ToDo.View.Pages.ForHomePage"
+      xmlns:Classes="clr-namespace:ToDo.Classes" 
+      x:Class="ToDo.View.Pages.ForHomePage"
       mc:Ignorable="d" 
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       d:DesignHeight="550" d:DesignWidth="500"
@@ -13,10 +14,15 @@
     <Page.Resources>
         <Style x:Key="StyleForTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="#FFB5FFFB"/>
-            <Setter Property="Margin" Value="10,0,0,0"/>
-            <EventSetter Event="TextChanged" Handler="TextBox_TextChanged"/>
+            <Setter Property="Margin" Value="15,0,0,0"/>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
+            
         </Style>
+
     </Page.Resources>
+
 
     <Grid Background="AliceBlue">
 
@@ -25,12 +31,24 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+            <Button
+                Name="Back"
+                Margin="0,2,450,0"
+                Width="50"
+                Height="30"
+                Background="#FF8FFCFF"
+                Content="Назад"
+                Click="BackButton_Click"/>
+        </StackPanel>
+
         <ListBox x:Name="TodoListBox"
-                 Margin="15"
+                 Margin="20,35,20,0"
                  SelectionMode="Extended"
                  Background="#FFB5FFFA"
-                 FontSize="18" 
-                 ItemsSource="{Binding TasksForHome}">
+                 FontSize="18" >
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -38,18 +56,15 @@
                         <CheckBox 
                             IsChecked="{Binding Path = IsSelected,
                             Mode=TwoWay}"
-                            Checked="CheckBox_Checked"/>
+                            Checked="CheckBox_Checked"
+                            Unchecked="CheckBox_Checked"/>
 
                         <TextBox 
                                  Text="{Binding Discription }"
                                  Style="{StaticResource StyleForTextBox}"/>
 
-                        <TextBox 
+                        <TextBox
                                  Text="{Binding Date}" 
-                                 Style="{StaticResource StyleForTextBox}"/>
-
-                        <TextBox 
-                                 Text="{Binding Important}" 
                                  Style="{StaticResource StyleForTextBox}"/>
 
                     </StackPanel>
@@ -60,18 +75,17 @@
         <StackPanel Orientation="Horizontal" 
                     Grid.Row ="1" 
                     Width="200" Height="70" >
-            
-        <Button 
-                Name ="AddButton"
-                               Margin="10,0,50,10"
 
+            <Button 
+                Name ="AddButton"
+                Margin="10,0,50,10"
                 Width="60"
                 Height="40"
                 Background="#FF60FBF0"
                 Content="Добавить" 
                 Click="AddButton_Click"/>
-        
-        <Button 
+
+            <Button 
                 Name="RemoveButton"
                 Margin="10,0,50,10"
                 Width="60"

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -31,24 +32,34 @@ namespace ToDo.View
             InitializeComponent();
             Task = new();
             this.DataContext = Task;
-            ImportanceBox.Items.Add("Неважно");
-            ImportanceBox.Items.Add("Важно");
+           
+           
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CheckNull()
         {
-            if (string.IsNullOrEmpty(MainInfo.Text) || TaskTime.SelectedDate == null)
+            if (string.IsNullOrEmpty(MainInfo.Text))
             {
                 MessageBox.Show("Введите все поля!");
             }
             else
                 this.Close();
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CheckNull();
+        }
 
         public Task AddTask() 
-        { 
-            return Task;
+        {
+            if(!string.IsNullOrEmpty(Task.Discription))
+                return Task;
+            return null;
         }
-        
 
+        private void MainInfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                CheckNull();
+        }
     }
 }

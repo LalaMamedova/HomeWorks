@@ -13,7 +13,7 @@ namespace ToDo.Classes.SerializeService
         public static string ReadFromFile(string path)
         {
             var res = File.ReadAllText(path);
-            if (res.Length > 2)
+            if (!string.IsNullOrEmpty(res))
                 return res;
             return null;
         }

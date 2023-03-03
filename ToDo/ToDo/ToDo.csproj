@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <None Remove="View\background.png" />
-    <None Remove="View\gradient-minimalist-background_23-2150012324.avif" />
+    <None Remove="View\Imgs\background.png" />
     <None Remove="View\Pages\HomeButton.png" />
     <None Remove="View\Pages\Untitled.png" />
     <None Remove="View\Pages\WorkButton.png" />
@@ -19,14 +19,14 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\background.png" />
-    <Resource Include="View\gradient-minimalist-background_23-2150012324.avif" />
+    <Resource Include="View\Imgs\background.png" />
     <Resource Include="View\Imgs\HomeButton.png" />
     <Resource Include="View\Imgs\WorkButton.png" />
-    <Resource Include="View\Untitled.png" />
+    <Resource Include="View\Imgs\Untitled.png" />
   </ItemGroup>
 
 </Project>

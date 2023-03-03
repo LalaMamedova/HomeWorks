@@ -6,43 +6,58 @@
         xmlns:local="clr-namespace:ToDo.View"
         xmlns:Classes="clr-namespace:ToDo.Classes" x:Class="ToDo.View.AddTheTaskView"
         mc:Ignorable="d"
-        Title="AddTheTaskViewxaml" Height="200" Width="750">
+   
+        Title="AddTheTaskViewxaml" Height="300" Width="550">
 
     <Grid Background="AntiqueWhite">
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+           
+            <RowDefinition Height="0.5*"/>
+
+        </Grid.RowDefinitions>
+        
         <TextBox x:Name="MainInfo" 
-                 HorizontalAlignment="Left" 
+                 HorizontalAlignment="Right" 
                  VerticalAlignment="Center"
-                 Margin="50"
-                 Width="390"
+                 Margin="20"
+                 Width="350"
                  Height="40"
                  Text="{Binding Discription}"
-                 FontSize ="16"/>
-
-        <DatePicker x:Name="TaskTime"
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Center"
-                  Background= "#FFFFCC87"
-                  FirstDayOfWeek="Monday"
-                  SelectedDate="{Binding Date}"/>
-
-
-        <ComboBox Name="ImportanceBox" 
-                 Width="100"
-                 Height="30"
-                 Margin="400,0,50,0"
-                 SelectedIndex="{Binding Important}"
-                  FontSize="16">
-           
-        </ComboBox>
-
+                 FontSize ="16"
+                 KeyDown="MainInfo_KeyDown"/>
         
-        <Button 
+        <Label Grid.Row="0" 
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Content="Описание"/>
+        
+        <DatePicker x:Name="TaskTime"
+                    Grid.Row="1"
+                    Margin="20"
+                    HorizontalAlignment="Right"
+                    Background= "#FFFFCC87"
+                    FirstDayOfWeek="Monday"
+                    SelectedDate="{Binding Date}"/>
+        
+        <Label Grid.Row="1" 
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Content="Дата"/>
+
+       
+        
+        <Button Grid.Row="3"
              Content="Добавить"
              FontSize="16"
              Width="80"
              Height="35"
-             Margin="0,120,0,0"
              Background="#FFEDBB77"
              Click="Button_Click"/>
 
