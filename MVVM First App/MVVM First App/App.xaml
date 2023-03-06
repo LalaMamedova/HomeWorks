@@ -1,16 +1,35 @@
 ﻿<Application x:Class="MVVM_First_App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MVVM_First_App"
+             xmlns:local="clr-namespace:MVVM_First_App.View"
              xmlns:ViewModel="clr-namespace:MVVM_First_App.ViewModel"
-             xmlns:View="clr-MVVM_First_App.View"
-             StartupUri="View/MainView.xaml">
+             xmlns:View="clr-namespace:MVVM_First_App.View"
+             StartupUri="/View/MainView.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
 
             <DataTemplate DataType="{x:Type ViewModel:MainWindowViewModel}">
+                <View:MainView></View:MainView>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type ViewModel:EmptyControlViewModel}">
+                <View:EmptyControl></View:EmptyControl>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type ViewModel:FirstButtomViewModel}">
+                <View:FirstButtonControl></View:FirstButtonControl>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type ViewModel:SecondButtonViewModel}">
+                <View:SecondButtonContent></View:SecondButtonContent>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type ViewModel:ThirdButtonViewModel}">
+                <View:ThirdButtonControl></View:ThirdButtonControl>
+            </DataTemplate>
+
+        </ResourceDictionary>
     </Application.Resources>
+ 
 </Application>

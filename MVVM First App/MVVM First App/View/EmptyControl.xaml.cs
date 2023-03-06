@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MVVM_First_App.View.UserControls
+namespace MVVM_First_App.View
 {
     /// <summary>
-    /// Interaction logic for FirstButtonControl.xaml
+    /// Interaction logic for EmptyControl.xaml
     /// </summary>
-    public partial class FirstButtonControl : UserControl
+    public partial class EmptyControl : UserControl
     {
-        public FirstButtonControl()
+        public EmptyControl()
         {
             InitializeComponent();
         }

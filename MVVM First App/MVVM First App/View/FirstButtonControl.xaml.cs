@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MVVM_First_App.View.UserControls
+namespace MVVM_First_App.View
 {
     /// <summary>
-    /// Interaction logic for SecondButtonContent.xaml
+    /// Interaction logic for FirstButtonControl.xaml
     /// </summary>
-    public partial class SecondButtonContent : UserControl
+    public partial class FirstButtonControl : UserControl
     {
-        public SecondButtonContent()
+        public FirstButtonControl()
         {
             InitializeComponent();
         }

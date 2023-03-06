@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MVVM_First_App.View.UserControls
+namespace MVVM_First_App.View
 {
     /// <summary>
-    /// Interaction logic for ThirdButtonControlxaml.xaml
+    /// Interaction logic for ThirdButtonControl.xaml
     /// </summary>
-    public partial class ThirdButtonControlxaml : UserControl
+    public partial class ThirdButtonControl : UserControl
     {
-        public ThirdButtonControlxaml()
+        public ThirdButtonControl()
         {
             InitializeComponent();
         }

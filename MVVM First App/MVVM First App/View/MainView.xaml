@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVM_First_App.View"
+        xmlns:local="clr-namespace:MVVM_First_App.View" 
+        xmlns:viewmodel="clr-namespace:MVVM_First_App.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -14,19 +17,27 @@
 
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            <Button Content="Первая кнопка" 
+
+            <Button 
+                    Command="{Binding FirstButtonCommand}"
+                    Content="Первая кнопка" 
                     Background="#FFFF8B8B"
                     Margin="10,10,230,10"/>
-            <Button Content="Вторая кнопка"
+
+            <Button Command ="{Binding SecondButtonCommand}"
+                    Content="Вторая кнопка"
                     Background="#FFFFB498"
                     Margin="30,10,230,10"/>
-            <Button Content="Третья кнопка"
+
+            <Button Command="{Binding ThirdButtonCommand}"
+                    Content="Третья кнопка"
                     Background="#FFFFEE7C"
                     Margin="30,10,40,10"/>
 
         </StackPanel>
+        
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
 
-        <ContentControl Grid.Row="1" Content="{Binding }"/>
     </Grid>
 
 </Window>
