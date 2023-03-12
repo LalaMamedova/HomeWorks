@@ -1,0 +1,43 @@
+﻿<Window x:Class="ElectronicsStore_Project_.View.StoreMainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElectronicsStore_Project_.View"
+        mc:Ignorable="d"
+        Title="StoreMainView" Height="550" Width="800"
+        WindowStyle="None">
+   
+
+    <Grid  Background="#FFC6D1FF" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.08*" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel 
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            Grid.Row="0">
+
+            <Button Background = "#FFC6D1FF" 
+                    Content="—" 
+                    Click="Minimilize_Click"/>
+
+
+            <Button Content="▩"
+                    Background = "#FFC6D1FF" 
+                    Click="Maximize_Click"/>
+
+
+            <Button 
+                   Background = "#FFC6D1FF"
+                   Click="Close_Click"
+                    Content="X"/>
+
+        </StackPanel>
+        
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+    </Grid>
+    
+</Window>

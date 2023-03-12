@@ -1,0 +1,122 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdminPanel.View"
+             xmlns:Model="clr-namespace:AdminPanel.Model" 
+             xmlns:ViewModel="clr-namespace:AdminPanel.ViewModel" 
+             x:Class="AdminPanel.View.AddCategoryView"
+             x:Name="CategoryAdd" 
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=ViewModel:AddCategoryViewModel}"
+             d:DesignHeight="500" d:DesignWidth="850">
+
+    <UserControl.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Grid.Column" Value="1"/>
+        </Style>
+
+        <Style x:Key="MybuttonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style x:Key="MyLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#FFABD8FF">
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="1"
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="2"
+                BorderBrush="#FF71A5D2"
+                BorderThickness="4"/>
+        
+        <Label Grid.ColumnSpan="2"
+               Content="Добавление   категории"
+               FontSize="30"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center" 
+               Foreground="#FF1E008E"
+               FontFamily="HP Simplified Hans"/>
+
+        <Label Grid.Row="1"
+               Content="Введите название категории "
+               Style="{StaticResource MyLabelStyle}"/>
+
+        <TextBox x:Name="CategoryName" Grid.Row="1"
+                 Style="{StaticResource TextBoxStyle}"
+                 Text="{Binding Category.CategoryName }"/>
+
+        <Label Content="Введите описание к категории"
+               Style="{StaticResource MyLabelStyle}"
+               Grid.Row="2"/>
+
+        <TextBox x:Name="DiscribName" 
+                 Style="{StaticResource TextBoxStyle}"
+                 Grid.Row="2"
+                 Text="{Binding Category.Description}"/>
+
+
+        <Label Content="Выберите иконку"
+               Style="{StaticResource MyLabelStyle}"
+               Grid.Row="3"/>
+
+        <Button Grid.Row="3"
+                Style="{StaticResource MybuttonStyle}" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Content="Выбрать изображение"/>
+
+        <Label Content="Действие"
+               Style="{StaticResource MyLabelStyle}"
+               Grid.Row="4"/>
+
+        <StackPanel  Orientation="Horizontal"
+                     Grid.Row="4"
+                     Grid.Column="1"
+                     HorizontalAlignment="Center">
+
+            <Button Style="{StaticResource MybuttonStyle}" 
+                    Content="Сохранить" 
+                    Background="#FF0002A2" 
+                    Foreground="White"
+                    Command="{Binding SaveButton}" 
+                    Click="SaveButton_Click"/>
+                    
+
+            <Button Margin="10"
+                    Style="{StaticResource MybuttonStyle}" 
+                    Content="Отменить"
+                    Command="{Binding CancelButton}"/>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

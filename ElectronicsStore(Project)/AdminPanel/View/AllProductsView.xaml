@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="AdminPanel.View.AllProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdminPanel.View"
+             xmlns:ViewModel="clr-namespace:AdminPanel.ViewModel"
+             mc:Ignorable="d" 
+             Name="ProductUserControl"
+             d:DataContext="{d:DesignInstance Type={x:Type ViewModel:AllProductsViewModel}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style x:Key="MyButtonStyle" TargetType ="Button">
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style x:Key="MyButtonSecondStyle" TargetType ="Button">
+            <Setter Property="Foreground" Value="AliceBlue" />
+            <Setter Property="Background" Value="DarkSlateBlue" />
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Background="Transparent">
+
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Style="{DynamicResource MyButtonStyle}"
+                Command="{Binding BackToCategory}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Grid.ColumnSpan="2">
+
+            <Button.Background>
+                <ImageBrush ImageSource="/View/340.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+
+
+        <TextBlock Grid.Row="1"  Text="Ценовая категория"/>
+        
+        <TextBox Grid.Column="0" Grid.Row="2">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding MinPriceCommand}" 
+                            CommandParameter ="{Binding Price}"
+                            Key="Return"/>
+
+            </TextBox.InputBindings>
+        </TextBox>
+        
+        <TextBox Grid.Column="1" Grid.Row="2"/>
+
+      
+        
+        <StackPanel  Grid.Column="2" Grid.ColumnSpan="4" 
+                     Grid.Row="0" Grid.RowSpan="10"
+                     Margin="0,30,0,0">
+            <StackPanel>
+                <ItemsControl x:Name="ItemSources" ItemsSource="{Binding SortedByCategory}">
+                    <ItemsControl.ItemTemplate >
+                        <DataTemplate  >
+                            <Border Width="220" Height="220">
+                                <StackPanel>
+                                    <Border Width="140" Height="100" >
+                                        <Border.Background>
+                                            <ImageBrush Stretch="Uniform" ImageSource="{Binding ImgPath }"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <TextBlock Text= "{Binding Name}"
+                                               HorizontalAlignment="Center"/>
+
+                                    <TextBlock Text="{Binding Price}" 
+                                               HorizontalAlignment="Center"/>
+
+                                    <Button  Style="{DynamicResource MyButtonSecondStyle}"
+                                             Content="Редактировать"/>
+                                    
+                                    <Button  Style="{DynamicResource MyButtonSecondStyle}"
+                                             Content="Удалить" 
+                                             Command="{Binding Path=DataContext.DeleteCommand,ElementName = ProductUserControl }"
+                                             CommandParameter="{Binding Path=DataContext.Electronics,ElementName = ProductUserControl }"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
