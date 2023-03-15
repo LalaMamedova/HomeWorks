@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace AdminPanel.ViewModel
 {
@@ -22,31 +23,60 @@ namespace AdminPanel.ViewModel
     {
         public Electronics Electronics { get; set; } = new();
         public DataBase DataBase { get; set; } = new();
-        private readonly IAdminService _adminService = new AdminService();
         private readonly INavigateService _navigateService;
-
-        public AddProductViewModel(INavigateService navigateService)
+        private readonly IAdminService _adminService;
+        private readonly IMessenger _messenger;
+        public AddProductViewModel(IAdminService adminservice, INavigateService navigateService, IMessenger messenger)
         {
             _navigateService = navigateService;
-        }
+            _adminService = adminservice; 
+            _messenger = messenger;
 
+            _messenger.Register<DataMessager>(this, message =>
+            {
+                Electronics = message.Data as Electronics;
+            });
+
+        }
+       
         public RelayCommand SaveButton
         {
             get => new(() =>
             {
+                //if (Electronics.CheckNulls() != null)
+                //{
+                //    DataBase.AllElectronics!.Add(_adminService.AddObject(Electronics));
+
+                //    Serialize.FileService.Truncate("AllElectronics.json");
+
+                //    _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.AllElectronics!, "AllElectronics.json");
+
+                //    Electronics = new();
+                //}
+                //else
+                //    MessageBox.Show("Заполните все поля!","Ошибка!",MessageBoxButton.OKCancel,MessageBoxImage.Error);
+
                 if (Electronics.CheckNulls() != null)
                 {
-                    DataBase.AllElectronics.Add(_adminService.AddObject(Electronics));
+                    DataBase.ElectronicsList[Electronics.CategoryIndex]!.Add(_adminService.AddObject(Electronics));
 
-                    FileStream fileStream = new("AllElectronics.json", FileMode.Truncate);
-                    fileStream.Close();
-                    _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.AllElectronics, "AllElectronics.json");
+                    if (DataBase.ElectronicsList[Electronics.CategoryIndex].Count > 1)
+                        Serialize.FileService.Truncate(Electronics.Category + ".json");
+                    
+                    if (ID._id > 0)
+                        Serialize.FileService.Truncate("ID.json");
+                    
+                    _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.ElectronicsList[Electronics.CategoryIndex]!, Electronics.Category + ".json");
+                    IDService.SerializeID(Electronics.ProductID, "ID.json");
+
+                    Electronics = new();
                 }
                 else
-                    MessageBox.Show("Заполните все поля!","Ошибка!",MessageBoxButton.OKCancel,MessageBoxImage.Error);
+                    MessageBox.Show("Заполните все поля!", "Ошибка!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
             });
         }
 
+       
         public RelayCommand ChoiceImgButton
         {
             get => new(() =>
@@ -59,7 +89,7 @@ namespace AdminPanel.ViewModel
         {
             get => new(() => 
             {
-                _navigateService.NavigateTo<EmptyPanelViewModel>();
+                _navigateService.NavigateTo<HomeViewModel>();
             });
         }
     }

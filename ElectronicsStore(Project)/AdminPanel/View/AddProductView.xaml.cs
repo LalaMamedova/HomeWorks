@@ -25,13 +25,14 @@ namespace AdminPanel.View
             InitializeComponent();
         }
 
+        
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            nameTextBox.Text = "";
-            countTextBox.Text = "";
-            PriceTextbox.Text = "";
-            MemoryTextBox.Text = "";
-            ProccesorTextBox.Text = "";
+            //nameTextBox.Text = "";
+            //countTextBox.Text = "";
+            //PriceTextbox.Text = "";
+            //MemoryTextBox.Text = "";
+            //ProccesorTextBox.Text = "";
         }
     }
 }

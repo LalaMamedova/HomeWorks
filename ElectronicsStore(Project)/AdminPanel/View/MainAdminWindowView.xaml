@@ -9,8 +9,7 @@
         WindowStyle="None">
 
     <Window.Resources>
-
-
+        
         <Style x:Key="MyButtonStyle" TargetType ="Button">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Background" Value="Transparent" />
@@ -22,24 +21,20 @@
         </Style>
 
         <Style x:Key="MySecondButtonStyle" TargetType ="Button">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="#FFD6F5FF" />
+            <Setter Property="Background" Value="#FF585BFF" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
 
-        <Style x:Key="MiniButtonStyle" TargetType ="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-           
-        </Style>
+        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
 
     </Window.Resources>
 
-    <Grid Background="#FF8FC8F9" >
+    <Grid Background="#FF8FC8F9" MouseDown="Grid_MouseDown" >
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
             <RowDefinition/>
@@ -50,15 +45,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.ColumnSpan="2"
-                    Background="#FFABD8FF">
-
-        </StackPanel>
-
-
+       
         <Border BorderBrush="Black"
-                BorderThickness="2"
+                BorderThickness="1"
                 Grid.ColumnSpan="2"/>
 
         <StackPanel  Grid.Column="2"
@@ -66,53 +55,60 @@
                      HorizontalAlignment="Right">    
 
 
-            <Button     Click="Minimilize_Click"
-                        Content="—" 
-                        Style="{DynamicResource MyButtonStyle}"/>
+            <Button  Click="Minimilize_Click"
+                     Content="—" 
+                     Style="{DynamicResource MyButtonStyle}"/>
 
-            <Button     Content="▩"
-                        Click="Maximize_Click"
-                        Style="{DynamicResource MyButtonStyle}"/>
+            <Button  Content="▩"
+                     Click="Maximize_Click"
+                     Style="{DynamicResource MyButtonStyle}"/>
 
-            <Button     Style="{DynamicResource MyButtonStyle}"
-                        Click="Close_Click"
-                        Content="X"/>
+            <Button  Style="{DynamicResource MyButtonStyle}"
+                     Click="Close_Click"
+                     Content="X"/>
 
         </StackPanel>
-
-       
         
-        <StackPanel Grid.Column="0"
-                    Grid.Row="1"
-                    Orientation="Vertical" 
-                    Background="#FFABD8FF">
-
-            <Label Content="Меню"
-                   HorizontalAlignment="Center"
-                   FontSize="17"
-                   Margin="0,0,0,20"/>
-         
-            
-            <Button Content= "Добавить категорию" 
-                   Style="{StaticResource MySecondButtonStyle}"
-                   Command="{Binding AddCategoryCommand}"/>
-
-            <Button Content= "Добавить товар" 
-                    Style="{StaticResource MySecondButtonStyle}"
-                    Command="{Binding AddProductCommand}"/>
-
-            <Button Style="{StaticResource MySecondButtonStyle}"
-                    Content="Главная страница"
-                    Command="{Binding ToUserPage}"/>
-
-        </StackPanel >
 
 
+        <ToggleButton x:Name="TogglePopupButton"
+                        Background="Transparent">
+            <StackPanel>
+                <TextBlock>
+                         <Run Text="Меню" FontSize="22"/>
+                </TextBlock>
 
-        <ContentControl Grid.Row="1" 
-                        Grid.Column="1"
-                        Content="{Binding CurrentViewModel}"/>
+                <Popup IsOpen="{Binding IsChecked, ElementName=TogglePopupButton, Mode=TwoWay}"
+                           PlacementTarget="{Binding ElementName=TogglePopupButton}"
+                           Placement="Bottom"
+                           PopupAnimation="Fade"
+                           StaysOpen="False">
+
+                    <StackPanel Background="#FF8FC8F9"
+                                HorizontalAlignment="Left" 
+                                Orientation="Horizontal"  >
+
+                        <Button Content= "Добавить категорию" 
+                                    Style="{StaticResource MySecondButtonStyle}"
+                                    Command="{Binding AddCategoryCommand}"/>
+
+                        <Button Content= "Добавить товар" 
+                                    Style="{StaticResource MySecondButtonStyle}"
+                                    Command="{Binding AddProductCommand}"/>
+
+                        <Button Style="{StaticResource MySecondButtonStyle}"
+                                    Content="Главная страница"
+                                    Command="{Binding ToUserPage}"/>
+
+                    </StackPanel>
+                </Popup>
+            </StackPanel>
+        </ToggleButton>
 
 
+        <ContentControl Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Content="{Binding CurrentViewModel}"/> 
+                        
     </Grid>
 </Window>

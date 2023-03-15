@@ -20,7 +20,7 @@
         </Style>
 
         <Style x:Key="MybuttonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="140"/>
+            <Setter Property="Width" Value="135"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="VerticalAlignment" Value="Center"/>

@@ -26,19 +26,15 @@ namespace AdminPanel
         private void Register()
         {
             Container.RegisterSingleton<IMessenger, Messenger>();
-            Container.RegisterSingleton<INavigateService, NavigationService>();
             Container.RegisterSingleton<IAdminService, AdminService>();
+            Container.RegisterSingleton<INavigateService, NavigationService>();
 
             Container.RegisterSingleton<MainAdminViewModel>();
             Container.RegisterSingleton<EmptyPanelViewModel>();
-            Container.RegisterSingleton <AddProductViewModel>();
-            Container.RegisterSingleton<AddCategoryViewModel>();
             Container.RegisterSingleton<HomeViewModel>();
             Container.RegisterSingleton<AllProductsViewModel>();
-
-
-            //Container.RegisterSingleton<ProductOrCategoryViewModel>();
-
+            Container.Register<AddCategoryViewModel>();
+            Container.Register<AddProductViewModel>();
         }
 
         private void MainStartup()

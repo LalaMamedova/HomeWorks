@@ -12,7 +12,26 @@
              d:DataContext="{d:DesignInstance Type={x:Type ViewModel:HomeViewModel}}"
              d:DesignHeight="450" d:DesignWidth="850">
 
+    <UserControl.Resources>
+        
+        <Style x:Key="MybuttonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#FFFFB3E7"/>
+        </Style>
 
+        <Style x:Key="MyTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#FFFFE3EB"/>
+        </Style>
+
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -42,10 +61,10 @@
                     <WrapPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" Margin="15">
 
                         <Button FontSize="20"
                                 Content="{Binding CategoryName}"
@@ -54,9 +73,58 @@
                                 Margin="15"
                                 CommandParameter="{Binding CategoryName}"
                                 Command="{Binding Path=DataContext.ToSelectedCategory,ElementName = HomeUserControl}"/>
+                       
+                        <StackPanel Orientation="Horizontal">
+
+                            <Button Style="{StaticResource MybuttonStyle}"
+                                    Content="Удалить"
+                                    Command="{Binding Path=DataContext.DeleteCommand,ElementName = HomeUserControl}"
+                                    CommandParameter="{Binding CategoryName}"/>
+                            
+                            <ToggleButton x:Name="TogglePopupButton"
+                                          Background="#FFF3C0FF" Width="100">
+
+                                <StackPanel>
+                                    <TextBlock Text="Редактировать"/>
+
+                                    <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
+                                            Placement="Bottom"
+                                            StaysOpen="False">
+
+                                        <Border BorderThickness="3">
+
+                                            <StackPanel Width="300" Height="160"
+                                                    Background="#FFFFBECA"
+                                                    HorizontalAlignment="Center">
+
+                                                <Label HorizontalAlignment="Center"  
+                                                       Content="Название категории"/>
+
+                                                <TextBox Text="{Binding CategoryName}"
+                                                         Style="{StaticResource MyTextBoxStyle}"/>
+
+                                                <Label HorizontalAlignment="Center" 
+                                                       Content="Описание категории"/>
+
+                                                <TextBox Text="{Binding Description}" 
+                                                         Style="{StaticResource MyTextBoxStyle}"/>
+
+                                                <Button  Command="{Binding Path=DataContext.RedactCommand,ElementName = HomeUserControl}"
+                                                         CommandParameter="{Binding CategoryName}"
+                                                         Content="Сохранить"
+                                                         Width="100"
+                                                         Background="#FFFFC0F7"/>
+                                                         
+                                            </StackPanel>
+                                        </Border>
+                                    </Popup>
+                                </StackPanel>
+                            </ToggleButton>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
     </Grid>
 </UserControl>

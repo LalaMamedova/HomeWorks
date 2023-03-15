@@ -18,24 +18,21 @@ namespace AdminPanel.Service.Classes
         {
             _messenger = messenger;
         }
-
-
-        public void NavigateTo<T>() where T : ViewModelBase
-        {
-            _messenger.Send(new NavigationMessage()
-            {
-                ViewModelType = typeof(T)
-            });
-        }
-
-        public void NavigateTo<T>(object data) where T : ViewModelBase
+    
+        public void NavigateTo<T>(object? data = null) where T : ViewModelBase
         {
             _messenger.Send(new NavigationMessage()
             {
                 ViewModelType = typeof(T)
             });
 
-            Data = data;
+            if (data != null)
+            {
+                _messenger.Send(new DataMessager()
+                {
+                    Data = data
+                });
+            }
         }
     }
 }

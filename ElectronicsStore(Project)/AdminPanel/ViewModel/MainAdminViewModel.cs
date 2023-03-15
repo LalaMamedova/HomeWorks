@@ -8,19 +8,21 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace AdminPanel.ViewModel
 {
-    internal class MainAdminViewModel: ViewModelBase
+    internal class MainAdminViewModel: ViewModelBase, INotifyPropertyChanged
     {
         private ViewModelBase _currentViewModel;
-        private IAdminService _adminService = new AdminService();
+        private IAdminService _adminService;
         private readonly IMessenger _messenger;
         private readonly INavigateService _navigateService;
 
@@ -30,28 +32,31 @@ namespace AdminPanel.ViewModel
             set => Set(ref _currentViewModel, value);
         }
 
-      
-        private object? FillList(object list, string path)
-        {
-            var allItems = _adminService.FromFileToList<object>(path);
-            if (allItems != null) return allItems!;
-            return null;
-        }
 
         public void ReceiveMessage(NavigationMessage message) =>CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);
 
-        public MainAdminViewModel(IMessenger messenger, INavigateService navigateService)
+        public MainAdminViewModel(IMessenger messenger, INavigateService navigateService, IAdminService adminService)
         {
-            var allElectronics = _adminService.FromFileToList<ObservableCollection<Electronics>>("AllElectronics.json");
-            if (allElectronics != null) DataBase.AllElectronics = allElectronics!;
+            _messenger = messenger;
+            _navigateService = navigateService;
+            _adminService = adminService;
 
             var allCategory = _adminService.FromFileToList<ObservableCollection<Category>>("AllCategory.json");
             if (allCategory != null) DataBase.AllCategory = allCategory!;
 
+            for (int i = 0; i < DataBase.AllCategory.Count; i++)
+            {
+                DataBase.ElectronicsList.Add(new ObservableCollection<Electronics>());
+                var res = _adminService.FromFileToList<ObservableCollection<Electronics>>(DataBase.AllCategory[i]?.CategoryName + ".json");
+                if (res != null)
+                    DataBase.ElectronicsList[i] = res;
+            }
+
+           
+            ID id = new("ID.json");
+            Electronics.ProductID = ID._id;
+
             CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
-          
-            _messenger = messenger;
-            _navigateService = navigateService;
 
             _messenger.Register<NavigationMessage>(this, ReceiveMessage);
         }
@@ -59,38 +64,17 @@ namespace AdminPanel.ViewModel
 
         public RelayCommand AddProductCommand
         {
-            get => new(() =>
-            {
-                _navigateService.NavigateTo<AddProductViewModel>();
-            });
+            get => new(() => { _navigateService.NavigateTo<AddProductViewModel>(); });
         }
-
+       
 
         public RelayCommand AddCategoryCommand
         {
-            get => new(() =>
-            {
-                _navigateService.NavigateTo<AddCategoryViewModel>();
-            });
+            get => new(() => { _navigateService.NavigateTo<AddCategoryViewModel>();});
         }
         public RelayCommand ToUserPage
         {
-            get => new(() =>
-            {
-                //if (DataBase.AllElectronics.Count == 0 && DataBase.AllCategory.Count == 0)
-                //{
-                //    var allElectronics = _adminService.FromFileToList<ObservableCollection<Electronics>>("AllElectronics.json");
-                //    if (allElectronics != null) DataBase.AllElectronics = allElectronics!;
-
-                //    var allCategory = _adminService.FromFileToList<ObservableCollection<Category>>("AllCategory.json");
-                //    if (allCategory != null) DataBase.AllCategory = allCategory!;
-
-                //    _navigateService.NavigateTo<HomeViewModel>();
-                //}
-                //else
-                    _navigateService.NavigateTo<HomeViewModel>();
-
-            });
+            get => new(() => { _navigateService.NavigateTo<HomeViewModel>(); });
         }
         
     }

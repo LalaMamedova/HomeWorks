@@ -24,7 +24,12 @@ public  static class FileService
         var text = streamReader.ReadToEnd();
 
        if (!string.IsNullOrEmpty(text))  return true; return false;
+    }
 
+    public static void Truncate(string? path)
+    {
+        FileStream fileStream = new(path, FileMode.Truncate);
+        fileStream.Close();
     }
     public static string? Read(string? path)
     {

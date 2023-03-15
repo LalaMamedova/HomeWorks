@@ -43,5 +43,8 @@ namespace AdminPanel.View
         }
 
         private void Close_Click(object sender, RoutedEventArgs e) => App.Current.Shutdown();
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)  =>this.DragMove();
+        
     }
 }

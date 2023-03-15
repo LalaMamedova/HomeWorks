@@ -25,21 +25,28 @@ namespace AdminPanel.Model
             } 
         }
         public string? Description { get; set; }
+        public int Index { get; set; } 
+        public static int CategoryID { get; set; } = 0;
 
         // public string? IconPath { get; set; }   
 
-        public Category() { }
+        public Category()
+        {
+            Index = CategoryID;
+            CategoryID ++;
+        }
+
         public Category(string? categoryName, string? description)
         {
             CategoryName = categoryName;
             Description = description;
-           
+
+            Index = CategoryID;
+            CategoryID ++;
         }
 
-        public override string ToString()
-        {
-            return CategoryName;
-        }
+        public override string ToString() => CategoryName;
+        
 
     }
 

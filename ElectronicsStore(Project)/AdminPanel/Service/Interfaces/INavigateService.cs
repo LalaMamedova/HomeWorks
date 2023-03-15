@@ -10,8 +10,7 @@ namespace AdminPanel.Service.Interfaces
     public interface INavigateService
     {
         public object Data { get; set; }
-        public void NavigateTo<T>() where T : ViewModelBase;
-        public void NavigateTo<T>(object data) where T : ViewModelBase;
+        public void NavigateTo<T>(object? data = null) where T : ViewModelBase;
 
     }
 }

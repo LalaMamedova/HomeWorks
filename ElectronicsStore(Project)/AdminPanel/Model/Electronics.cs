@@ -14,16 +14,17 @@ namespace AdminPanel.Model
         private float price;
         private int count;
 
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Category { get; set; }
-        [Required]
-        public string? ImgPath { get; set; }
-        public string? Processor { get; set; }
-        public string? Memory { get; set; }
+        //[Required]
+        public string? Name { get; set; }
+        public string? Category { get; set; }
 
-        [Required]
+        //[Required]
+        public string? ImgPath { get; set; } 
+        public string? Processor { get; set; } 
+        public string? Memory { get; set; } 
+        public int CategoryIndex { get; set; }
+
+        //[Required]
         public float Price
         {
             get => price;
@@ -33,14 +34,13 @@ namespace AdminPanel.Model
                 if (value == Int32.Parse(value.ToString()))
                 {
                     price = value;
-                    price.ToString();
                 }
                 else
                     throw new ArgumentException("Неправильные данные");
             }
         }
 
-        [Required]
+        //[Required]
         public int Count
         {
             get => count;
@@ -50,13 +50,13 @@ namespace AdminPanel.Model
                 if (value == Int32.Parse(value.ToString()))
                 {
                     count = value;
-                    count.ToString();
                 }
                 else
                     throw new ArgumentException("Неправильные данные");
             }
         }
-
+        public int ID { get; set; } = ProductID;
+        public static int ProductID { get; set; } = 1;
 
         public Electronics(string name, string category, string? imgPath, int count, float price)
         {
@@ -65,8 +65,14 @@ namespace AdminPanel.Model
             ImgPath = imgPath;
             Count = count;
             Price = price;
+            ID = ProductID;
+            ProductID+=1;
         }
-        public Electronics() { }
+        public Electronics()
+        {
+            ID = ProductID;
+            ProductID += 1;
+        }
 
         public Electronics CheckNulls()
         {
@@ -79,6 +85,8 @@ namespace AdminPanel.Model
             return null;
         }
 
+        public int IDIs(int id) => ID = id;
+        
         public override string ToString()
         {
             return Name + " " + Category;

@@ -1,12 +1,10 @@
-﻿using AdminPanel.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -18,15 +16,13 @@ using System.Windows.Shapes;
 namespace AdminPanel.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for RedactProductView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class RedactProductView : UserControl
     {
-        public HomeView()
+        public RedactProductView()
         {
             InitializeComponent();
         }
-
-    
     }
 }

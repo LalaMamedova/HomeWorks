@@ -3,6 +3,7 @@ using AdminPanel.Service.Classes;
 using AdminPanel.Service.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,43 +20,61 @@ namespace AdminPanel.ViewModel
     {      
         public Category Category { get; set; } = new();
 
-        private readonly IAdminService _adminService = new AdminService();
-        private INavigateService _navigateService;
+        private readonly IAdminService _adminService;
+        private readonly INavigateService _navigateService;
+        private readonly IMessenger _messenger;
 
-        public AddCategoryViewModel(INavigateService navigateService)
+        public AddCategoryViewModel(INavigateService navigateService, IAdminService adminService, IMessenger messenger)
         {
             _navigateService = navigateService;
+            _adminService = adminService;
+            _messenger = messenger;
+            
+
+            _messenger.Register<DataMessager>(this, message =>
+            {
+                if (message.Data.GetType().Name == typeof(Category).Name)
+                    Category = (Category)message.Data;
+            });
         }
 
         public RelayCommand SaveButton
         {
             get => new(() =>
             {
-                var AllText = _adminService.FromFileToList<ObservableCollection<Category>>("AllCategory.json");
 
-                if (AllText != null)
+                if (DataBase.AllCategory.Count > 0)//Проверка на наличие категорий
                 {
-                    DataBase.AllCategory = AllText;
-                    FileStream fileStream = new("AllCategory.json", FileMode.Truncate);
-                    fileStream.Close();
+                    if (_adminService.CkeckCategoryExist(Category)) //Существует ли такая категория
+                    {
+                        MessageBox.Show(Category.CategoryID.ToString());
+                        
+                        Serialize.FileService.Truncate("AllCategory.json");
 
-                    DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
-                    _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
+                        DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
+                        _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
+
+                        Category = new();
+
+                    }
+                    else
+                        MessageBox.Show("Уже существует");
                 }
-                else
+
+                else// Если категорий вообще нет, то добавляет первым без переписование файла
                 {
                     DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
                     _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
+                    Category = new();
                 }
                 
             });
         }
 
         public RelayCommand CancelButton
-        {
-            get => new(() =>
+        { get => new(() =>
             {
-                _navigateService.NavigateTo<EmptyPanelViewModel>();
+                _navigateService.NavigateTo<HomeViewModel>();
             });
         }
     }

@@ -9,8 +9,9 @@ namespace AdminPanel.Model
 {
     public  class DataBase
     {
-        public static ObservableCollection<Electronics?>? AllElectronics { get; set; } = new();
         public static ObservableCollection<Category?>? AllCategory { get; set; } = new();
+        public static ObservableCollection<ObservableCollection<Electronics>> ElectronicsList { get; set; } = new();
 
+     
     }
 }

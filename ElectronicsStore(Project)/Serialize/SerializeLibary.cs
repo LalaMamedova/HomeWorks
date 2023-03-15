@@ -11,7 +11,7 @@ namespace Serialize
             return JsonConvert.SerializeObject(obj);
         }
 
-        public static T? Deserialize<T>(string? json) where T : class
+        public static T? Deserialize<T>(string? json)  where T : class
         {
             if (json == null) return null;
 
