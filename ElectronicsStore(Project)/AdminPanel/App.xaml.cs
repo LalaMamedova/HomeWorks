@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+
 namespace AdminPanel
 {
     public partial class App : Application
@@ -30,9 +31,9 @@ namespace AdminPanel
             Container.RegisterSingleton<INavigateService, NavigationService>();
 
             Container.RegisterSingleton<MainAdminViewModel>();
-            Container.RegisterSingleton<EmptyPanelViewModel>();
             Container.RegisterSingleton<HomeViewModel>();
             Container.RegisterSingleton<AllProductsViewModel>();
+            Container.RegisterSingleton<RedactProductViewModel>();
             Container.Register<AddCategoryViewModel>();
             Container.Register<AddProductViewModel>();
         }

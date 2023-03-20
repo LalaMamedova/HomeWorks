@@ -5,25 +5,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace AdminPanel.Model
+namespace ElectronicsStore_Project_.Model
 {
     public class Category
     {
-        private string? categoryName;
-        public string? CategoryName 
-        { 
-            get => categoryName; 
-
-            set 
-            {
-                Regex nameReg = new("[A-Za-z А-Яа-я 0-9]");
-
-                if (nameReg.IsMatch(value))
-                    categoryName = value;
-                else
-                    throw new ArgumentException("В названии есть недопустимые сиволы");
-            } 
-        }
+        public string? CategoryName {get;set;}
         public string? Description { get; set; }
 
         public string? IconPath { get; set; }   

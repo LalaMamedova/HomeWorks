@@ -15,6 +15,7 @@ namespace AdminPanel.Service.Interfaces
         public T FromFileToList<T>(string path) where T : class;
         public void FromListToFile<T>(T obj,string path) where T : class;
         public bool CkeckCategoryExist(Category category);
+        
 
     }
 }

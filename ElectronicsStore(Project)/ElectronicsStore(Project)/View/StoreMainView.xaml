@@ -7,37 +7,75 @@
         mc:Ignorable="d"
         Title="StoreMainView" Height="550" Width="800"
         WindowStyle="None">
-   
 
-    <Grid  Background="#FFC6D1FF" >
+
+    <Window.Resources>
+
+        <Style x:Key="MyButtonStyle" TargetType ="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+        </Style>
+
+    </Window.Resources>
+
+   
+    <Grid  Background="DarkBlue" >
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
+            <RowDefinition Height="0.09*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Orientation="Horizontal"
-            HorizontalAlignment="Right"
-            Grid.Row="0">
+        <Border BorderThickness="2"
+                BorderBrush="Black" 
+                Grid.Row="0"/>
 
-            <Button Background = "#FFC6D1FF" 
-                    Content="—" 
-                    Click="Minimilize_Click"/>
+        <StackPanel  Grid.Column="2"
+                     Orientation="Horizontal"
+                     HorizontalAlignment="Right">
 
+            <Button  Click="Minimilize_Click"
+                     Content="—" 
+                     Style="{DynamicResource MyButtonStyle}"/>
 
-            <Button Content="▩"
-                    Background = "#FFC6D1FF" 
-                    Click="Maximize_Click"/>
+            <Button  Content="▢"
+                     Name="MaximazeButton"
+                     Click="Maximize_Click"
+                     Style="{DynamicResource MyButtonStyle}"/>
 
-
-            <Button 
-                   Background = "#FFC6D1FF"
-                   Click="Close_Click"
-                    Content="X"/>
+            <Button  Style="{DynamicResource MyButtonStyle}"
+                     Click="Close_Click"
+                     Content="X"/>
 
         </StackPanel>
-        
-        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <Button Style="{DynamicResource MyButtonStyle}" 
+                    Content="Вход"/>
+
+            <Button Style="{DynamicResource MyButtonStyle}"
+                    Content="Регистрация"
+                    Width="80"/>
+
+            <Button Style="{DynamicResource MyButtonStyle}" >
+                <Button.Background>
+                    <ImageBrush ImageSource="C:\Users\HP\Desktop\корзина.png"
+                                Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+
+
+        </StackPanel>
+
+        <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}"/>
     </Grid>
     
 </Window>

@@ -11,7 +11,7 @@
     <Window.Resources>
         
         <Style x:Key="MyButtonStyle" TargetType ="Button">
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -21,7 +21,7 @@
         </Style>
 
         <Style x:Key="MySecondButtonStyle" TargetType ="Button">
-            <Setter Property="Foreground" Value="#FFD6F5FF" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="#FF585BFF" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -30,11 +30,9 @@
             <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
 
-        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
-
     </Window.Resources>
 
-    <Grid Background="#FF8FC8F9" MouseDown="Grid_MouseDown" >
+    <Grid  Background="#FF0E0054" MouseDown="Grid_MouseDown" >
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
             <RowDefinition/>
@@ -46,14 +44,13 @@
         </Grid.ColumnDefinitions>
 
        
-        <Border BorderBrush="Black"
+        <Border BorderBrush="White"
                 BorderThickness="1"
                 Grid.ColumnSpan="2"/>
 
         <StackPanel  Grid.Column="2"
                      Orientation="Horizontal"
                      HorizontalAlignment="Right">    
-
 
             <Button  Click="Minimilize_Click"
                      Content="—" 
@@ -68,13 +65,13 @@
                      Content="X"/>
 
         </StackPanel>
-        
+
 
 
         <ToggleButton x:Name="TogglePopupButton"
                         Background="Transparent">
             <StackPanel>
-                <TextBlock>
+                <TextBlock Foreground="White">
                          <Run Text="Меню" FontSize="22"/>
                 </TextBlock>
 
@@ -104,7 +101,6 @@
                 </Popup>
             </StackPanel>
         </ToggleButton>
-
 
         <ContentControl Grid.Row="1"
                         Grid.ColumnSpan="2"

@@ -9,7 +9,8 @@ namespace ElectronicsStore_Project_.Service.Interfaces
 {
     public interface INavigateService
     {
-        public void NavigateTo<T>() where T : ViewModelBase;
+        public object Data { get; set; }
+        public void NavigateTo<T>(object? data = null) where T : ViewModelBase;
 
     }
 }

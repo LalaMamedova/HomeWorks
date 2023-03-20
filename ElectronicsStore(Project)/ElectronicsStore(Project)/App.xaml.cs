@@ -24,11 +24,16 @@ namespace ElectronicsStore_Project_
         private void Register()
         {
             Container.RegisterSingleton<IMessenger, Messenger>();
+            Container.RegisterSingleton<ICustomerService, CustomerService>();
             Container.RegisterSingleton<INavigateService, NavigationService>();
 
             Container.RegisterSingleton<MainStoreViewModel>();
             Container.RegisterSingleton<AuthViewModel>();
             Container.RegisterSingleton<RegistrationViewModel>();
+            Container.RegisterSingleton<HomeViewModel>();
+            Container.RegisterSingleton<SelectedCategoryProductsViewModel>();
+            Container.Register<ProductInfoViewModel>();
+
         }
 
         private void MainStartup()

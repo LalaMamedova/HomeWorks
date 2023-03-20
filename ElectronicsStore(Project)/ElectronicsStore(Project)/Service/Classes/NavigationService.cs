@@ -13,17 +13,29 @@ namespace ElectronicsStore_Project_.Service.Classes
     internal class NavigationService : INavigateService
     {
         private readonly IMessenger _messenger;
-       
+        public object Data { get; set; }
+
         public NavigationService(IMessenger messenger)
         {
             _messenger = messenger;
         }
-        public void NavigateTo<T>() where T : ViewModelBase
+
+
+        public void NavigateTo<T>(object? data = null) where T : ViewModelBase
         {
             _messenger.Send(new NavigationMessage()
             {
                 ViewModelType = typeof(T)
             });
+
+
+            if (data != null)
+            {
+                _messenger.Send(new DataMessager()
+                {
+                    Data = data
+                });
+            }
         }
     }
 }

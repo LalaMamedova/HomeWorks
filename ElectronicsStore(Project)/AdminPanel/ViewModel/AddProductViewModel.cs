@@ -21,53 +21,45 @@ namespace AdminPanel.ViewModel
 {
     public class AddProductViewModel : ViewModelBase
     {
-        public Electronics Electronics { get; set; } = new();
-        public DataBase DataBase { get; set; } = new();
         private readonly INavigateService _navigateService;
         private readonly IAdminService _adminService;
         private readonly IMessenger _messenger;
+
+        public Electronics Electronics { get; set; } = new();
+        public DataBase DataBase { get; set; } = new();
+        public static int _id { get; private set; }
         public AddProductViewModel(IAdminService adminservice, INavigateService navigateService, IMessenger messenger)
         {
             _navigateService = navigateService;
-            _adminService = adminservice; 
+            _adminService = adminservice;
             _messenger = messenger;
+            _id = IDService.DesirializeID("ID.json");
 
+          
             _messenger.Register<DataMessager>(this, message =>
             {
-                Electronics = message.Data as Electronics;
+                var category = message.Data as Category;
+                Electronics.Category = category.CategoryName;
+                Electronics.CategoryIndex = HomeViewModel.CategoryIndex;
             });
-
         }
-       
+
         public RelayCommand SaveButton
         {
             get => new(() =>
             {
-                //if (Electronics.CheckNulls() != null)
-                //{
-                //    DataBase.AllElectronics!.Add(_adminService.AddObject(Electronics));
-
-                //    Serialize.FileService.Truncate("AllElectronics.json");
-
-                //    _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.AllElectronics!, "AllElectronics.json");
-
-                //    Electronics = new();
-                //}
-                //else
-                //    MessageBox.Show("Заполните все поля!","Ошибка!",MessageBoxButton.OKCancel,MessageBoxImage.Error);
-
-                if (Electronics.CheckNulls() != null)
+                if (Electronics.CheckNulls() != null )
                 {
-                    DataBase.ElectronicsList[Electronics.CategoryIndex]!.Add(_adminService.AddObject(Electronics));
+                    Electronics.ID = _id;
+                    DataBase.ElectronicsList[Electronics.CategoryIndex]!.Add(Electronics);
 
                     if (DataBase.ElectronicsList[Electronics.CategoryIndex].Count > 1)
                         Serialize.FileService.Truncate(Electronics.Category + ".json");
-                    
-                    if (ID._id > 0)
-                        Serialize.FileService.Truncate("ID.json");
-                    
+
                     _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.ElectronicsList[Electronics.CategoryIndex]!, Electronics.Category + ".json");
-                    IDService.SerializeID(Electronics.ProductID, "ID.json");
+
+                    _id++;
+                    IDService.SerializeID(_id, "ID.json");
 
                     Electronics = new();
                 }

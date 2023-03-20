@@ -25,6 +25,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="MyLabelStyle" TargetType="{x:Type Label}">
@@ -33,6 +34,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
     </UserControl.Resources>
 
@@ -147,21 +149,12 @@
                    FontSize="20"
                    ItemsSource="{Binding DataBase.AllCategory}"
                    SelectedIndex="{Binding Electronics.CategoryIndex}"
-                   SelectedItem="{Binding Electronics.Category}">
-
-            <!--<ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding CategoryName}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>-->
-            
-        </ComboBox>
+                   SelectedItem="{Binding Electronics.Category}"/>
 
 
         <TextBox x:Name="PriceTextbox" Grid.Row="3"
                  Style="{StaticResource TextBoxStyle}"
                  Text="{Binding Electronics.Price}"/>
-
 
     </Grid>
 </UserControl>

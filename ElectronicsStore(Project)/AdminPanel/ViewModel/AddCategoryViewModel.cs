@@ -19,7 +19,6 @@ namespace AdminPanel.ViewModel
     internal class AddCategoryViewModel:ViewModelBase
     {      
         public Category Category { get; set; } = new();
-
         private readonly IAdminService _adminService;
         private readonly INavigateService _navigateService;
         private readonly IMessenger _messenger;
@@ -30,7 +29,6 @@ namespace AdminPanel.ViewModel
             _adminService = adminService;
             _messenger = messenger;
             
-
             _messenger.Register<DataMessager>(this, message =>
             {
                 if (message.Data.GetType().Name == typeof(Category).Name)
@@ -47,18 +45,16 @@ namespace AdminPanel.ViewModel
                 {
                     if (_adminService.CkeckCategoryExist(Category)) //Существует ли такая категория
                     {
-                        MessageBox.Show(Category.CategoryID.ToString());
-                        
                         Serialize.FileService.Truncate("AllCategory.json");
 
                         DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
                         _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
-
+                        DataBase.ElectronicsList.Add(new());
                         Category = new();
 
                     }
                     else
-                        MessageBox.Show("Уже существует");
+                        MessageBox.Show($"{Category.CategoryName} уже существует");
                 }
 
                 else// Если категорий вообще нет, то добавляет первым без переписование файла
@@ -68,6 +64,13 @@ namespace AdminPanel.ViewModel
                     Category = new();
                 }
                 
+            });
+        }
+        public RelayCommand ChoiceImgButton
+        {
+            get => new(() =>
+            {
+                Category.IconPath = ImgServices.ImgChoice();
             });
         }
 

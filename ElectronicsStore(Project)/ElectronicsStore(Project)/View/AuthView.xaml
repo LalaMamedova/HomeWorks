@@ -4,20 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectronicsStore_Project_.View"
+             xmlns:Model="clr-namespace:ElectronicsStore_Project_.Model"
              xmlns:ViewModel="clr-namespace:ElectronicsStore_Project_.ViewModel"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=ViewModel:AuthViewModel}"
+             xmlns:cr="clr-namespace:ElectronicsStore_Project_.Service.Classes"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="450" d:DesignWidth="700"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Regular"
-             TextElement.FontSize="13"
-             TextOptions.TextFormattingMode="Ideal"
-             TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}">
+             d:DesignHeight="450" d:DesignWidth="700">
 
     <UserControl.Resources>
-
+        
+        <cr:PassConverter x:Key="MyConv"></cr:PassConverter>
+        
         <Style x:Key="MyTextBoxStyle" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Width" Value="300"></Setter>
@@ -76,7 +74,8 @@
         <TextBox  Style="{StaticResource MyTextBoxStyle}"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
-                  Grid.Row="1"/>
+                  Grid.Row="1"
+                  Text="{Binding customer.Login}"/>
 
         <PasswordBox  Background ="White"
                       Width = "300"
@@ -84,18 +83,29 @@
                       FontSize ="18"
                       Grid.Column="1"
                       Grid.ColumnSpan="2"
-                      Grid.Row="2"/>
+                      Grid.Row="2"
+                      Name="Password"/>
 
         <Button     Command="{Binding RegistrationCommand}"
                     Style="{StaticResource MyButtonStyle}"
                     Content="Регистрация" 
                     Grid.Row="3"
-                    Grid.Column="2"/>
+                    Grid.Column="2" />
+        
 
         <Button     Style="{StaticResource MyButtonStyle}"
+                    Command="{Binding LoginCommand}"
                     Content="Вход" 
                     Grid.Row="3"
-                    Grid.Column="1"/>
+                    Grid.Column="1">
+            
+            <Button.CommandParameter>
+            <MultiBinding Converter="{StaticResource MyConv}">
+                <Binding ElementName="Password"/>
+            </MultiBinding>
+        </Button.CommandParameter>
+            
+        </Button>
 
     </Grid>
 </UserControl>

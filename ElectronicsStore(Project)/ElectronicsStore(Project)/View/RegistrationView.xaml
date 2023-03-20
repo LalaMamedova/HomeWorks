@@ -4,14 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectronicsStore_Project_.View" 
+             xmlns:Viewmodel ="clr-namespace:ElectronicsStore_Project_.ViewModel"
              xmlns:Model ="clr-namespace:ElectronicsStore_Project_.Model"
-             xmlns:viewmodel="clr-namespace:ElectronicsStore_Project_.ViewModel" 
+             xmlns:cr="clr-namespace:ElectronicsStore_Project_.Service.Classes"
              d:DataContext="{d:DesignInstance Type=Model:Customer}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
 
     <UserControl.Resources>
 
+        <cr:PassConverter x:Key="MyConv"></cr:PassConverter>
         <Style x:Key="MyButtonStyle" TargetType="Button">
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="60"/>
@@ -24,21 +26,33 @@
 
         <Style x:Key="MyTextBoxStyle" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="Width" Value="300"></Setter>
-            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style x:Key="MyLabelStyle" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+
         </Style>
 
     </UserControl.Resources>
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFA9AFFF" Offset="1"/>
-                <GradientStop Color="#FFC6D1FF"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition  Height="0.6*"/>
             <RowDefinition />
             <RowDefinition/>
             <RowDefinition />
@@ -48,7 +62,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition  />
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition />
@@ -65,64 +79,55 @@
 
         <Label Content="Логин"
                Grid.Row="1"
-               FontSize="16"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Right"/>
+               Style="{StaticResource  MyLabelStyle}"/>
 
         <Label Content="Email"
                Grid.Row="2"
-               FontSize="16"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Right"/>
+                Style="{StaticResource  MyLabelStyle}"/>
 
         <Label Content="Пароль"
                Grid.Row="3"
-               FontSize="16"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Right"/>
+               Style="{StaticResource  MyLabelStyle}"/>
 
         <Label Content="Повторите пароль"
                Grid.Row="4"
-               FontSize="16"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Right"/>
+               Style="{StaticResource  MyLabelStyle}"/>
 
-
-
-        <TextBox  Text="{Binding Login}"
+        <TextBox  Text="{Binding User.Login}"
                   Style="{StaticResource MyTextBoxStyle}"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="1"/>
 
-        <TextBox   Text="{Binding Email}"
+        <TextBox  Text="{Binding User.Email}"
                   Style="{StaticResource MyTextBoxStyle}"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="2"/>
 
 
-        <PasswordBox  Background ="White"
-                      Width = "300"
-                      Height ="35"
-                      FontSize ="18"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Grid.Row="3"/>
+        <PasswordBox Style="{StaticResource PasswordBoxStyle}"
+                     Grid.Row="3"
+                     x:Name="Password" />
 
-        <PasswordBox  Background ="White"
-                      Width = "300"
-                      Height ="35"
-                      FontSize ="18"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Grid.Row="4"/>
+        <PasswordBox Style="{StaticResource PasswordBoxStyle}"
+                     Grid.Row="4"
+                     x:Name="Confirm"/>
 
 
-        <Button     Command="{Binding RegistrationCommand}"
+        <Button     Command="{Binding RegisterCommand}"
                     Style="{StaticResource MyButtonStyle}"
                     Content="Регистрироваться" 
-                    Grid.Column="2"/>
+                    Grid.Column="2">
+            
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource MyConv}">
+                    <Binding ElementName="Password"/>
+                    <Binding ElementName="Confirm"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+            
+        </Button>
 
         <Button     Command="{Binding LoginCommand}"
                     Style="{StaticResource MyButtonStyle}"

@@ -16,7 +16,7 @@ namespace AdminPanel.Model
 
         //[Required]
         public string? Name { get; set; }
-        public string? Category { get; set; }
+        public string? Category { get; set; } 
 
         //[Required]
         public string? ImgPath { get; set; } 
@@ -55,8 +55,8 @@ namespace AdminPanel.Model
                     throw new ArgumentException("Неправильные данные");
             }
         }
-        public int ID { get; set; } = ProductID;
-        public static int ProductID { get; set; } = 1;
+        public int ID { get; set; }
+        public string StrPrice { get => Price.ToString() + " манат"; }
 
         public Electronics(string name, string category, string? imgPath, int count, float price)
         {
@@ -65,13 +65,11 @@ namespace AdminPanel.Model
             ImgPath = imgPath;
             Count = count;
             Price = price;
-            ID = ProductID;
-            ProductID+=1;
+    
         }
         public Electronics()
         {
-            ID = ProductID;
-            ProductID += 1;
+           
         }
 
         public Electronics CheckNulls()
@@ -84,8 +82,6 @@ namespace AdminPanel.Model
 
             return null;
         }
-
-        public int IDIs(int id) => ID = id;
         
         public override string ToString()
         {

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AdminPanel.View
+namespace ElectronicsStore_Project_.View
 {
     /// <summary>
-    /// Interaction logic for ProductOrCategoryView.xaml
+    /// Interaction logic for ProductInfoView.xaml
     /// </summary>
-    public partial class ProductOrCategoryView : UserControl
+    public partial class ProductInfoView : UserControl
     {
-        public ProductOrCategoryView()
+        public ProductInfoView()
         {
             InitializeComponent();
         }

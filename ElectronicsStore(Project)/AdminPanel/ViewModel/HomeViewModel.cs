@@ -25,7 +25,7 @@ namespace AdminPanel.ViewModel
         private readonly INavigateService _navigateService;
         private readonly IAdminService _adminService;
         public DataBase DataBase { get; set; } = new();
-        public int CategoryIndex { get; set; }
+        public static int CategoryIndex { get; set; }
 
         public ViewModelBase CurrentViewModel
         {
@@ -51,6 +51,14 @@ namespace AdminPanel.ViewModel
                 }
             }
         }
+        public RelayCommand<object> ChoiceImgButton
+        {
+            get => new(param =>
+            {
+                Indexdefinition(param.ToString());
+                DataBase.AllCategory[CategoryIndex].IconPath = ImgServices.ImgChoice();
+            });
+        }
         public RelayCommand<object> ToSelectedCategory
         {
             get => new(param =>
@@ -59,15 +67,18 @@ namespace AdminPanel.ViewModel
                 {
                     if (param != null)
                     {
+                        Indexdefinition(param.ToString());
+                        var res = _adminService.FromFileToList<ObservableCollection<Electronics>>(DataBase.AllCategory[CategoryIndex]?.CategoryName + ".json");
 
-                        Indexdefinition(param as string);
+                        if (res != null)
+                            DataBase.ElectronicsList[CategoryIndex] = res;
 
                         if (AllProductsViewModel.SortedByCategory.Count > 0)
                             AllProductsViewModel.SortedByCategory.Clear();
 
                         AllProductsViewModel.SortedByCategory = DataBase.ElectronicsList[CategoryIndex];
 
-                        _navigateService.NavigateTo<AllProductsViewModel>(param);
+                        _navigateService.NavigateTo<AllProductsViewModel>();
                     }
                 }
                 catch (Exception ex)
@@ -88,13 +99,10 @@ namespace AdminPanel.ViewModel
 
                 DataBase.ElectronicsList[CategoryIndex].Clear();
                 
-                File.Delete(param as string + ".json");//Удаляю файл вообще
+                File.Delete(param.ToString() + ".json");//Удаляю файл вообще
                 Serialize.FileService.Truncate("AllCategory.json");
 
-                if (DataBase.AllCategory.Count > 0)
-                {
-                    _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory!, "AllCategory.json");
-                }
+                _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory!, "AllCategory.json");
             });
         }
 
@@ -104,24 +112,24 @@ namespace AdminPanel.ViewModel
             get => new(param =>
             {
                 Indexdefinition(param as string);
-                MessageBox.Show(CategoryIndex.ToString());
+
+                if (DataBase.ElectronicsList[CategoryIndex].Count > 0) 
+                {
+                    foreach (var item in DataBase.ElectronicsList[CategoryIndex])
+                        item.Category = param as string;
+                }
+
+                var OldList = _adminService.FromFileToList<ObservableCollection<Category>>("AllCategory.json");
+                var oldCategoryName = OldList[CategoryIndex];
+
+                File.Move(oldCategoryName + ".json", param.ToString() + ".json");//Меня название файла
+
+                Serialize.FileService.Truncate(param + ".json");
+                _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.ElectronicsList[CategoryIndex], param as string + ".json");
 
                 Serialize.FileService.Truncate("AllCategory.json");
                 _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory!, "AllCategory.json");
 
-                if (DataBase.ElectronicsList[CategoryIndex].Count > 0) 
-                {
-                    File.Move(DataBase.ElectronicsList[CategoryIndex][0].Category+".json", param as string + ".json");
-
-                    foreach (var item in DataBase.ElectronicsList[CategoryIndex])
-                        item.Category = param as string;
-
-                    AllProductsViewModel.SortedByCategory = DataBase.ElectronicsList[CategoryIndex];
-
-                    Serialize.FileService.Truncate(param + ".json");
-                    _adminService.FromListToFile<ObservableCollection<Electronics>>(AllProductsViewModel.SortedByCategory, param as string + ".json");
-                }
-               
             });
         }
 

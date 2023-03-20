@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="View\Admin\" />
-    <Folder Include="View\Сustomer\" />
+    <ProjectReference Include="..\Serialize\Serialize.csproj" />
   </ItemGroup>
 
 </Project>

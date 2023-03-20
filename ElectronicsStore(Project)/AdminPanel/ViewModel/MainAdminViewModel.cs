@@ -48,17 +48,16 @@ namespace AdminPanel.ViewModel
             {
                 DataBase.ElectronicsList.Add(new ObservableCollection<Electronics>());
                 var res = _adminService.FromFileToList<ObservableCollection<Electronics>>(DataBase.AllCategory[i]?.CategoryName + ".json");
+
                 if (res != null)
                     DataBase.ElectronicsList[i] = res;
             }
-
            
-            ID id = new("ID.json");
-            Electronics.ProductID = ID._id;
-
             CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
 
             _messenger.Register<NavigationMessage>(this, ReceiveMessage);
+
+
         }
 
 

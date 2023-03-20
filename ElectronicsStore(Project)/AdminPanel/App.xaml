@@ -12,8 +12,8 @@
                 <View:MainAdminWindowView></View:MainAdminWindowView>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type ViewModel:EmptyPanelViewModel}">
-                <View:EmptyPanelView></View:EmptyPanelView>
+            <DataTemplate DataType="{x:Type ViewModel:RedactProductViewModel}">
+                <View:RedactProductView></View:RedactProductView>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type ViewModel:AddProductViewModel}">

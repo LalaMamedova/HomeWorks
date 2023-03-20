@@ -26,6 +26,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="MyLabelStyle" TargetType="{x:Type Label}">
@@ -34,10 +35,12 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="#FFABD8FF">
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -63,7 +66,7 @@
                FontSize="30"
                VerticalAlignment="Center"
                HorizontalAlignment="Center" 
-               Foreground="#FF1E008E"
+               Foreground="White"
                FontFamily="HP Simplified Hans"/>
 
         <Label Grid.Row="1"
@@ -89,6 +92,7 @@
                Grid.Row="3"/>
 
         <Button Grid.Row="3"
+                Command="{Binding ChoiceImgButton}"
                 Style="{StaticResource MybuttonStyle}" 
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
