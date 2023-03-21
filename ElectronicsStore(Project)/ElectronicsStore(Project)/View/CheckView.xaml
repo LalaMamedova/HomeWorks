@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="ElectronicsStore_Project_.View.CheckView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectronicsStore_Project_.View"
+             mc:Ignorable="d" 
+             xmlns:ViewModel="clr-namespace:ElectronicsStore_Project_.ViewModel"
+             d:DataContext="{d:DesignInstance Type=ViewModel:CheckViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock" >
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style x:Key="MyButtonStyle" TargetType ="Button">
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.08*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Button Style="{DynamicResource MyButtonStyle}"
+                Command="{Binding BackCommand}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+
+            <Button.Background>
+                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
+                            Stretch="Uniform"/>
+            </Button.Background>
+
+        </Button>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <ItemsControl ItemsSource="{Binding CheckList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <StackPanel  Orientation="Horizontal" 
+                                             Background="#FF7E6CFF"
+                                             Height="100"
+                                             Margin="15">
+
+                                    <TextBlock Text= "{Binding Barcode}"
+                                               Style="{StaticResource TextBlockStyle}"/>
+
+                                    <TextBlock Text="Общая сумма: " 
+                                               Style="{StaticResource TextBlockStyle}"
+                                               Margin="0"/>
+
+                                    <TextBlock Text="{Binding Price}" 
+                                               Style="{StaticResource TextBlockStyle}"
+                                               Margin="0,0,150,0"/>
+                                    
+                                   
+                                    <ToggleButton x:Name="TogglePopupButton"
+                                                   Width="150" Height="35" 
+                                                   Background="BlueViolet">
+
+                                        <StackPanel>
+                                            <TextBlock Text="Посмотреть полностью"/>
+
+                                            <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
+                                                    Placement="Center"
+                                                    StaysOpen="False">
+
+                                                <StackPanel Background="White"
+                                                            HorizontalAlignment="Center"
+                                                            Width="360">
+                                                    
+                                                    <DataGrid Name="dataGrid" ItemsSource="{Binding Basket }" 
+                                                              AutoGenerateColumns="False"  
+                                                              SelectionMode="Extended" 
+                                                              SelectionUnit="CellOrRowHeader" >
+
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="Название" Width="100"
+                                                                                Binding="{Binding Electronic.Name}"/>
+                                                            <DataGridTextColumn Header="Категория" Width="100"
+                                                                                Binding="{Binding Electronic.Category}"/>
+                                                            <DataGridTextColumn Header="Цена" Width="50" 
+                                                                                Binding="{Binding Electronic.Price}" />
+                                                            <DataGridTextColumn Header="Количество" Width="50"  
+                                                                                Binding="{Binding ThisElectronicCount}"/>
+                                                            <DataGridTextColumn Header="Сумма" Width="50" 
+                                                                                Binding="{Binding ThisElectronicPrice}"/>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                    
+                                                </StackPanel>
+                                            </Popup>
+                                        </StackPanel>
+                                    </ToggleButton>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

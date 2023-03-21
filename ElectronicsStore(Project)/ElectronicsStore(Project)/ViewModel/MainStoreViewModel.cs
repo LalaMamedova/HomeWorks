@@ -2,6 +2,7 @@
 using ElectronicsStore_Project_.Model;
 using ElectronicsStore_Project_.Service.Interfaces;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Serialize;
 using System;
@@ -10,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ElectronicsStore_Project_.ViewModel
 {
@@ -34,14 +36,35 @@ namespace ElectronicsStore_Project_.ViewModel
 
 
             var json = FileService.Read(FilePath.path + "AllCategory.json");
-            DataBase.AllCategory = SerializeLibary.Deserialize<ObservableCollection<Category?>>(json);
-
+            if (json != null)
+            {
+                DataBase.AllCategory = SerializeLibary.Deserialize<ObservableCollection<Category?>>(json);
+            }
+            
             for (int i = 0; i < DataBase.AllCategory.Count; i++)
                 DataBase.ElectronicsList.Add(new ObservableCollection<Electronic>());
 
             CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
             _messenger.Register<NavigationMessage>(this, ReceiveMessage);
 
+        }
+
+        public RelayCommand UserCabinetCommand
+        {
+            
+            get => new(() => 
+            {
+                if (UserСabinetViewModel.UsLogined == true)
+                {
+                    _navigateService.NavigateTo<UserСabinetViewModel>(AuthViewModel.customer);
+                }
+                else
+                    _navigateService.NavigateTo<AuthViewModel>();
+            });
+        }
+        public RelayCommand BasketCommand
+        {
+            get => new(() => { _navigateService.NavigateTo<BasketViewModel>(BasketViewModel.Basket.Sum(x =>x.ThisElectronicPrice)); });
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ElectronicsStore_Project_.ViewModel
@@ -19,10 +20,11 @@ namespace ElectronicsStore_Project_.ViewModel
         private ViewModelBase? _currentViewModel;
         private readonly IMessenger _messenger;
         private readonly INavigateService _navigationService;
+
         public string FullName { get => Electronic.Category + " " + Electronic.Name + " " + Electronic.Memory; }
         public string LeftCount { get => "Осталось " + Electronic.Count + " штук"; }
-
         public Electronic Electronic { get; set; } = new();
+
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel!;
@@ -31,19 +33,32 @@ namespace ElectronicsStore_Project_.ViewModel
         public ProductInfoViewModel(INavigateService navigationService, IMessenger messenger)
         {
             _messenger = messenger;
+            _navigationService = navigationService;
 
             _messenger.Register<DataMessager>(this, message =>
             {
-                Electronic = (Electronic)message.Data;
+                if(message.Data.GetType().Name == typeof(Electronic).Name)
+                    Electronic = (Electronic)message.Data;
             });
 
-            _navigationService = navigationService;
         }
 
         public RelayCommand BackToCategory
         {
             get => new(() => { _navigationService.NavigateTo<SelectedCategoryProductsViewModel>(); });
         }
+
+        public RelayCommand<object> ToBasketCommand
+        {
+            get => new(param => 
+            { 
+                Basket basket = new Basket();
+                basket.Electronic = Electronic;
+
+                BasketService.AddToBasket(basket);
+            });
+        }
+
 
 
     }

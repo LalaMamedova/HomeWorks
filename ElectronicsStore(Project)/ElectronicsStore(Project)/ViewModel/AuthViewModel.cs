@@ -19,7 +19,7 @@ namespace ElectronicsStore_Project_.ViewModel
         private readonly INavigateService _navigationService;
         private readonly ICustomerService _customerService;
         private readonly IMessenger _messenger;
-        public Customer customer { get; set; } = new(); 
+        public static Customer customer { get; set; } = new(); 
         public AuthViewModel(INavigateService navigationService, IMessenger messenger, ICustomerService customerService)
         {
             _navigationService = navigationService;
@@ -41,6 +41,9 @@ namespace ElectronicsStore_Project_.ViewModel
 
                 if (_customerService.IsCustomerExist(customer))
                 {
+                     UserСabinetViewModel.UsLogined = true;
+                     customer = _customerService.GetCustomer(customer.Login, customer.Password);
+                    _messenger.Send(new DataMessager() { Data = customer });
                     _navigationService.NavigateTo<HomeViewModel>();
                 }
                 else

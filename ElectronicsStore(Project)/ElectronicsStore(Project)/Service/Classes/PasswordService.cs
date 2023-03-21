@@ -23,20 +23,26 @@ namespace ElectronicsStore_Project_.Service.Classes
         public bool IsLenghtMatch()
         {
             if (_password.Length > 3) return true;
+
             MessageBox.Show("Длина пароля должна быть больше 3 символов");
             return false;
 
         }
         public bool IsMatch()
         {
-            Regex passRegex = new("[A-Za-z1-9-.)]");
+            Regex passRegex = new("[A-Za-z А-Яа-я 0-9_)]");
             if (passRegex.IsMatch(_confirm) && IsLenghtMatch())
             {
                 if (_password == _confirm)
-                {
                     return true;
-                }
+                
+                else 
+                    MessageBox.Show("Пароли не совпадают");
+                
             }
+            else if (!passRegex.IsMatch(_confirm) && IsLenghtMatch())
+                MessageBox.Show("Недопустимые сиволы");
+
             return false;
         }
     }

@@ -58,16 +58,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
 
+        
+
             <Button Style="{DynamicResource MyButtonStyle}" 
-                    Content="Вход"/>
+                    Content="Личный кабинет"
+                    Width="120"
+                    Command="{Binding UserCabinetCommand}"/>
 
-            <Button Style="{DynamicResource MyButtonStyle}"
-                    Content="Регистрация"
-                    Width="80"/>
 
-            <Button Style="{DynamicResource MyButtonStyle}" >
+            <Button Style="{DynamicResource MyButtonStyle}" 
+                    Command="{Binding BasketCommand}">
                 <Button.Background>
-                    <ImageBrush ImageSource="C:\Users\HP\Desktop\корзина.png"
+                    <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Basket.png"
                                 Stretch="Uniform"/>
                 </Button.Background>
             </Button>

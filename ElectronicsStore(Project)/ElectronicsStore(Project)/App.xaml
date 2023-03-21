@@ -33,7 +33,22 @@
                 <View:ProductInfoView></View:ProductInfoView>
             </DataTemplate>
 
-            
+            <DataTemplate DataType="{x:Type ViewModel:UserСabinetViewModel}">
+                <View:UserСabinetView></View:UserСabinetView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModel:BasketViewModel}">
+                <View:BasketView></View:BasketView>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModel:CheckViewModel}">
+                <View:CheckView></View:CheckView>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type ViewModel:UserInfoViewModel}">
+                <View:UserInfoView></View:UserInfoView>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

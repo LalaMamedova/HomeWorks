@@ -39,7 +39,6 @@ namespace ElectronicsStore_Project_.ViewModel
 
             var IdFile = IDService.DesirializeID("CustomersID.json");
             iD = IdFile;
-            
            
         }
         public RelayCommand LoginCommand
@@ -71,12 +70,11 @@ namespace ElectronicsStore_Project_.ViewModel
                             User.ID = iD;
 
                             _customerService.Add(User);
-                            iD++;   
+                            iD++;
+
+
                         }
-                        else
-                        {
-                            MessageBox.Show("Пароли не совпадают");
-                        }
+
                     }
                 });
         }

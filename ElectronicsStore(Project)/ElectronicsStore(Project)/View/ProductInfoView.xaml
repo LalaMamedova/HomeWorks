@@ -46,7 +46,7 @@
                 VerticalAlignment="Top">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\340.png"
+                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
                             Stretch="Uniform"/>
             </Button.Background>
 
@@ -106,10 +106,12 @@
                     Margin="20,0,0,0"
                     FontSize="16"
                     Content="В корзину"
-                    Background="BlueViolet"/>
+                    Background="BlueViolet"
+                    Command="{Binding ToBasketCommand}"
+                    CommandParameter="{Binding Electronic}"/>
         </StackPanel>
 
-     
+
 
 
         <ToggleButton x:Name="TogglePopupButton"
@@ -127,27 +129,36 @@
                         StaysOpen="False"
                         PopupAnimation="Slide">
 
-        
-                        <StackPanel Width="210"
+
+                    <StackPanel Width="210"
                                     Background="DarkBlue"
                                     HorizontalAlignment="Center">
 
-                            <Label Content="Процессор" 
+                        <Label Content="Процессор" 
                                    Foreground="White"
                                    Margin="10"/>
 
-                            <TextBlock Text="{Binding Electronic.Processor}"  
+                        <TextBlock Text="{Binding Electronic.Processor}"  
                                        Style="{StaticResource MyLabel}"
                                        Grid.Row="3"
                                        Grid.Column="2"/>
 
-                        </StackPanel>
-                 
+
+                        <Label Content="ID" 
+                                   Foreground="White"
+                                   Margin="10"/>
+
+                        <TextBlock Text="{Binding Electronic.ID}"  
+                                       Style="{StaticResource MyLabel}"
+                                       Grid.Row="3"
+                                       Grid.Column="2"
+                                       HorizontalAlignment="Left"/>
+
+                    </StackPanel>
+
                 </Popup>
             </StackPanel>
         </ToggleButton>
 
-       
-      
     </Grid>
 </UserControl>

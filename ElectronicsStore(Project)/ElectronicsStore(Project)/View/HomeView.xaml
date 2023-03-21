@@ -24,6 +24,7 @@
 
         <Label Content="Категории" FontSize="25"
                Grid.ColumnSpan="3"
+               Foreground="White"
                HorizontalAlignment="Center"/>
 
       
@@ -66,7 +67,7 @@
                                         TextAlignment="Center"
                                         Text="{Binding CategoryName}"  
                                         Padding="80,0,40,0"
-                                        Foreground="Black"
+                                        Foreground="White"
                                         TextWrapping="Wrap"/>
 
                             </Button.Content>

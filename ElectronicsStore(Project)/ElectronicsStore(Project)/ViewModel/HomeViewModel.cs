@@ -28,7 +28,6 @@ namespace ElectronicsStore_Project_.ViewModel
         public HomeViewModel(INavigateService navigateService)
         {
             _navigateService = navigateService;
-           
         }
 
         public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);

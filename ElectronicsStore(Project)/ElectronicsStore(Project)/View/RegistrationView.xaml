@@ -129,10 +129,10 @@
             
         </Button>
 
-        <Button     Command="{Binding LoginCommand}"
-                    Style="{StaticResource MyButtonStyle}"
-                    Content="Вход" 
-                    Grid.Column="1"/>
+        <Button  Command="{Binding LoginCommand}"
+                 Style="{StaticResource MyButtonStyle}"
+                 Content="Вход" 
+                 Grid.Column="1"/>
 
     </Grid>
 </UserControl>

@@ -31,7 +31,7 @@ namespace AdminPanel.Model
 
             set
             {
-                if (value == Int32.Parse(value.ToString()))
+                if (value == float.Parse(value.ToString()))
                 {
                     price = value;
                 }

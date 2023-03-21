@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel.DataAnnotations;
 using ElectronicsStore_Project_.Service.Classes;
+using System.ComponentModel;
 
 namespace ElectronicsStore_Project_.Model
 {
-    public class Customer
+    public class Customer:INotifyPropertyChanged
     {
         private string email;
-        private string login = "lala";
-
+        private string login;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public string Email
         {
             get => email;
@@ -35,17 +36,21 @@ namespace ElectronicsStore_Project_.Model
             {
                 Regex loginEx = new("[A-Za-zА-Яа-я0-9-_]");
                 if (loginEx.IsMatch(value))
+                {
                     login = value;
+                    NotifyPropertyChanged(nameof(Login));
+                }
                 else
                     MessageBox.Show("Логин содержит недопустимые символы", "Ошибка введение логина");
             }
         }
 
 
-        public string Password { get; set; } 
-        public string ConfirmPassword { get; set; }
+        public string? Password { get; set; } 
+        public string? ConfirmPassword { get; set; }
 
-        public int ID;
+        public int ID { get; set; }
+
         public bool EmailCheck(string email)
         {
             var checkemail = new EmailAddressAttribute();
@@ -53,23 +58,13 @@ namespace ElectronicsStore_Project_.Model
             return true;
 
         }
-        public Customer(string login, string email, string password, string confirmPassword)
+
+        
+        protected void NotifyPropertyChanged(string propertyName)
         {
-            this.Login = login;
-            this.Password = password;
-            this.ConfirmPassword = confirmPassword;
-            this.Email = email;
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Customer() 
-        { 
-            
-        }
-
-        public override string ToString()
-        {
-            return $"{Login} {Email}";
-        }
+       
     }
 }

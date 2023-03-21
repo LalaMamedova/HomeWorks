@@ -15,6 +15,7 @@ namespace ElectronicsStore_Project_.Service.Classes
     internal class CustomerService : ICustomerService
     {
         public static ObservableCollection<Customer> customersList = new();
+
         public void Add(Customer? customer)
         {
             if (IsNullble(customer))
@@ -27,9 +28,9 @@ namespace ElectronicsStore_Project_.Service.Classes
                         FileService.Truncate("AllCustomers.json");
   
                         var json = SerializeLibary.Serialize<ObservableCollection<Customer>>(customersList);
-                        FileService.Write(json, "AllCustomers.json");
+                        FileService.Write(json!, "AllCustomers.json");
 
-                        IDService.SerializeID(customer.ID, "CustomersID.json");
+                        IDService.SerializeID(customer.ID++, "CustomersID.json");
 
                     }
                     else
@@ -44,6 +45,18 @@ namespace ElectronicsStore_Project_.Service.Classes
 
         }
 
+        public void Redact(Customer? customer)
+        {
+            if (IsNullble(customer))
+            {
+                FileService.Truncate("AllCustomers.json");
+                var json = SerializeLibary.Serialize<ObservableCollection<Customer>>(customersList);
+                FileService.Write(json!, "AllCustomers.json");
+            }
+            else
+                MessageBox.Show("Введите все данные");
+        }
+
         public ObservableCollection<Customer>? AllCustomers()
         {
             string? json = FileService.Read("AllCustomers.json");
@@ -55,7 +68,7 @@ namespace ElectronicsStore_Project_.Service.Classes
             return null;
         }
 
-        public Customer GetCustomer(string username, string password)
+        public Customer? GetCustomer(string username, string password)
         {
             foreach (var customer in customersList)
             {

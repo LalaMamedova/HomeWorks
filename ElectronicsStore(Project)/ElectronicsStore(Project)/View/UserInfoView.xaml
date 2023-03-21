@@ -1,0 +1,140 @@
+﻿<Window x:Class="ElectronicsStore_Project_.View.UserInfoView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElectronicsStore_Project_.View"
+        mc:Ignorable="d"
+        Name="UserInfo"
+        xmlns:Viewmodel ="clr-namespace:ElectronicsStore_Project_.ViewModel"
+        xmlns:Model ="clr-namespace:ElectronicsStore_Project_.Model"
+        xmlns:cr="clr-namespace:ElectronicsStore_Project_.Service.Classes"
+        d:DataContext="{d:DesignInstance Type= Viewmodel:UserInfoViewModel}"
+        Title="UserInfo" Height="350" Width="450">
+
+    <Window.Resources>
+        
+        <cr:PassConverter x:Key="MyConv"></cr:PassConverter>
+        
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="190"/>
+            <Setter Property="Grid.Column" Value="1"/>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Grid.Row" Value="4"/>
+            <Setter Property="Background" Value="#FFDCF5E2"/>
+
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Логин"
+               Style="{StaticResource LabelStyle}"/>
+        
+        <Label Content="Email"
+               Grid.Row="1"
+               Style="{StaticResource LabelStyle}"/>
+
+        <Label Content="Пароль"
+               Grid.Row="3"
+               Style="{StaticResource LabelStyle}"/>
+        
+        <Label Content="ID"
+               Grid.Row="2"
+               Style="{StaticResource LabelStyle}"/>
+
+        <TextBox Style="{StaticResource TextBoxStyle}"
+                 Text="{Binding User.Login}"/>
+
+        <TextBox Grid.Row="1"
+                 Style="{StaticResource TextBoxStyle}"
+                 Text="{Binding User.Email}"/>
+        
+        <Label Content="{Binding User.ID}"
+               Grid.Row="2"
+               Grid.Column="1"
+               Style="{StaticResource LabelStyle}"/>
+
+
+        <ToggleButton x:Name="TogglePopupButton"
+                       Width="150" Height="35" 
+                       Grid.Row="3"
+                       Grid.Column="2"
+                       Background="#FFDCF5E2">
+
+            <StackPanel>
+                <TextBlock Text="Изменить пароль"/>
+
+                <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
+                        Placement="Center"
+                        StaysOpen="False">
+
+                    <StackPanel Background="White"
+                                HorizontalAlignment="Center"
+                                Width="350"
+                                Orientation="Vertical">
+
+                        <Border BorderBrush="Black" BorderThickness="2">
+                            <StackPanel Margin="15">
+
+                                <Label Style="{StaticResource LabelStyle}"
+                                       Content="Введите новый пароль"/>
+
+                                <PasswordBox x:Name="Password" Width="210"/>
+
+                                <Label Style="{StaticResource LabelStyle}"
+                                        Content="Введите пароль повторно"/>
+
+                                <PasswordBox x:Name="Confirm" Width="210"/>
+
+                                <Button Style="{StaticResource ButtonStyle}"
+                                        Command="{Binding SaveNewPasswordCommand}"
+                                        Content="Сохранить пароль"
+                                        Margin="30"
+                                        Height="50"
+                                        Width="100">
+
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MyConv}">
+                                            <Binding ElementName="Password"/>
+                                            <Binding ElementName="Confirm"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Popup>
+            </StackPanel>
+        </ToggleButton>
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Content="Сохранить"
+                Grid.ColumnSpan="2"
+                Command="{Binding SaveChanges}"/>
+
+    </Grid>
+</Window>

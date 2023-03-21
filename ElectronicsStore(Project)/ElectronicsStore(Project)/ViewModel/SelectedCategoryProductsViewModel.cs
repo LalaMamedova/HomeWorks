@@ -1,5 +1,6 @@
 ﻿using ElectronicsStore_Project_.Messanger;
 using ElectronicsStore_Project_.Model;
+using ElectronicsStore_Project_.Service.Classes;
 using ElectronicsStore_Project_.Service.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -21,12 +22,9 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
     private readonly INavigateService _navigateService;
     private readonly IMessenger _messenger;
     public Electronic Electronic = new();
-
-
+    public string CategoryDescription { get; set; } = DataBase.AllCategory[HomeViewModel.CategoryIndex].Description;
+    public SearchService SearchService { get; set; } = new();
     public static ObservableCollection<Electronic> SortedByCategory { get; set; } = new();
-    public int MinPrice { get; set; }
-    public int MaxPrice { get; set; }
-    public string? ElectronicName { get; set; }
 
     public ViewModelBase? CurrentViewModel
     {
@@ -39,7 +37,6 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
         _navigateService = navigateService;
         _messenger = messenger;
     }
-
 
     public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);
 
@@ -65,35 +62,32 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
         });
     }
 
+    public RelayCommand<int> ToBasketCommand
+    {
+        get => new(param =>
+        {
+            foreach (var item in SortedByCategory)
+            {
+                if (item.ID == param)
+                    Electronic = item;
+            }
+
+            Basket basket = new Basket();
+            basket.Electronic = Electronic;
+            BasketService.AddToBasket(basket);
+        });
+    }
+
     public RelayCommand SearchCommand
     {
         get => new(() =>
         {
             int index = HomeViewModel.CategoryIndex;
 
-            if (!string.IsNullOrEmpty(ElectronicName))
-            {
-                for (int i = 0; i < DataBase.ElectronicsList[index].Count; i++)
-                {
-                    if (DataBase.ElectronicsList[index][i].Name != ElectronicName)
-                    {
-                        SortedByCategory.RemoveAt(i);
-                        i--;
-                    }
-                }
-            }
+            SearchService.SearchByName(index);
+            SearchService.SearchByPrice(index);
+            SearchService = new();
 
-            if (MinPrice > 0 || MaxPrice > 0)
-            {
-                for (int i = 0; i < DataBase.ElectronicsList[index].Count; i++)
-                {
-                    if (DataBase.ElectronicsList[index][i].Price > MaxPrice && DataBase.ElectronicsList[index][i].Price > MinPrice)
-                    {
-                        SortedByCategory.RemoveAt(i);
-                        i--;
-                    }
-                }
-            }
         });
     }
 

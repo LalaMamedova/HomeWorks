@@ -11,19 +11,7 @@ namespace ElectronicsStore_Project_.Model
     {
         public string? CategoryName {get;set;}
         public string? Description { get; set; }
-
         public string? IconPath { get; set; }   
-
-        public Category()
-        {
-           
-        }
-
-        public Category(string? categoryName, string? description)
-        {
-            CategoryName = categoryName;
-            Description = description;
-        }
 
         public override string ToString() => CategoryName;
         

@@ -62,11 +62,18 @@
                 Grid.ColumnSpan="2">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\340.png"
+                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
                             Stretch="Uniform"/>
             </Button.Background>
         </Button>
 
+        <TextBlock Grid.Row="0" 
+                   Grid.Column="2"
+                   Text="{Binding CategoryDescription}"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16"/>
 
         <Border Grid.ColumnSpan="2" Grid.RowSpan="10" 
                 BorderThickness="1" BorderBrush="Black"/>
@@ -79,13 +86,13 @@
                    Style="{StaticResource MyTextBlockStyle}"
                    Text="Поиск по названию"/>
 
-        <TextBox Text="{Binding MinPrice}" Grid.Column="0" 
+        <TextBox Text="{Binding SearchService.MinPrice}" Grid.Column="0" 
                  Grid.Row="2" Margin="2"/>
 
-        <TextBox Text="{Binding MaxPrice}" Grid.Column="1"
+        <TextBox Text="{Binding SearchService.MaxPrice}" Grid.Column="1"
                  Grid.Row="2" Margin="2"/>
 
-        <TextBox Text="{Binding ElectronicName}" Grid.Column="0" 
+        <TextBox Text="{Binding SearchService.ElectronicName}" Grid.Column="0" 
                  Grid.ColumnSpan="2" Margin="2"  Grid.Row="4"/>
 
         <Button Grid.ColumnSpan="2"
@@ -94,13 +101,12 @@
                 Command="{Binding SearchCommand}"/>
 
 
-        <ScrollViewer Grid.RowSpan="6" Grid.Column="2">
+        <ScrollViewer Grid.Row="1"
+                      Grid.RowSpan="5" 
+                      Grid.Column="2">
 
-            <StackPanel  Grid.Column="2" 
-                     Grid.RowSpan="6"
-                     Grid.ColumnSpan="4" 
-                     Margin="0,20,0,0">
-                
+            <StackPanel  Margin="0,20,0,0">
+
                 <ItemsControl ItemsSource="{Binding SortedByCategory}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate  >
@@ -129,6 +135,14 @@
                                     <TextBlock Text="{Binding StrPrice}" 
                                                HorizontalAlignment="Center"
                                                Foreground="White"/>
+
+              
+
+                                    <Button    Content="В корзину" 
+                                               HorizontalAlignment="Center"
+                                               Style="{DynamicResource MyButtonSecondStyle}"
+                                               Command="{Binding Path=DataContext.ToBasketCommand,ElementName = SelectedProduct}"
+                                               CommandParameter="{Binding ID}"/>
 
                                 </StackPanel>
                             </Border>

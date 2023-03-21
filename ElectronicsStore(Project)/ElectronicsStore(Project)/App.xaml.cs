@@ -32,6 +32,10 @@ namespace ElectronicsStore_Project_
             Container.RegisterSingleton<RegistrationViewModel>();
             Container.RegisterSingleton<HomeViewModel>();
             Container.RegisterSingleton<SelectedCategoryProductsViewModel>();
+            Container.RegisterSingleton<UserСabinetViewModel>();
+            Container.RegisterSingleton<CheckViewModel>();
+            Container.RegisterSingleton<BasketViewModel>();
+            Container.RegisterSingleton<UserInfoViewModel>();
             Container.Register<ProductInfoViewModel>();
 
         }
