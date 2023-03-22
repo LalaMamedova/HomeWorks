@@ -18,10 +18,12 @@
             <Setter Property="Width" Value="110"/>
             <Setter Property="Height" Value="25"/>
             <Setter Property="Grid.Column" Value="1"/>
+            
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="#FFFFB3E7"/>
-
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
 
         <Style x:Key="MyTextBoxStyle" TargetType="{x:Type TextBox}">
@@ -29,7 +31,8 @@
             <Setter Property="Margin" Value="0,0,0,10"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Background" Value="#FFFFE3EB"/>
-
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
 
     </UserControl.Resources>
@@ -46,6 +49,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         
         <Label Content="Категории" FontSize="25"
                Grid.ColumnSpan="3"
@@ -81,22 +85,29 @@
                                 CommandParameter="{Binding CategoryName}"
                                 Command="{Binding Path=DataContext.ToSelectedCategory,ElementName = HomeUserControl}">
 
+                               
                                 <Button.Background>
                                     <ImageBrush ImageSource="{Binding IconPath}"
                                             AlignmentX="Left"
                                             Stretch="Uniform"/>
-
+                                   
                                 </Button.Background>
+                                
                                 <Button.Content>
+                                    
                                     <TextBlock 
                                         TextAlignment="Center"
                                         Text="{Binding CategoryName}"  
                                         Padding="80,0,40,0"
-                                        Foreground="White"
-                                        TextWrapping="Wrap"/>
-
+                                        TextWrapping="Wrap"
+                                        FontSize="15"/>
                                 </Button.Content>
 
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="2"/>
+                                    </Style>
+                                </Button.Resources>
                             </Button>
 
                             <StackPanel Orientation="Horizontal" 
@@ -116,7 +127,7 @@
                                     <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
                                             Placement="Bottom"
                                             StaysOpen="False">
-
+                                        
                                         <Border BorderThickness="3">
 
                                             <StackPanel Width="300"
@@ -138,7 +149,6 @@
                                                 <Button Content="Выбрать иконку"
                                                         Command="{Binding Path=DataContext.ChoiceImgButton,ElementName = HomeUserControl}"
                                                         CommandParameter="{Binding CategoryName}"
-                                                       
                                                         Background="#FFFFC0F7"
                                                         Focusable="True"
                                                         Margin="20"/>

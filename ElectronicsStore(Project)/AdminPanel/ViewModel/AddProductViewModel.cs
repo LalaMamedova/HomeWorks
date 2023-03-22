@@ -78,6 +78,7 @@ namespace AdminPanel.ViewModel
 
                     Electronics = new()
                     {
+                        CategoryIndex = HomeViewModel.CategoryIndex,
                         Category = DataBase.AllCategory[HomeViewModel.CategoryIndex].CategoryName,
                     };
                
@@ -103,5 +104,7 @@ namespace AdminPanel.ViewModel
                 _navigateService.NavigateTo<HomeViewModel>();
             });
         }
+
+       
     }
 }

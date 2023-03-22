@@ -15,25 +15,31 @@
         <Style x:Key="MyButtonStyle" TargetType ="Button">
             <Setter Property="Width" Value="60" />
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="MyButtonSecondStyle" TargetType ="Button">
-            <Setter Property="Background" Value="DarkSlateBlue" />
+            <Setter Property="Background" Value="#FF8974FF" />
             <Setter Property="Width" Value="110"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Grid.Row" Value="6"/>
-
         </Style>
 
 
         <Style x:Key="MyTextBlockStyle" TargetType ="TextBlock">
             <Setter Property="Grid.ColumnSpan" Value="2"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Foreground" Value="White"/>
         </Style>
 
+        <Style x:Key="MyTextBoxkStyle" TargetType ="TextBox">
+            <Setter Property="Grid.Row" Value="2"/>
+            <Setter Property="Margin" Value="2"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+        </Style>
 
     </UserControl.Resources>
 
@@ -71,29 +77,31 @@
       
         <Border Grid.ColumnSpan="2" Grid.RowSpan="10" 
                 BorderThickness="1" BorderBrush="Black"/>
-        
+
         <TextBlock Grid.Row="1"
                    Style="{StaticResource MyTextBlockStyle}"
                    Text="Ценовая категория"/>
-        
+
         <TextBlock Grid.Row="3"
                    Style="{StaticResource MyTextBlockStyle}"
                    Text="Поиск по названию"/>
 
-        <TextBox Text="{Binding MinPrice}" Grid.Column="0" 
-                 Grid.Row="2" Margin="2"/>
-        
-        <TextBox Text="{Binding MaxPrice}" Grid.Column="1"
-                 Grid.Row="2" Margin="2"/>
-        
-        <TextBox Text="{Binding ElectronicName}" Grid.Column="0" 
-                 Grid.ColumnSpan="2" Margin="2"  Grid.Row="4"/>
 
-        <StackPanel Background="#FF140033" 
-                    Grid.Column="2" Grid.Row="6"/>
-        
+
+        <TextBox Text="{Binding SearchService.MinPrice}" 
+                 Style="{StaticResource MyTextBoxkStyle}"/>
+
+
+        <TextBox Text="{Binding SearchService.MaxPrice}" Grid.Column="1"
+                Style="{StaticResource MyTextBoxkStyle}"/>
+
+
+        <TextBox Text="{Binding SearchService.ElectronicName}" 
+                 Grid.ColumnSpan="2" Grid.Row="4"
+                 Style="{StaticResource MyTextBoxkStyle}"/>
+
+
         <Button Grid.ColumnSpan="2"
-              
                 Content="Поиск"
                 Style="{StaticResource MyButtonSecondStyle}"
                 Command="{Binding SearchCommand}"/>
@@ -101,7 +109,13 @@
         <Button Grid.ColumnSpan="3"
                 Content="Добавить товар"
                 Style="{StaticResource MyButtonSecondStyle}"
-                Command="{Binding AddCommand}"/>
+                Command="{Binding AddCommand}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <ScrollViewer Grid.RowSpan="6" Grid.Column="2">
             
@@ -123,11 +137,11 @@
 
                                     <TextBlock Text= "{Binding Name}"
                                                HorizontalAlignment="Center"
-                                               Foreground="White" />
+                                              />
 
                                     <TextBlock Text="{Binding StrPrice}" 
                                                HorizontalAlignment="Center"
-                                               Foreground="White"/>
+                                              />
 
                                     <Button   Style="{DynamicResource MyButtonSecondStyle}"
                                               Content="Редактировать"

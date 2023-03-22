@@ -13,33 +13,43 @@
     <UserControl.Resources>
         <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Width" Value="400"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="#FFD7E3FF"/>
             <Setter Property="Grid.Column" Value="1"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
         </Style>
 
         <Style x:Key="MybuttonStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="135"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
         </Style>
 
         <Style x:Key="MyLabelStyle" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Grid.Column" Value="0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
         </Style>
     </UserControl.Resources>
 
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -49,7 +59,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="1.1*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -57,15 +67,24 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.ColumnSpan="2" Content="Редактирование"
-               HorizontalContentAlignment="Center" FontSize="25"/>
-        
         <Border Grid.Row="1"
                 Grid.RowSpan="7"
                 Grid.ColumnSpan="2"
                 BorderBrush="#FF71A3D2"
                 BorderThickness="4"/>
 
+
+        <Button Style="{StaticResource MybuttonStyle}"
+                Command="{Binding CancelButton}"
+                HorizontalAlignment="Left"
+                Grid.Column="0"
+                Width="90">
+            <Button.Background>
+                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
+                            Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        
         <Label Style="{StaticResource MyLabelStyle}"
                Content="Название"
                Grid.Row="1"/>
@@ -124,10 +143,9 @@
 
             <Button Style="{StaticResource MybuttonStyle}" 
                     Content="Сохранить" 
-                    Background="#FF0002A2" 
                     Foreground="White"
-                    Command="{Binding SaveCommand}" 
-                    />
+                    Background="#FF8974FF" 
+                    Command="{Binding SaveButton}" />
 
 
             <Button Margin="10"
@@ -146,13 +164,16 @@
         <ComboBox x:Name="CategoryComboBox"  Grid.Column="2"
                    Grid.Row="2"
                    Width="200"
-                   Height="40"
                    FontSize="20"
+                   
                    ItemsSource="{Binding DataBase.AllCategory}"
                    SelectedIndex="{Binding Electronics.CategoryIndex}"
-                   SelectedItem="{Binding Electronics.Category}">
-
+                   SelectedItem="{Binding Electronics.Category}" >
+            <ComboBox.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#FF8974FF" />
+            </ComboBox.Resources>
         </ComboBox>
+
 
         <TextBox x:Name="PriceTextbox" Grid.Row="3"
                  Style="{StaticResource TextBoxStyle}"

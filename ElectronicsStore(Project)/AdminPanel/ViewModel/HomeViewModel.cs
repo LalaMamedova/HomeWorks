@@ -51,15 +51,15 @@ namespace AdminPanel.ViewModel
                 }
             }
         }
-        public RelayCommand<object> ChoiceImgButton
+        public RelayCommand<string> ChoiceImgButton
         {
             get => new(param =>
             {
-                Indexdefinition(param.ToString());
-                DataBase.AllCategory[CategoryIndex].IconPath = ImgServices.ImgChoice();
+                Indexdefinition(param);
+                DataBase.AllCategory[CategoryIndex]!.IconPath = ImgServices.ImgChoice();
             });
         }
-        public RelayCommand<object> ToSelectedCategory
+        public RelayCommand<string> ToSelectedCategory
         {
             get => new(param =>
             {
@@ -67,7 +67,7 @@ namespace AdminPanel.ViewModel
                 {
                     if (param != null)
                     {
-                        Indexdefinition(param.ToString());
+                        Indexdefinition(param);
                         var res = _adminService.FromFileToList<ObservableCollection<Electronics>>(DataBase.AllCategory[CategoryIndex]?.CategoryName + ".json");
 
                         if (res != null)
@@ -89,11 +89,11 @@ namespace AdminPanel.ViewModel
         }
 
 
-        public RelayCommand<object> DeleteCommand
+        public RelayCommand<string> DeleteCommand
         {
             get => new(param =>
             {
-                Indexdefinition(param as string);
+                Indexdefinition(param);
 
                 DataBase.AllCategory!.Remove(DataBase.AllCategory.Where(x => x!.CategoryName == (string)param).Single());//Сингл ибо за одно нажатие я могу удалить лишь 1 категорию
 
@@ -107,25 +107,27 @@ namespace AdminPanel.ViewModel
         }
 
      
-        public RelayCommand<object> RedactCommand
+        public RelayCommand<string> RedactCommand
         {
             get => new(param =>
             {
-                Indexdefinition(param as string);
+                Indexdefinition(param );
 
                 if (DataBase.ElectronicsList[CategoryIndex].Count > 0) 
                 {
                     foreach (var item in DataBase.ElectronicsList[CategoryIndex])
-                        item.Category = param as string;
+                        item.Category = param;
                 }
 
                 var OldList = _adminService.FromFileToList<ObservableCollection<Category>>("AllCategory.json");
-                var oldCategoryName = OldList[CategoryIndex];
+                string oldCategoryName = OldList[CategoryIndex].CategoryName;
 
-                File.Move(oldCategoryName + ".json", param.ToString() + ".json");//Меня название файла
-
+                if (oldCategoryName != param)
+                {
+                    File.Move(oldCategoryName + ".json", param + ".json");//Меня название файла
+                }
                 Serialize.FileService.Truncate(param + ".json");
-                _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.ElectronicsList[CategoryIndex], param as string + ".json");
+                _adminService.FromListToFile<ObservableCollection<Electronics>>(DataBase.ElectronicsList[CategoryIndex], param + ".json");
 
                 Serialize.FileService.Truncate("AllCategory.json");
                 _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory!, "AllCategory.json");

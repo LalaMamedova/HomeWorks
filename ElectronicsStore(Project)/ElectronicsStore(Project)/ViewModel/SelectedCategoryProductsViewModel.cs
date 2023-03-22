@@ -93,12 +93,6 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
             
             SearchService.SearchByName(index);
             SearchService.SearchByPrice(index);
-
-            //var json = FileService.Read(FilePath.path + DataBase.AllCategory[HomeViewModel.CategoryIndex].CategoryName + ".json");
-
-            //if (json != null)
-            //    DataBase.ElectronicsList[HomeViewModel.CategoryIndex] = SerializeLibary.Deserialize<ObservableCollection<Electronic>>(json);
-
             SearchService = new();
         });
     }

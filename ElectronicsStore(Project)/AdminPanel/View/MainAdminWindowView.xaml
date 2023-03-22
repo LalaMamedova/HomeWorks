@@ -9,48 +9,65 @@
         WindowStyle="None">
 
     <Window.Resources>
-        
+
         <Style x:Key="MyButtonStyle" TargetType ="Button">
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Background" Value="#FF8974FF" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="60"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Margin" Value="0,5,4,5"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
         </Style>
 
         <Style x:Key="MySecondButtonStyle" TargetType ="Button">
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="#FF585BFF" />
+            <Setter Property="Background" Value="#FF8974FF" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
         </Style>
 
     </Window.Resources>
 
-    <Grid  Background="#FF0E0054" MouseDown="Grid_MouseDown" >
+    <Grid 
+           MouseDown="Grid_MouseDown" >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD3D6FF" Offset="0.1"/>
+                <GradientStop Color="#FFE8F8FF" Offset="1"/>
+                <GradientStop Color="White" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
             <RowDefinition/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.14*" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-       
-        <Border BorderBrush="White"
+
+        <Border BorderBrush="#FFC5BAFF"
                 BorderThickness="1"
                 Grid.ColumnSpan="2"/>
 
         <StackPanel  Grid.Column="2"
                      Orientation="Horizontal"
-                     HorizontalAlignment="Right">    
+                     HorizontalAlignment="Right">
 
             <Button  Click="Minimilize_Click"
                      Content="—" 
@@ -68,23 +85,26 @@
 
 
 
+     
         <ToggleButton x:Name="TogglePopupButton"
-                        Background="Transparent">
+                        Background="Transparent"
+                        Grid.Row="2"
+                        Width="150">
             <StackPanel>
-                <TextBlock Foreground="White">
-                         <Run Text="Меню" FontSize="22"/>
+                <TextBlock>
+                         <Run Text="Меню" FontSize="22"
+                              FontFamily="Century Gothic"/>
                 </TextBlock>
 
                 <Popup IsOpen="{Binding IsChecked, ElementName=TogglePopupButton, Mode=TwoWay}"
                            PlacementTarget="{Binding ElementName=TogglePopupButton}"
-                           Placement="Bottom"
-                           PopupAnimation="Fade"
+                           Placement="Top"          
                            StaysOpen="False">
 
-                    <StackPanel Background="#FF8FC8F9"
+                    <StackPanel Background="White"
                                 HorizontalAlignment="Left" 
                                 Orientation="Horizontal"  >
-
+            
                         <Button Content= "Добавить категорию" 
                                     Style="{StaticResource MySecondButtonStyle}"
                                     Command="{Binding AddCategoryCommand}"/>
@@ -103,8 +123,7 @@
         </ToggleButton>
 
         <ContentControl Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Content="{Binding CurrentViewModel}"/> 
-                        
+                        Content="{Binding CurrentViewModel}"/>
+
     </Grid>
 </Window>

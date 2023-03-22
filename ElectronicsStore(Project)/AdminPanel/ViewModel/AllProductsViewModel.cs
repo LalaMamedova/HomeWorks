@@ -23,10 +23,7 @@ namespace AdminPanel.ViewModel
         private readonly INavigateService _navigateService;
         private readonly IMessenger _messenger;
         public static ObservableCollection<Electronics> SortedByCategory { get; set; } = new();
-
-        public int MinPrice { get; set; } 
-        public int MaxPrice { get; set; }
-        public string? ElectronicName { get; set; } 
+        public SearchService SearchService { get; set; } = new();
 
         public ViewModelBase CurrentViewModel
         {
@@ -55,29 +52,10 @@ namespace AdminPanel.ViewModel
             {
                 int index = HomeViewModel.CategoryIndex;
 
-                if (!string.IsNullOrEmpty(ElectronicName))
-                {
-                    for (int i = 0; i < DataBase.ElectronicsList[index].Count; i++)
-                    {
-                        if (DataBase.ElectronicsList[index][i].Name != ElectronicName)
-                        {
-                            SortedByCategory.RemoveAt(i);
-                            i--;
-                        }
-                    }
-                }
+                SearchService.SearchByName(index);
+                SearchService.SearchByPrice(index);
+                SearchService = new();
 
-                if(MinPrice > 0 || MaxPrice > 0)
-                {
-                    for (int i = 0; i < DataBase.ElectronicsList[index].Count; i++)
-                    {
-                        if (DataBase.ElectronicsList[index][i].Price > MaxPrice && DataBase.ElectronicsList[index][i].Price > MinPrice)
-                        {
-                            SortedByCategory.RemoveAt(i);
-                            i--;
-                        }
-                    }
-                }
             });
         }
 
