@@ -51,11 +51,32 @@ namespace ElectronicsStore_Project_.ViewModel
         public RelayCommand<object> ToBasketCommand
         {
             get => new(param => 
-            { 
-                Basket basket = new Basket();
-                basket.Electronic = Electronic;
+            {
+                if (SellService.IsSoldOut(Electronic))
+                {
+                    Basket basket = new Basket();
+                    basket.Electronic = Electronic;
+                    BasketService.AddToBasket(basket);
+                }
+            });
+        }
 
-                BasketService.AddToBasket(basket);
+
+        public RelayCommand<object> BuyCommand
+        {
+            get => new(param =>
+            {
+                bool countRes = SellService.IsSoldOut(Electronic);
+                if (countRes && UserСabinetViewModel.UsLogined == true)
+                {
+                    SellConfirm sellConfirm = new(Electronic);
+                    _messenger.Send(new DataMessager() { Data = sellConfirm });
+                }
+
+                else if (UserСabinetViewModel.UsLogined == false && countRes)
+                {
+                    _navigationService.NavigateTo<AuthViewModel>();
+                }
             });
         }
 

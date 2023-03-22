@@ -15,9 +15,8 @@ namespace ElectronicsStore_Project_.Model
         private int thisElectronicCount = 1;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-
         public Electronic Electronic { get; set; } = new();
+        
         public int ThisElectronicCount 
         { 
             get => thisElectronicCount;
@@ -36,7 +35,11 @@ namespace ElectronicsStore_Project_.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
+        public override string ToString()
+        {
+            return Electronic.Name + thisElectronicPrice;
+        }
+
 
     }
 }

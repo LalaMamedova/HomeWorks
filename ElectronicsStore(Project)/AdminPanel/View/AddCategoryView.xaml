@@ -111,8 +111,7 @@
                     Content="Сохранить" 
                     Background="#FF0002A2" 
                     Foreground="White"
-                    Command="{Binding SaveButton}" 
-                    Click="SaveButton_Click"/>
+                    Command="{Binding SaveButton}"/>
                     
 
             <Button Margin="10"

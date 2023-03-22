@@ -25,10 +25,6 @@ namespace AdminPanel.View
             InitializeComponent();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            CategoryName.Text = "";
-            DiscribName.Text = "";
-        }
+        
     }
 }

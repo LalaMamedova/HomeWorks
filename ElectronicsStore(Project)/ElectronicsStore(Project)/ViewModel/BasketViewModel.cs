@@ -98,19 +98,20 @@ namespace ElectronicsStore_Project_.ViewModel
                 var res = param.Count;
                 if (res > 0)
                 {
-                    var dialog = MessageBox.Show("Вы уверены что хотите купить?", "Покупка", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult dialog = MessageBox.Show("Вы уверены что хотите купить?", "Покупка", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
                     if (dialog == MessageBoxResult.Yes && UserСabinetViewModel.UsLogined == true)
                     {
                         _messenger.Send(new DataMessager() { Data = param });
                         SellService.Rewrite();
-                        BasketViewModel.Basket.Clear();
+                        Basket.Clear();
                         TotalCost.TotalPrice = 0;
                     }
+
                     else if(UserСabinetViewModel.UsLogined == false)
                     {
                         MessageBox.Show("Войдите прежде чем подтвердить покупку");
                     }
-
                 }
                 else
                     MessageBox.Show("У вас пустая корзинка", "Ошибка", MessageBoxButton.OKCancel, MessageBoxImage.Error);

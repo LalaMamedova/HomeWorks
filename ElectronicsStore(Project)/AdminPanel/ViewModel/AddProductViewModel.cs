@@ -10,8 +10,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,15 +21,23 @@ using System.Windows.Input;
 
 namespace AdminPanel.ViewModel
 {
-    public class AddProductViewModel : ViewModelBase
+    public class AddProductViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private readonly INavigateService _navigateService;
         private readonly IAdminService _adminService;
         private readonly IMessenger _messenger;
-
-        public Electronics Electronics { get; set; } = new();
-        public DataBase DataBase { get; set; } = new();
+        private Electronics electronics = new();
+        
         public static int _id { get; private set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public DataBase DataBase { get; set; } = new();
+        public Electronics Electronics 
+        { 
+            get => electronics; 
+            set { electronics = value; NotifyPropertyChanged();
+            } 
+        }
         public AddProductViewModel(IAdminService adminservice, INavigateService navigateService, IMessenger messenger)
         {
             _navigateService = navigateService;
@@ -35,7 +45,7 @@ namespace AdminPanel.ViewModel
             _messenger = messenger;
             _id = IDService.DesirializeID("ID.json");
 
-          
+
             _messenger.Register<DataMessager>(this, message =>
             {
                 var category = message.Data as Category;
@@ -44,11 +54,16 @@ namespace AdminPanel.ViewModel
             });
         }
 
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public RelayCommand SaveButton
         {
             get => new(() =>
             {
-                if (Electronics.CheckNulls() != null )
+                if (Electronics.CheckNulls() != null)
                 {
                     Electronics.ID = _id;
                     DataBase.ElectronicsList[Electronics.CategoryIndex]!.Add(Electronics);
@@ -61,14 +76,18 @@ namespace AdminPanel.ViewModel
                     _id++;
                     IDService.SerializeID(_id, "ID.json");
 
-                    Electronics = new();
+                    Electronics = new()
+                    {
+                        Category = DataBase.AllCategory[HomeViewModel.CategoryIndex].CategoryName,
+                    };
+               
                 }
                 else
                     MessageBox.Show("Заполните все поля!", "Ошибка!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
             });
         }
 
-       
+
         public RelayCommand ChoiceImgButton
         {
             get => new(() =>
@@ -79,7 +98,7 @@ namespace AdminPanel.ViewModel
 
         public RelayCommand CancelButton
         {
-            get => new(() => 
+            get => new(() =>
             {
                 _navigateService.NavigateTo<HomeViewModel>();
             });

@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Views;
+using Serialize;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,8 +24,9 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
     private readonly IMessenger _messenger;
     public Electronic Electronic = new();
     public string CategoryDescription { get; set; } = DataBase.AllCategory[HomeViewModel.CategoryIndex].Description;
-    public SearchService SearchService { get; set; } = new();
     public static ObservableCollection<Electronic> SortedByCategory { get; set; } = new();
+
+    public SearchService SearchService { get; set; } = new();
 
     public ViewModelBase? CurrentViewModel
     {
@@ -72,9 +74,14 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
                     Electronic = item;
             }
 
-            Basket basket = new Basket();
-            basket.Electronic = Electronic;
-            BasketService.AddToBasket(basket);
+            if (SellService.IsSoldOut(Electronic))
+            {
+                Basket basket = new Basket();
+                basket.Electronic = Electronic;
+                BasketService.AddToBasket(basket);
+            }
+
+           
         });
     }
 
@@ -83,11 +90,16 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
         get => new(() =>
         {
             int index = HomeViewModel.CategoryIndex;
-
+            
             SearchService.SearchByName(index);
             SearchService.SearchByPrice(index);
-            SearchService = new();
 
+            //var json = FileService.Read(FilePath.path + DataBase.AllCategory[HomeViewModel.CategoryIndex].CategoryName + ".json");
+
+            //if (json != null)
+            //    DataBase.ElectronicsList[HomeViewModel.CategoryIndex] = SerializeLibary.Deserialize<ObservableCollection<Electronic>>(json);
+
+            SearchService = new();
         });
     }
 

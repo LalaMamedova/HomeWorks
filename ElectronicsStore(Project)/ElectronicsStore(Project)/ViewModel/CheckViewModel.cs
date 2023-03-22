@@ -18,13 +18,13 @@ namespace ElectronicsStore_Project_.ViewModel
 {
     public class CheckViewModel:ViewModelBase
     {
-        public  static ObservableCollection<Check> CheckList { get; set; } = new();
+        public static ObservableCollection<Check> CheckList { get; set; } = new();
+
         private ViewModelBase? _currentViewModel;
         private readonly INavigateService _navigateService;
         private readonly IMessenger _messenger;
+        private readonly Random _randomNumbers = new();
 
-        private Random randomNumbers = new();
-      
         public CheckViewModel(INavigateService navigateService, IMessenger messenger)
         {
             _navigateService = navigateService;
@@ -32,19 +32,34 @@ namespace ElectronicsStore_Project_.ViewModel
 
             _messenger.Register<DataMessager>(this, message =>
             {
-               
+                Check newCheck = new();
+
+                for (int i = 0; i < 5; i++)
+                    newCheck.Barcode += _randomNumbers.Next(1, 600).ToString();
+                
+
                 if (message.Data.GetType().Name == typeof(ObservableCollection<Basket>).Name)
                 {
-                    Check newCheck = new();
-
-                    foreach (var item in message.Data as ObservableCollection<Basket>)
+                    foreach (Basket item in (ObservableCollection<Basket>)message.Data)
+                    {
                         newCheck.Basket.Add(item);
-                    for (int i = 0; i < 5; i++)
-                        newCheck.Barcode += randomNumbers.Next(1, 600).ToString();
+                    }
 
                     newCheck.Price = newCheck.Basket.Sum(x => x.ThisElectronicPrice);
-                    
                     CheckList.Add(newCheck);
+                }
+
+
+                else if(SellConfirm.IsConfirmed == true)
+                {
+                    SellConfirm? sellConfirm = message.Data as SellConfirm;
+
+                    newCheck.Basket.Add(sellConfirm!.Basket);
+
+                    newCheck.Price = sellConfirm.Basket.Electronic.Price;
+                    CheckList.Add(newCheck);
+
+                    SellConfirm.IsConfirmed = false;
                 }
             });
         }
@@ -54,7 +69,6 @@ namespace ElectronicsStore_Project_.ViewModel
             get => _currentViewModel!;
             set => Set(ref _currentViewModel, value);
         }
-
 
         public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);
 

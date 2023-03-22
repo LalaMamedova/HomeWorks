@@ -54,9 +54,9 @@ namespace ElectronicsStore_Project_.ViewModel
                         Indexdefinition(param.ToString());
 
                         var json = FileService.Read(FilePath.path + DataBase.AllCategory[CategoryIndex].CategoryName + ".json");
+
                         if(json != null)
                             DataBase.ElectronicsList[CategoryIndex] = SerializeLibary.Deserialize<ObservableCollection<Electronic>>(json);
-
 
                         if (SelectedCategoryProductsViewModel.SortedByCategory.Count > 0)
                             SelectedCategoryProductsViewModel.SortedByCategory.Clear();

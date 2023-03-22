@@ -100,7 +100,9 @@
             <Button Width="100" Height="25" 
                     Content="Купить"
                     FontSize="16"
-                    Background="BlueViolet"/>
+                    Background="BlueViolet"
+                    Command="{Binding BuyCommand}"
+                    CommandParameter="{Binding Electronic}"/>
 
             <Button Width="100" Height="25"
                     Margin="20,0,0,0"
@@ -109,6 +111,7 @@
                     Background="BlueViolet"
                     Command="{Binding ToBasketCommand}"
                     CommandParameter="{Binding Electronic}"/>
+            
         </StackPanel>
 
 

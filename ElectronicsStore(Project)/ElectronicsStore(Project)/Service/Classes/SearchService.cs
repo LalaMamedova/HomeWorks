@@ -3,19 +3,64 @@ using ElectronicsStore_Project_.View;
 using ElectronicsStore_Project_.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ElectronicsStore_Project_.Service.Classes
 {
-    public class SearchService
+    public class SearchService : INotifyPropertyChanged
     {
-        public  int MinPrice { get; set; }
-        public  int MaxPrice { get; set; }
-        public string? ElectronicName { get; set; }
+        private  float minPrice = 0;
+        private  float maxPrice;
+        private  string? electronicName;
+        private  ObservableCollection<Electronic> sorted;
 
-        public void SearchByName(int index)
+        public  float MinPrice
+        {
+            get => minPrice;
+            set
+            {
+                minPrice = value;
+                //NotifyPropertyChanged(nameof(MinPrice));
+            }
+        }
+
+        public  float MaxPrice
+        {
+            get => maxPrice;
+            set
+            {
+                maxPrice = value;
+                //NotifyPropertyChanged(nameof(MaxPrice));
+            }
+        }
+
+
+        public  string? ElectronicName
+        {
+            get => electronicName;
+            set
+            {
+                electronicName = value;
+                //NotifyPropertyChanged(nameof(ElectronicName));
+            }
+        }
+
+        public ObservableCollection<Electronic> Sorted { get => SelectedCategoryProductsViewModel.SortedByCategory; set => sorted = value; } 
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public  void SearchByName(int index)
         {
             if (!string.IsNullOrEmpty(ElectronicName))
             {
@@ -23,14 +68,15 @@ namespace ElectronicsStore_Project_.Service.Classes
                 {
                     if (DataBase.ElectronicsList[index][i].Name != ElectronicName)
                     {
-                        SelectedCategoryProductsViewModel.SortedByCategory.RemoveAt(i);
+                        Sorted.RemoveAt(i);
                         i--;
                     }
                 }
             }
         }
 
-        public void SearchByPrice(int index)
+
+        public  void SearchByPrice(int index)
         {
             if (MinPrice > 0 || MaxPrice > 0)
             {
@@ -38,13 +84,12 @@ namespace ElectronicsStore_Project_.Service.Classes
                 {
                     if (DataBase.ElectronicsList[index][i].Price > MaxPrice && DataBase.ElectronicsList[index][i].Price > MinPrice)
                     {
-                        SelectedCategoryProductsViewModel.SortedByCategory.RemoveAt(i);
+                        Sorted.RemoveAt(i);
                         i--;
                     }
                 }
             }
         }
-
 
     }
 }

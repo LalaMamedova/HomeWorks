@@ -7,8 +7,10 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,19 +18,30 @@ using System.Windows;
 
 namespace AdminPanel.ViewModel
 {
-    internal class AddCategoryViewModel:ViewModelBase
-    {      
-        public Category Category { get; set; } = new();
+    internal class AddCategoryViewModel : ViewModelBase,INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
         private readonly IAdminService _adminService;
         private readonly INavigateService _navigateService;
         private readonly IMessenger _messenger;
+        private Category category = new();
+
+       
+        public Category Category { 
+            get => category; 
+            set 
+            { 
+                category = value;
+                NotifyPropertyChanged(nameof(Category)); 
+            }
+        }
 
         public AddCategoryViewModel(INavigateService navigateService, IAdminService adminService, IMessenger messenger)
         {
             _navigateService = navigateService;
             _adminService = adminService;
             _messenger = messenger;
-            
+
             _messenger.Register<DataMessager>(this, message =>
             {
                 if (message.Data.GetType().Name == typeof(Category).Name)
@@ -36,33 +49,39 @@ namespace AdminPanel.ViewModel
             });
         }
 
+      
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            
+        }
+
+
         public RelayCommand SaveButton
         {
             get => new(() =>
             {
-
-                if (DataBase.AllCategory.Count > 0)//Проверка на наличие категорий
+                if (DataBase.AllCategory.Count > 0)
                 {
-                    if (_adminService.CkeckCategoryExist(Category)) //Существует ли такая категория
+                    if (_adminService.CkeckCategoryExist(Category))
                     {
                         Serialize.FileService.Truncate("AllCategory.json");
 
                         DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
                         _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
-                        DataBase.ElectronicsList.Add(new());
-                        Category = new();
 
+                        DataBase.ElectronicsList.Add(new());
                     }
-                    else
-                        MessageBox.Show($"{Category.CategoryName} уже существует");
                 }
 
-                else// Если категорий вообще нет, то добавляет первым без переписование файла
+                else
                 {
                     DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
                     _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
-                    Category = new();
                 }
+
+                Category = new();
                 
             });
         }
@@ -75,10 +94,13 @@ namespace AdminPanel.ViewModel
         }
 
         public RelayCommand CancelButton
-        { get => new(() =>
+        {
+            get => new(() =>
             {
                 _navigateService.NavigateTo<HomeViewModel>();
             });
         }
+
+
     }
 }

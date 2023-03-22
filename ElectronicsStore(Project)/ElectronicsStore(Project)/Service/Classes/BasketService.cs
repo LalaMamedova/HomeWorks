@@ -23,7 +23,6 @@ public class BasketService
                 checkExist = true;
                 break;
             }
-
             else checkExist = false;
         }
 

@@ -41,5 +41,19 @@ namespace ElectronicsStore_Project_.Service.Classes
             }
            
         }
+      
+        public static bool IsSoldOut(Electronic Electronic)
+        {
+            if (Electronic.Count > 0)
+            {
+                return true;
+            }
+            else if (Electronic.Count == 0)
+            {
+                MessageBox.Show("Этого товара нет в наличии" +
+                  "\nПожалуйста, дождитесь пополнение запаса", "Ошибка при покупке", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return false;
+        }
     }
 }
