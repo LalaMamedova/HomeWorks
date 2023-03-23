@@ -12,15 +12,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using MaterialDesignThemes.Wpf;
+using System.ComponentModel;
 
 namespace ElectronicsStore_Project_.ViewModel
 {
-    public class UserInfoViewModel:ViewModelBase
+    public class UserInfoViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public Customer User { get; set; } = new();
         private readonly IMessenger _messenger;
         private readonly ICustomerService _customerService;
+        private bool isTextEnable = false;
+        private BankCard card = new();
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+
+        public BankCard Card
+        { 
+            get => card;
+            set 
+            {
+                card = value;
+
+                if (User.Card == null)
+                {
+                    card = value;
+                    User.Card = value;
+                }
+                else card = User.Card;
+            }     
+        }
+        public Customer User { get; set; } = new();
+        public DataBase DataBase { get; set; } = new();
+        public bool IsTextEnable { get => isTextEnable; set { isTextEnable = value; NotifyPropertyChanged(nameof(IsTextEnable)); } }
         public UserInfoViewModel(IMessenger messenger, ICustomerService customerService)
         {
             _messenger = messenger;
@@ -36,33 +61,42 @@ namespace ElectronicsStore_Project_.ViewModel
 
         public RelayCommand<object> SaveNewPasswordCommand
         {
-            get => new (param =>
+            get => new(param =>
             {
                 if (param != null)
                 {
                     object[] passwordArr = (object[])param;
-            
+
                     var password = (PasswordBox)passwordArr[0];
                     var confirm = (PasswordBox)passwordArr[1];
-            
+
                     var checker = new PasswordService(password, confirm);
-            
+
                     if (checker.IsMatch())
                     {
                         User.Password = password.Password;
                         User.ConfirmPassword = confirm.Password;
                         _customerService.Redact(User);
                     }
-                   
+
                 }
             });
         }
 
         public RelayCommand SaveChanges
         {
-            get => new (() =>
+            get => new(() =>
             {
                 _customerService.Redact(User);
+                IsTextEnable = false;
+            });
+        }
+
+        public RelayCommand RedactBankCardCommand
+        {
+            get => new(() =>
+            {
+                IsTextEnable = true;
             });
         }
     }

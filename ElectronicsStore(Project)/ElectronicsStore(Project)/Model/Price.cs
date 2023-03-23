@@ -23,10 +23,8 @@ namespace ElectronicsStore_Project_.Model
         }
 
       
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected void NotifyPropertyChanged(string propertyName)=>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        
 
         public Price(float startPrice)
         {

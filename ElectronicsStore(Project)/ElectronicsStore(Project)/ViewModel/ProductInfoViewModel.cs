@@ -7,6 +7,8 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,10 @@ namespace ElectronicsStore_Project_.ViewModel
         private ViewModelBase? _currentViewModel;
         private readonly IMessenger _messenger;
         private readonly INavigateService _navigationService;
-
+        private InitializationService _initializationService = new();
+       
         public string FullName { get => Electronic.Category + " " + Electronic.Name + " " + Electronic.Memory; }
-        public string LeftCount { get => "Осталось " + Electronic.Count + " штук"; }
+        public string LeftCount { get => "Осталось " + Electronic.Count + " штук!"; }
         public Electronic Electronic { get; set; } = new();
 
         public ViewModelBase CurrentViewModel
@@ -45,7 +48,12 @@ namespace ElectronicsStore_Project_.ViewModel
 
         public RelayCommand BackToCategory
         {
-            get => new(() => { _navigationService.NavigateTo<SelectedCategoryProductsViewModel>(); });
+            get => new(() => 
+            {
+                HomeViewModel.CategoryIndex = Electronic.CategoryIndex;
+                SelectedCategoryProductsViewModel.SortedByCategory = DataBase.ElectronicsList[HomeViewModel.CategoryIndex];
+                _navigationService.NavigateTo<SelectedCategoryProductsViewModel>();
+            });
         }
 
         public RelayCommand<object> ToBasketCommand

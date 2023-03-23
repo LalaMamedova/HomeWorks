@@ -1,5 +1,6 @@
 ﻿using ElectronicsStore_Project_.Messanger;
 using ElectronicsStore_Project_.Model;
+using ElectronicsStore_Project_.Service.Classes;
 using ElectronicsStore_Project_.Service.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -18,8 +19,11 @@ namespace ElectronicsStore_Project_.ViewModel
     {
         private ViewModelBase? _currentViewModel;
         private readonly INavigateService _navigateService;
+        private InitializationService initializationService = new();
+
         public DataBase DataBase { get; set; } = new();
         public static int CategoryIndex { get; set; }
+
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel!;
@@ -52,11 +56,7 @@ namespace ElectronicsStore_Project_.ViewModel
                     if (param != null)
                     {
                         Indexdefinition(param.ToString());
-
-                        var json = FileService.Read(FilePath.path + DataBase.AllCategory[CategoryIndex].CategoryName + ".json");
-
-                        if(json != null)
-                            DataBase.ElectronicsList[CategoryIndex] = SerializeLibary.Deserialize<ObservableCollection<Electronic>>(json);
+                        DataBase.ElectronicsList[CategoryIndex] = initializationService.SelectedCategoryFromFile();
 
                         if (SelectedCategoryProductsViewModel.SortedByCategory.Count > 0)
                             SelectedCategoryProductsViewModel.SortedByCategory.Clear();
@@ -73,7 +73,24 @@ namespace ElectronicsStore_Project_.ViewModel
             });
         }
 
+        public RelayCommand<int> ToSelectedProduct
+        {
+            get => new(param =>
+            {
+                Electronic Electronic = new();
 
-        
+                foreach (var item in DataBase.AllElectronics)
+                {
+                    if (item.ID == param)
+                    {
+                        Electronic = item;
+                        CategoryIndex = item.CategoryIndex;
+                        _navigateService.NavigateTo<ProductInfoViewModel>(Electronic);
+
+                    }
+                }
+            });
+        }
+
     }
 }

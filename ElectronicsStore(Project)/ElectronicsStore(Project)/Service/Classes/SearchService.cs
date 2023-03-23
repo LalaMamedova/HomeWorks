@@ -15,43 +15,14 @@ namespace ElectronicsStore_Project_.Service.Classes
 {
     public class SearchService : INotifyPropertyChanged
     {
-        private  float minPrice = 0;
-        private  float maxPrice;
-        private  string? electronicName;
         private  ObservableCollection<Electronic> sorted;
-
-        public  float MinPrice
-        {
-            get => minPrice;
-            set
-            {
-                minPrice = value;
-                //NotifyPropertyChanged(nameof(MinPrice));
-            }
-        }
-
-        public  float MaxPrice
-        {
-            get => maxPrice;
-            set
-            {
-                maxPrice = value;
-                //NotifyPropertyChanged(nameof(MaxPrice));
-            }
-        }
+        public  float MinPrice { get; set; }
+        public  float MaxPrice { get; set; }
+        public  string? ElectronicName { get; set; }
 
 
-        public  string? ElectronicName
-        {
-            get => electronicName;
-            set
-            {
-                electronicName = value;
-                //NotifyPropertyChanged(nameof(ElectronicName));
-            }
-        }
+        public ObservableCollection<Electronic> Sorted { get => SelectedCategoryProductsViewModel.SortedByCategory; set => sorted = value; }
 
-        public ObservableCollection<Electronic> Sorted { get => SelectedCategoryProductsViewModel.SortedByCategory; set => sorted = value; } 
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -73,12 +44,14 @@ namespace ElectronicsStore_Project_.Service.Classes
                     }
                 }
             }
+
+            SelectedCategoryProductsViewModel.SortedByCategory = Sorted;
         }
 
 
         public  void SearchByPrice(int index)
         {
-            if (MinPrice > 0 || MaxPrice > 0)
+            if (MinPrice >= 0 && MaxPrice > 0)
             {
                 for (int i = 0; i < DataBase.ElectronicsList[index].Count; i++)
                 {
@@ -89,6 +62,9 @@ namespace ElectronicsStore_Project_.Service.Classes
                     }
                 }
             }
+
+            SelectedCategoryProductsViewModel.SortedByCategory = Sorted;
+           
         }
 
     }

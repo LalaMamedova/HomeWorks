@@ -24,5 +24,7 @@ namespace ElectronicsStore_Project_.View
         {
             InitializeComponent();
         }
+
+        
     }
 }

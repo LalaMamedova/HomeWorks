@@ -10,7 +10,9 @@
         xmlns:Model ="clr-namespace:ElectronicsStore_Project_.Model"
         xmlns:cr="clr-namespace:ElectronicsStore_Project_.Service.Classes"
         d:DataContext="{d:DesignInstance Type= Viewmodel:UserInfoViewModel}"
-        Title="UserInfo" Height="350" Width="450">
+        Title="UserInfo" Height="330" Width="450"
+        WindowStyle="None"
+        Deactivated="UserInfo_Deactivated">
 
     <Window.Resources>
         
@@ -22,28 +24,46 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
+        
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="190"/>
+            <Setter Property="Width" Value="200"/>
             <Setter Property="Grid.Column" Value="1"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
         </Style>
 
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Grid.Row" Value="4"/>
-            <Setter Property="Background" Value="#FFDCF5E2"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Grid.Row" Value="6"/>
+            <Setter Property="BorderBrush" Value="#FFE4FFFD"/>
+            <Setter Property="Background" Value=" #FF8974FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
 
         </Style>
 
     </Window.Resources>
-    <Grid>
+    
+    <Grid Background="#FFD3D6FF">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -51,39 +71,80 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="Логин"
+        <Label Grid.Row="1"
+               Content="Логин"
                Style="{StaticResource LabelStyle}"/>
         
         <Label Content="Email"
-               Grid.Row="1"
-               Style="{StaticResource LabelStyle}"/>
-
-        <Label Content="Пароль"
-               Grid.Row="3"
-               Style="{StaticResource LabelStyle}"/>
-        
-        <Label Content="ID"
                Grid.Row="2"
                Style="{StaticResource LabelStyle}"/>
 
-        <TextBox Style="{StaticResource TextBoxStyle}"
-                 Text="{Binding User.Login}"/>
+        <Label Content="ID"
+               Grid.Row="3"
+               Style="{StaticResource LabelStyle}"/>
+
+        <Label Content="Пароль"
+               Grid.Row="4"
+               Style="{StaticResource LabelStyle}"/>
+
+        <Label Content="Карта"
+               Grid.Row="5"
+               Style="{StaticResource LabelStyle}"/>
 
         <TextBox Grid.Row="1"
+                 Style="{StaticResource TextBoxStyle}"
+                 Text="{Binding User.Login}"/>
+
+        <TextBox Grid.Row="5"
+                 Style="{StaticResource TextBoxStyle}"
+                 Text="{Binding Card.CardNumber}"
+                 HorizontalAlignment="Center"
+                 IsEnabled="{Binding IsTextEnable}"
+                 Width="130"/>
+
+        <ComboBox Grid.Column="1"
+                  Grid.Row="5"
+                  Width="80"
+                  Margin="5"
+                  Height="25"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding DataBase.CardType}"
+                  SelectedItem="{Binding Card.UserCardType}"
+                  SelectedIndex="{Binding Card.UserCartTypeIndex}"/>
+
+        <Button Style="{StaticResource ButtonStyle}" 
+                Command="{Binding RedactBankCardCommand}"
+                Grid.Column="1"
+                Grid.Row="5"
+                Width="90"
+                Height="25"
+                FontSize="10"
+                Content="Редактировать"
+                HorizontalAlignment="Right"/>
+        
+        <TextBox Grid.Row="2"
                  Style="{StaticResource TextBoxStyle}"
                  Text="{Binding User.Email}"/>
         
         <Label Content="{Binding User.ID}"
-               Grid.Row="2"
+               Grid.Row="3"
                Grid.Column="1"
                Style="{StaticResource LabelStyle}"/>
 
 
+        <Button  Background="Transparent"
+                 Click="Close_Click"
+                 HorizontalAlignment="Right"
+                 Grid.Column="1"
+                 Width="50"
+                 Content="X"/>
+        
         <ToggleButton x:Name="TogglePopupButton"
                        Width="150" Height="35" 
-                       Grid.Row="3"
+                       Grid.Row="4"
                        Grid.Column="2"
-                       Background="#FFDCF5E2">
+                       Background="#FF8974FF">
+           
 
             <StackPanel>
                 <TextBlock Text="Изменить пароль"/>
@@ -92,30 +153,34 @@
                         Placement="Center"
                         StaysOpen="False">
 
-                    <StackPanel Background="White"
+                    <StackPanel Background="#FF8974FF"
                                 HorizontalAlignment="Center"
                                 Width="350"
                                 Orientation="Vertical">
 
                         <Border BorderBrush="Black" BorderThickness="2">
-                            <StackPanel Margin="15">
+                                             <StackPanel Margin="15">
 
                                 <Label Style="{StaticResource LabelStyle}"
-                                       Content="Введите новый пароль"/>
+                                       Content="Введите новый пароль"
+                                       HorizontalAlignment="Center"/>
 
                                 <PasswordBox x:Name="Password" Width="210"/>
 
                                 <Label Style="{StaticResource LabelStyle}"
-                                        Content="Введите пароль повторно"/>
+                                       Content="Введите пароль повторно"
+                                       HorizontalAlignment="Center"/>
 
                                 <PasswordBox x:Name="Confirm" Width="210"/>
 
                                 <Button Style="{StaticResource ButtonStyle}"
                                         Command="{Binding SaveNewPasswordCommand}"
+                                        Background="AliceBlue"
+                                        Foreground="#FF765DFF"
                                         Content="Сохранить пароль"
                                         Margin="30"
                                         Height="50"
-                                        Width="100">
+                                        Width="160">
 
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MyConv}">
@@ -133,7 +198,8 @@
 
         <Button Style="{StaticResource ButtonStyle}"
                 Content="Сохранить"
-                Grid.ColumnSpan="2"
+                Grid.Column="2"
+                HorizontalAlignment="Center"
                 Command="{Binding SaveChanges}"/>
 
     </Grid>

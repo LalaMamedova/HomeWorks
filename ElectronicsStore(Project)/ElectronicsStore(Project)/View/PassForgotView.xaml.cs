@@ -16,30 +16,15 @@ using System.Windows.Shapes;
 namespace ElectronicsStore_Project_.View
 {
     /// <summary>
-    /// Interaction logic for UserInfo.xaml
+    /// Interaction logic for PassForgotView.xaml
     /// </summary>
-    public partial class UserInfoView : Window
+    public partial class PassForgotView : Window
     {
-        private bool check = false;
-        public UserInfoView()
+        public PassForgotView()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<UserInfoViewModel>();
 
-        }
-
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            check = true;
-            this.Close();
-        }
-
-        private void UserInfo_Deactivated(object sender, EventArgs e)
-        {
-            if (!check)
-            {
-                this.Close();
-            }
+            DataContext = App.Container.GetInstance<PassForgotViewModel>();
         }
     }
 }

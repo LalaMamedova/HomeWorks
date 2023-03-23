@@ -16,7 +16,7 @@ namespace ElectronicsStore_Project_.Service.Classes
     {
         public static ObservableCollection<Customer> customersList = new();
 
-        public void Add(Customer? customer)
+        public bool Add(Customer? customer)
         {
             if (IsNullble(customer))
             {
@@ -31,7 +31,8 @@ namespace ElectronicsStore_Project_.Service.Classes
                         FileService.Write(json!, "AllCustomers.json");
 
                         IDService.SerializeID(customer.ID++, "CustomersID.json");
-
+                        MessageBox.Show("Вы успешно зарегестрированы");
+                        return true;
                     }
                     else
                         MessageBox.Show("Данный Email уже занят, пожалуйста, введите другой");
@@ -42,7 +43,7 @@ namespace ElectronicsStore_Project_.Service.Classes
             else
                 MessageBox.Show("Введите все данные");
 
-
+            return false;
         }
 
         public void Redact(Customer? customer)
@@ -112,6 +113,19 @@ namespace ElectronicsStore_Project_.Service.Classes
             if (!string.IsNullOrEmpty(customer.Email) && !string.IsNullOrEmpty(customer.Login) && !string.IsNullOrEmpty(customer.Password))
                 return true;
             return false;
+        }
+
+        public string GetPassword(string? Email)
+        {
+            foreach (var customers in customersList)
+            {
+                if (customers.Email == Email)
+                {
+                    return customers.Password;
+                }
+            }
+            return "Такого пользователя нет, попробуйте еще";
+          
         }
     }
 }

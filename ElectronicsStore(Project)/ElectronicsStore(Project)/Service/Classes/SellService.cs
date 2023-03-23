@@ -51,7 +51,7 @@ namespace ElectronicsStore_Project_.Service.Classes
             else if (Electronic.Count == 0)
             {
                 MessageBox.Show("Этого товара нет в наличии" +
-                  "\nПожалуйста, дождитесь пополнение запаса", "Ошибка при покупке", MessageBoxButton.OK, MessageBoxImage.Error);
+                  "\nПожалуйста, дождитесь пополнения запаса", "Ошибка при покупке", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return false;
         }

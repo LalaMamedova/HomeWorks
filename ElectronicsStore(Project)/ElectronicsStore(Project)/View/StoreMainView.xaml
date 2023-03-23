@@ -5,26 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectronicsStore_Project_.View"
         mc:Ignorable="d"
-        Title="StoreMainView" Height="550" Width="800"
+        Title="StoreMainView"
+        Height="530" Width="1000"
+        MaxHeight="600" MaxWidth="1100"
+        MinHeight="400" MinWidth="600"
         WindowStyle="None">
 
 
     <Window.Resources>
 
         <Style x:Key="MyButtonStyle" TargetType ="Button">
-            <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="60"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Margin" Value="0,0,6,0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
         </Style>
 
     </Window.Resources>
 
    
-    <Grid  Background="DarkBlue" >
+    <Grid MouseDown="Grid_MouseDown" >
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD3D6FF" Offset="0.1"/>
+                <GradientStop Color="#FFE8F8FF" Offset="1"/>
+                <GradientStop Color="White" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*" />
             <RowDefinition Height="0.09*"/>
@@ -58,12 +74,13 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
 
-        
 
             <Button Style="{DynamicResource MyButtonStyle}" 
+                    Command="{Binding UserCabinetCommand}"
                     Content="Личный кабинет"
                     Width="120"
-                    Command="{Binding UserCabinetCommand}"/>
+                    Background="#FF6C00CA" 
+                    Foreground="White"/>
 
 
             <Button Style="{DynamicResource MyButtonStyle}" 
@@ -73,8 +90,7 @@
                                 Stretch="Uniform"/>
                 </Button.Background>
             </Button>
-
-
+            
         </StackPanel>
 
         <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}"/>

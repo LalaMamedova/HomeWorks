@@ -1,6 +1,7 @@
 ﻿using ElectronicsStore_Project_.Model;
 using ElectronicsStore_Project_.Service.Classes;
 using ElectronicsStore_Project_.Service.Interfaces;
+using ElectronicsStore_Project_.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -28,6 +29,7 @@ namespace ElectronicsStore_Project_.ViewModel
 
             if (customerService.AllCustomers() != null)
                 CustomerService.customersList = customerService.AllCustomers()!;
+           
         }
 
         public RelayCommand<object> LoginCommand
@@ -58,10 +60,22 @@ namespace ElectronicsStore_Project_.ViewModel
 
         public RelayCommand RegistrationCommand
         {
+            get => new(() => { _navigationService.NavigateTo<RegistrationViewModel>(); });
+        }
+        public RelayCommand PassForgotCommand
+        {
             get => new(() =>
             {
-                _navigationService.NavigateTo<RegistrationViewModel>();
+                var window = new PassForgotView();
+                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                window.ShowDialog();
+               
             });
+        }
+
+        public RelayCommand BackCommand
+        {
+            get => new(() =>{_navigationService.NavigateTo<HomeViewModel>();});
         }
 
     }

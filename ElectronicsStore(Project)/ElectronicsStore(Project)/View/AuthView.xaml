@@ -17,7 +17,6 @@
         <cr:PassConverter x:Key="MyConv"></cr:PassConverter>
 
 
-
         <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Width" Value="400"/>
             <Setter Property="Height" Value="25"/>
@@ -35,6 +34,7 @@
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="BorderBrush" Value="#FFE4FFFD"/>
             <Setter Property="Background" Value=" #FF8974FF"/>
             <Setter Property="Foreground" Value="White"/>
@@ -62,13 +62,14 @@
     </UserControl.Resources>
 
 
-    <Grid Background="#FFC6D8FF">
-
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -84,8 +85,7 @@
                Grid.Row="0"
                Grid.Column="1"
                Grid.ColumnSpan="2"
-               VerticalAlignment="Center" 
-               Foreground="#FF002A7F"/>
+               VerticalAlignment="Center"/>
 
         <Label Content="Логин"
                Grid.Row="1"
@@ -99,6 +99,19 @@
                VerticalAlignment="Center"
                HorizontalAlignment="Right"/>
 
+        <Button Width="60"
+                Height="30"
+                Command="{Binding BackCommand}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                
+
+            <Button.Background>
+                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
+                            Stretch="Uniform"/>
+            </Button.Background>
+
+        </Button>
         <TextBox  Style="{StaticResource MyTextBoxStyle}"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
@@ -113,22 +126,35 @@
                       Grid.ColumnSpan="2"
                       Grid.Row="2"
                       Name="Password"/>
+        
+        
+        <Button  Grid.ColumnSpan="2"
+                 Grid.Column="1"
+                 Grid.Row="3"
+                 HorizontalAlignment="Center"
+                 Width="120"
+                 VerticalAlignment="Center"
+                 BorderBrush="Transparent"
+                 Background="Transparent"
+                 Content="Забыли пароль?"
+                 Command="{Binding PassForgotCommand}"/>
 
-        <Button     Command="{Binding RegistrationCommand}"
-                    Style="{StaticResource MyButtonStyle}"
-                    Content="Регистрация" 
-                    Grid.Row="3"
-                    Grid.Column="2"/>
+        <Button  Command="{Binding RegistrationCommand}"
+                 Style="{StaticResource MyButtonStyle}"
+                 Content="Регистрация" 
+                 Grid.Row="4"
+                 Grid.Column="2"/>
         
 
-        <Button     Style="{StaticResource MyButtonStyle}"
-                    Command="{Binding LoginCommand}"
-                    Content="Вход" 
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Background="#FFFFD1F9" 
-                    Foreground="Black">
-            
+        <Button  Style="{StaticResource MyButtonStyle}"
+                 Command="{Binding LoginCommand}"
+                 Content="Вход" 
+                 Grid.Row="4"
+                 Grid.Column="1"
+                 Background="#FFFFD1F9" 
+                 Foreground="Black" 
+                 BorderBrush="#FF24FFEF">
+
             <Button.CommandParameter>
             <MultiBinding Converter="{StaticResource MyConv}">
                 <Binding ElementName="Password"/>

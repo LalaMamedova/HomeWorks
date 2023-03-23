@@ -33,11 +33,13 @@ namespace AdminPanel.View
             if (check)
             {
                 this.WindowState = WindowState.Normal;
+                MaximazeButton.Content = "▢";
                 check = false;
             }
             else
             {
                 this.WindowState = WindowState.Maximized;
+                MaximazeButton.Content = "■";
                 check = true;
             }
         }

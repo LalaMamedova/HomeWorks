@@ -10,6 +10,7 @@ using Serialize;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,16 +24,18 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
     private readonly INavigateService _navigateService;
     private readonly IMessenger _messenger;
     public Electronic Electronic = new();
-    public string CategoryDescription { get; set; } = DataBase.AllCategory[HomeViewModel.CategoryIndex].Description;
-    public static ObservableCollection<Electronic> SortedByCategory { get; set; } = new();
+
 
     public SearchService SearchService { get; set; } = new();
+    public static string CategoryDescription { get => DataBase.AllCategory[HomeViewModel.CategoryIndex].Description; }
+    public static ObservableCollection<Electronic> SortedByCategory { get; set; } = new();
+  
 
     public ViewModelBase? CurrentViewModel
     {
         get => _currentViewModel!;
         set => Set(ref _currentViewModel, value);
-       
+
     }
     public SelectedCategoryProductsViewModel(INavigateService navigateService, IMessenger messenger)
     {
@@ -44,7 +47,7 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
 
     public RelayCommand BackToCategory
     {
-        get => new(() => { _navigateService.NavigateTo<HomeViewModel>(); });
+        get => new(() => { _navigateService.NavigateTo<HomeViewModel>(); SearchService = new(); });
     }
 
 
@@ -81,7 +84,7 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
                 BasketService.AddToBasket(basket);
             }
 
-           
+
         });
     }
 
@@ -90,10 +93,9 @@ public class SelectedCategoryProductsViewModel : ViewModelBase
         get => new(() =>
         {
             int index = HomeViewModel.CategoryIndex;
-            
+
             SearchService.SearchByName(index);
             SearchService.SearchByPrice(index);
-            SearchService = new();
         });
     }
 

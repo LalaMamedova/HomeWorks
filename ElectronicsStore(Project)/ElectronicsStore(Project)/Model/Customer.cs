@@ -10,6 +10,7 @@ using System.Windows;
 using System.ComponentModel.DataAnnotations;
 using ElectronicsStore_Project_.Service.Classes;
 using System.ComponentModel;
+using MaterialDesignThemes.Wpf;
 
 namespace ElectronicsStore_Project_.Model
 {
@@ -48,7 +49,7 @@ namespace ElectronicsStore_Project_.Model
 
         public string? Password { get; set; } 
         public string? ConfirmPassword { get; set; }
-
+        public BankCard? Card { get; set; } = new();
         public int ID { get; set; }
 
         public bool EmailCheck(string email)

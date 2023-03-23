@@ -35,6 +35,7 @@ namespace ElectronicsStore_Project_
             Container.RegisterSingleton<UserСabinetViewModel>();
             Container.RegisterSingleton<CheckViewModel>();
             Container.RegisterSingleton<BasketViewModel>();
+            Container.RegisterSingleton<PassForgotViewModel>();
             Container.RegisterSingleton<UserInfoViewModel>();
             Container.Register<ProductInfoViewModel>();
 
@@ -43,6 +44,7 @@ namespace ElectronicsStore_Project_
         private void MainStartup()
         {
             var mainView = new StoreMainView();
+            mainView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             mainView.DataContext = Container?.GetInstance<MainStoreViewModel>();
             mainView.ShowDialog();
         }

@@ -45,10 +45,14 @@
                 <View:CheckView></View:CheckView>
             </DataTemplate>
 
-
             <DataTemplate DataType="{x:Type ViewModel:UserInfoViewModel}">
                 <View:UserInfoView></View:UserInfoView>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModel:PassForgotViewModel}">
+                <View:PassForgotView></View:PassForgotView>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

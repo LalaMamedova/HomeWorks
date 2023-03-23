@@ -14,28 +14,45 @@
     <UserControl.Resources>
 
         <cr:PassConverter x:Key="MyConv"></cr:PassConverter>
-        <Style x:Key="MyButtonStyle" TargetType="Button">
+
+        <Style x:Key="MyButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Grid.Row" Value="6"/>
-            <Setter Property="Background" Value="#FFA6D0FF"/>
-            <Setter Property="Foreground" Value="#FF002A7F"/>
             <Setter Property="BorderBrush" Value="#FFE4FFFD"/>
+            <Setter Property="Background" Value=" #FF8974FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
         </Style>
 
-        <Style x:Key="MyTextBoxStyle" TargetType="TextBox">
+
+
+        <Style x:Key="MyTextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Width" Value="300"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
         </Style>
+
 
         <Style x:Key="MyLabelStyle" TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Height" Value="35"></Setter>
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
         </Style>
 
         <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
@@ -45,7 +62,7 @@
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="Grid.ColumnSpan" Value="2"/>
-
+            <Setter Property="FontFamily" Value="Century Gothic"/>
         </Style>
 
     </UserControl.Resources>
@@ -118,7 +135,9 @@
         <Button     Command="{Binding RegisterCommand}"
                     Style="{StaticResource MyButtonStyle}"
                     Content="Регистрироваться" 
-                    Grid.Column="2">
+                    Grid.Column="2"
+                    Background="#FFFFD1F9"
+                    Foreground="Black">
             
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource MyConv}">
@@ -131,7 +150,7 @@
 
         <Button  Command="{Binding LoginCommand}"
                  Style="{StaticResource MyButtonStyle}"
-                 Content="Вход" 
+                 Content="=> Вход" 
                  Grid.Column="1"/>
 
     </Grid>

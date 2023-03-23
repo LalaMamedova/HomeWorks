@@ -11,69 +11,92 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="280px"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Категории" FontSize="25"
-               Grid.ColumnSpan="3"
-               Foreground="White"
-               HorizontalAlignment="Center"/>
+        <ScrollViewer 
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2">
 
-      
-        <ListBox Grid.Row="1"
-                 Grid.RowSpan="3"
-                 Grid.ColumnSpan="3"
+            <StackPanel Margin="0,20,0,0">
+                <ItemsControl ItemsSource="{Binding DataBase.AllElectronics}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate  >
+                            <Border Width="220" Height="220" >
+                                <StackPanel >
+                                    <Border Width="140" Height="100"
+                                            BorderThickness="2">
+
+                                        <Image HorizontalAlignment="Center"
+                                               Stretch="Uniform" 
+                                               Source="{Binding ImgPath}" 
+                                               Cursor="Hand">
+
+                                            <Image.InputBindings>
+                                                <MouseBinding Gesture="LeftClick"
+                                                              Command="{Binding Path=DataContext.ToSelectedProduct,ElementName = HomeUserControl }"
+                                                              CommandParameter="{Binding ID}"/>
+                                            </Image.InputBindings>
+                                        </Image>
+                                    </Border>
+
+                                    <TextBlock Text= "{Binding Name}"
+                                               HorizontalAlignment="Center"/>
+
+                                    <TextBlock Text="{Binding StrPrice}" 
+                                               HorizontalAlignment="Center"/>
+
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+
+        <ListBox Grid.Column="0"
                  Background="Transparent"
                  ItemsSource="{Binding DataBase.AllCategory}"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
             
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Margin="15">
 
-                        <Button 
-                                Width="230"
+                        <Button Width="195"
                                 Height="55"
-                                Margin="15"
                                 CommandParameter="{Binding CategoryName}"
                                 Command="{Binding Path=DataContext.ToSelectedCategory,ElementName = HomeUserControl}">
 
+
                             <Button.Background>
-                                
                                 <ImageBrush ImageSource="{Binding IconPath}"
                                             AlignmentX="Left"
                                             Stretch="Uniform"/>
-
                             </Button.Background>
-                            
+
                             <Button.Content>
                                 <TextBlock 
                                         TextAlignment="Center"
                                         Text="{Binding CategoryName}"  
                                         Padding="80,0,40,0"
-                                        Foreground="White"
                                         TextWrapping="Wrap"/>
 
                             </Button.Content>
-
                         </Button>
-
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

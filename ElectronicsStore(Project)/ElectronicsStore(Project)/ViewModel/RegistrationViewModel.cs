@@ -39,7 +39,6 @@ namespace ElectronicsStore_Project_.ViewModel
 
             var IdFile = IDService.DesirializeID("CustomersID.json");
             iD = IdFile;
-           
         }
         public RelayCommand LoginCommand
         {
@@ -69,10 +68,12 @@ namespace ElectronicsStore_Project_.ViewModel
                             User.ConfirmPassword = confirm.Password;
                             User.ID = iD;
 
-                            _customerService.Add(User);
-                            iD++;
-
-
+                            if (_customerService.Add(User))
+                            {
+                                AuthViewModel.customer = User;
+                                iD++;
+                                _navigationService.NavigateTo<AuthViewModel>();
+                            }
                         }
 
                     }

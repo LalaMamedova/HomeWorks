@@ -1,5 +1,6 @@
 ﻿using ElectronicsStore_Project_.Messanger;
 using ElectronicsStore_Project_.Model;
+using ElectronicsStore_Project_.Service.Classes;
 using ElectronicsStore_Project_.Service.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -20,7 +21,7 @@ namespace ElectronicsStore_Project_.ViewModel
         private ViewModelBase _currentViewModel;
         private readonly IMessenger _messenger;
         private readonly INavigateService _navigateService;
-
+        private readonly InitializationService _initializationService = new();
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
@@ -34,15 +35,9 @@ namespace ElectronicsStore_Project_.ViewModel
             _messenger = messenger;
             _navigateService = navigateService;
 
-
-            var json = FileService.Read(FilePath.path + "AllCategory.json");
-            if (json != null)
-            {
-                DataBase.AllCategory = SerializeLibary.Deserialize<ObservableCollection<Category?>>(json);
-            }
-            
-            for (int i = 0; i < DataBase.AllCategory.Count; i++)
-                DataBase.ElectronicsList.Add(new ObservableCollection<Electronic>());
+            InitializationService.CategoryFromFile();
+            InitializationService.ElectronicsListInitialization();
+            InitializationService.AllElectronicsFromFile();
 
             CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
             _messenger.Register<NavigationMessage>(this, ReceiveMessage);

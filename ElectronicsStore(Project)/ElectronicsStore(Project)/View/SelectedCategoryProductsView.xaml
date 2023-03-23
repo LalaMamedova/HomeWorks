@@ -15,11 +15,10 @@
         <Style x:Key="MyButtonStyle" TargetType ="Button">
             <Setter Property="Width" Value="60" />
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="MyButtonSecondStyle" TargetType ="Button">
-            <Setter Property="Background" Value="DarkSlateBlue" />
+            <Setter Property="Background" Value="#FF8974FF" />
             <Setter Property="Width" Value="110"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Foreground" Value="White"/>
@@ -31,7 +30,6 @@
         <Style x:Key="MyTextBlockStyle" TargetType ="TextBlock">
             <Setter Property="Grid.ColumnSpan" Value="2"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Foreground" Value="White"/>
         </Style>
 
 
@@ -40,19 +38,19 @@
     <Grid>
 
         <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="70px"/>
+            <ColumnDefinition Width="70px"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="55px"/>
+            <RowDefinition Height="30px"/>
+            <RowDefinition Height="25px"/>
+            <RowDefinition Height="25px"/>
+            <RowDefinition Height="30px"/>
             <RowDefinition />
-            <RowDefinition Height="0.2*"/>
+            
         </Grid.RowDefinitions>
 
         <Button Style="{DynamicResource MyButtonStyle}"
@@ -98,7 +96,9 @@
         <Button Grid.ColumnSpan="2"
                 Content="Поиск"
                 Style="{StaticResource MyButtonSecondStyle}"
-                Command="{Binding SearchCommand}"/>
+                Command="{Binding SearchCommand}"
+                VerticalAlignment="Bottom"
+                Height="40"/>
 
 
         <ScrollViewer Grid.Row="1"
@@ -130,11 +130,11 @@
 
                                     <TextBlock Text= "{Binding Name}"
                                                HorizontalAlignment="Center"
-                                               Foreground="White" />
+                                               FontFamily="Century Gothic" />
 
                                     <TextBlock Text="{Binding StrPrice}" 
                                                HorizontalAlignment="Center"
-                                               Foreground="White"/>
+                                               FontFamily="Century Gothic"/>
 
               
 
@@ -156,5 +156,6 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
+        
     </Grid>
 </UserControl>

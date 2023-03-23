@@ -12,7 +12,6 @@
     <UserControl.Resources>
 
         <Style x:Key="MyLabel" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -20,13 +19,29 @@
             <Setter Property="FontFamily" Value="Comics Sans MS"/>
         </Style>
 
+
         <Style x:Key="MyButtonStyle" TargetType ="Button">
             <Setter Property="Width" Value="60" />
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Foreground" Value="White"/>
         </Style>
+
+        <Style x:Key="SellButton" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderBrush" Value="#FFF7E4FF"/>
+            <Setter Property="Background" Value=" #FF8974FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="2" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
     </UserControl.Resources>
-    
+
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
@@ -55,14 +70,15 @@
         <StackPanel  
                Grid.Row="1"
                Grid.RowSpan="3">
-            
+
             <Image 
                 Source="{Binding Electronic.ImgPath}"
                 Margin="5"
                 Stretch="Fill"
                 Height="350"/>
+            
         </StackPanel>
-        
+
         <TextBlock 
                Text="{Binding FullName}"  
                Style="{StaticResource MyLabel}"
@@ -71,47 +87,45 @@
                Grid.Column="1"/>
 
         <StackPanel Grid.Column="1"
-               Grid.Row="3"
-               Orientation="Vertical">
-            
+                    Grid.Row="3"
+                    Orientation="Vertical">
+
             <Label VerticalAlignment="Top"
                Content="Цена"/>
 
-            <TextBlock 
-               Text="{Binding Electronic.StrPrice}"  
-               Style="{StaticResource MyLabel}"
-               FontSize="24"
-               VerticalAlignment="Top" 
-               FontWeight="Bold"/>
+            <TextBlock   Text="{Binding Electronic.StrPrice}"  
+                         Style="{StaticResource MyLabel}"
+                         FontSize="24"
+                         VerticalAlignment="Top" 
+                         FontWeight="Bold"/>      
 
-            <TextBlock Background="#FF5F8EFF"
-               Text="{Binding LeftCount}"  
-               Style="{StaticResource MyLabel}"
-               VerticalAlignment="Center"
-               Margin="20"/>
+
+            <TextBlock Background="#FF8974FF"
+                       Foreground="White"
+                       Text="{Binding LeftCount}"  
+                       Style="{StaticResource MyLabel}"
+                       VerticalAlignment="Center"
+                       Margin="20"/>    
         </StackPanel>
-        
+
         <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Grid.Column="2" Grid.Row="2"
                     Margin="0,25,0,0">
 
-            <Button Width="100" Height="25" 
+            <Button
                     Content="Купить"
-                    FontSize="16"
-                    Background="BlueViolet"
+                    Style="{StaticResource SellButton}"
                     Command="{Binding BuyCommand}"
                     CommandParameter="{Binding Electronic}"/>
 
-            <Button Width="100" Height="25"
+            <Button Style="{StaticResource SellButton}"
                     Margin="20,0,0,0"
-                    FontSize="16"
                     Content="В корзину"
-                    Background="BlueViolet"
                     Command="{Binding ToBasketCommand}"
                     CommandParameter="{Binding Electronic}"/>
-            
+
         </StackPanel>
 
 
@@ -121,10 +135,11 @@
                      Grid.Column="2" 
                      Grid.Row="1"
                      Width="210" Height="35" 
-                     Background="BlueViolet"
+                     Background="#FF8974FF"
                      VerticalAlignment="Top">
 
             <StackPanel >
+                
                 <TextBlock Text="Показать характеристики"/>
 
                 <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
@@ -132,33 +147,32 @@
                         StaysOpen="False"
                         PopupAnimation="Slide">
 
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        
+                        <StackPanel Width="210"
+                                    HorizontalAlignment="Center"
+                                    Background="#DBDDFF">
 
-                    <StackPanel Width="210"
-                                    Background="DarkBlue"
-                                    HorizontalAlignment="Center">
+                            <StackPanel Orientation="Vertical">
 
-                        <Label Content="Процессор" 
-                                   Foreground="White"
-                                   Margin="10"/>
+                                <Label Content="Процессор" 
+                                       Margin="0,0,10,0" />
 
-                        <TextBlock Text="{Binding Electronic.Processor}"  
-                                       Style="{StaticResource MyLabel}"
-                                       Grid.Row="3"
-                                       Grid.Column="2"/>
+                                <TextBlock Text="{Binding Electronic.Processor}"  
+                                           Style="{StaticResource MyLabel}" />
+                            </StackPanel>
 
+                            <StackPanel Orientation="Vertical">
 
-                        <Label Content="ID" 
-                                   Foreground="White"
-                                   Margin="10"/>
+                                <Label Content="ID" 
+                                       Margin="0,0,10,0"/>
 
-                        <TextBlock Text="{Binding Electronic.ID}"  
-                                       Style="{StaticResource MyLabel}"
-                                       Grid.Row="3"
-                                       Grid.Column="2"
-                                       HorizontalAlignment="Left"/>
-
-                    </StackPanel>
-
+                                <TextBlock Text="{Binding Electronic.ID}"  
+                                           Style="{StaticResource MyLabel}"/>
+                            </StackPanel>
+                            
+                        </StackPanel>
+                    </Border>
                 </Popup>
             </StackPanel>
         </ToggleButton>

@@ -74,6 +74,7 @@
                      Style="{DynamicResource MyButtonStyle}"/>
 
             <Button  Content="▩"
+                     Name="MaximazeButton"
                      Click="Maximize_Click"
                      Style="{DynamicResource MyButtonStyle}"/>
 

@@ -27,7 +27,7 @@
 
     </UserControl.Resources>
     
-    <Grid Background="White">
+    <Grid >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*"/>
@@ -81,7 +81,7 @@
 
                                                 <StackPanel Background="White"
                                                             HorizontalAlignment="Center"
-                                                            Width="360">
+                                                            Width="420">
                                                     
                                                     <DataGrid Name="dataGrid" ItemsSource="{Binding Basket }" 
                                                               AutoGenerateColumns="False"  
@@ -89,15 +89,15 @@
                                                               SelectionUnit="CellOrRowHeader" >
 
                                                         <DataGrid.Columns>
-                                                            <DataGridTextColumn Header="Название" Width="100"
+                                                            <DataGridTextColumn Header="Название" Width="120"
                                                                                 Binding="{Binding Electronic.Name}"/>
                                                             <DataGridTextColumn Header="Категория" Width="100"
                                                                                 Binding="{Binding Electronic.Category}"/>
-                                                            <DataGridTextColumn Header="Цена" Width="50" 
+                                                            <DataGridTextColumn Header="Цена" Width="70" 
                                                                                 Binding="{Binding Electronic.Price}" />
                                                             <DataGridTextColumn Header="Количество" Width="50"  
                                                                                 Binding="{Binding ThisElectronicCount}"/>
-                                                            <DataGridTextColumn Header="Сумма" Width="50" 
+                                                            <DataGridTextColumn Header="Сумма" Width="70" 
                                                                                 Binding="{Binding ThisElectronicPrice}"/>
                                                         </DataGrid.Columns>
                                                     </DataGrid>
