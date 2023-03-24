@@ -86,7 +86,7 @@
             <Button Style="{DynamicResource MyButtonStyle}" 
                     Command="{Binding BasketCommand}">
                 <Button.Background>
-                    <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Back.png"
+                    <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Basket.png"
                                 Stretch="Uniform"/>
                 </Button.Background>
             </Button>

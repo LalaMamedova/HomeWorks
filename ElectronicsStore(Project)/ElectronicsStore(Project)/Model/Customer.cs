@@ -27,7 +27,7 @@ namespace ElectronicsStore_Project_.Model
                 if (EmailCheck(value))
                     email = value;
                 else
-                    MessageBox.Show("Email должен содержать '@' и '.'", "Ошибка введение email");
+                    MessageBox.Show("Неправильно введенный Email", "Ошибка введение email");
             }
         }
         public string Login
@@ -55,11 +55,18 @@ namespace ElectronicsStore_Project_.Model
         public bool EmailCheck(string email)
         {
             var checkemail = new EmailAddressAttribute();
-            if (!checkemail.IsValid(email) || !email.Contains('.') || string.IsNullOrEmpty(email)) { return false; }
+            if (!checkemail.IsValid(email) || !email.Contains('.') || string.IsNullOrEmpty(email) || !AfterDotCheck(email)) { return false; }
             return true;
 
         }
 
+        private bool AfterDotCheck(string email)
+        {
+            int index = email.IndexOf('.');
+         
+            if (email.Length - index >= 3 ) { return true; }
+            return false;
+        }
         
         protected void NotifyPropertyChanged(string propertyName)
         {

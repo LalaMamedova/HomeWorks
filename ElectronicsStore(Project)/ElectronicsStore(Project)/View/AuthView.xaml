@@ -34,7 +34,7 @@
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="BorderBrush" Value="#FFE4FFFD"/>
             <Setter Property="Background" Value=" #FF8974FF"/>
             <Setter Property="Foreground" Value="White"/>
@@ -64,11 +64,11 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.6*"/>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
 
         </Grid.RowDefinitions>
 
@@ -132,8 +132,8 @@
                  Grid.Column="1"
                  Grid.Row="3"
                  HorizontalAlignment="Center"
-                 Width="120"
                  VerticalAlignment="Center"
+                 FontSize="20"
                  BorderBrush="Transparent"
                  Background="Transparent"
                  Content="Забыли пароль?"

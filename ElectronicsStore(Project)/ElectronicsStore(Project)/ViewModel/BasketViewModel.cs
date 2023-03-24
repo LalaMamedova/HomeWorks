@@ -29,14 +29,14 @@ namespace ElectronicsStore_Project_.ViewModel
         public Price TotalCost { get; set; } = new(0);
 
 
-        public BasketViewModel(INavigateService navigateService, IMessenger messenger = null)
+        public BasketViewModel(INavigateService navigateService, IMessenger messenger)
         {
             _navigateService = navigateService;
             _messenger = messenger;
 
             _messenger.Register<DataMessager>(this, message =>
             {
-                if(message.Data.GetType().Name == TotalCost.TotalPrice.GetType().Name )
+                if(message.Data.GetType().Name == TotalCost.TotalPrice.GetType().Name)
                     TotalCost.TotalPrice = (float)message.Data;
             });
         }

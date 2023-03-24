@@ -13,9 +13,9 @@ namespace ElectronicsStore_Project_.Model
     {
         private float thisElectronicPrice;
         private int thisElectronicCount = 1;
+        public Electronic Electronic { get; set; } = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public Electronic Electronic { get; set; } = new();
         
         public int ThisElectronicCount 
         { 
