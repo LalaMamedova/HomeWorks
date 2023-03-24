@@ -22,12 +22,14 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
         </Style>
 
         
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="200"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
             <Setter Property="Grid.Column" Value="1"/>
             <Style.Resources>
                 <Style TargetType="Border">
@@ -97,7 +99,7 @@
 
         <TextBox Grid.Row="5"
                  Style="{StaticResource TextBoxStyle}"
-                 Text="{Binding Card.CardNumber}"
+                 Text="{Binding User.Card.CardNumber}"
                  HorizontalAlignment="Center"
                  IsEnabled="{Binding IsTextEnable}"
                  Width="130"/>
@@ -109,8 +111,8 @@
                   Height="25"
                   HorizontalAlignment="Left"
                   ItemsSource="{Binding DataBase.CardType}"
-                  SelectedItem="{Binding Card.UserCardType}"
-                  SelectedIndex="{Binding Card.UserCartTypeIndex}"/>
+                  SelectedItem="{Binding User.Card.UserCardType}"
+                  SelectedIndex="{Binding User.Card.UserCartTypeIndex}"/>
 
         <Button Style="{StaticResource ButtonStyle}" 
                 Command="{Binding RedactBankCardCommand}"
@@ -127,6 +129,7 @@
                  Text="{Binding User.Email}"/>
         
         <Label Content="{Binding User.ID}"
+               HorizontalAlignment="Center"
                Grid.Row="3"
                Grid.Column="1"
                Style="{StaticResource LabelStyle}"/>

@@ -56,7 +56,7 @@
                        Command="{Binding ShowPasswordCommand}">
 
             <StackPanel>
-                <TextBlock Text="Посмотреть пароль"/>
+                <TextBlock Text="Пароль"/>
 
                 <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
                         Placement="Center"

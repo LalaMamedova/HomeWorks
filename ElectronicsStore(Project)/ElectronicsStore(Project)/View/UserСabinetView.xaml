@@ -35,7 +35,7 @@
                 Command="{Binding ToChecksCommand}">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Check.png"
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Check.png"
                             AlignmentY="Top"
                             Stretch="Uniform"/>
             </Button.Background>
@@ -47,11 +47,10 @@
                 Command="{Binding ToBasketCommand}">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Basket.png"
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Basket.png"
                             AlignmentY="Top"
                             Stretch="Uniform"/>
             </Button.Background>
-
         </Button>
 
         <Button Grid.Row="1"
@@ -59,7 +58,7 @@
                 Command="{Binding UserInfoCommand}">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\UserInfo.png"
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\UserInfo.png"
                             AlignmentY="Top"
                             Stretch="Uniform"/>
             </Button.Background>
@@ -72,7 +71,7 @@
                 Command="{Binding BackCommand}">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Category.png"
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Category.png"
                             AlignmentY="Top"
                             Stretch="Uniform"/>
             </Button.Background>

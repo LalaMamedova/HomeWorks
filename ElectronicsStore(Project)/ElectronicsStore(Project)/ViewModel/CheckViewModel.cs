@@ -34,10 +34,6 @@ namespace ElectronicsStore_Project_.ViewModel
             {
                 Check newCheck = new();
 
-                for (int i = 0; i < 5; i++)
-                    newCheck.Barcode += _randomNumbers.Next(1, 600).ToString();
-                
-
                 if (message.Data.GetType().Name == typeof(ObservableCollection<Basket>).Name)
                 {
                     foreach (Basket item in (ObservableCollection<Basket>)message.Data)
@@ -53,13 +49,7 @@ namespace ElectronicsStore_Project_.ViewModel
                 else if(SellConfirm.IsConfirmed == true)
                 {
                     SellConfirm? sellConfirm = message.Data as SellConfirm;
-
-                    newCheck.Basket.Add(sellConfirm!.Basket);
-
-                    newCheck.Price = sellConfirm.Basket.Electronic.Price;
-                    CheckList.Add(newCheck);
-
-                    SellConfirm.IsConfirmed = false;
+                    OnePrudct(newCheck, sellConfirm.Basket);
                 }
             });
         }
@@ -71,6 +61,17 @@ namespace ElectronicsStore_Project_.ViewModel
         }
 
         public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);
+
+
+        private void OnePrudct(Check newCheck, Basket sellConfirm)
+        {
+            newCheck.Basket.Add(sellConfirm!);
+
+            newCheck.Price = sellConfirm.Electronic.Price;
+            CheckList.Add(newCheck);
+
+            SellConfirm.IsConfirmed = false;
+        }
 
         public RelayCommand BackCommand
         {

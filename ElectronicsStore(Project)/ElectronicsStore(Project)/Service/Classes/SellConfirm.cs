@@ -16,12 +16,7 @@ namespace ElectronicsStore_Project_.Service.Classes
         {
             Basket.Electronic = electronic;
             Basket.ThisElectronicPrice = electronic.Price;
-            IsConfirmed = true;
         }
         public SellConfirm(){}
-
-
-
-
     }
 }

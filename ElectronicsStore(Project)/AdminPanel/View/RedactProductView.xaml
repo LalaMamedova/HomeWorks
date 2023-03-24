@@ -80,7 +80,7 @@
                 Grid.Column="0"
                 Width="90">
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Back.png"
                             Stretch="Uniform"/>
             </Button.Background>
         </Button>
@@ -145,7 +145,7 @@
                     Content="Сохранить" 
                     Foreground="White"
                     Background="#FF8974FF" 
-                    Command="{Binding SaveButton}" />
+                    Command="{Binding SaveCommand}" />
 
 
             <Button Margin="10"

@@ -23,7 +23,7 @@ namespace AdminPanel.Model
         public string? Category { get; set; }
 
         //[Required]
-        public string ImgPath { get; set; } = @"C:\Users\HP\Desktop\Project\Electronics.jpg";
+        public string ImgPath { get; set; } = @"D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Electronics.jpg";
         public string? Processor { get; set; }
         public string? Memory { get; set; }
         public int CategoryIndex { get; set; }

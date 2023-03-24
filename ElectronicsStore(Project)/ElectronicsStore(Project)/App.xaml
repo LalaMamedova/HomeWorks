@@ -53,6 +53,10 @@
                 <View:PassForgotView></View:PassForgotView>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type ViewModel:BankCardViewModel}">
+                <View:BankCardView></View:BankCardView>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

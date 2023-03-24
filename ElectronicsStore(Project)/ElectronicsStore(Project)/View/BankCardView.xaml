@@ -1,0 +1,104 @@
+﻿<Window x:Class="ElectronicsStore_Project_.View.BankCardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElectronicsStore_Project_.View"
+        xmlns:ViewModel="clr-namespace:ElectronicsStore_Project_.ViewModel"
+        mc:Ignorable="d"
+        Title="BankCardView" Height="250" Width="500">
+
+    <Window.Resources>
+
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+        </Style>
+
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Background" Value="#FFFFD8FE"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="BorderBrush" Value="#FFE4FFFD"/>
+            <Setter Property="Background" Value=" #FF8974FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+
+        </Style>
+
+    </Window.Resources>
+    
+    <Grid  Background="#FFFFBAD0">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Style="{StaticResource LabelStyle}"
+               Content="Введите данные от карты"/>
+
+
+        <ComboBox Grid.Row="1"
+                  Width="90"
+                  Margin="5"
+                  Height="25"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding DataBase.CardType}"
+                  SelectedItem="{Binding Card.UserCardType}"
+                  SelectedIndex="{Binding Card.UserCartTypeIndex}"/> 
+                 
+        
+        <TextBox Style="{StaticResource TextBoxStyle}"
+                 Text="{Binding Card.CardNumber}"
+                 Grid.Row="1"/>
+
+        <StackPanel Grid.Row ="2"
+                    Grid.ColumnSpan="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Width="255">
+
+            <Button Style="{StaticResource ButtonStyle}"
+                    Content="Подтвердить"
+                    Command="{Binding SellConfirmedCommand }"
+                    Click="Button_Click">
+            </Button>
+
+
+            <Button Style="{StaticResource ButtonStyle}"
+                    Content="Отменить"
+                    Margin="15,0,0,0"
+                    Click="Button_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

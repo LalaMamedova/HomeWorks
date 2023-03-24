@@ -12,6 +12,8 @@ namespace ElectronicsStore_Project_.Model
     {
         private float totalPrice;
         public event PropertyChangedEventHandler? PropertyChanged;
+        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         public float TotalPrice
         {
             get => totalPrice;
@@ -23,7 +25,6 @@ namespace ElectronicsStore_Project_.Model
         }
 
       
-        protected void NotifyPropertyChanged(string propertyName)=>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         
 
         public Price(float startPrice)

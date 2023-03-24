@@ -10,7 +10,7 @@ namespace ElectronicsStore_Project_.Model
     public class Check
     {
         public ObservableCollection<Basket> Basket { get; set; } = new();
-        public string? Barcode { get; set; }
+        public string? Barcode { get; set; } = Guid.NewGuid().ToString();
         public float Price { get; set; }
 
         public override string ToString()

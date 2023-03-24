@@ -2,6 +2,7 @@
 using ElectronicsStore_Project_.Model;
 using ElectronicsStore_Project_.Service.Classes;
 using ElectronicsStore_Project_.Service.Interfaces;
+using ElectronicsStore_Project_.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -75,10 +76,20 @@ namespace ElectronicsStore_Project_.ViewModel
             get => new(param =>
             {
                 bool countRes = SellService.IsSoldOut(Electronic);
+
                 if (countRes && UserСabinetViewModel.UsLogined == true)
                 {
                     SellConfirm sellConfirm = new(Electronic);
-                    _messenger.Send(new DataMessager() { Data = sellConfirm });
+                    _messenger.Send(new DataMessager() { Data = AuthViewModel.customer.Card! });
+
+                    BankCardView bankCardView = new BankCardView();
+                    bankCardView.ShowDialog();
+
+                    if (SellConfirm.IsConfirmed == true)
+                    {
+                        _messenger.Send(new DataMessager() { Data = sellConfirm });
+                        SellConfirm.IsConfirmed = false;
+                    }
                 }
 
                 else if (UserСabinetViewModel.UsLogined == false && countRes)

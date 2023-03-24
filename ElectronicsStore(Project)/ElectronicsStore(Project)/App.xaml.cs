@@ -37,6 +37,7 @@ namespace ElectronicsStore_Project_
             Container.RegisterSingleton<BasketViewModel>();
             Container.RegisterSingleton<PassForgotViewModel>();
             Container.RegisterSingleton<UserInfoViewModel>();
+            Container.RegisterSingleton<BankCardViewModel>();
             Container.Register<ProductInfoViewModel>();
 
         }

@@ -22,27 +22,12 @@ namespace ElectronicsStore_Project_.ViewModel
         private readonly IMessenger _messenger;
         private readonly ICustomerService _customerService;
         private bool isTextEnable = false;
-        private BankCard card = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
-        public BankCard Card
-        { 
-            get => card;
-            set 
-            {
-                card = value;
-
-                if (User.Card == null)
-                {
-                    card = value;
-                    User.Card = value;
-                }
-                else card = User.Card;
-            }     
-        }
+       
         public Customer User { get; set; } = new();
         public DataBase DataBase { get; set; } = new();
         public bool IsTextEnable { get => isTextEnable; set { isTextEnable = value; NotifyPropertyChanged(nameof(IsTextEnable)); } }
@@ -96,7 +81,10 @@ namespace ElectronicsStore_Project_.ViewModel
         {
             get => new(() =>
             {
-                IsTextEnable = true;
+                if (IsTextEnable == true)
+                    IsTextEnable = false;
+                else
+                    IsTextEnable = true;
             });
         }
     }

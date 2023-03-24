@@ -61,7 +61,7 @@
                 VerticalAlignment="Top">
 
             <Button.Background>
-                <ImageBrush ImageSource="C:\Users\HP\Desktop\Project\Back.png"
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Back.png"
                             Stretch="Uniform"/>
             </Button.Background>
 

@@ -70,7 +70,8 @@
                 Grid.ColumnSpan="2">
 
             <Button.Background>
-                <ImageBrush ImageSource="/View/340.png" Stretch="Uniform"/>
+                <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Back.png"
+                            Stretch="Uniform"/>
             </Button.Background>
         </Button>
 

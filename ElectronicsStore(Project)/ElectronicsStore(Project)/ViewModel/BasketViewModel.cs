@@ -2,6 +2,7 @@
 using ElectronicsStore_Project_.Model;
 using ElectronicsStore_Project_.Service.Classes;
 using ElectronicsStore_Project_.Service.Interfaces;
+using ElectronicsStore_Project_.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -98,17 +99,23 @@ namespace ElectronicsStore_Project_.ViewModel
                 var res = param.Count;
                 if (res > 0)
                 {
-                    MessageBoxResult dialog = MessageBox.Show("Вы уверены что хотите купить?", "Покупка", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                    if (dialog == MessageBoxResult.Yes && UserСabinetViewModel.UsLogined == true)
+                    if (UserСabinetViewModel.UsLogined == true)
                     {
-                        _messenger.Send(new DataMessager() { Data = param });
-                        SellService.Rewrite();
-                        Basket.Clear();
-                        TotalCost.TotalPrice = 0;
+                        _messenger.Send(new DataMessager() { Data = AuthViewModel.customer.Card! });
+                        BankCardView bankCardView = new BankCardView();
+                        bankCardView.ShowDialog();
+
+                        if (SellConfirm.IsConfirmed == true)
+                        {
+                            _messenger.Send(new DataMessager() { Data = param });
+                            SellService.Rewrite();
+                            Basket.Clear();
+                            TotalCost.TotalPrice = 0;
+                            SellConfirm.IsConfirmed = false;
+                        }
                     }
 
-                    else if(UserСabinetViewModel.UsLogined == false)
+                    else if (UserСabinetViewModel.UsLogined == false)
                     {
                         MessageBox.Show("Войдите прежде чем подтвердить покупку");
                     }
