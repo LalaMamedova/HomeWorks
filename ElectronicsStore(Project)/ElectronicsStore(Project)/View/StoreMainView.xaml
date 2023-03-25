@@ -19,8 +19,9 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="60"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Height" Value="36"/>
             <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="BorderThickness" Value="2"></Setter>
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />
@@ -42,8 +43,7 @@
         </Grid.Background>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.08*" />
-            <RowDefinition Height="0.09*"/>
+            <RowDefinition Height="0.09*" />
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -70,17 +70,30 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="1"
+        <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-
+                    HorizontalAlignment="Left">
 
             <Button Style="{DynamicResource MyButtonStyle}" 
                     Command="{Binding UserCabinetCommand}"
-                    Content="Личный кабинет"
-                    Width="120"
-                    Background="#FF6C00CA" 
-                    Foreground="White"/>
+                    Margin="5 0 10 0"
+                    Width="170">
+
+                <Button.Background>
+                    <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\PrivateCabinet.png"
+                                AlignmentX="Left"
+                                Stretch="Uniform"/>
+                </Button.Background>
+
+                <Button.Content>
+                    <TextBlock Padding="40 0 80 0"
+                               Text="Личный кабинет"  
+                               FontSize="15"/>
+
+                </Button.Content>
+            </Button>
+
+          
 
 
             <Button Style="{DynamicResource MyButtonStyle}" 

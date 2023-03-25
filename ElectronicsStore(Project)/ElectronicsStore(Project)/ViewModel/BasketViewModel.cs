@@ -117,7 +117,7 @@ namespace ElectronicsStore_Project_.ViewModel
 
                     else if (UserСabinetViewModel.UsLogined == false)
                     {
-                        MessageBox.Show("Войдите прежде чем подтвердить покупку");
+                        _navigateService.NavigateTo<AuthViewModel>();
                     }
                 }
                 else

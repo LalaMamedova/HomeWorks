@@ -88,6 +88,8 @@ namespace ElectronicsStore_Project_.ViewModel
                     if (SellConfirm.IsConfirmed == true)
                     {
                         _messenger.Send(new DataMessager() { Data = sellConfirm });
+                        Electronic.Count -= 1;
+                        SellService.Rewrite();
                         SellConfirm.IsConfirmed = false;
                     }
                 }

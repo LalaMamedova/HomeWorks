@@ -105,15 +105,17 @@
                       Grid.RowSpan="5" 
                       Grid.Column="2">
 
-            <StackPanel  Margin="0,20,0,0">
+            <StackPanel Margin="15">
 
                 <ItemsControl ItemsSource="{Binding SearchService.Sorted}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate  >
-                            <Border Width="220" Height="220" >
+                            <Border Width="220" Height="180" 
+                                    BorderThickness="2"
+                                    BorderBrush="White"
+                                    Margin="10">
                                 <StackPanel >
-                                    <Border Width="140" Height="100"
-                                            BorderThickness="2">
+                                    <Border Width="140" Height="90" Margin="8">
                                         
                                         <Image HorizontalAlignment="Center"
                                                Stretch="Uniform" 

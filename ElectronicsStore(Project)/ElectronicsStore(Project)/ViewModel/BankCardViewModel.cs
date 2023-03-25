@@ -20,8 +20,6 @@ namespace ElectronicsStore_Project_.ViewModel
         public BankCard Card { get; set; } = new();
         public DataBase DataBase { get; set; } = new();
 
-
-
         public BankCardViewModel(IMessenger messenger)
         {
             _messenger = messenger;
@@ -29,7 +27,9 @@ namespace ElectronicsStore_Project_.ViewModel
             _messenger.Register<DataMessager>(this, message =>
             {
                 if (message.Data.GetType().Name == typeof(BankCard).Name)
+                {
                     Card = (BankCard)message.Data;
+                }
             });
         }
 
@@ -38,6 +38,7 @@ namespace ElectronicsStore_Project_.ViewModel
             get => new(() =>
             {
                 SellConfirm.IsConfirmed = true;
+                _messenger.Send(new DataMessager() { Data = Card.CardNumber! });
             });
         }
         

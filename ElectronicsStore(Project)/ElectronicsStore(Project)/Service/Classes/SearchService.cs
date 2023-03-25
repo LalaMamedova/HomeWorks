@@ -37,7 +37,7 @@ namespace ElectronicsStore_Project_.Service.Classes
             {
                 for (int i = 0; i < DataBase.ElectronicsList[index].Count; i++)
                 {
-                    if (DataBase.ElectronicsList[index][i].Name != ElectronicName)
+                    if (!DataBase.ElectronicsList[index][i].Contain(ElectronicName))
                     {
                         Sorted.RemoveAt(i);
                         i--;

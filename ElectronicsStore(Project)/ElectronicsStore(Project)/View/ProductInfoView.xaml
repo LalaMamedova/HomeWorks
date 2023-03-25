@@ -26,16 +26,18 @@
         </Style>
 
         <Style x:Key="SellButton" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="BorderBrush" Value="#FFF7E4FF"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderBrush" Value="#FFEDE4FF"/>
+            <Setter Property="BorderThickness" Value="2.5"/>
+
             <Setter Property="Background" Value=" #FF8974FF"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="#FFC1F2FF"/>
             <Setter Property="FontFamily" Value="Century Gothic"/>
             <Style.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="2" />
+                    <Setter Property="CornerRadius" Value="8" />
                 </Style>
             </Style.Resources>
         </Style>
@@ -44,7 +46,7 @@
 
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.1*"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -53,6 +55,7 @@
             <RowDefinition Height="0.16*"/>
             <RowDefinition Height="0.55*"/>
             <RowDefinition/>
+            
         </Grid.RowDefinitions>
 
         <Button Style="{DynamicResource MyButtonStyle}"
@@ -67,24 +70,27 @@
 
         </Button>
 
-        <StackPanel  
-               Grid.Row="1"
-               Grid.RowSpan="3">
+        <Grid Margin="15" 
+              Grid.Row="1"
+              Grid.Column="0"  
+              Grid.RowSpan="2">
+            <Border>
+                <Border.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="{Binding Electronic.ImgPath}"/>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" BlurRadius="10"/>
+                </Border.Effect>
+            </Border>
+           
+        </Grid>
 
-            <Image 
-                Source="{Binding Electronic.ImgPath}"
-                Margin="5"
-                Stretch="Fill"
-                Height="350"/>
-            
-        </StackPanel>
+        <TextBlock  Text="{Binding FullName}"  
+                    Style="{StaticResource MyLabel}"
+                    FontSize="25"
+                    Grid.Row="1"
+                    Grid.Column="1"/> 
 
-        <TextBlock 
-               Text="{Binding FullName}"  
-               Style="{StaticResource MyLabel}"
-               FontSize="25"
-               Grid.Row="1"
-               Grid.Column="1"/>
 
         <StackPanel Grid.Column="1"
                     Grid.Row="3"
@@ -97,15 +103,15 @@
                          Style="{StaticResource MyLabel}"
                          FontSize="24"
                          VerticalAlignment="Top" 
-                         FontWeight="Bold"/>      
+                         FontWeight="Bold"/>
 
 
-            <TextBlock Background="#FF8974FF"
-                       Foreground="White"
+            <TextBlock Foreground="Red"
+                       
                        Text="{Binding LeftCount}"  
                        Style="{StaticResource MyLabel}"
                        VerticalAlignment="Center"
-                       Margin="20"/>    
+                       Margin="20" FontWeight="Bold"/>    
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" 
@@ -134,12 +140,13 @@
         <ToggleButton x:Name="TogglePopupButton"
                      Grid.Column="2" 
                      Grid.Row="1"
+                     FontSize="15"
                      Width="210" Height="35" 
                      Background="#FF8974FF"
                      VerticalAlignment="Top">
 
             <StackPanel >
-                
+
                 <TextBlock Text="Показать характеристики"/>
 
                 <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
@@ -148,7 +155,7 @@
                         PopupAnimation="Slide">
 
                     <Border BorderBrush="Black" BorderThickness="1">
-                        
+
                         <StackPanel Width="210"
                                     HorizontalAlignment="Center"
                                     Background="#DBDDFF">
@@ -170,12 +177,11 @@
                                 <TextBlock Text="{Binding Electronic.ID}"  
                                            Style="{StaticResource MyLabel}"/>
                             </StackPanel>
-                            
+
                         </StackPanel>
                     </Border>
                 </Popup>
             </StackPanel>
         </ToggleButton>
-
     </Grid>
 </UserControl>

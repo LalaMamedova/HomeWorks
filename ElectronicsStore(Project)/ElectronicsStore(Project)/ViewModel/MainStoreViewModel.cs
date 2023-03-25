@@ -9,6 +9,8 @@ using Serialize;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +23,13 @@ namespace ElectronicsStore_Project_.ViewModel
         private ViewModelBase _currentViewModel;
         private readonly IMessenger _messenger;
         private readonly INavigateService _navigateService;
-        private readonly InitializationService _initializationService = new();
+
+
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
             set => Set(ref _currentViewModel, value);
+
         }
 
         public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);

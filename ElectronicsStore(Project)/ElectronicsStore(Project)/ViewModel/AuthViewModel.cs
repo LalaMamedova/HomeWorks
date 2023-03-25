@@ -29,7 +29,6 @@ namespace ElectronicsStore_Project_.ViewModel
 
             if (customerService.AllCustomers() != null)
                 CustomerService.customersList = customerService.AllCustomers()!;
-           
         }
 
         public RelayCommand<object> LoginCommand

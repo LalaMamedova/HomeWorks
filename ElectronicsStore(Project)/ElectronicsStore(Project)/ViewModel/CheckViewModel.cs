@@ -8,22 +8,24 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 
 namespace ElectronicsStore_Project_.ViewModel
 {
-    public class CheckViewModel:ViewModelBase
+    public class CheckViewModel : ViewModelBase
     {
-        public static ObservableCollection<Check> CheckList { get; set; } = new();
-
         private ViewModelBase? _currentViewModel;
         private readonly INavigateService _navigateService;
         private readonly IMessenger _messenger;
-        private readonly Random _randomNumbers = new();
+        public Check NewCheck;
+        
+        public static ObservableCollection<Check> CheckList { get; set; } = new();
 
         public CheckViewModel(INavigateService navigateService, IMessenger messenger)
         {
@@ -32,25 +34,31 @@ namespace ElectronicsStore_Project_.ViewModel
 
             _messenger.Register<DataMessager>(this, message =>
             {
-                Check newCheck = new();
 
                 if (message.Data.GetType().Name == typeof(ObservableCollection<Basket>).Name)
                 {
                     foreach (Basket item in (ObservableCollection<Basket>)message.Data)
                     {
-                        newCheck.Basket.Add(item);
+                        NewCheck!.Basket.Add(item);
                     }
 
-                    newCheck.Price = newCheck.Basket.Sum(x => x.ThisElectronicPrice);
-                    CheckList.Add(newCheck);
+                    NewCheck!.Price = NewCheck.Basket.Sum(x => x.ThisElectronicPrice);
+                    CheckList.Add(NewCheck);
+                   
                 }
 
+                else if (message.Data.GetType().Name == "".GetType().Name)
+                {
+                    NewCheck = new();
+                    NewCheck.UserCardNumber = message.Data as string;
+                }
 
-                else if(SellConfirm.IsConfirmed == true)
+                else if (SellConfirm.IsConfirmed == true)
                 {
                     SellConfirm? sellConfirm = message.Data as SellConfirm;
-                    OnePrudct(newCheck, sellConfirm.Basket);
+                    OnePrudct(NewCheck, sellConfirm.Basket);
                 }
+        
             });
         }
 
@@ -63,19 +71,20 @@ namespace ElectronicsStore_Project_.ViewModel
         public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);
 
 
-        private void OnePrudct(Check newCheck, Basket sellConfirm)
+        private void OnePrudct(Check NewCheck, Basket sellConfirm)
         {
-            newCheck.Basket.Add(sellConfirm!);
+            NewCheck.Basket.Add(sellConfirm!);
 
-            newCheck.Price = sellConfirm.Electronic.Price;
-            CheckList.Add(newCheck);
+            NewCheck.Price = sellConfirm.Electronic.Price;
+            CheckList.Add(NewCheck);
 
             SellConfirm.IsConfirmed = false;
+           
         }
 
         public RelayCommand BackCommand
         {
-            get => new(() => {_navigateService.NavigateTo<HomeViewModel>();});
+            get => new(() => { _navigateService.NavigateTo<HomeViewModel>(); });
         }
     }
 }

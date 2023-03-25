@@ -27,8 +27,11 @@ public class BasketService
         }
 
         if (!checkExist)
+        {
             BasketViewModel.Basket.Add(basket);
+            MessageBox.Show($"{basket.Electronic.Name} был успешно добавлен в корзину", "Покупка",MessageBoxButton.OK);
+        }
         else
-            MessageBox.Show("Данный товар уже есть в корзине");
+            MessageBox.Show("Данный товар уже есть в корзине","Ошибка при добавлении");
     }
 }

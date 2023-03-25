@@ -72,6 +72,30 @@ namespace AdminPanel.Model
         {
             return Name + " " + Category;
         }
+        public bool Contain(string? name)
+        {
+            int count = 0;
+            for (int i = 0; i < Name.Length; i++)
+            {
+                for (int j = 0; j < name.Length; j++)
+                {
+                    if (Name[i] == name[j])
+                    {
+                        count++;
+                        i++;
+                    }
+                    else
+                    {
+                        count = 0;
+                        break;
+                    }
+                }
+                if (count == name.Length) return true;
+
+            }
+
+            return false;
+        }
 
     }
 }
