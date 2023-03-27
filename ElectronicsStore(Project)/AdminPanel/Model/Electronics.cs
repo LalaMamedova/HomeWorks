@@ -16,19 +16,12 @@ namespace AdminPanel.Model
     {
         private float price;
         private int count;
-        
-
-        //[Required]
         public string? Name { get; set; }
         public string? Category { get; set; }
-
-        //[Required]
         public string ImgPath { get; set; } = @"D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\Electronics.jpg";
         public string? Processor { get; set; }
         public string? Memory { get; set; }
         public int CategoryIndex { get; set; }
-
-        //[Required]
         public float Price
         {
             get => price;
@@ -41,8 +34,6 @@ namespace AdminPanel.Model
         }
 
         
-
-        //[Required]
         public int Count
         {
             get => count;

@@ -12,10 +12,9 @@ namespace ElectronicsStore_Project_.Model
     {
         private int count;
 
-        public string? Name { get; set; }
-        public string? Category { get; set; }
-
-        public string? ImgPath { get; set; }
+        public string Name { get; set; }
+        public string Category { get; set; }
+        public string ImgPath { get; set; }
         public string? Processor { get; set; }
         public string? Memory { get; set; }
         public int CategoryIndex { get; set; }

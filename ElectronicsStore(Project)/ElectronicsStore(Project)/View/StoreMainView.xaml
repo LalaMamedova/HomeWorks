@@ -80,7 +80,7 @@
                     Width="170">
 
                 <Button.Background>
-                    <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\Project\PrivateCabinet.png"
+                    <ImageBrush ImageSource="D:\HomeWorks\WPF\ElectronicsStore(Project)\ElectronicsStore(Project)\Img\PrivateCabinet.png"
                                 AlignmentX="Left"
                                 Stretch="Uniform"/>
                 </Button.Background>

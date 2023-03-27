@@ -9,9 +9,9 @@ namespace ElectronicsStore_Project_.Model
 {
     public class Category
     {
-        public string? CategoryName {get;set;}
-        public string? Description { get; set; }
-        public string? IconPath { get; set; }   
+        public string CategoryName {get;set;}
+        public string Description { get; set; }
+        public string IconPath { get; set; }   
 
         public override string ToString() => CategoryName;
         

@@ -33,9 +33,9 @@ namespace AdminPanel.Service.Classes
             return true;
         }
 
-        public T FromFileToList<T>(string path) where T : class
+        public T? FromFileToList<T>(string path) where T : class
         {
-            string? json = Serialize.FileService.Read(path);
+            string? json = FileService.Read(path);
             if (string.IsNullOrEmpty(json)) return null; else return Serialize.SerializeLibary.Deserialize<T>(json);
 
         }

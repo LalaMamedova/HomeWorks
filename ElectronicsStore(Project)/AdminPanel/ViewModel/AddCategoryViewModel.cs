@@ -62,26 +62,27 @@ namespace AdminPanel.ViewModel
         {
             get => new(() =>
             {
-                if (DataBase.AllCategory.Count > 0)
+                if (DataBase.AllCategory.Count > 0 && _adminService.CkeckCategoryExist(Category) && !Category.IsCategoryNull())
                 {
-                    if (_adminService.CkeckCategoryExist(Category))
-                    {
-                        Serialize.FileService.Truncate("AllCategory.json");
+                    Serialize.FileService.Truncate("AllCategory.json");
 
-                        DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
-                        _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
+                    DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
+                    _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
 
-                        DataBase.ElectronicsList.Add(new());
-                    }
+                    DataBase.ElectronicsList.Add(new());
+                    Category = new();
+
                 }
 
-                else
+                else if (!Category.IsCategoryNull())
                 {
                     DataBase.AllCategory.Add(_adminService.AddObject<Category>(Category));
                     _adminService.FromListToFile<ObservableCollection<Category>>(DataBase.AllCategory, "AllCategory.json");
+                    Category = new();
                 }
+                else
+                    MessageBox.Show("Заполните пустые поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                Category = new();
                 
             });
         }

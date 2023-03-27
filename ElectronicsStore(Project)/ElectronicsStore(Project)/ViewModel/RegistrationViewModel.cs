@@ -72,6 +72,7 @@ namespace ElectronicsStore_Project_.ViewModel
                             {
                                 AuthViewModel.customer = User;
                                 iD++;
+                                IDService.SerializeID(iD, "CustomersID.json");
                                 _navigationService.NavigateTo<AuthViewModel>();
                             }
                         }

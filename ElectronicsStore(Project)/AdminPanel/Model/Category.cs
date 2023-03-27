@@ -21,21 +21,26 @@ namespace AdminPanel.Model
             {
                 Regex nameReg = new("[A-Za-z А-Яа-я 0-9]");
 
-                if (nameReg.IsMatch(value)) 
+                if (nameReg.IsMatch(value) && !string.IsNullOrEmpty(value)) 
                 {
                     categoryName = value;
-                    
                 }
+                else if (string.IsNullOrEmpty(value))
+                    throw new ArgumentException("Заполните название категорию");
                 else
                     throw new ArgumentException("В названии есть недопустимые сиволы");
             }
         }
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
-        public string? IconPath {get;set;}
+        public string IconPath {get;set;}
 
         public override string ToString() => CategoryName;
-
+        public bool IsCategoryNull() 
+        {
+            if (!string.IsNullOrEmpty(CategoryName) && !string.IsNullOrEmpty(Description)) return false;
+            return true;
+        }
 
     }
 
