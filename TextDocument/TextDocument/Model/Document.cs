@@ -25,9 +25,13 @@ namespace TextDocument.Model
             get => name;
             set
             {
-                if (value.Length <= 25)
+                if (value.Length <= 25 && value.Length > 0)
                     name = value;
-                else
+
+                else if(value.Length == 0)
+                    MessageBox.Show("Введите название");
+
+                else if (value.Length >25)
                     MessageBox.Show("Название слишком длинное");
             }
         }

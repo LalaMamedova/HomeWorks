@@ -24,10 +24,9 @@ namespace TextDocument.View
     /// </summary>
     public partial class MainView : Window
     {
-        public int SelectedIndex { get; set; }
+        private int SelectedIndex { get; set; }
         public ObservableCollection<Document> Documents { get; set; } = new();
         public Document Document { get; set; } = new();
-        private bool IsPrevDelete = false;
 
         public MainView()
         {

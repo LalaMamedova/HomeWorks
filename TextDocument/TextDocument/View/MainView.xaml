@@ -30,7 +30,7 @@
     </Window.Resources>
 
 
-    <Grid >
+    <Grid Background="#FF8E3348">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.25*"/>
@@ -58,7 +58,9 @@
                     Background="#FF8E3348" 
                     Orientation="Horizontal">
             
-            <Label Content="Размер" HorizontalAlignment="Center"
+            <Label Content="Размер"
+                   HorizontalAlignment="Center"
+                   Foreground="White"
                    VerticalAlignment="Center"/>
             
             <TextBox Width="100"  Height="20" 
@@ -70,17 +72,19 @@
         <ScrollViewer Grid.Row="1" 
                       HorizontalScrollBarVisibility="Visible" >
             <Border>
-                <StackPanel Orientation="Vertical">
-                    <ListBox x:Name="DocumentControl" >
+                <StackPanel Orientation="Vertical" >
+                    <ListBox x:Name="DocumentControl" Background="#FFEC7892" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="2">
 
                                     <Label Content="{Binding ID}"/>
 
                                     <TextBox Text="{Binding Name}"
                                              Height="35"
-                                             FontSize="14"/>
+                                             FontSize="14"
+                                             Background="#FFFFDBDB"/>
 
                                     <Button Grid.Row="2" Margin="3"
                                             Content="Редактировать"
