@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FacadePattern.Classes
 {
-    public class Client : IClient
+    public class Client
     {
         public List<Package> Goods { get; private set; } = new();
         public List<IRequest> Myrequest { get; set; } = new();

@@ -56,6 +56,7 @@ namespace FacadePattern.Classes.Requests
             if (client.HasACard)
             {
                 float total = client.Goods.Sum(x => x.TotalSum);
+                Console.WriteLine("Вы вернули себе " + total);
                 return total * 0.02f;
             }
             else  return 0;

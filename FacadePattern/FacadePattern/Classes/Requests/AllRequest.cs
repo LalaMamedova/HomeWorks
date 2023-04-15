@@ -44,7 +44,7 @@ namespace FacadePattern.Classes.Requests
                 choice = Int32.Parse(Console.ReadLine());
               
 
-                if (choice < 3)
+                if (choice < 4)
                 {
                     request = new BuyGoods();
                     if (choice == 1)
