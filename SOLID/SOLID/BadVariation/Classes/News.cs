@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.GoodVariration.Interface
+namespace SOLID.BadVariation.Classes
 {
-    public interface IPublisher
+    public class News
     {
-        public void Publish(params INotify[] message);
+        public string Name;
+        public string Description;
+
     }
 }

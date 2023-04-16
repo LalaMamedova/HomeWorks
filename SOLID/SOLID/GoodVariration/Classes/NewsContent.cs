@@ -1,32 +1,31 @@
-﻿using SOLID.SandO.GoodVariration.Interface;
+﻿using SOLID.BadVariation.Classes;
+using SOLID.GoodVariration.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.GoodVariration.Classes
+namespace SOLID.GoodVariration.Classes
 {
-    internal class MemeContent : IContent,IPublisher//Контент является не только контентом, но и может высылать всем о новых публикаиях
+    public class NewsContent:IContent,IPublisher
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public static List<ISubscriber> Subscribers { get; set; } = new();
 
-        static MemeContent()
+        static NewsContent()
         {
-            DataBase.IContentType.Add(new MemeContent());
-
+            DataBase.IContentType.Add(new NewsContent());
         }
-
-        public void AddContent()
+        
+        public void AddContent() 
         {
             Console.WriteLine("Введите название новости");
             Name = Console.ReadLine();
 
             Console.WriteLine("Введите описание новости");
             Description = Console.ReadLine();
-
         }
 
         public void Publish(params INotify[] message)
@@ -35,10 +34,11 @@ namespace SOLID.SandO.GoodVariration.Classes
             {
                 foreach (var messages in message)
                 {
-                    messages.SendMessage<string, MemeContent>(subs.Login, this);
+                    messages.SendMessage<string, NewsContent>(subs.Login, this, "Вам пришла новая новость о");
                 }
             }
         }
+
         public override string ToString()
         {
             return Name;

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SOLID.BadVariation.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.BadVariation.Classes
+namespace SOLID.BadVariation.Classes
 {
     public class Subscriber//Проблема этого класса в том, что я могу быть пользователем, но могу быть не подписчиком, в данном случаи ты уже подписчик
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.BadVariation.Classes
+namespace SOLID.BadVariation.Classes
 {
     public class SmsNotify//Не реализован интерфейс, из за чего в будущем будет повтор кода и не будет связки между всеми видами уведомлений
     {

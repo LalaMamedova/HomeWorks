@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SOLID.BadVariation.Classes;
+using SOLID.BadVariation.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.BadVariation.Classes
+namespace SOLID.BadVariation.Classes
 {
     public class NewsFeed
     {

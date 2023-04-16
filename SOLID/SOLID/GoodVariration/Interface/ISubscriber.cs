@@ -1,4 +1,4 @@
-﻿using SOLID.SandO.GoodVariration.Classes;
+﻿using SOLID.GoodVariration.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.GoodVariration.Interface
+namespace SOLID.GoodVariration.Interface
 {
     public interface ISubscriber//Интерфейс подписчика
     {

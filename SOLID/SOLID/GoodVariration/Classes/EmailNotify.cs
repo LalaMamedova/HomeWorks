@@ -1,11 +1,11 @@
-﻿using SOLID.SandO.GoodVariration.Interface;
+﻿using SOLID.GoodVariration.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.GoodVariration.Classes
+namespace SOLID.GoodVariration.Classes
 {
     public class EmailNotify : INotify
     {

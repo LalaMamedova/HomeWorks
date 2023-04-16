@@ -1,35 +1,46 @@
-﻿using SOLID.SandO.BadVariation.Classes;
-using SOLID.SandO.GoodVariration.Classes;
-using SOLID.SandO.GoodVariration.Interface;
-//Console.WriteLine("\n1.S и O" +
-//                  "\n2.L" +
-//                  "\n3.I" +
-//                  "\n4.D" +
-//                  "\n5.S и O"+
-//                  "\n0.Выйти");
-//int choice;
-//bool choiceRes = Int32.TryParse(Console.ReadLine(), out choice);
+﻿using SOLID.GoodVariration.Classes;
+using SOLID.GoodVariration.Interface;
+using SOLID.BadVariation.Classes;
+using SOLID.BadVariation.Classes;
 
-//if (choiceRes)
-//{
-//    int choice2;
-//    bool choiceRes2 = Int32.TryParse(Console.ReadLine(), out choice2);
-//}
+Console.WriteLine("\n1.Плохой вариант" +
+                  "\n2.Хороший варинат" +
+                  "\n0.Выйти");
+int choice;
+bool choiceRes = Int32.TryParse(Console.ReadLine(), out choice);
 
-IContent content = new NewsContent();
-content = new MemeContent();
+if (choiceRes)
+{
+    switch (choice)
+    {
+        case 1:
+            {
+                Subscriber subscriber = new("Лала");
+                Subscriber subscriber2 = new("Ляман");
 
-ISubscriber usualUser =  new UsualUser("Лала");
-usualUser.Subscribe();
-usualUser = new UsualUser("Ляман");
-usualUser.Subscribe();
-content.AddContent();
+                NewsFeed feed = new NewsFeed();
+                feed.AddNews();
 
-((MemeContent)content).Publish(new EmailNotify(), new SOLID.SandO.GoodVariration.Classes.SmsNotify());
+                break;
+            }
+
+            case 2:
+            {
+                IContent content = new NewsContent();
+                content = new MemeContent();
+
+                ISubscriber usualUser = new UsualUser("Лала");
+                usualUser.Subscribe();
+
+                content.AddContent();
+
+                ((MemeContent)content).Publish(new EmailNotify(), new SOLID.GoodVariration.Classes.SmsNotify());
+
+               
+                break;
+            }
+    }
+
+}
 
 
-//Subscriber subscriber = new("Лала");
-//Subscriber subscriber2 = new("Ляман");
-
-//NewsFeed feed = new NewsFeed();
-//feed.AddNews();

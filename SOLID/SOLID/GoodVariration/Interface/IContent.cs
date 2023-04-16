@@ -1,11 +1,11 @@
-﻿using SOLID.SandO.BadVariation.Classes;
+﻿using SOLID.BadVariation.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.SandO.GoodVariration.Interface
+namespace SOLID.GoodVariration.Interface
 {
     public interface IContent//Абстрактный интерфейс
     {
