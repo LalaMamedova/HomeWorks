@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOLID.BadVariation.Classes
 {
-    public class News
+    public class News//News является классом без реализации/наследование
     {
         public string Name;
         public string Description;

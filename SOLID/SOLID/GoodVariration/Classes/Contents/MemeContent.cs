@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.GoodVariration.Classes
+namespace SOLID.GoodVariration.Classes.Contents
 {
-    internal class MemeContent : IContent,IPublisher//Контент является не только контентом, но и может высылать всем о новых публикаиях
+    public class MemeContent : IContent, IPublisher//Контент является не только контентом, но и может высылать всем о новых публикаиях
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public static List<ISubscriber> Subscribers { get; set; } = new();//Лист с подписчиками этого контента, дабы разослать подписчикам уведомление
 
         static MemeContent() => DataBase.IContentType.Add(new MemeContent());
-        
+
 
         public void AddContent()
         {
@@ -32,7 +32,7 @@ namespace SOLID.GoodVariration.Classes
             {
                 foreach (var messages in message)
                 {
-                    messages.SendMessage<string, MemeContent>(subs.Login, this,"Вам пришел новый мем о");
+                    messages.SendMessage<string, MemeContent>(subs.Login, this, "Вам пришел новый мем о");
                 }
             }
         }

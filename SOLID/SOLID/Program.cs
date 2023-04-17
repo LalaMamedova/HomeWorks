@@ -2,6 +2,8 @@
 using SOLID.GoodVariration.Interface;
 using SOLID.BadVariation.Classes;
 using SOLID.BadVariation.Classes;
+using SOLID.GoodVariration.Classes.Notifies;
+using SOLID.GoodVariration.Classes.Contents;
 
 Console.WriteLine("\n1.Плохой вариант" +
                   "\n2.Хороший варинат" +
@@ -28,13 +30,13 @@ if (choiceRes)
             {
                 IContent content = new NewsContent();
                 content = new MemeContent();
+                content.AddContent();
 
                 ISubscriber usualUser = new UsualUser("Лала");
                 usualUser.Subscribe();
 
-                content.AddContent();
 
-                ((MemeContent)content).Publish(new EmailNotify(), new SOLID.GoodVariration.Classes.SmsNotify());
+                ((MemeContent)content).Publish(new EmailNotify(), new SOLID.GoodVariration.Classes.Notifies.SmsNotify());
 
                
                 break;

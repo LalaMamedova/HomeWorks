@@ -11,8 +11,8 @@ namespace SOLID.BadVariation.Classes
     public class NewsFeed
     {
         public static List<Subscriber> Subscribers = new(); 
-        public List<News> newsList = new();
-        private News news  = new();
+        public List<News> newsList = new();//Не учтен LSP и ISP
+        private News news  = new();//Если NewsFeed захочет публиковать не только новости, но и другой контент, то это опять же усложнит и расширит класс
         public void AddNews()
         {
             Console.WriteLine("Введите название новости");

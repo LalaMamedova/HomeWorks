@@ -11,7 +11,7 @@ namespace SOLID.GoodVariration.Interface
     public interface ISubscriber//Интерфейс подписчика
     {
         public string Login { get; set; }
-        public List<IContent> contents { get; set;}
+        public List<IContent> Contents { get; set;}
         public void Subscribe();
         public void Unsubscribe();
 

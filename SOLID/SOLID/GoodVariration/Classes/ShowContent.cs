@@ -18,5 +18,7 @@ namespace SOLID.GoodVariration.Classes
             }
 
         }
+
+       
     }
 }

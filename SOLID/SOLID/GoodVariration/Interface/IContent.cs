@@ -11,7 +11,7 @@ namespace SOLID.GoodVariration.Interface
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public static List<Subscriber> Subscribers { get; set; }
+        public static List<ISubscriber> Subscribers { get; set; }//Чтобы у всех классов был список с их подписчиками
         public void AddContent();
     
 
