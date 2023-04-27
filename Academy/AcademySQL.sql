@@ -39,7 +39,7 @@ insert  into Departments (Financing, Name) values (25500, N'Каведра но�
 insert  into Departments (Financing, Name) values (4221, N'Каведра номер 2');
 insert  into Departments (Financing, Name) values (25500, N'English Language');
 
-select * from Departments order by  [Name], [Financing] DESC;
+select * from Departments order by Id desc
 
 
 
@@ -59,7 +59,9 @@ values ('5.12.1996', N'Laman', N'Aliyeva', 0, 0, N'ИЗО',15,2000);
 insert into Teachers(EmploymentDate, Name, Surname, IsAssistant, IsProfessor, Position, Premium, Salary)
 values ('8.9.2004', N'Magomed', N'Babayev', 1, 0, N'Технологии',170,1600);
 
-select Surname, Salary, Premium from  Teachers;
+
+
+select Surname, Salary / Premium as [Salary/Premium] from  Teachers;
 
 
 
