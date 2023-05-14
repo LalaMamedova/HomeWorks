@@ -180,7 +180,8 @@ where Departments.Name = 'Software  Development' and [Group].Year = 4
 select  [Group].name,Rating from [Group]
 join GroupsStudents  on [Group].Id = GroupsStudents.GroupId
 join Students on Students.Id = GroupsStudents.StudentId
-where Rating > (select avg(Rating) from Students where [Group].Name != 'D221')
+where (select avg(Rating) from Students where [Group].Name != 'D221' ) > (select avg(Rating) from Students where [Group].Name = 'D221')
+
 
 -- 4 - Вывести фамилии и имена преподавателей, ставка которых выше средней ставки профессоров.
 select Surname,Name,IsProfessor, avg(Salary) from Teacher
@@ -219,6 +220,7 @@ select  top 1 Subjects.Name, count(*) as SubjectCount from Lectures
 join Subjects on Subjects.Id = Lectures.SubjectId
 join Teacher on Teacher.Id = Lectures.TeacherId
 group by Subjects.Name
+
 
 --10 - Вывести количество студентов и читаемых дисциплин на кафедре “Software Development”.
 select  count(*) as [Students Count], Subjects.Name as [Subject name] from Students
