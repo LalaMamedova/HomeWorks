@@ -105,14 +105,11 @@ insert into Interns(DoctorsId) values (2)
 
 --1
 
-select places from ward where Places > 15
-
-declare @wardcount bit = 0;
-set @wardcount = CONVERT (bit, (select places from ward where Places > 15))
-
 select Ward.Name, Places from Ward
 join Departments  on Departments.Id = Ward.DepartarmentID
-where Departments.Building = 4 and Places > 5
+WHERE  Places >= 5
+AND EXISTS (SELECT * FROM Ward WHERE building = 4 AND Places >= 15)
+
 
 --2
 select Examinations.Name, Date from Examinations
