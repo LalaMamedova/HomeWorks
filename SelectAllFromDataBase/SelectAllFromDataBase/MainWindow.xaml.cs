@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,33 +24,49 @@ namespace SelectAllFromDataBase
     /// </summary>
     public partial class MainWindow : Window
     {
-        SqlConnection connect = new("Data Source=HP;Initial Catalog=BarberBase;Integrated Security=True;");
-        public MainWindow() => InitializeComponent();
-        
+        SqlConnection connect = new();
+        List<string> TablesName = new();
+        public string DataBase { get; set; }
 
+        public MainWindow() => InitializeComponent();
  
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (connect.State != ConnectionState.Open)
             {
-                connect.Open();
+                connect.ConnectionString = ($"Data Source=HP;Initial Catalog={DataBase};Integrated Security=True;");
+                try
+                {
+                    connect.Open();
+                    MessageBox.Show($"{DataBase} данных открыта");
+
+                    var tables = connect.GetSchema("Tables");
+
+                    foreach (System.Data.DataRow row in tables.Rows)
+                    {
+                        string tableName = (string)row["TABLE_NAME"];
+                        TablesName.Add(tableName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Такой базы данных нет");
+                }
             }
 
-            else if(connect.State == ConnectionState.Open)
-                MessageBox.Show("База данных открыта");
-
-            else
-                MessageBox.Show("База данных закрыта");
+            else if(connect.State == ConnectionState.Closed)
+                MessageBox.Show($"{DataBase} закрыта");
 
         }
+        
 
         private SqlDataReader SelectFromThisTable(string query)
         {
             if (connect.State == ConnectionState.Open)
             {
                 SqlCommand command = new SqlCommand(query, connect);
-
-                 SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
                 return reader;
             }
 
@@ -63,50 +80,60 @@ namespace SelectAllFromDataBase
             try
             {
                 
-                StringBuilder sb = new StringBuilder();
-                StringBuilder sb2 = new StringBuilder();
+                StringBuilder tableName = new StringBuilder();
+                StringBuilder rowName = new StringBuilder();
 
                 foreach (var column in reader.GetColumnSchema())
                 {
-                    sb.Append($"{column.ColumnName} \t ");
+                    tableName.Append($"{column.ColumnName} \t ");
                 }
 
                 while (reader.Read())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        sb2.Append(reader[i].ToString() + "\t");
+                        rowName.Append(reader[i].ToString() + "\t");
                     }
-                    sb2.Append("\n");
+                    rowName.Append("\n");
                 }
 
-                return sb.ToString() + "\n" + sb2.ToString();
+                return tableName.ToString() + "\n" + rowName.ToString();
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return null;
             }
-
-           
         }
 
 
         private void SelectAllButton_Click(object sender, RoutedEventArgs e)
         {
-            ResTextBlock.Text = ResFromTable("SELECT * FROM RATING");
+            ResTextBlock.Text = ResFromTable($"SELECT * FROM {TablesName[1]}");
         }
 
         private void MaxMin(string maxmin)
         {
-            string query = $"SELECT {maxmin}(ServicePrice) FROM Service";
+            SqlCommand command = new SqlCommand($"SELECT * FROM {TablesName[0]}", connect);
+            SqlDataReader reader = command.ExecuteReader();
+            string randomSchema = string.Empty;
+
+            foreach (var column in reader.GetColumnSchema())
+            {
+                randomSchema = ($"{column.ColumnName}");
+                break;
+            }
+
+            string query = $"SELECT {maxmin}({randomSchema}) FROM Service";
+            reader.Close();
 
             try
             {
-                SqlCommand command = new SqlCommand(query, connect);
-                var reader = command.ExecuteScalar();
+                SqlCommand command2 = new SqlCommand(query, connect);
+                var reader2 = command2.ExecuteScalar();
 
-                ResTextBlock.Text = reader.ToString();
+                ResTextBlock.Text = randomSchema + " " + reader2.ToString();
             }
             catch (Exception ex)
             {
@@ -115,6 +142,9 @@ namespace SelectAllFromDataBase
 
             }
         }
+
+        
+
         private void MaxButton_Click(object sender, RoutedEventArgs e)
         {
             MaxMin("MAX");
