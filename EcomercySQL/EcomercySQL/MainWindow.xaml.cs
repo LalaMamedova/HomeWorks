@@ -29,7 +29,6 @@ namespace EcomercySQL
         SqlConnection connect = new();
         public ObservableCollection<Products> Products { get; set; } = new();
         public ObservableCollection<Category> Categorys { get; set; } = new();
-        public ObservableCollection<Products> FilterProduct { get; set; } = new();
 
 
         public MainWindow() => InitializeComponent();
@@ -102,9 +101,11 @@ namespace EcomercySQL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
+            Products.Clear();
+            SelectFromProduct();
+
             int productcount = Products.Count, index = 0;
 
-            FilterProduct.Clear();
 
             for (int j = 0; j < Categorys.Count; j++)
             {
@@ -114,14 +115,17 @@ namespace EcomercySQL
                 }
             }
 
+
             for (int i = 0; i < productcount; i++)
             {
-                if (Products[i].CategoryID == Categorys[index].ID)
-                    FilterProduct.Add(Products[i]);
- 
+                if (Products[i].CategoryID != Categorys[index].ID)
+                {
+                    Products.RemoveAt(i);
+                    productcount--;
+                    i--;
+                }
             }
 
-            ProductListBox.ItemsSource = FilterProduct;
         }
     }
 }
