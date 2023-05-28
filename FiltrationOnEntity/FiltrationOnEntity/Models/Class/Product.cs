@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FiltrationOnEntity.Models.Class;
 
 public partial class Product
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     public string? ImageLink { get; set; }
@@ -18,4 +20,10 @@ public partial class Product
     public int? CategoryId { get; set; }
 
     public virtual Category? Category { get; set; }
+
+
+    public override string ToString()
+    {
+        return ProductName ;
+    }
 }
