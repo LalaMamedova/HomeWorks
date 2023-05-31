@@ -30,6 +30,8 @@ namespace Views.FiltrationOnEntity
         public DataBase DataBase { get; set; } = new();
         public int CountQuery { get; set; }
 
+        private bool OrderByCount = false;
+        private bool OrderByPrice = false;
 
 
         public MainWindow()
@@ -116,18 +118,39 @@ namespace Views.FiltrationOnEntity
 
         private void PriceSort_Click(object sender, RoutedEventArgs e)
         {
-            //var query = from product in connection.Products
-            //            where connection.Products.Count() > 5
-            //            select product;
+      
+            IEnumerable<Product> query;
 
-            var query = connection.Products.OrderByDescending(x=>x.Price);
+            if (OrderByCount == false)
+            {
+                query = connection.Products.OrderByDescending(x => x.Price);
+                OrderByCount = true;
+            }
+            else
+            {
+                query = connection.Products.OrderBy(x => x.Price);
+                OrderByCount = false;
+            }
             Update(query);
 
         }
 
         private void CountSort_Click(object sender, RoutedEventArgs e)
         {
-            var query = connection.Products.OrderByDescending(x => x.Quantity);
+            IEnumerable<Product> query;
+
+            if (OrderByCount == false)
+            {
+                query = connection.Products.OrderByDescending(x => x.Quantity);
+                OrderByCount = true;
+            }
+            else
+            {
+                query = connection.Products.OrderBy(x => x.Quantity);
+                OrderByCount = false;
+
+            }
+
             Update(query);
 
         }
