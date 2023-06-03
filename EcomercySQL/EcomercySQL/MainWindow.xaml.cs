@@ -64,9 +64,10 @@ namespace EcomercySQL
         private void SelectFromProduct()
         {
             using SqlDataReader reader = SelectFromThisTable($"Select * from Product");
+           
             while (reader.Read())
             {
-                Products.Add(new Products() 
+                Products.Add(new Products()
                 {
                     ID = (int)reader["Id"],
                     ProductName = (string)reader["ProductName"],
@@ -75,8 +76,8 @@ namespace EcomercySQL
                     Quantity = (int)reader["Quantity"],
                     Price = (decimal)reader["Price"],
                 });
-               
             }
+        
         }
 
         private void SelectFromCategory()

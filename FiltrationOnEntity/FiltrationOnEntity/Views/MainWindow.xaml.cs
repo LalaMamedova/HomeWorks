@@ -121,15 +121,15 @@ namespace Views.FiltrationOnEntity
       
             IEnumerable<Product> query;
 
-            if (OrderByCount == false)
+            if (OrderByPrice == false)
             {
                 query = connection.Products.OrderByDescending(x => x.Price);
-                OrderByCount = true;
+                OrderByPrice = true;
             }
             else
             {
                 query = connection.Products.OrderBy(x => x.Price);
-                OrderByCount = false;
+                OrderByPrice = false;
             }
             Update(query);
 
