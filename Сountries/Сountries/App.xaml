@@ -1,0 +1,19 @@
+﻿<Application x:Class="Сountries.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Сountries"
+             StartupUri="View/MainView.xaml"
+             xmlns:View ="clr-namespace:Сountries.View"
+             xmlns:ViewModel ="clr-namespace:Сountries.ViewModel">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate DataType="{x:Type ViewModel:MainViewModel}">
+                <View:MainView></View:MainView>
+            </DataTemplate>
+
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
