@@ -21,6 +21,10 @@
                 <View:HomeView></View:HomeView>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type ViewModel:ToFullInfoViewModel}">
+                <View:ToFullInfoViewxaml></View:ToFullInfoViewxaml>
+            </DataTemplate>
+
 
         </ResourceDictionary>
     </Application.Resources>

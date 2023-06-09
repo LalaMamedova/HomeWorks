@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="Сountries.View.ToFullInfoViewxaml"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Сountries.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Image HorizontalAlignment="Center"
+               Stretch="Uniform" 
+               Source="{Binding Country.MapImgLink}" 
+               Cursor="Hand"
+               Height="250" Width="250"
+               Grid.RowSpan="2"/>
+
+
+        <StackPanel Orientation="Horizontal"  Grid.Column="1">
+            <TextBlock Text="Название:  " Grid.Column="1"/>
+            <TextBlock Text="{Binding Country.CountryName}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="1"
+                    Grid.Column="1">
+            <TextBlock Text="Площадь:  "/>
+            <TextBlock Text="{Binding Country.Area}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"   
+                    Grid.Row="2"
+                    Grid.Column="1">
+            
+            <TextBlock Text="ВВП:  "/>
+            <TextBlock Text="{Binding Country.GDP}"/>
+        </StackPanel>
+
+
+        <StackPanel Orientation="Horizontal"  
+                    Grid.Row="3"
+                    Grid.Column="1">
+            <TextBlock Text="Тип правления:  "/>
+            <TextBlock Text="{Binding Country.Government.GovernmentForm}"/>
+        </StackPanel>
+
+
+     
+
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="4"
+                    Grid.Column="1">
+            <TextBlock Text="Дата создания:  "/>
+            <TextBlock Text="{Binding Country.CreateDate}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="5"
+                    Grid.Column="1">
+            <TextBlock Text="Популяция:  "/>
+            <TextBlock Text="{Binding Country.Population}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Grid.RowSpan="7">
+            <TextBlock Text="Гимн:  "/>
+            <TextBox
+                 Grid.Row="1"
+                 Grid.RowSpan="9"
+                 Grid.Column="2"
+                 Text="{Binding Country.Himn}"
+                 TextWrapping="WrapWithOverflow"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Visible"
+                 Height="400"
+                 IsEnabled="False"/>
+
+        </StackPanel>
+
+        <Button Grid.Row="9"
+                Width="90"
+                Height="40"
+                Content="Назад"
+                Background="LightCyan" 
+                BorderBrush="Blue"
+                Command="{Binding PrevCommand}"/>
+    </Grid>
+</UserControl>

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Сountries.View" xmlns:viewmodel="clr-namespace:Сountries.ViewModel"
         d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
-        Width="1200" Height="600" >
+        Name="Main"
+        d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
 
@@ -86,11 +87,11 @@
                                                    Cursor="Hand"
                                                    Height="150" Width="180">
 
-                                            <!--<Image.InputBindings>
+                                            <Image.InputBindings>
                                                 <MouseBinding Gesture="LeftClick"
-                                                                  Command="{Binding Path=DataContext.ToSelectedProduct,ElementName = HomeUserControl }"
-                                                                  CommandParameter="{Binding ID}"/>
-                                            </Image.InputBindings>-->
+                                                                  Command="{Binding Path=DataContext.ToFullInfoCommand,ElementName = Main }"
+                                                                  CommandParameter="{Binding Id}"/>
+                                            </Image.InputBindings>
                                         </Image>
                                             
                                           <StackPanel Orientation="Horizontal">
@@ -143,9 +144,6 @@
                 Style="{StaticResource MyButtonStyle}"
                 Content="Добавить страну"
                 Command="{Binding AddCountryCommand}"/>
-
-
-       
 
     </Grid>
 </UserControl>

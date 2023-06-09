@@ -37,6 +37,7 @@ namespace Сountries
             Container.RegisterSingleton<HomeViewModel>();
             Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<AddCountryViewModel>();
+            Container.RegisterSingleton<ToFullInfoViewModel>();
 
         }
 

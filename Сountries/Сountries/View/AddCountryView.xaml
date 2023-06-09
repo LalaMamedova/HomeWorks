@@ -26,6 +26,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -37,8 +38,13 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Label Style="{StaticResource MyLabel}"
+               Content="Текст гимна"
+               Grid.Column="2"/>
+        
         <Label Style="{StaticResource MyLabel}"
                Content="Название страны"/>
 
@@ -66,8 +72,12 @@
         <Label Style="{StaticResource MyLabel}"
                Content="Изображения карты"
                Grid.Row="6"/>
-        
-        
+
+        <Label Style="{StaticResource MyLabel}"
+               Content="ФИО правителя"
+               Grid.Row="7"/>
+
+
         <TextBox Style="{StaticResource MyTextBox}"
                  Grid.Row="0"
                  Grid.Column="1"
@@ -85,7 +95,7 @@
                  Text="{Binding Country.GDP}"/>
 
         <ComboBox Grid.Row="3"
-                  Grid.Column="2"
+                  Grid.Column="1"
                   Width="250"
                   Height="28"
                   ItemsSource="{Binding Database.Governments}"
@@ -93,7 +103,7 @@
                   SelectedItem="{Binding Country.Government.GovernmentForm}"/>
 
         <DatePicker Grid.Row="4"
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Width="250"
                     Height="35"
                     DataContext="{Binding Country.CreateDate}"/>
@@ -106,16 +116,32 @@
                  Text="{Binding Country.Area}"/>
 
 
-        <Button Grid.Column="2"
+        <Button Grid.Column="1"
                 Grid.Row="6"
                 Width="150"
                 Height="40"
                 Content="Добавить карту"
                 Background="DarkCyan"
                 Command="{Binding AddMap}"/>
-        
-        <Button Grid.ColumnSpan="2"
-                Grid.Row="7"
+
+        <TextBox Style="{StaticResource MyTextBox}"
+                 Grid.Row="7"
+                 Grid.Column="1"
+                 Text="{Binding Country.CountryRuler}"/>
+
+        <TextBox Style="{StaticResource MyTextBox}"
+                 Grid.Row="1"
+                 Grid.RowSpan="9"
+                 Grid.Column="2"
+                 Text="{Binding Country.Himn}"
+                 TextWrapping="WrapWithOverflow"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Visible"
+                 Height="400"/>
+
+
+        <Button Grid.ColumnSpan="3"
+                Grid.Row="10"
                 Width="150"
                 Height="40"
                 Content="Добавить"

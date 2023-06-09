@@ -51,6 +51,16 @@ namespace Сountries.ViewModel
             });
         }
 
-    
+        public RelayCommand<int> ToFullInfoCommand
+        {
+            get => new((param) =>
+            {
+                var country = DataBase.Countries.Where(x => x.Id == param);
+                
+                Country selectedCountry = country.FirstOrDefault();
+                _navigate.NavigateTo<ToFullInfoViewModel>(selectedCountry);
+            });
+        }
+
     }
 }

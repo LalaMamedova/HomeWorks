@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Сountries.View" 
         xmlns:viewmodel="clr-namespace:Сountries.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
         mc:Ignorable="d"
-        Title="MainView" Height="650" Width="1200">
+        Title="MainView"
+        Height="750" Width="1200">
     
     <Grid Background="AliceBlue">
 
