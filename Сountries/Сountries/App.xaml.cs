@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SimpleInjector;
 using Сountries.Services.Classes;
 using Сountries.Services.Interfaces;
@@ -33,15 +34,17 @@ namespace Сountries
             Container.RegisterSingleton<INavigate, Navigate>();
             Container.RegisterSingleton<IMessenger, Messenger>();
 
-
+            Container.RegisterSingleton<HomeViewModel>();
             Container.RegisterSingleton<MainViewModel>();
+            Container.RegisterSingleton<AddCountryViewModel>();
+
         }
 
         private void MainStartup()
         {
-            var mainView = new MainView();
+            var mainView = new HomeView();
             mainView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            mainView.DataContext = Container?.GetInstance<MainViewModel>();
+            mainView.DataContext = Container?.GetInstance<HomeViewModel>();
             mainView.ShowDialog();
         }
     }

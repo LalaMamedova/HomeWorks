@@ -16,6 +16,9 @@ namespace Сountries.Dates.Models
         public float Population { get; set; }
         public double Area { get; set; }
         public double GDP { get; set; }
+        public string CountryRuler { get; set; }
+        public string Himn { get; set; }
+
 
         public int? GovermentType { get; set; }
         public Government Government { get; set; }

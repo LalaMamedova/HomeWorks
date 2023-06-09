@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Сountries.View
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for AddCountryView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class AddCountryView : UserControl
     {
-        public MainView()
+        public AddCountryView()
         {
             InitializeComponent();
         }
-
-       
     }
 }

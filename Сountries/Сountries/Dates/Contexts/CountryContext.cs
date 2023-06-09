@@ -38,6 +38,8 @@ namespace Сountries.Dates.Contexts
             country.Property(x => x.CreateDate).IsRequired();
             country.Property(x => x.GDP).IsRequired();
             country.Property(x => x.MapImgLink).IsRequired();
+            country.Property(x => x.CountryRuler).IsRequired();
+            country.Property(x => x.Himn).IsRequired();
             country.HasOne(c => c.Government).WithOne().HasForeignKey<Government>(c => c.Id);
 
 

@@ -17,5 +17,9 @@ namespace Сountries.Dates.Models
             Id = id;
             GovernmentForm = governmentForm;
         }
+        public override string ToString()
+        {
+            return GovernmentForm;
+        }
     }
 }

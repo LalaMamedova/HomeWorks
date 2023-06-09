@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace Сountries.View
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class HomeView : Window
     {
-        public MainView()
+        public HomeView()
         {
             InitializeComponent();
         }
-
-       
     }
 }

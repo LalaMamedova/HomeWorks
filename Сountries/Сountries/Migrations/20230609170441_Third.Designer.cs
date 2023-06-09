@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Сountries.Dates.Contexts;
 
@@ -11,9 +12,11 @@ using Сountries.Dates.Contexts;
 namespace Сountries.Migrations
 {
     [DbContext(typeof(CountryContext))]
-    partial class CountryContextModelSnapshot : ModelSnapshot
+    [Migration("20230609170441_Third")]
+    partial class Third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
