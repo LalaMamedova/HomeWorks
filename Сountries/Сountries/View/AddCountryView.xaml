@@ -129,15 +129,16 @@
                  Grid.Column="1"
                  Text="{Binding Country.CountryRuler}"/>
 
-        <TextBox Style="{StaticResource MyTextBox}"
-                 Grid.Row="1"
-                 Grid.RowSpan="9"
-                 Grid.Column="2"
-                 Text="{Binding Country.Himn}"
-                 TextWrapping="WrapWithOverflow"
-                 AcceptsReturn="True"
-                 VerticalScrollBarVisibility="Visible"
-                 Height="400"/>
+
+        <TextBox  Text="{Binding Country.Himn}"
+                  TextWrapping="WrapWithOverflow"
+                  AcceptsReturn="True"
+                  VerticalScrollBarVisibility="Visible"
+                  Height="auto"
+                  Grid.Row="1"
+                  Grid.Column="2"
+                  Grid.RowSpan="9"
+                  FontSize="16"/>
 
 
         <Button Grid.ColumnSpan="3"

@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Сountries.Dates.Contexts;
 using Сountries.Dates.Models;
 using Сountries.Services.Classes;
@@ -51,9 +52,9 @@ namespace Сountries.ViewModel
         {
             get => new(() => 
             {
-
                 countryContext.Countrys.Add(Country);
                 countryContext.SaveChanges();
+                MessageBox.Show($"{Country.CountryName} был добавлен в базу данных");
                 Country = new();
             });
         }

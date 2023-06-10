@@ -21,7 +21,7 @@ namespace Сountries.Dates.Models
 
 
         public int? GovermentType { get; set; }
-        public Government Government { get; set; }
+        public Government Government { get; set; } = new();
 
         public Country(int id, string countryName, DateTime createDate, string mapImgLink, float population, double area, double gDP, int? govermentType, Government government)
         {

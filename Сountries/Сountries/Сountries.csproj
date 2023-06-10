@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\Anime City.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Dates\Contexts\" />
     <Folder Include="Dates\InterFaces\" />
   </ItemGroup>
@@ -22,6 +26,10 @@
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Anime City.jpg" />
   </ItemGroup>
 
   <ItemGroup>

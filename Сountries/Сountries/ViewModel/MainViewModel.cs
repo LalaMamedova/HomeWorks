@@ -22,6 +22,7 @@ namespace Сountries.ViewModel
         private IMessenger _messenger;
         private ViewModelBase? _currentViewModel;
         private CountryContext? countryContext;
+        private LoadToDb fromDb;
         public DataBase Database { get; set; } = new();
 
         public void ReceiveMessage(NavigationMessage message) => CurrentViewModel = (ViewModelBase)App.Container.GetInstance(message.ViewModelType);
@@ -38,9 +39,10 @@ namespace Сountries.ViewModel
             _messenger = messenger;
 
             countryContext = new CountryContext();
-            FromDbToOC fromDb = new (countryContext);
 
+            fromDb = new(countryContext);
             fromDb.LoadFronDb();
+
         }
 
         public RelayCommand AddCountryCommand
@@ -62,5 +64,60 @@ namespace Сountries.ViewModel
             });
         }
 
+        public RelayCommand RefreshCommand
+        {
+            get => new(() =>
+            {
+                fromDb = new(countryContext);
+                fromDb.LoadFronDb();
+            });
+        }
+
+        public RelayCommand FiltrationByAlph
+        {
+            get => new(() =>
+            {
+                fromDb.Filtration<string>(x => x.CountryName); 
+            });
+        }
+        public RelayCommand FiltrationByGDP
+        {
+            get => new(() =>
+            {
+                fromDb.Filtration<double>(x => x.GDP);
+            });
+        }
+        public RelayCommand FiltrationByPopulation
+        {
+            get => new(() =>
+            {
+                fromDb.Filtration<float>(x => x.Population);
+            });
+        }
+
+        public RelayCommand<string> FiltrationByGovermentForm
+        {
+            get => new((param) =>
+            {
+                try
+                {
+                    DataBase.Countries.Clear();
+
+                    foreach (var country in countryContext.Countrys)
+                    {
+                        if (country.Government.GovernmentForm == param)
+                        {
+                            DataBase.Countries.Add(country);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                
+
+            });
+        }
     }
 }

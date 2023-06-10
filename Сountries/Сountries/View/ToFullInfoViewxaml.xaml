@@ -24,18 +24,20 @@
         </Grid.RowDefinitions>
 
 
+
+        <TextBlock Text="{Binding Country.CountryName}"
+                   Grid.ColumnSpan="3"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="25"/>
+
+
         <Image HorizontalAlignment="Center"
                Stretch="Uniform" 
                Source="{Binding Country.MapImgLink}" 
                Cursor="Hand"
-               Height="250" Width="250"
-               Grid.RowSpan="2"/>
-
-
-        <StackPanel Orientation="Horizontal"  Grid.Column="1">
-            <TextBlock Text="Название:  " Grid.Column="1"/>
-            <TextBlock Text="{Binding Country.CountryName}"/>
-        </StackPanel>
+               Grid.RowSpan="2"
+               Grid.Row="1"/>
 
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="1"
@@ -77,30 +79,29 @@
             <TextBlock Text="{Binding Country.Population}"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" 
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Grid.RowSpan="7">
-            <TextBlock Text="Гимн:  "/>
-            <TextBox
-                 Grid.Row="1"
-                 Grid.RowSpan="9"
-                 Grid.Column="2"
-                 Text="{Binding Country.Himn}"
-                 TextWrapping="WrapWithOverflow"
-                 AcceptsReturn="True"
-                 VerticalScrollBarVisibility="Visible"
-                 Height="400"
-                 IsEnabled="False"/>
 
-        </StackPanel>
+        <TextBlock Text="Гимн:  "
+                    FontSize="15"/>
+        
+        <TextBox  Text="{Binding Country.Himn}"
+                  TextWrapping="WrapWithOverflow"
+                  AcceptsReturn="True"
+                  VerticalScrollBarVisibility="Visible"
+                  Height="auto"
+                  Grid.Row="1"
+                  Grid.Column="2"
+                  Grid.RowSpan="9"
+                  IsEnabled="False"
+                  FontSize="16"/>
 
-        <Button Grid.Row="9"
+        <Button Grid.Row="0"
                 Width="90"
-                Height="40"
+                Height="30"
                 Content="Назад"
                 Background="LightCyan" 
                 BorderBrush="Blue"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
                 Command="{Binding PrevCommand}"/>
     </Grid>
 </UserControl>

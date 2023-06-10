@@ -42,6 +42,67 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
+        <Button Grid.Column="0" Grid.Row="0"
+                Command="{Binding RefreshCommand}"
+                Height="30"
+                Width="40"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="https://cdn.icon-icons.com/icons2/1129/PNG/512/refresh_79905.png"/>
+            </Button.Background>
+            
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+
+        <ToggleButton x:Name="TogglePopupButton"
+                        Background="Transparent"
+                        Grid.Column="3" Grid.Row="0"
+                        Width="200"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right">
+            <StackPanel>
+                <TextBlock>
+                         <Run Text="Фильтрация" FontSize="22"
+                              FontFamily="Century Gothic"/>
+                </TextBlock>
+
+                <Popup IsOpen="{Binding IsChecked, ElementName=TogglePopupButton, Mode=TwoWay}"
+                           PlacementTarget="{Binding ElementName=TogglePopupButton}"
+                           Placement="Bottom"          
+                           StaysOpen="False">
+
+                    <StackPanel Background="White"
+                                Orientation="Vertical">
+
+                        <Button Content= "Сортировать по первой букве" 
+                                    Style="{StaticResource MyButtonStyle}"
+                                    Command="{Binding FiltrationByAlph}"
+                                    Width="200"/>
+
+                        <Button Content= "Сортировать по ВВП" 
+                                    Style="{StaticResource MyButtonStyle}"
+                                    Command="{Binding FiltrationByGDP}"
+                                    Width="200"/>
+
+                        <Button Style="{StaticResource MyButtonStyle}"
+                                    Content="Сортировать по популяции"
+                                    Command="{Binding FiltrationByPopulation}"
+                                    Width="200"/>
+
+                    </StackPanel>
+                </Popup>
+            </StackPanel>
+        </ToggleButton>
+        
+     
+
         <ScrollViewer Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" >
             <Border  CornerRadius="30" Background="LightBlue">
                 <StackPanel>
@@ -52,9 +113,12 @@
                                 <GroupBox Header="Форма правления" Margin="10">
 
                                     <StackPanel Margin="10">
+                                        
                                         <Button Content="{Binding GovernmentForm}"
                                                 Background="#FF000F61" 
-                                                Foreground="White"/>
+                                                Foreground="White"
+                                                Command="{Binding Path=DataContext.FiltrationByGovermentForm,ElementName = Main}"
+                                                CommandParameter="{Binding GovernmentForm}"/>
                                     </StackPanel>
                                 </GroupBox>
 
