@@ -25,6 +25,14 @@
                 <View:ToFullInfoViewxaml></View:ToFullInfoViewxaml>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type ViewModel:HeadsOfCountryViewModel}">
+                <View:HeadsOfCountryView></View:HeadsOfCountryView>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type ViewModel:AddHeadOfCountryViewModel}">
+                <View:AddHeadOfCountryView></View:AddHeadOfCountryView>
+            </DataTemplate>
+
 
         </ResourceDictionary>
     </Application.Resources>

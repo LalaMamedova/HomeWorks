@@ -11,12 +11,17 @@ namespace Сountries.Dates.Models
         public int Id { get;set; }
         public string? GovernmentForm { get; set; }
 
+
+
         public Government() { }
+
         public Government(int id, string? governmentForm)
         {
             Id = id;
             GovernmentForm = governmentForm;
         }
+
+
         public override string ToString()
         {
             return GovernmentForm;

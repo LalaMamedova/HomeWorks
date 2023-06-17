@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Сountries.View"
+             xmlns:local="clr-namespace:Сountries.View" xmlns:viewmodel="clr-namespace:Сountries.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ToFullInfoViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -14,6 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -42,24 +43,31 @@
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="1"
                     Grid.Column="1">
-            <TextBlock Text="Площадь:  "/>
-            <TextBlock Text="{Binding Country.Area}"/>
+            
+            <TextBlock Text="Площадь:  "
+                       FontSize="16"/>
+            <TextBlock Text="{Binding Country.Area}"
+                       FontSize="16"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"   
                     Grid.Row="2"
                     Grid.Column="1">
             
-            <TextBlock Text="ВВП:  "/>
-            <TextBlock Text="{Binding Country.GDP}"/>
+            <TextBlock Text="ВВП:  "
+                       FontSize="16"/>
+            <TextBlock Text="{Binding Country.GDP}"
+                       FontSize="16"/>
         </StackPanel>
 
 
         <StackPanel Orientation="Horizontal"  
                     Grid.Row="3"
                     Grid.Column="1">
-            <TextBlock Text="Тип правления:  "/>
-            <TextBlock Text="{Binding Country.Government.GovernmentForm}"/>
+            <TextBlock Text="Тип правления:  "
+                       FontSize="16"/>
+            <TextBlock Text="{Binding Country.Government.GovernmentForm}"
+                       FontSize="16"/>
         </StackPanel>
 
 
@@ -68,20 +76,46 @@
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="4"
                     Grid.Column="1">
-            <TextBlock Text="Дата создания:  "/>
-            <TextBlock Text="{Binding Country.CreateDate}"/>
+            <TextBlock Text="Дата создания:  "
+                       FontSize="16"/>
+            
+            <TextBlock Text="{Binding Country.CreateDate}"
+                       FontSize="16"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="5"
                     Grid.Column="1">
-            <TextBlock Text="Популяция:  "/>
-            <TextBlock Text="{Binding Country.Population}"/>
+            
+            <TextBlock Text="Популяция:  "
+                       FontSize="16"/>
+            <TextBlock Text="{Binding Country.Population}"
+                       FontSize="16"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="6"
+                    Grid.Column="1">
+            
+            <TextBlock Text="Президент:  "
+                       FontSize="16"/>
+
+            <Button Content="{Binding Country.HeadOfStates.FullName}"
+                    BorderThickness="0"
+                    Background="Transparent"
+                    Foreground="Blue"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="16"
+                    Command="{Binding ToHeadOfCountry}"
+                    CommandParameter="{Binding Country.HeadOfStates}"/>
         </StackPanel>
 
 
+
         <TextBlock Text="Гимн:  "
-                    FontSize="15"/>
+                   Grid.Column="2"
+                   FontSize="16"/>
         
         <TextBox  Text="{Binding Country.Himn}"
                   TextWrapping="WrapWithOverflow"
@@ -94,14 +128,6 @@
                   IsEnabled="False"
                   FontSize="16"/>
 
-        <Button Grid.Row="0"
-                Width="90"
-                Height="30"
-                Content="Назад"
-                Background="LightCyan" 
-                BorderBrush="Blue"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Command="{Binding PrevCommand}"/>
+     
     </Grid>
 </UserControl>

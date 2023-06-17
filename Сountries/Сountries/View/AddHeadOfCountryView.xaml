@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="Сountries.View.AddCountryView"
+﻿<UserControl x:Class="Сountries.View.AddHeadOfCountryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Сountries.View" xmlns:viewmodel="clr-namespace:Сountries.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddCountryViewModel}"
+             xmlns:local="clr-namespace:Сountries.View" xmlns:viewmodel="clr-namespace:Сountries.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HeadsOfCountryViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
+        
         <Style TargetType="Label" x:Key="MyLabel">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -21,9 +22,10 @@
             <Setter Property="Width" Value="250"/>
 
         </Style>
-        
     </UserControl.Resources>
+
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -38,112 +40,85 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Label VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Grid.Column="2"
+               Content="{Binding HeadOfState.Id}"/>
+
+       
         <Label Style="{StaticResource MyLabel}"
-               Content="Текст гимна"
+               Content="Биография"
                Grid.Column="2"/>
-        
-        <Label Style="{StaticResource MyLabel}"
-               Content="Название страны"/>
 
         <Label Style="{StaticResource MyLabel}"
-               Content="Популяция страны"
+               Content="Имя"/>
+
+        <Label Style="{StaticResource MyLabel}"
+               Content="Фамилия"
                Grid.Row="1"/>
-        
-        <Label Style="{StaticResource MyLabel}"
-               Content="ВВП "
-               Grid.Row="2"/>
-        
 
         <Label Style="{StaticResource MyLabel}"
-               Content="Тип правления"
+               Content="Отчество "
+               Grid.Row="2"/>
+
+
+        <Label Style="{StaticResource MyLabel}"
+               Content="Позиция"
                Grid.Row="3"/>
 
         <Label Style="{StaticResource MyLabel}"
-               Content="Дата создания"
+               Content="День рождения"
                Grid.Row="4"/>
 
         <Label Style="{StaticResource MyLabel}"
-               Content="Площадь страны"
+               Content="Ссылка на изображение"
                Grid.Row="5"/>
 
-        <Label Style="{StaticResource MyLabel}"
-               Content="Изображения карты"
-               Grid.Row="6"/>
-
-        <Label Style="{StaticResource MyLabel}"
-               Content="Правитель"
-               Grid.Row="7"/>
-
+       
 
         <TextBox Style="{StaticResource MyTextBox}"
                  Grid.Row="0"
                  Grid.Column="1"
-                 Text="{Binding Country.CountryName}"/>
+                 Text="{Binding HeadOfState.Name}"/>
 
 
         <TextBox Style="{StaticResource MyTextBox}"
                  Grid.Row="1"
                  Grid.Column="1"
-                 Text="{Binding Country.Population}"/>
+                 Text="{Binding HeadOfState.Surname}"/>
 
         <TextBox Style="{StaticResource MyTextBox}"
                  Grid.Row="2"
                  Grid.Column="1"
-                 Text="{Binding Country.GDP}"/>
+                 Text="{Binding HeadOfState.Patronymic}"/>
 
         <ComboBox Grid.Row="3"
                   Grid.Column="1"
                   Width="250"
                   Height="28"
-                  ItemsSource="{Binding Database.Governments}"
-                  SelectedItem="{Binding Country.Government.GovernmentForm}"/>
+                  ItemsSource="{Binding Database.HeadOfStatePositions}"
+                  SelectedItem="{Binding HeadOfState.Position.Position}"
+                  SelectedIndex="{Binding HeadOfState.PositionId}"/>
 
         <DatePicker Grid.Row="4"
                     Grid.Column="1"
                     Width="250"
                     Height="35"
-                    SelectedDate="{Binding Country.CreateDate}"/>
-        
-      
+                    SelectedDate="{Binding HeadOfState.BirthDate}"/>
+
+
 
         <TextBox Style="{StaticResource MyTextBox}"
                  Grid.Row="5"
                  Grid.Column="1"
-                 Text="{Binding Country.Area}"/>
+                 Text="{Binding HeadOfState.ImgLink}"/>
 
 
-        <Button Grid.Column="1"
-                Grid.Row="6"
-                Width="150"
-                Height="40"
-                Content="Добавить карту"
-                Background="DarkCyan"
-                Command="{Binding AddMap}"/>
 
-        <StackPanel  Grid.Row="7"
-                     Grid.Column="1"
-                     Orientation="Horizontal">
-            
-            <ComboBox 
-                 Grid.Row="7"
-                 Grid.Column="1"
-                 Height="30" Width="150"
-                 ItemsSource="{Binding Database.HeadOfStates}"
-                 SelectedItem="{Binding FullName}"
-                 SelectedIndex="1"/>
 
-            <Button Height="30" Width="140"
-                    Margin="5 0 0 0"
-                    Background="#FF00F5F5"
-                    Content="Добавить президента"
-                    Command="{Binding AddHeadState}"/>
-        </StackPanel>
-
-        <TextBox  Text="{Binding Country.Himn}"
+        <TextBox  Text="{Binding HeadOfState.Description}"
                   TextWrapping="WrapWithOverflow"
                   AcceptsReturn="True"
                   VerticalScrollBarVisibility="Visible"
@@ -161,8 +136,6 @@
                 Content="Добавить"
                 Background="LightCyan"
                 Command="{Binding AddCommand}"/>
-
-      
 
     </Grid>
 </UserControl>

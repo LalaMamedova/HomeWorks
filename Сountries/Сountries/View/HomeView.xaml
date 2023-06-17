@@ -11,7 +11,22 @@
     
     <Grid Background="AliceBlue">
 
-        <ContentControl  Content="{Binding CurrentViewModel}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35px"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0"
+                Width="60"
+                Height="30"
+                Content="Назад"
+                Background="LightCyan" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                BorderBrush="Blue"
+                Command="{Binding PrevCommand}"/>
+        
+        <ContentControl Grid.Row="1" 
+                        Content="{Binding CurrentViewModel}"/>
 
     </Grid>
 </Window>

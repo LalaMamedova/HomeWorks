@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Сountries.Dates.Contexts;
 using Сountries.Services.Classes;
 using Сountries.Services.Interfaces;
+using GalaSoft.MvvmLight.Command;
 
 namespace Сountries.ViewModel
 {
@@ -24,7 +25,13 @@ namespace Сountries.ViewModel
             get => _currentViewModel!;
             set => Set(ref _currentViewModel, value);
         }
-
+        public RelayCommand PrevCommand
+        {
+            get => new(() =>
+            {
+                _navigate.NavigateTo<MainViewModel>();
+            });
+        }
         public HomeViewModel(INavigate navigate, IMessenger messenger)
         {
             _navigate = navigate;

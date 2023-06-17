@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Сountries.Dates.Contexts;
 
@@ -11,9 +12,11 @@ using Сountries.Dates.Contexts;
 namespace Сountries.Migrations
 {
     [DbContext(typeof(CountryContext))]
-    partial class CountryContextModelSnapshot : ModelSnapshot
+    [Migration("20230616071148_First")]
+    partial class First
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,9 +65,11 @@ namespace Сountries.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryRulerId");
+                    b.HasIndex("CountryRulerId")
+                        .IsUnique();
 
-                    b.HasIndex("GovermentTypeId");
+                    b.HasIndex("GovermentTypeId")
+                        .IsUnique();
 
                     b.ToTable("Countrys");
                 });
@@ -120,7 +125,8 @@ namespace Сountries.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PositionId");
+                    b.HasIndex("PositionId")
+                        .IsUnique();
 
                     b.ToTable("HeadOfStates");
                 });
@@ -145,14 +151,14 @@ namespace Сountries.Migrations
             modelBuilder.Entity("Сountries.Dates.Models.Country", b =>
                 {
                     b.HasOne("Сountries.Dates.Models.HeadOfState", "HeadOfStates")
-                        .WithMany()
-                        .HasForeignKey("CountryRulerId")
+                        .WithOne()
+                        .HasForeignKey("Сountries.Dates.Models.Country", "CountryRulerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Сountries.Dates.Models.Government", "Government")
-                        .WithMany()
-                        .HasForeignKey("GovermentTypeId")
+                        .WithOne()
+                        .HasForeignKey("Сountries.Dates.Models.Country", "GovermentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -164,8 +170,8 @@ namespace Сountries.Migrations
             modelBuilder.Entity("Сountries.Dates.Models.HeadOfState", b =>
                 {
                     b.HasOne("Сountries.Dates.Models.HeadOfStatePosition", "Position")
-                        .WithMany()
-                        .HasForeignKey("PositionId")
+                        .WithOne()
+                        .HasForeignKey("Сountries.Dates.Models.HeadOfState", "PositionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
