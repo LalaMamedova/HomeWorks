@@ -19,10 +19,11 @@ namespace Download
             mutex.WaitOne();
 
             string description = AllGames.Games[count].Description;
-            GameClone = AllGames.Games[count];
-            GameClone.Description = "";
+            GameClone = (Game)AllGames.Games[count].Clone();
 
             downloadList.Items.Add(GameClone);
+            downloadList.Items.Add("");
+
             DescriptionTextBox.Text = (description);
 
             mutex.ReleaseMutex();
@@ -32,10 +33,10 @@ namespace Download
         private void ProgsseveBar()
         {
             downloadProgressBar.Maximum = 100;
-            downloadProgressBar.Value = 0;
+            downloadProgressBar.Minimum = 0;
             downloadProgressBar.Step = 1;
 
-            for (int i = 0; i <= downloadProgressBar.Maximum; i+=2)
+            for (int i = 0; i <= downloadProgressBar.Maximum; i++)
             {
                 downloadProgressBar.Value = i;
             }
@@ -43,14 +44,16 @@ namespace Download
         private void downloadButton_Click(object sender, EventArgs e)
         {
             DescriptionTextBox.Text = "";
-            downloadList.Items.Clear();
 
             downloadList.Invoke(new Action(Download), GameClone);
 
             if (count < AllGames.Games.Count - 1)
                 count++;
             else
+            {
                 count = 0;
+                downloadList.Items.Clear();
+            }
         }
 
         public void Download()

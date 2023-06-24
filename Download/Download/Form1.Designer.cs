@@ -51,9 +51,12 @@
             // 
             downloadProgressBar.BackColor = Color.FromArgb(255, 192, 255);
             downloadProgressBar.Location = new Point(0, 480);
+            downloadProgressBar.Minimum = 1;
             downloadProgressBar.Name = "downloadProgressBar";
             downloadProgressBar.Size = new Size(421, 23);
+            downloadProgressBar.Step = 5;
             downloadProgressBar.TabIndex = 1;
+            downloadProgressBar.Value = 1;
             // 
             // downloadButton
             // 

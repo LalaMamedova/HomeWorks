@@ -16,7 +16,14 @@ namespace Download.Data
 
         public object Clone()
         {
-            return new Game { Description = this.Description };
+            return new Game
+            {
+                Title = this.Title,
+                ReleaseTime = this.ReleaseTime,
+                Genre = this.Genre,
+                AvgRating = this.AvgRating,
+                Description = ""
+            };
         }
 
         public override string ToString()
