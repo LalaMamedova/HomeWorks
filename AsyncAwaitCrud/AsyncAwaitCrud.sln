@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwaitCrud", "AsyncAwaitCrud\AsyncAwaitCrud.csproj", "{BAFAADF2-E349-47A8-BC89-0B644E569DD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAFAADF2-E349-47A8-BC89-0B644E569DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAFAADF2-E349-47A8-BC89-0B644E569DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAFAADF2-E349-47A8-BC89-0B644E569DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAFAADF2-E349-47A8-BC89-0B644E569DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F16AF87-2A59-4D6A-9419-EAA5547A0E6F}
+	EndGlobalSection
+EndGlobal
