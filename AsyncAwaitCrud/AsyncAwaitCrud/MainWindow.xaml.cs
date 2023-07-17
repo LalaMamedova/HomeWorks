@@ -34,14 +34,14 @@ namespace AsyncAwaitCrud
 
         private async void ItemsControl_Loaded(object sender, RoutedEventArgs e)
         {
-          
-             //Parallel.ForEach(context.Flowers, async flower =>
-             //{
-             //   await Dispatcher.Invoke(async () =>
-             //   {
-             //       FlowerList.Add(flower);
-             //   });
-             //});
+
+            //Parallel.ForEach(context.Flowers, async flower =>
+            //{
+            //    await Dispatcher.Invoke(async () =>
+            //     {
+            //       FlowerList.Add(flower);
+            //   });
+            //});
 
 
             context.Flowers.ToList().ForEach(flower =>
@@ -80,9 +80,9 @@ namespace AsyncAwaitCrud
         {
             if (sender is Button button && button.CommandParameter != null)
             {
-                AddFlower AddFlower = new(context.Flowers
+                AddFlower AddFlower =  new(await context.Flowers
                     .Where(x => x.Id == (int)button.CommandParameter)
-                    .FirstOrDefault()!);
+                    .FirstAsync()!);
 
                 AddFlower.ShowDialog();
 
@@ -94,9 +94,8 @@ namespace AsyncAwaitCrud
         {
             if (sender is Button button && button.CommandParameter != null)
             {
-                Flower flower = context.Flowers
-                .Where(x => x.Id == (int)button.CommandParameter)
-                .FirstOrDefault()!;
+                Flower flower = await context.Flowers
+                .Where(x => x.Id == (int)button.CommandParameter).FirstAsync();
 
                 context.Flowers.Remove(flower);
                 await context.SaveChangesAsync();

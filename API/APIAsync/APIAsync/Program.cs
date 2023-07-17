@@ -2,14 +2,11 @@
 using APIAsync.Service;
 using Newtonsoft.Json;
 
-DownLoadMovie downloadWeather = new DownLoadMovie();
-Console.WriteLine("Напиши название фильма(на английском)");
-string title = Console.ReadLine();
+DownloadFact downloadFact = new DownloadFact();
 
 try
 {
-    await downloadWeather.Download(title);
-  
+    await downloadFact.Download(2);
 }
 catch (Exception ex)
 {
