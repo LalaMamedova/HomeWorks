@@ -1,0 +1,84 @@
+﻿<Window x:Class="FTPWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FTPWpf"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="450" Width="800"
+        Name="Main">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="460"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Введите куда хотите подключиться"/>
+            <TextBox Width="150" Margin="5"
+                     Text="{Binding IP}"/>
+
+            <Button Content="Подключиться"
+                    Background="Pink"
+                    Margin="5" Click="Button_Click"/>
+        </StackPanel>
+
+
+
+        <ItemsControl Grid.Row="1" Background="Pink" 
+                      ItemsSource="{Binding FilesName}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=DataContext.Res,ElementName = Main}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1">
+            
+            <StackPanel Orientation="Horizontal">
+
+
+                <Label Content="Куда скачать(путь)"/>
+                
+                <TextBox Width="150" Margin="5"
+                         Text="{Binding DownloadPath}"
+                         Height="25"
+                         VerticalAlignment="Top"/>
+
+            
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+
+                <Label Content="Что скачать"/>
+                
+                <TextBox Width="150" Margin="42 0 0 0"
+                         Text="{Binding FileName}"
+                         Height="25"
+                         VerticalAlignment="Top"/>
+
+
+            </StackPanel>
+            
+            <Button Grid.Row="2" Width="150" Margin="40 50 0 0"
+                    Content="Скачать" Background="LightPink"
+                    Click="DownLoadButton_Click"/>
+
+        </StackPanel>
+
+        <Button Grid.Row="2" Width="150" 
+                Content="Добавить" Background="LightPink"
+                Click="AddButton"/>
+    </Grid>
+</Window>
