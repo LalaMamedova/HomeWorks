@@ -11,7 +11,7 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="460"/>
+            <ColumnDefinition Width="500"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -24,61 +24,74 @@
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Введите куда хотите подключиться"/>
-            <TextBox Width="150" Margin="5"
+            <TextBox Width="120" Margin="5"
                      Text="{Binding IP}"/>
 
             <Button Content="Подключиться"
                     Background="Pink"
-                    Margin="5" Click="Button_Click"/>
+                    Margin="5" Click="ConnectButton_Click"/>
+
+            <Button Content="Обновить"
+                    Background="Pink"
+                     Margin="5" Click="RefreshButton_Click"/>
         </StackPanel>
 
 
 
-        <ItemsControl Grid.Row="1" Background="Pink" 
-                      ItemsSource="{Binding FilesName}">
-            <ItemsControl.ItemTemplate>
+        
+        <ListBox Grid.Row="1" Background="Pink" Name="FileList"
+                      ItemsSource="{Binding FilesInfo}">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=DataContext.Res,ElementName = Main}"/>
+                    
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding Size}" Margin="0 0 0 5"/>
+                            <Label Content="Килобайта"/>
+                            <Label Content="{Binding Name}"  Margin="0 0 0 15"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel Grid.Row="1"
                     Grid.Column="1">
-            
+
             <StackPanel Orientation="Horizontal">
-
-
                 <Label Content="Куда скачать(путь)"/>
                 
-                <TextBox Width="150" Margin="5"
-                         Text="{Binding DownloadPath}"
-                         Height="25"
-                         VerticalAlignment="Top"/>
+                <Button Grid.Row="2" Width="150" Margin="5" 
+                        Content="Выбрать путь" Background="LightPink"
+                        Click="ChoiceButton"/>
 
-            
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
 
-                <Label Content="Что скачать"/>
-                
-                <TextBox Width="150" Margin="42 0 0 0"
+                <Label Content="Название файла"/>
+                <TextBox Width="150"  Height="25" Margin="15 0 0 0"
                          Text="{Binding FileName}"
-                         Height="25"
                          VerticalAlignment="Top"/>
 
-
             </StackPanel>
-            
-            <Button Grid.Row="2" Width="150" Margin="40 50 0 0"
+
+            <StackPanel Orientation="Horizontal">
+                <Button  Width="100" Margin="40 50 0 0"
                     Content="Скачать" Background="LightPink"
                     Click="DownLoadButton_Click"/>
+
+                <Button Grid.Row="2" Width="100" Margin="0 50 0 0"
+                    Content="Удалить" Background="LightBlue"
+                    Click="DeleteButton_Click"/>
+            </StackPanel>
 
         </StackPanel>
 
         <Button Grid.Row="2" Width="150" 
                 Content="Добавить" Background="LightPink"
                 Click="AddButton"/>
+
     </Grid>
 </Window>
