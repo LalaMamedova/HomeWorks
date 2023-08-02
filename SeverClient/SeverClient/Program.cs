@@ -8,7 +8,8 @@ TcpListener server = new(IPAddress.Any, 8080);
 try
 {
    
-    server.Start(); Console.WriteLine("Welcome to this programm");
+    server.Start();
+    Console.WriteLine("Welcome to this programm");
     int i = 1;
 
     while (true)
