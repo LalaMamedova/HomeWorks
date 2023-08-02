@@ -19,7 +19,7 @@ namespace IMAP
     public partial class MainWindow : Window
     {
         public string UserEmail { get; set; }
-        public string Password { get; set; } = "uuigrirzmshxjtlu";
+        public string Password { get; set; }
         public string ReciverEmail { get; set; } 
         public MailAddress UserMailAddress { get; set; }
         public MailAddress ReciverMailAddress { get; set; }
