@@ -10,6 +10,7 @@ using MailKit;
 using System.Collections.ObjectModel;
 using MimeKit;
 using HtmlAgilityPack;
+using System.Windows.Controls;
 
 namespace IMAP
 {
@@ -18,14 +19,14 @@ namespace IMAP
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string UserEmail { get; set; }
-        public string Password { get; set; }
+        public string UserEmail { get; set; } 
+        public string Password { get; set; } 
         public string ReciverEmail { get; set; } 
         public MailAddress UserMailAddress { get; set; }
         public MailAddress ReciverMailAddress { get; set; }
         public MailMessage MailMessage { get; set; }
         public ImapClient Client { get; set; } = new ImapClient();
-        public ObservableCollection<Mail> mimeMessages { get; set; } = new();
+        public ObservableCollection<MimeMessage> mimeMessages { get; set; } = new();
 
         bool isAttachment = false;
 
@@ -98,34 +99,17 @@ namespace IMAP
             Client.Authenticate(UserEmail, Password);
             Client.Inbox.Open(FolderAccess.ReadOnly);
 
-            int count = Client.Inbox.Count;
-
-     
-            for (int i = 1; i < 10; i++)
+         
+            for (int i = 0; i < 15; i++)
             {
-                Mail mail = new Mail()
-                {
-                    Subject = Client.Inbox.GetMessage(i).Subject,
-                    Body = Client.Inbox.GetMessage(i).TextBody,
-                    HtmlBody = Client.Inbox.GetMessage(i).HtmlBody,
-                    From = Client.Inbox.GetMessage(i).From.ToString(),
-                };
-
-                //mail.HtmlBody = ConvertHtmlToText(mail.HtmlBody);
-                mimeMessages.Add(mail);
+                mimeMessages.Add(Client.Inbox.GetMessage(i));
             }
 
             Client.Disconnect(true);
             Client.Dispose();
         }
 
-        string ConvertHtmlToText(string html)
-        {
-            HtmlDocument htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(html);
-
-            return htmlDocument.DocumentNode.InnerText;
-        }
+       
 
         private void ReciveMyMailsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -135,7 +119,16 @@ namespace IMAP
             }
             else
                 MessageBox.Show("В начале войдите в почту");
+        }
 
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            string html = (string)button.CommandParameter;
+
+            HTMLBody hTMLBody = new(html);
+            hTMLBody.Show();
         }
     }
 }

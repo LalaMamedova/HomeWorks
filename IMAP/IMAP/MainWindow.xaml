@@ -4,11 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMAP"
+        xmlns:HtmlConvert ="clr-namespace:IMAP.Classes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="1000"
+        Name="Main"
+        Title="MainWindow" Height="650" Width="1200"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+
+
+    <Window.Resources>
+        <HtmlConvert:HtmlToTextConverter x:Key="Converter"></HtmlConvert:HtmlToTextConverter>
+    </Window.Resources>
     
-    <Grid>
+    <Grid Background="Aquamarine">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="60px"/>
@@ -18,13 +26,20 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.1*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
+        <GroupBox Grid.RowSpan="4" Grid.Row="1" 
+                  Header="Ваши сообщения "/>
+        <GroupBox Grid.RowSpan="4" Grid.Row="1" 
+                  Grid.Column="1" Header="Ваше сообщение"/>
+        
+        
         <StackPanel Orientation="Horizontal" 
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Center"
+                    Grid.ColumnSpan="2">
             
             <Label Content="Ваш эмейл" VerticalAlignment="Center" />
             <TextBox Width="150" Margin="5" 
@@ -32,42 +47,43 @@
             <Label Content="Пароль" VerticalAlignment="Center" />
             <TextBox Width="150" Margin="5" 
                      Text="{Binding Password}"/>
-            
-            <Button  Content="Подключиться"  Background="DarkGreen"
-                     Foreground="White" Click="ConnectButton_Click"
-                     Margin="5"/>
-            
-        </StackPanel>
 
-        <StackPanel Orientation="Horizontal" 
-                    VerticalAlignment="Bottom"
+            <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Center">
-            
-            <Button  Content="Получить свои сообщения"  Background="DarkGreen"
-                     Foreground="White" Click="ReciveMyMailsButton_Click" Height="25"/>
 
+                <Button  Content="Подключиться"  Background="DarkGreen"
+                     Foreground="White" Click="ConnectButton_Click"
+                     Margin="15 0"/>
+
+                <Button  Content="Получить свои сообщения"  Background="DarkGreen"
+                     Foreground="White" Click="ReciveMyMailsButton_Click" />
+
+            </StackPanel>
         </StackPanel>
 
-        <ListBox Grid.RowSpan="3" Grid.Row="1" Margin="10" ItemsSource="{Binding mimeMessages}" Name="MailListBox">
+
+        <ListBox Grid.RowSpan="3" Grid.Row="1" 
+                 Margin="20" ItemsSource="{Binding mimeMessages}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="{Binding From}" FontWeight="Bold" FontSize="14"/>
-                        <TextBlock Grid.Row="1" Text="{Binding Subject}" FontWeight="Bold" FontSize="12"/>
-                        <TextBlock Grid.Row="2" Text="{Binding Body}" TextWrapping="Wrap"/>
-                    </Grid>
+
+                    <StackPanel>
+                        <Button Content="{Binding From}"  
+                                    Background="#FF52FF94"
+                                    Click="Button_Click"
+                                    CommandParameter="{Binding HtmlBody}"/>
+                    </StackPanel>
                 </DataTemplate>
+
             </ListBox.ItemTemplate>
         </ListBox>
-        
-        <StackPanel Grid.Column="1" >
+
+
+
+
+        <StackPanel Grid.Column="2" >
             
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
             <Label Content="Кому отправить" VerticalAlignment="Center" />
                 <TextBox Width="150" Margin="5" Text="{Binding ReciverEmail}" />
             </StackPanel>
@@ -75,16 +91,17 @@
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Label Content="Заголовок         " 
                        VerticalAlignment="Center"/>
+                
                 <TextBox Width="150" Margin="5"
                          Name="MailSubject"/>
             </StackPanel>
         </StackPanel>
         
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="25"
+        <TextBox Grid.Row="1" Grid.Column="2" Margin="25"
                   Name="MailBody"/>
 
 
-        <Button Grid.Row="2" Grid.Column="1"  Width="150px"
+        <Button Grid.Row="2" Grid.Column="2"  Width="150px"
                 Content="Приклепить файл"  Background="DarkGreen" 
                 Foreground="White" Click="AttachmentsButton_Click" />
 
