@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteBoardProject", "WhiteBoardProject\WhiteBoardProject.csproj", "{8814101B-FEEB-4FC8-A67F-67C5A5B57682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteBoardProject", "WhiteBoardProject\WhiteBoardProject.csproj", "{8814101B-FEEB-4FC8-A67F-67C5A5B57682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyThemesLib", "MyThemesLib\MyThemesLib.csproj", "{4B2100F6-66DD-473B-BCF3-E19B4222065F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectLib", "ProjectLib\ProjectLib.csproj", "{590827D9-63C0-4DE6-B798-0A33BB6705BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{8814101B-FEEB-4FC8-A67F-67C5A5B57682}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8814101B-FEEB-4FC8-A67F-67C5A5B57682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8814101B-FEEB-4FC8-A67F-67C5A5B57682}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B2100F6-66DD-473B-BCF3-E19B4222065F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B2100F6-66DD-473B-BCF3-E19B4222065F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B2100F6-66DD-473B-BCF3-E19B4222065F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B2100F6-66DD-473B-BCF3-E19B4222065F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590827D9-63C0-4DE6-B798-0A33BB6705BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590827D9-63C0-4DE6-B798-0A33BB6705BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590827D9-63C0-4DE6-B798-0A33BB6705BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590827D9-63C0-4DE6-B798-0A33BB6705BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,9 +7,11 @@ using System.Windows.Media;
 
 namespace WhiteBoardProject.Class
 {
-    public class MyColor
+    public class CanvasColor
     {
         public string ColorName { get; set; }
         public Brush ColorValue { get; set; }
+
+        public CanvasColor() { }
     }
 }

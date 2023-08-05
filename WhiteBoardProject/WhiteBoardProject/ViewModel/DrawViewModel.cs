@@ -1,112 +1,92 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WhiteBoardProject.Class;
-using ColorConverter = System.Windows.Media.ColorConverter;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Net;
+using System.Windows.Media.Animation;
 
 namespace WhiteBoardProject.ViewModel
 {
-    public class DrawViewModel: ViewModelBase
+    public class DrawViewModel : ViewModelBase,INotifyPropertyChanged
     {
-        public List<MyColor> AvailableColors { get; set; } = new()
+        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private DrawingAttributes drawingAttributes = new();
+        private InkCanvasEditingMode inkCanvasEditingMode = InkCanvasEditingMode.Ink;
+        private SolidColorBrush selectedBackGround = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
+  
+        public ColorList ColorList { get; set; } = new();        
+        public double Width { get; set; }
+        public double Height { get; set; }
+
+        public DrawingAttributes DrawingAttributes 
         {
-            new MyColor()
-            {
-                ColorName = "Оранжевый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Orange")),
-            },
-            new MyColor()
-            {
-                ColorName = "Красный",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Red")),
-            },
+            get => drawingAttributes;
+            set { drawingAttributes = value; NotifyPropertyChanged(nameof(DrawingAttributes)); }
+        }
+        public SolidColorBrush SelectedBackGround
+        {
+            get => selectedBackGround; 
+            set { selectedBackGround = value; NotifyPropertyChanged(nameof(SelectedBackGround)); }
+        }
+        public InkCanvasEditingMode InkCanvasEditingMode
+        {
+            get => inkCanvasEditingMode;
+            set { inkCanvasEditingMode = value; NotifyPropertyChanged(nameof(InkCanvasEditingMode)); }
+        }
+        public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
+  
 
-            new MyColor()
-            {
-                ColorName = "Синий",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Blue")),
-            },
-              new MyColor()
-            {
-                ColorName = "Розовый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Pink")),
-            },  new MyColor()
-            {
-                ColorName = "Белый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White")),
-            },  new MyColor()
-            {
-                ColorName = "Черный",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Black")),
-            },
 
-               new MyColor()
+        public RelayCommand<string> ChoiceColor
+        {
+            get => new(param =>
             {
-                ColorName = "Оранжевый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Orange")),
-            },
-            new MyColor()
-            {
-                ColorName = "Красный",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Red")),
-            },
+                InkCanvasEditingMode = InkCanvasEditingMode.Ink;
+                DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString(param);
+            });
+        }
 
-            new MyColor()
+        public RelayCommand Erase
+        {
+            get => new(() =>
             {
-                ColorName = "Синий",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Blue")),
-            },
-              new MyColor()
-            {
-                ColorName = "Розовый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Pink")),
-            },  new MyColor()
-            {
-                ColorName = "Белый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White")),
-            },  new MyColor()
-            {
-                ColorName = "Черный",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Black")),
-            }, new MyColor()
-            {
-                ColorName = "Оранжевый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Orange")),
-            },
-            new MyColor()
-            {
-                ColorName = "Красный",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Red")),
-            },
+                InkCanvasEditingMode = InkCanvasEditingMode.EraseByPoint;
+            });
+        }
 
-            new MyColor()
+        public RelayCommand ChangeMode
+        {
+            get => new(() =>
             {
-                ColorName = "Синий",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Blue")),
-            },
-              new MyColor()
-            {
-                ColorName = "Розовый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Pink")),
-            },  new MyColor()
-            {
-                ColorName = "Белый",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White")),
-            },  new MyColor()
-            {
-                ColorName = "Черный",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Black")),
-            },
-        };
+                if ((string)isNightMode.MyData == "Темный")
+                {
+                    SelectedBackGround.Color = ((Color)ColorConverter.ConvertFromString("White"));
+                    isNightMode.MyData = "Светлый";
+                }
+                else
+                {
+                    SelectedBackGround.Color = ((Color)ColorConverter.ConvertFromString("Black"));
+                    isNightMode.MyData = "Темный";
 
-   
-        public static Brush ButtonColor { get; set; }
+                }
+            });
+        }
 
+ 
 
     }
 
