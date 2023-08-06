@@ -9,7 +9,7 @@
              xmlns:Converters ="clr-namespace:WhiteBoardProject.Converters"
              d:DataContext="{d:DesignInstance Type=viewmodel:DrawViewModel}"
              mc:Ignorable="d"  Name="DrawWindow"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="1500">
 
     <UserControl.Resources>
 
@@ -35,45 +35,114 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+
         <StackPanel Grid.ColumnSpan="2"
-                    Background="#FFFF5673"
+                    Background="#FF045452"
                     Orientation="Horizontal">
 
 
 
-            <ToggleButton x:Name="TogglePopupButton"
-                     Width="60" BorderThickness="0">
+            <ToggleButton  x:Name="MenuToggleButton" Width="40" Height="40"
+                           BorderThickness="0">
                 <ToggleButton.Background>
                     <ImageBrush ImageSource="/Img/MenuPng.png"/>
                 </ToggleButton.Background>
 
-                <StackPanel >
-                    <Popup  IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
-                        Placement="Center"
-                        StaysOpen="False"
+                <Popup x:Name="MenuPopupButton" IsOpen="{Binding IsChecked, ElementName=MenuToggleButton}"
+                        Placement="Bottom" StaysOpen="False" Opacity="0.4"
                         PopupAnimation="Slide">
-                    </Popup>
-                </StackPanel>
+
+                    <StackPanel Width="120px" Orientation="Vertical">
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="{Binding isNightMode.MyData}" 
+                                Command="{Binding ChangeMode}"/>
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="Сохранить" 
+                                Command="{Binding ChangeMode}"/>
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="{Binding isNightMode.MyData}" 
+                                Command="{Binding ChangeMode}"/>
+                    </StackPanel>
+                </Popup>
             </ToggleButton>
 
 
-            <Button Style="{StaticResource FigureButton }"
-                   Click="DrawCircleButton_Click">
+            <ToggleButton x:Name="ColorPickerButton" Width="40" Height="40"
+                          BorderThickness="0">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="/Img/Color.png"/>
+                </ToggleButton.Background>
+
+                <Popup x:Name="ColorPickerPopup" IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
+                        Placement="Bottom" StaysOpen="False" PopupAnimation="Slide">
+
+
+                    <StackPanel Width="140px">
+                        <ItemsControl x:Name="ColorPalette" ItemsSource="{Binding ColorList.AvailableColors}">
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Width="20" Height="20" Background="{Binding ColorValue}"
+                                            Command="{Binding Path=DataContext.ChoiceColor,ElementName = DrawWindow}"
+                                            CommandParameter="{Binding ColorName}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </Popup>
+            </ToggleButton>
+
+
+            <Button Style="{StaticResource FigureButton}"
+                    Command="{Binding DrawWithPen}">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Img/EllipsePng.png"/>
+                    <ImageBrush ImageSource="/Img/Pen.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+
+            <Button Style="{StaticResource FigureButton}"
+                    Command="{Binding Erase}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/Eraser.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+
+            <Button Style="{StaticResource FigureButton}"
+                    Command="{Binding Select}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/Select.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+
+            <Button Style="{StaticResource FigureButton }"
+                   Click="DrawCircleButton_Click"
+                    Command="{Binding DrawCircle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/CirclePng.png"/>
                 </Button.Background>
             </Button>
 
 
             <Button Style="{StaticResource FigureButton }" 
-                    Click="DrawRectangleButton_Click" >
+                    Click="DrawRectangleButton_Click" 
+                    Command="{Binding DrawRectangle}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/RectanglePng.png"/>
                 </Button.Background>
             </Button>
 
             <Button Style="{StaticResource FigureButton }"
-                    Click="DrawTriangleButton_Click">
+                    Click="DrawTriangleButton_Click"
+                    Command="{Binding DrawTriangle}">
                 <Button.Background>
                     <ImageBrush  ImageSource="/Img/TrianglePng.png"/>
                 </Button.Background>
@@ -81,73 +150,85 @@
 
 
             <Button Style="{StaticResource FigureButton }"
-                    Click="DrawDashButton_Click" >
+                    Click="DrawDashButton_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/DashPng.png" />
                 </Button.Background>
             </Button>
 
             <Button Style="{StaticResource FigureButton}" Content="T"
-                    Width="70" Height="60" />
+                    CommandParameter="{Binding Width}" Command="{Binding Text}"
+                    Width="70" Height="60" Click="TextBoxButton_Click" />
 
-
-            <ToggleButton x:Name="ColorPickerButton" Width="40" Height="40">
+            
+            
+            <ToggleButton x:Name="SizePickerButton" Width="40"
+                          BorderThickness="0"  Height="40"  >
                 <ToggleButton.Background>
-                    <ImageBrush ImageSource="/Img/Color.png"/>
+                    <ImageBrush ImageSource="/Img/LineSize.png"/>
                 </ToggleButton.Background>
 
-                <Popup x:Name="ColorPickerPopup" IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
+                <Popup x:Name="SizePickerPopup" IsOpen="{Binding IsChecked, ElementName=SizePickerButton}"
                         Placement="Bottom" StaysOpen="False" PopupAnimation="Slide">
-                    
 
-                    <StackPanel Width="140px">
-                        <ItemsControl x:Name="ColorPalette" ItemsSource="{Binding ColorList.AvailableColors}">
+                    <StackPanel Background="White">
+                        <GroupBox Header="Ширина">
+                            <Slider Value="{Binding Width, Mode=TwoWay}"
+                                    Minimum="10" Maximum="400"  Background="LightCyan"
+                                    TickFrequency="15"  Width="150" Name="SlidrWidth"/>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Высота">
+                            <Slider Value="{Binding Height, Mode=TwoWay}" 
+                                    Minimum="10" Maximum="400" Background="LightCyan"
+                                    TickFrequency="15"  Width="150"/>
+                        </GroupBox>
+                
+                        
+                        <!--<ItemsControl  ItemsSource="{Binding FigureSizeCollection.FigureSizes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Button  Content="{Binding Size}"
+                                                 HorizontalContentAlignment="Left"
+                                                 CommandParameter="{Binding Size}"
+                                                 Command="{Binding Path=DataContext.ChangeTextSize,ElementName = DrawWindow }">
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                    <Button Width="20" Height="20" Background="{Binding ColorValue}"
-                                            Command="{Binding Path=DataContext.ChoiceColor,ElementName = DrawWindow}"
-                                            CommandParameter="{Binding ColorName}"/>
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="{Binding IconPath}"
+                                                        AlignmentX="Right"
+                                                        Stretch="Uniform"/>
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+
                                 </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                            
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>-->
                     </StackPanel>
                 </Popup>
             </ToggleButton>
-
-            <TextBox x:Name="radius" Width="50"></TextBox>
-
-            <TextBox x:Name="radius2" Width="50"></TextBox>
-
-
-            <Button Style="{StaticResource FigureButton}" 
-                    Content="{Binding isNightMode.MyData}" Command="{Binding ChangeMode}"
-                    FontSize="9" Margin="130 0"/>
+           
 
         </StackPanel>
 
 
-        <InkCanvas Name="Myink" Grid.ColumnSpan="2" Grid.Row="1" 
+            <InkCanvas Name="Myink" Grid.ColumnSpan="2" Grid.Row="1" 
                    DefaultDrawingAttributes="{Binding DrawingAttributes}"
-                   UseCustomCursor="True" Cursor="Pen" 
+                   UseCustomCursor="True" Cursor="Pen"
                    EditingMode ="{Binding InkCanvasEditingMode, Mode=TwoWay}" 
-                   Background="{Binding SelectedBackGround}">
+                   Background="{Binding SelectedBackGround}"
+                   Strokes="{Binding Stroke}"
+                   SelectionChanged="Myink_SelectionChanged">
 
-            <i:Interaction.Triggers>
-                <!--<i:EventTrigger EventName="PreviewMouseDown">
-                    <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"/>
-                </i:EventTrigger>-->
-            </i:Interaction.Triggers>
-            
-        </InkCanvas>
-        
-  
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </InkCanvas>
+
 
     </Grid>
 </UserControl>

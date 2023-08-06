@@ -48,18 +48,44 @@ namespace WhiteBoardProject.Class
                 ColorName = "Green",
                 ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Green")),
             },
-
             new CanvasColor()
             {
-                ColorName = "Green",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Green")),
+                ColorName = "Purple",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Purple")),
             },
             new CanvasColor()
             {
-                ColorName = "Green",
-                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Green")),
-
+                ColorName = "Yellow",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Yellow")),
             },
+            new CanvasColor()
+            {
+                ColorName = "Cyan",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Cyan")),
+            },
+            new CanvasColor()
+            {
+                ColorName = "Brown",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Brown")),
+            },
+            new CanvasColor()
+            {
+                ColorName = "Gray",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Gray")),
+            },
+            new CanvasColor()
+            {
+                ColorName = "Magenta",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Magenta")),
+            },
+            new CanvasColor()
+            {
+                ColorName = "Lime",
+                ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Lime")),
+            }
+
+
+
 
 
 

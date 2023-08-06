@@ -8,32 +8,54 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Img\CirclePng.png" />
     <None Remove="Img\Color.png" />
     <None Remove="Img\DashPng.png" />
     <None Remove="Img\EllipsePng.png" />
+    <None Remove="Img\Eraser.png" />
+    <None Remove="Img\LineSize.png" />
     <None Remove="Img\MenuPng.png" />
     <None Remove="Img\MenuSvg.svg" />
+    <None Remove="Img\Pen.png" />
     <None Remove="Img\RectanglePng.png" />
+    <None Remove="Img\Select.png" />
+    <None Remove="Img\ThickLine.png" />
+    <None Remove="Img\ThinLine.png" />
     <None Remove="Img\TrianglePng.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Img\CirclePng.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Img\Color.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\DashPng.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Img\EllipsePng.png">
+    <Content Include="Img\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\LineSize.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\MenuPng.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Img\MenuSvg.svg">
+    <Content Include="Img\Pen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\RectanglePng.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\Select.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\ThickLine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\ThinLine.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\TrianglePng.png">
@@ -50,6 +72,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="SimpleInjector" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectLib\ProjectLib.csproj" />
   </ItemGroup>
 
 </Project>
