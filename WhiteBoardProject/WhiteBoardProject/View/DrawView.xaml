@@ -41,9 +41,8 @@
                     Orientation="Horizontal">
 
 
-
             <ToggleButton  x:Name="MenuToggleButton" Width="40" Height="40"
-                           BorderThickness="0">
+                           BorderThickness="0" Margin="15 0">
                 <ToggleButton.Background>
                     <ImageBrush ImageSource="/Img/MenuPng.png"/>
                 </ToggleButton.Background>
@@ -53,14 +52,17 @@
                         PopupAnimation="Slide">
 
                     <StackPanel Width="120px" Orientation="Vertical">
-
-                        <Button Style="{StaticResource MenuButton}"
-                                Content="{Binding isNightMode.MyData}" 
-                                Command="{Binding ChangeMode}"/>
-
+                        
                         <Button Style="{StaticResource MenuButton}"
                                 Content="Сохранить" 
-                                Command="{Binding ChangeMode}"/>
+                                CommandParameter="{Binding ElementName=Myink}"
+                                Command="{Binding SaveImg}"/>
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="Сохранить как" 
+                                CommandParameter="{Binding ElementName=Myink}"
+                                Command="{Binding SaveAs}"/>
+
 
                         <Button Style="{StaticResource MenuButton}"
                                 Content="{Binding isNightMode.MyData}" 
@@ -208,7 +210,12 @@
                     </StackPanel>
                 </Popup>
             </ToggleButton>
-           
+            
+            <StackPanel Orientation="Horizontal">
+                <Label VerticalAlignment="Center" Content="Название проекта"
+                       FontSize="16"/>
+                <TextBox Height="20" Width="150" Text="{Binding UserArt.ArtName}"/>
+            </StackPanel>
 
         </StackPanel>
 
@@ -225,7 +232,10 @@
                     <i:EventTrigger EventName="PreviewMouseDown">
                         <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"/>
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                <!--<i:EventTrigger EventName="PreviewMouseDown">
+                    <i:InvokeCommandAction Command="{Binding MouseMoveDownCommand}" CommandParameter="{Binding ElementName=Myink}" />
+                </i:EventTrigger>-->
+            </i:Interaction.Triggers>
 
             </InkCanvas>
 

@@ -21,10 +21,8 @@ namespace FTPWpf
     {
         FtpWebRequest request;
         bool isConnect = false;
-
         public ObservableCollection<FtpFileInfo> FilesInfo { get; set; } = new();
-        //public string IP { get; set; } = "192.168.2.8";
-        public string IP { get; set; } = "10.1.10.148";
+        public string IP { get; set; } = "192.168.2.9";
 
         public string DownloadPath { get; set; }
         public string FileName { get; set; }

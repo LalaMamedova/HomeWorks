@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,14 @@ using System.Windows.Documents;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WhiteBoardProject.Converters;
+using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.ViewModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WhiteBoardProject.View
 {
@@ -23,47 +28,29 @@ namespace WhiteBoardProject.View
     /// </summary>
     public partial class DrawView : UserControl
     {
+        double size;
+        Button senderButton;
+        TextBox textBox;
         public DrawView()
         {
             InitializeComponent();
         }
-        double size;
-        Button senderButton;
-        TextBox textBlock = new TextBox();
+
         private void DrawCircle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
+        {}
         private void DrawDash_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
-
+        {}
         private void DrawTriangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-
-
+        {}
         private void DrawRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
+        {}
 
         private void DrawCircleButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        {}
         private void DrawDashButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-
-        }
+        {}
         private void DrawTriangleButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
+        {}
 
         private void DrawRectangleButton_Click(object sender, RoutedEventArgs e)
         {
@@ -74,16 +61,16 @@ namespace WhiteBoardProject.View
         private void TextBoxButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var center = e.GetPosition(Myink);
-            
 
-            textBlock = new TextBox()
+            textBox = new TextBox()
             {
+                BorderThickness = new Thickness(0),
                 Text = "Пример текста",
                 FontSize = size,
             };
-            InkCanvas.SetLeft(textBlock, center.X);
-            InkCanvas.SetTop(textBlock, center.Y);
-            Myink.Children.Add(textBlock);
+            InkCanvas.SetLeft(textBox, center.X);
+            InkCanvas.SetTop(textBox, center.Y);
+            Myink.Children.Add(textBox);
             Myink.MouseLeftButtonDown -= TextBoxButton_MouseLeftButtonDown;
         }
         private  void TextBoxButton_Click(object sender, RoutedEventArgs e)
@@ -110,11 +97,7 @@ namespace WhiteBoardProject.View
             }
             catch (Exception ex)
             {
-
-
             }
         }
-
-        
     }
 }

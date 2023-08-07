@@ -1,8 +1,20 @@
 ﻿using System.Net;
+using System.Net.Sockets;
 using WhiteboardServer.Service.Classes;
 
-ServerService serverService = new(IPAddress.Parse("192.168.2.1"), 9000);
+ServerService serverService = new(IPAddress.Parse("192.168.2.9"), 9000);
 while (true)
 {
-    serverService.Connection();
+    try
+    {
+        // Ожидание подключения клиента
+        TcpClient client = serverService.Connection();
+
+        string message = serverService.ReciveMessage<String>(client);
+        client.Close();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }

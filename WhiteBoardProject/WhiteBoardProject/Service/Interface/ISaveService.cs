@@ -8,6 +8,6 @@ namespace WhiteBoardProject.Service.Interface
 {
     public interface ISaveService
     {
-        public T Save<T>(T entity);
+        public void Save(object[]? entity);
     }
 }
