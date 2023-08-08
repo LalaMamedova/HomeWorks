@@ -19,9 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
             <Converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
         </ResourceDictionary>
-
-
-
+        
     </UserControl.Resources>
     
     <Grid>
@@ -126,7 +124,6 @@
             </Button>
 
             <Button Style="{StaticResource FigureButton }"
-                   Click="DrawCircleButton_Click"
                     Command="{Binding DrawCircle}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/CirclePng.png"/>
@@ -135,7 +132,6 @@
 
 
             <Button Style="{StaticResource FigureButton }" 
-                    Click="DrawRectangleButton_Click" 
                     Command="{Binding DrawRectangle}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/RectanglePng.png"/>
@@ -143,7 +139,6 @@
             </Button>
 
             <Button Style="{StaticResource FigureButton }"
-                    Click="DrawTriangleButton_Click"
                     Command="{Binding DrawTriangle}">
                 <Button.Background>
                     <ImageBrush  ImageSource="/Img/TrianglePng.png"/>
@@ -151,8 +146,7 @@
             </Button>
 
 
-            <Button Style="{StaticResource FigureButton }"
-                    Click="DrawDashButton_Click">
+            <Button Style="{StaticResource FigureButton }">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/DashPng.png" />
                 </Button.Background>
@@ -160,7 +154,7 @@
 
             <Button Style="{StaticResource FigureButton}" Content="T"
                     CommandParameter="{Binding Width}" Command="{Binding Text}"
-                    Width="70" Height="60" Click="TextBoxButton_Click" />
+                    Width="70" Height="60"/>
 
             
             
@@ -230,7 +224,7 @@
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewMouseDown">
-                        <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"/>
+                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" Command="{Binding MouseMoveCommand}"/>
                     </i:EventTrigger>
                 <!--<i:EventTrigger EventName="PreviewMouseDown">
                     <i:InvokeCommandAction Command="{Binding MouseMoveDownCommand}" CommandParameter="{Binding ElementName=Myink}" />

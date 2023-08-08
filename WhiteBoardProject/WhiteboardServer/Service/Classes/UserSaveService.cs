@@ -9,16 +9,16 @@ using WhiteboardServer.Service.Interface;
 
 namespace WhiteboardServer.Service.Classes
 {
-    public class PictureSaveService : ISaveService
+    internal class UserSaveService : ISaveService
     {
-
         bool ISaveService.Save(object? entity, WhiteboardContext whiteboardContext)
         {
-            UserArt UserArt = (UserArt)entity;
-            if (UserArt != null)
+            User user = entity as User;
+            if (user != null)
             {
-                whiteboardContext.UserArts.Add(UserArt);
-                return true;
+                whiteboardContext.Add(user);
+                whiteboardContext.SaveChanges();
+                return true; 
             }
             return false;
         }

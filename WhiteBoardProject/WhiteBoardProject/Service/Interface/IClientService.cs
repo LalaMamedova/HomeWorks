@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace WhiteBoardProject.Service.Interface
 {
-    public interface ISaveService
+    public interface IClientService
     {
         public void Save(object[]? entity);
+        public void SendToServer();
+        public void Load(object[]? entity);
     }
 }

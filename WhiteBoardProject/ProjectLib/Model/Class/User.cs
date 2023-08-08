@@ -11,12 +11,18 @@ namespace ProjectLib.Model.Class
 {
     public class User : IUser
     {
+        [NonSerialized]
+        private IPEndPoint _ipEndPoint;
+        public IPEndPoint IPEndPoint
+        {
+            get => _ipEndPoint;
+            set => _ipEndPoint = value;
+        }
         public int Id {get;set;}
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public UserArt UserArt { get; set; }
-        public IPEndPoint IPEndPoint { get; set; }
-        public List<UserArt> UserArts { get; set; } = new();
+        public ICollection<UserArt> UserArts { get; set; }
     }
 }

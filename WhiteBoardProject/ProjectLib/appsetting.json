@@ -1,5 +1,5 @@
-﻿{
+{
   "ConnectionStrings": {
-    "Connection": "Data Source=HP;Initial Catalog=WhiteboardDB;Integrated Security=True;Connect Timeout=30;TrustServerCertificate=True;Encrypt=True;"
+    "DefaultConnection": "Data Source=HP;Initial Catalog=WhiteboardDB;Integrated Security=True;Connect Timeout=30;TrustServerCertificate=True;Encrypt=True;"
   }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectLib.Model.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace WhiteboardServer.Service.Interface
 {
     public interface ISaveService
     {
-        public T Save<T>(T entity);
+        public bool Save(object? entity,WhiteboardContext whiteboardContext);
     }
 }

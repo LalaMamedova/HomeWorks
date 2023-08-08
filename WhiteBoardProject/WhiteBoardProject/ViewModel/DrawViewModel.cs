@@ -21,6 +21,7 @@ using System.Windows.Media.Imaging;
 using WhiteBoardProject.Converters;
 using Microsoft.Win32;
 using WhiteBoardProject.Service.Interface;
+using WhiteBoardProject.Service.ClientService;
 
 namespace WhiteBoardProject.ViewModel
 {
@@ -29,12 +30,13 @@ namespace WhiteBoardProject.ViewModel
         protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private ISaveService saveService;
+        private IClientService saveService;
         private DrawingAttributes drawingAttributes = new();
         private InkCanvasEditingMode inkCanvasEditingMode = InkCanvasEditingMode.Ink;
         private SolidColorBrush selectedBackGround = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
         private double width = 50;
         private double height = 50;
+        private InkCanvas _inkCanvas;
 
         public ColorList ColorList { get; set; } = new();
         public StrokeCollection Stroke { get; set; } = new();
@@ -48,6 +50,12 @@ namespace WhiteBoardProject.ViewModel
         public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
         public Point MousePosition { get; set; } = new();
         public UserArt UserArt { get; set; } = new();
+
+        public InkCanvas MyInkCanvas
+        {
+            get { return _inkCanvas; }
+            set { _inkCanvas = value; NotifyPropertyChanged(nameof(MyInkCanvas)); }
+        }
 
         public RelayCommand Erase
         {
@@ -93,7 +101,7 @@ namespace WhiteBoardProject.ViewModel
                 }
             });
         }
-        public RelayCommand Text { get => new(() => { WhatIsDrawing = "None"; }); }
+        public RelayCommand Text { get => new(() => { WhatIsDrawing = "Text"; }); }
         public RelayCommand DrawCircle  { get => new(() => {WhatIsDrawing = "Circle";});}
         public RelayCommand DrawDash { get => new(() => { WhatIsDrawing = "Dash";}); }
         public RelayCommand DrawTriangle { get => new(() => {WhatIsDrawing = "Triangle";});}
@@ -104,7 +112,7 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((param) => 
             {
-                saveService = new PictureSaveService();
+                saveService = new PictureSendService();
                 UserArt.ArtName += ".png";
                 saveService.Save(new object[] {param, UserArt});
             });
@@ -120,13 +128,13 @@ namespace WhiteBoardProject.ViewModel
                 saveFileDialog.ShowDialog();
                 UserArt.ArtName = saveFileDialog.FileName;
 
-                saveService = new PictureSaveService();
+                saveService = new PictureSendService();
                 saveService.Save(new object[] { param, UserArt});
 
             });
         }
 
-
+        
 
         public RelayCommand<InkCanvas> MouseMoveCommand
         {
@@ -154,8 +162,12 @@ namespace WhiteBoardProject.ViewModel
                     InkCanvasEditingMode = InkCanvasEditingMode.None;
                     Stroke.Add(DrawService.Dash(MousePosition, drawingAttributes, Width, Height));
                 }
+                else if(WhatIsDrawing == "Text")
+                {
+                    InkCanvasEditingMode = InkCanvasEditingMode.None;
+                    param.Children.Add(DrawService.Text(MousePosition, drawingAttributes, Width));
+                }
             });
-           
         }
 
         public RelayCommand<InkCanvas> MouseMoveDownCommand

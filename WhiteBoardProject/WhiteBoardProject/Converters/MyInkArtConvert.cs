@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Net.Http;
+using System.Reflection.Metadata;
 
 namespace WhiteBoardProject.Converters
 {
@@ -28,8 +30,8 @@ namespace WhiteBoardProject.Converters
             bitmapImage.BeginInit();
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
             bitmapImage.StreamSource = new MemoryStream(BitmapSourceToBytes(renderBitmap));
-            userArt.Content = BitmapSourceToBytes(renderBitmap);
 
+            userArt.Content = BitmapSourceToBytes(renderBitmap);
             bitmapImage.EndInit();
             bitmapImage.Freeze();
             return bitmapImage;

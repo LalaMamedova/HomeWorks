@@ -19,9 +19,33 @@ namespace WhiteBoardProject.View
     /// </summary>
     public partial class MainView : Window
     {
+        static bool check = false;
         public MainView()
         {
             InitializeComponent();
         }
+
+      
+
+        private void Minimilize_Click(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Minimized;
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (check)
+            {
+                this.WindowState = WindowState.Normal;
+                check = false;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+                check = true;
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e) => App.Current.Shutdown();
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) => this.DragMove();
+      
     }
 }

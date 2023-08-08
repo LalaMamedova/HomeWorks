@@ -27,7 +27,7 @@ namespace WhiteBoardProject.ViewModel
             _navigate = navigate;
             _messanger = messanger;
 
-            CurrentViewModel = App.Container.GetInstance<DrawViewModel>();
+            CurrentViewModel = App.Container.GetInstance<RegistrationViewModel>();
             _messanger.Register<NavigationMessage>(this, ReceiveMessage);
         }
 

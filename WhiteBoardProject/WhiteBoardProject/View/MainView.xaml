@@ -5,13 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WhiteBoardProject.View" xmlns:viewmodel="clr-namespace:WhiteBoardProject.ViewModel" 
         d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStyle="None"
         Title="MainView" Height="450" Width="800"
-        WindowState="Maximized">
-    
-    <Grid>
+        MinHeight="600" MinWidth="800" MaxHeight="900"
+        WindowState="Maximized" WindowStartupLocation="CenterScreen">
 
-        <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
-        
+
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    
+    <Grid MouseDown="Grid_MouseDown">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30px"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Background="#FF005852">
+            <StackPanel HorizontalAlignment="Right" 
+                        Orientation="Horizontal">
+
+                <Button Style="{StaticResource WindowButton}" Content="-" 
+                        FontSize="20" Click="Minimilize_Click"/>
+                <Button Style="{StaticResource WindowButton}" Content="▢"
+                        Click="Maximize_Click"/>
+                <Button Style="{StaticResource WindowButton}" Content="X"
+                        Click="Close_Click"/>
+
+            </StackPanel>
+        </StackPanel>
+
+        <ContentControl Grid.Row="1" 
+                        Content="{Binding CurrentViewModel}"/>
+
     </Grid>
 </Window>

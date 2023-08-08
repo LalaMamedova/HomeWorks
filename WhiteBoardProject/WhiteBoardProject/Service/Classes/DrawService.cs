@@ -100,6 +100,23 @@ namespace WhiteBoardProject.Service.Classes
             return stroke;
 
         }
+        
+        public static TextBox Text(Point mousePosition, DrawingAttributes color, double Width)
+        {
+            var center = mousePosition;
+
+            TextBox textBox = new TextBox()
+            {
+                BorderThickness = new Thickness(0),
+                Text = "Пример текста",
+                FontSize = Width,
+            };
+
+            InkCanvas.SetLeft(textBox, center.X);
+            InkCanvas.SetTop(textBox, center.Y);
+            return textBox;
+
+        }
 
     }
 }

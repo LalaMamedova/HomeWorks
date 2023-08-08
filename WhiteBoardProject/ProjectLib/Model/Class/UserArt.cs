@@ -14,5 +14,12 @@ namespace ProjectLib.Model.Class
         public byte[] Content { get; set; } 
         public string PicturePath { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
+        public int UserId { get; set; }
+        public User? User { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} {ArtName} {PicturePath} {DateTime}";
+        }
     }
 }
