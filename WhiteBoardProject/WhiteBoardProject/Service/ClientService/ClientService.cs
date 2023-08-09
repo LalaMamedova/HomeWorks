@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ProjectLib.Model.Class;
+using ProjectLib.Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,33 +18,32 @@ namespace WhiteBoardProject.Service.ClientService
     {
         public string IPAddress { get; set; }
         public int Port { get; set; }
-        public TcpClient TcpClient;
 
         public ClientService(string ipAddress, int port)
         {
             Port = port;
             IPAddress = ipAddress;
-            TcpClient = new TcpClient(IPAddress, Port);
         }
 
-        public async Task Recive<T>(T obj)
+        public T? Recive<T>(T? obj) where T : IWhiteboardcs
         {
             using TcpClient TcpClient = new TcpClient(IPAddress, Port);
             using StreamReader reader = new StreamReader(TcpClient.GetStream());
             string jsonData = reader.ReadLine();
-            obj = JsonConvert.DeserializeObject<T>(jsonData);
+
+            return obj = JsonConvert.DeserializeObject<T>(jsonData);
 
         }
 
         public void Post<T>(T? obj)
         {
-            if (obj != null && TcpClient.Connected)
+            if (obj != null)
             {
                 using TcpClient TcpClient = new TcpClient(IPAddress, Port);
                 using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
                 string jsonData = JsonConvert.SerializeObject(obj);
                 writer.WriteLine(jsonData);
-                writer.Flush(); 
+                //writer.Flush(); 
 
             }
         }
@@ -50,10 +51,16 @@ namespace WhiteBoardProject.Service.ClientService
         public void PostNameOfClass(object obj)
         {
             using TcpClient TcpClient = new TcpClient(IPAddress, Port);
-            using NetworkStream stream = TcpClient.GetStream();
-            byte[] buffer = Encoding.UTF8.GetBytes(obj.GetType().Name);
-            stream.Write(buffer, 0, buffer.Length);
-            stream.Flush();
+            using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
+            writer.WriteLine(obj.GetType().Name);
+            //stream.Flush();
+        }
+        public void PostCommand(string command)
+        {
+            using TcpClient TcpClient = new TcpClient(IPAddress, Port);
+            using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
+            writer.WriteLine(command);
+            //stream.Flush();
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.EntityFrameworkCore.SqlServer.ValueGeneration.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.Interface;
+using WhiteBoardProject.View;
+using WhiteboardServer.Service.Classes;
 
 namespace WhiteBoardProject.ViewModel
 {
@@ -27,7 +30,7 @@ namespace WhiteBoardProject.ViewModel
             _navigate = navigate;
             _messanger = messanger;
 
-            CurrentViewModel = App.Container.GetInstance<RegistrationViewModel>();
+            CurrentViewModel = App.Container.GetInstance<LoginViewModel>();
             _messanger.Register<NavigationMessage>(this, ReceiveMessage);
         }
 

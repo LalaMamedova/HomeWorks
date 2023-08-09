@@ -103,7 +103,7 @@ namespace WhiteBoardProject.Service.Classes
             else
                 MessageBox.Show("Подключитесь в начале");
         }
-        public bool AddArt(string imgPath,UserArt userArt)
+        public UserArt? AddArt(string imgPath,UserArt userArt)
         {
             try
             {
@@ -120,13 +120,14 @@ namespace WhiteBoardProject.Service.Classes
 
                 using Stream requestStream = request.GetRequestStream();
                 requestStream.Write(fileContents, 0, fileContents.Length);
-                return true;
+
+                return userArt;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            return false;
+            return null;
 
 
         }

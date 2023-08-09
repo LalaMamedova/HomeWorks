@@ -3,10 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WhiteBoardProject.View"
+             xmlns:local="clr-namespace:WhiteBoardProject.View" xmlns:viewmodel="clr-namespace:WhiteBoardProject.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="850" d:DesignWidth="1200">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.ColumnSpan="2"
+                    Background="#FF045452"
+                    Orientation="Horizontal">
+
+        </StackPanel>
+
+        <Button HorizontalAlignment="Right"
+                    Style="{StaticResource Login}"
+                    Width="150" Grid.Column="1"
+                    Content="Выйти"/>
+
+        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2"
+                      ItemsSource="{Binding ActiveUser.UserArts}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ActiveUser.ArtName}"/>
+                        <Button Command="{Binding ImageClickCommand}" 
+                                Cursor="Hand"
+                                CommandParameter="{Binding ActiveUser.PicturePath}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="{Binding ActiveUser.PicturePath}" Stretch="UniformToFill" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+        </ItemsControl>
+
     </Grid>
 </UserControl>

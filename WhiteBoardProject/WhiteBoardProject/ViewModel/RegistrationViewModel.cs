@@ -46,8 +46,8 @@ namespace WhiteBoardProject.ViewModel
                     if (checker.IsMatch())
                     {
                         User.Password = password.Password;
-                        UserSendService user = new(User);
-                        user.SendToServer();
+                        UserService user = new(User);
+                        user.SendToServer("Registration");
                     }
 
                 }

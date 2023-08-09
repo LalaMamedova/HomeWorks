@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjectLib.Model.Class;
+using ProjectLib.Model.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,7 @@ namespace WhiteBoardProject.Service.Interface
     public interface IClientService
     {
         public void Save(object[]? entity);
-        public void SendToServer();
-        public void Load(object[]? entity);
+        public void SendToServer(string command);
+        public User? Load();
     }
 }

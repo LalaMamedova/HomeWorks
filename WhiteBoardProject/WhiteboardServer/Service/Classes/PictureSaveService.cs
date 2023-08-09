@@ -9,18 +9,33 @@ using WhiteboardServer.Service.Interface;
 
 namespace WhiteboardServer.Service.Classes
 {
-    public class PictureSaveService : ISaveService
+    public class PictureSaveService : IModelService
     {
+        public object? Delete(object? entity, WhiteboardContext whiteboardContext)
+        {
+            throw new NotImplementedException();
+        }
 
-        bool ISaveService.Save(object? entity, WhiteboardContext whiteboardContext)
+        public object? Exist(object? entity, WhiteboardContext whiteboardContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object? Add(object? entity, WhiteboardContext whiteboardContext)
         {
             UserArt UserArt = (UserArt)entity;
             if (UserArt != null)
             {
                 whiteboardContext.UserArts.Add(UserArt);
-                return true;
+                whiteboardContext.SaveChanges();
+                return UserArt;
             }
-            return false;
+            return null;
+        }
+
+        public object? Update(object? entity, WhiteboardContext whiteboardContext)
+        {
+            throw new NotImplementedException();
         }
     }
 }

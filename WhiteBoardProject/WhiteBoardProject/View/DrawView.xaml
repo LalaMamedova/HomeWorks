@@ -181,36 +181,19 @@
                         </GroupBox>
                 
                         
-                        <!--<ItemsControl  ItemsSource="{Binding FigureSizeCollection.FigureSizes}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Button  Content="{Binding Size}"
-                                                 HorizontalContentAlignment="Left"
-                                                 CommandParameter="{Binding Size}"
-                                                 Command="{Binding Path=DataContext.ChangeTextSize,ElementName = DrawWindow }">
-
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="{Binding IconPath}"
-                                                        AlignmentX="Right"
-                                                        Stretch="Uniform"/>
-                                            </Button.Background>
-                                        </Button>
-                                    </StackPanel>
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>-->
+                      
                     </StackPanel>
                 </Popup>
             </ToggleButton>
             
             <StackPanel Orientation="Horizontal">
-                <Label VerticalAlignment="Center" Content="Название проекта"
-                       FontSize="16"/>
-                <TextBox Height="20" Width="150" Text="{Binding UserArt.ArtName}"/>
+                <GroupBox Header="Название проекта" Foreground="AliceBlue">
+                    <TextBox Height="20" Width="150" Text="{Binding UserArt.ArtName}"/>
+                </GroupBox>
             </StackPanel>
 
+
+            <TextBlock Text="{Binding User.Username}" FontSize="25"/>
         </StackPanel>
 
 

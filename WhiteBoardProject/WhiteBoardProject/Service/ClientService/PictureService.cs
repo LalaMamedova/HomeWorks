@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjectLib.Model.Class;
+using ProjectLib.Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,17 +16,21 @@ using WhiteBoardProject.Converters;
 using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.Interface;
 using WhiteBoardProject.View;
+using WhiteBoardProject.ViewModel;
 
 namespace WhiteBoardProject.Service.ClientService
 {
-    public class PictureSendService : IClientService
+    public class PictureService :IClientService
     {
         string ipAdress = "192.168.2.9";
         UserArt? userArt;
         FtpServer FtpServer;
-        public PictureSendService()
+        ClientService clientService;
+        public User User;
+        public PictureService()
         {
             FtpServer = new(ipAdress);
+            clientService = new(ipAdress, 9000);
         }
 
         public void Save(object[]? entity)
@@ -37,16 +42,17 @@ namespace WhiteBoardProject.Service.ClientService
             {
                 BitmapSource bitmapSource = MyInkArtConvert.ConvertToBitmapSource(inkCanvas, userArt);
                 string tempImagePath = ImgToImgPathConverter.SaveTempImage(bitmapSource, userArt.ArtName);
+                userArt = FtpServer.AddArt(tempImagePath, userArt);
 
-                if (FtpServer.AddArt(tempImagePath, userArt))
-                {
-                    SendToServer();
-                }
+                //if (userArt!=null)
+                //{
+                //    SendToServer("Add");
+                //}
             }
 
         }
 
-        public void SendToServer()
+        public void SendToServer(string command)
         {
             ClientService clientService = new(ipAdress, 9000);
             using MemoryStream memoryStream = new();
@@ -59,11 +65,21 @@ namespace WhiteBoardProject.Service.ClientService
 
             userArt.Content = compressedBytes;
             clientService.Post(userArt.GetType().Name);
+            clientService.Post(command);
             clientService.Post(userArt);
 
             MessageBox.Show("Изображения удачно сохранено)");
         }
 
-        public void Load(object[]? entity) { }
+        //public IWhiteboardcs? Load() 
+        //{
+        //    return clientService.Recive<UserArt>(new UserArt[] {userArt});
+        //    return null;
+        //}
+
+        User? IClientService.Load()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

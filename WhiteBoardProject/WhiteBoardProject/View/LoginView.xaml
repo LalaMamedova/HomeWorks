@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WhiteBoardProject.View"
+             xmlns:local="clr-namespace:WhiteBoardProject.View" xmlns:viewmodel="clr-namespace:WhiteBoardProject.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:LoginViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -49,7 +49,8 @@
             </StackPanel.Background>
 
             <GroupBox Header="Email" Style="{StaticResource MyGroupBox}">
-                <TextBox Style="{StaticResource LoginStyle}"/>
+                <TextBox Style="{StaticResource LoginStyle}" 
+                         Text="{Binding User.Email}"/>
             </GroupBox>
 
          
@@ -62,7 +63,8 @@
                              FontSize="16"
                              BorderBrush="Cyan"
                              BorderThickness="3"
-                             FontWeight ="UltraBold"/>
+                             FontWeight ="UltraBold"
+                             x:Name="Password"/>
             </GroupBox>
 
             <CheckBox BorderThickness="0"
@@ -82,11 +84,12 @@
                         Foreground="Cyan" 
                         BorderBrush="Cyan"
                         Command="{Binding ToSignUp}">
-
                 </Button>
 
                 <Button Style="{StaticResource Login}"
-                        Content="Войти">
+                        Content="Войти"
+                        Command="{Binding Login}"
+                        CommandParameter="{Binding ElementName=Password}">
 
                 </Button>
             </StackPanel>

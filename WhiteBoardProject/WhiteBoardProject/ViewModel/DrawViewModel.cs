@@ -1,11 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WhiteBoardProject.Class;
@@ -22,6 +16,8 @@ using WhiteBoardProject.Converters;
 using Microsoft.Win32;
 using WhiteBoardProject.Service.Interface;
 using WhiteBoardProject.Service.ClientService;
+using GalaSoft.MvvmLight.Messaging;
+using System.Collections.Generic;
 
 namespace WhiteBoardProject.ViewModel
 {
@@ -31,12 +27,14 @@ namespace WhiteBoardProject.ViewModel
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private IClientService saveService;
+        private readonly IMessenger _messenger;
         private DrawingAttributes drawingAttributes = new();
         private InkCanvasEditingMode inkCanvasEditingMode = InkCanvasEditingMode.Ink;
         private SolidColorBrush selectedBackGround = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
         private double width = 50;
         private double height = 50;
         private InkCanvas _inkCanvas;
+
 
         public ColorList ColorList { get; set; } = new();
         public StrokeCollection Stroke { get; set; } = new();
@@ -50,7 +48,20 @@ namespace WhiteBoardProject.ViewModel
         public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
         public Point MousePosition { get; set; } = new();
         public UserArt UserArt { get; set; } = new();
+        public User User { get; set; } = new() { UserArts = new List<UserArt>()};
 
+
+        public DrawViewModel(IMessenger messenger)
+        {
+            _messenger = messenger;
+            _messenger.Register<DataMessager>(this, message =>
+            {
+                if (message.Data.GetType().Name == nameof(User))
+                {
+                    User = message.Data as User;
+                }
+            });
+        }
         public InkCanvas MyInkCanvas
         {
             get { return _inkCanvas; }
@@ -112,9 +123,13 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((param) => 
             {
-                saveService = new PictureSendService();
+                saveService = new PictureService();
                 UserArt.ArtName += ".png";
                 saveService.Save(new object[] {param, UserArt});
+
+                User.UserArts.Add(UserArt);
+                saveService = new UserService(User);
+                saveService.SendToServer("Update");
             });
         }
 
@@ -128,8 +143,8 @@ namespace WhiteBoardProject.ViewModel
                 saveFileDialog.ShowDialog();
                 UserArt.ArtName = saveFileDialog.FileName;
 
-                saveService = new PictureSendService();
-                saveService.Save(new object[] { param, UserArt});
+                //saveService = new PictureService();
+                //saveService.Save(new object[] { param, UserArt});
 
             });
         }

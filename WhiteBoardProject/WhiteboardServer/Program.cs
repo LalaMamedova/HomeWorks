@@ -8,8 +8,12 @@ while (true)
     try
     {
         TcpClient client = serverService.Connection();
+        object? postObject = serverService.ReciveMessage(client);
 
-        await Task.Run(() => serverService.ReciveMessage(client));
+        if (postObject != null)
+        {
+            serverService.PostMessage(client, postObject);
+        }
         client.Close();
     }
     catch (Exception ex)

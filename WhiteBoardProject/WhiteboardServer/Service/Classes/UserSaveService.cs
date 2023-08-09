@@ -9,18 +9,48 @@ using WhiteboardServer.Service.Interface;
 
 namespace WhiteboardServer.Service.Classes
 {
-    internal class UserSaveService : ISaveService
+    internal class UserSaveService : IModelService
     {
-        bool ISaveService.Save(object? entity, WhiteboardContext whiteboardContext)
+        public object? Delete(object? entity, WhiteboardContext whiteboardContext)
         {
-            User user = entity as User;
-            if (user != null)
+            throw new NotImplementedException();
+        }
+
+        public object? Update(object? entity, WhiteboardContext whiteboardContext)
+        {
+            User? user = entity as User;
+            if(user != null) 
             {
-                whiteboardContext.Add(user);
+                whiteboardContext.Users.Update(user);
                 whiteboardContext.SaveChanges();
-                return true; 
+                return user;
             }
-            return false;
+            throw new NotImplementedException("Произошла ошибка");
+        }
+
+        public object? Add(object? entity, WhiteboardContext whiteboardContext)
+        {
+            User? user = entity as User;
+            User? existUser = whiteboardContext.Users.Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
+
+            if (user != null && existUser== null)
+            {
+                whiteboardContext.Users.Add(user);
+                whiteboardContext.SaveChanges();
+                return user; 
+            }
+            throw new Exception("Такой пользователь уже существует");
+        }
+
+        public object? Exist(object? entity, WhiteboardContext whiteboardContext)
+        {
+            User? user = entity as User;
+            User? existUser = whiteboardContext.Users.Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
+
+            if (existUser!=null)
+                return existUser;
+            
+            throw new ArgumentNullException("Такого пользователя не существует");
         }
     }
 }

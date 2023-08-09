@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectLib.Model.Class
 {
-    public class User : IUser
+    public class User : IUser,IWhiteboardcs
     {
         [NonSerialized]
         private IPEndPoint _ipEndPoint;
@@ -23,6 +23,11 @@ namespace ProjectLib.Model.Class
         public string Password { get; set; }
         public string Email { get; set; }
         public UserArt UserArt { get; set; }
-        public ICollection<UserArt> UserArts { get; set; }
+        public ICollection<UserArt> UserArts { get; set; } = new List<UserArt>();
+
+        public override string ToString()
+        {
+            return $"{Id} {Username} {Email} {UserArts.Count}";
+        }
     }
 }

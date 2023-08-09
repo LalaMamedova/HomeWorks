@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using ProjectLib.Model.Class;
 
 
@@ -19,6 +20,8 @@ namespace ProjectLib.Model.Context
 
             string connection = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connection);
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
 
         }
 

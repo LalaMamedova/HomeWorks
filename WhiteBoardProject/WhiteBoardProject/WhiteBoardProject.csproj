@@ -81,6 +81,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectLib\ProjectLib.csproj" />
+    <ProjectReference Include="..\WhiteboardServer\WhiteboardServer.csproj" />
   </ItemGroup>
 
 </Project>
