@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjectLib.Model.Class
@@ -15,6 +16,10 @@ namespace ProjectLib.Model.Class
         public string PicturePath { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
         public int UserId { get; set; }
+        public double Width { get; set; }  
+        public double Height { get; set; }
+
+        [JsonIgnore]
         public User? User { get; set; }
 
         public override string ToString()

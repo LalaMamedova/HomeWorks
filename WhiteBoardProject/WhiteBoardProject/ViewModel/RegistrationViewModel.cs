@@ -16,7 +16,7 @@ namespace WhiteBoardProject.ViewModel
     public class RegistrationViewModel:ViewModelBase
     {
         private INavigate _navigate;
-        public User User { get; set; } = new() { Email = "lalal@gmail.com", Username ="lala", Password="lala" };
+        public User User { get; set; } = new() { Email = "lallol606@gmail.com", Username ="lala", Password="lala" };
 
         public RegistrationViewModel(INavigate navigate) 
         {
@@ -46,8 +46,10 @@ namespace WhiteBoardProject.ViewModel
                     if (checker.IsMatch())
                     {
                         User.Password = password.Password;
-                        UserService user = new(User);
-                        user.SendToServer("Registration");
+                        UserService userService = new(User);
+                        userService.SendToServer("Add");
+                        User = userService.Load();
+                        _navigate.NavigateTo<DrawViewModel>(User);
                     }
 
                 }

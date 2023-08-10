@@ -13,8 +13,9 @@ while (true)
         if (postObject != null)
         {
             serverService.PostMessage(client, postObject);
+            client.Close();
         }
-        client.Close();
+
     }
     catch (Exception ex)
     {

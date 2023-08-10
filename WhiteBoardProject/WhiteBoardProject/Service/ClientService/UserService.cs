@@ -19,15 +19,15 @@ namespace WhiteBoardProject.Service.ClientService
         private string ipAdress = "192.168.2.9";
 
         public static User ActiveUser { get; set; }
+
         public UserService(User user)
         {
             ActiveUser = user;
             clientService = new(ipAdress, 9000);
         }
 
-        public void Save(object[]? entity)
+        public void Save()
         {
-            User? user = (User)entity[0];
             //UserArt = (UserArt)entity[1];
         }
         public User? Load()

@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WhiteBoardProject.View" xmlns:viewmodel="clr-namespace:WhiteBoardProject.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:WhiteBoardProject.View"
+             xmlns:BTI ="clr-namespace:WhiteBoardProject.Converters"
+             xmlns:viewmodel="clr-namespace:WhiteBoardProject.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
+             mc:Ignorable="d"  Name="MainMenu"
              d:DesignHeight="850" d:DesignWidth="1200">
 
     <UserControl.Resources>
+
         <ResourceDictionary>
+           <BTI:BytesToImageConverter x:Key="bytetoimg"></BTI:BytesToImageConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </UserControl.Resources>
     
     
@@ -30,7 +36,9 @@
         <StackPanel Grid.ColumnSpan="2"
                     Background="#FF045452"
                     Orientation="Horizontal">
-
+            <Button Command="{Binding AddNewArt}"
+                    Content="Создать новый арт"
+                    Style="{StaticResource Login}"/>
         </StackPanel>
 
         <Button HorizontalAlignment="Right"
@@ -42,17 +50,28 @@
                       ItemsSource="{Binding ActiveUser.UserArts}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding ActiveUser.ArtName}"/>
-                        <Button Command="{Binding ImageClickCommand}" 
+                    <StackPanel  Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Width="350px" Margin="10">
+                          
+                            <Button Command="{Binding DataContext.ToRedact, ElementName=MainMenu}" 
                                 Cursor="Hand"
-                                CommandParameter="{Binding ActiveUser.PicturePath}">
+                                CommandParameter="{Binding Id}">
                             <Button.Template>
-                                <ControlTemplate>
-                                    <Image Source="{Binding ActiveUser.PicturePath}" Stretch="UniformToFill" />
-                                </ControlTemplate>
+                                    <ControlTemplate>
+                                        <Image Source="{Binding Content, Converter={StaticResource bytetoimg}}"/>
+                                    </ControlTemplate>
                             </Button.Template>
+                               
                         </Button>
+                                
+                            <TextBlock Text="{Binding ArtName}" 
+                                       Style="{StaticResource TextblockLoginStyle}"
+                                       FontSize ="20"/>
+
+                            <TextBlock Text="{Binding DateTime}" 
+                                       Style="{StaticResource TextblockLoginStyle}"
+                                       FontSize ="15"/>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -23,38 +23,36 @@ namespace WhiteBoardProject.Service.ClientService
     public class PictureService :IClientService
     {
         string ipAdress = "192.168.2.9";
-        UserArt? userArt;
-        FtpServer FtpServer;
-        ClientService clientService;
-        public User User;
-        public PictureService()
+        private UserArt? userArt;
+        private FtpServer FtpServer;
+        private InkCanvas? inkCanvas;
+        private ClientService clientService;
+        private User ownerUser;
+
+        public PictureService(object[]? entity)
         {
-            FtpServer = new(ipAdress);
+            FtpServer = new(ipAdress+":8900");
             clientService = new(ipAdress, 9000);
+            inkCanvas = (InkCanvas)entity[0];
+            userArt = (UserArt)entity[1];
+            ownerUser = (User)entity[2];
         }
 
-        public void Save(object[]? entity)
+        public void Save()
         {
-            userArt = (UserArt)entity[1];
-            InkCanvas? inkCanvas = (InkCanvas)entity[0];
-
             if (userArt != null && inkCanvas != null)
             {
                 BitmapSource bitmapSource = MyInkArtConvert.ConvertToBitmapSource(inkCanvas, userArt);
                 string tempImagePath = ImgToImgPathConverter.SaveTempImage(bitmapSource, userArt.ArtName);
                 userArt = FtpServer.AddArt(tempImagePath, userArt);
-
-                //if (userArt!=null)
-                //{
-                //    SendToServer("Add");
-                //}
+                userArt.UserId = ownerUser.Id;
             }
 
         }
 
         public void SendToServer(string command)
         {
-            ClientService clientService = new(ipAdress, 9000);
+            Save();
             using MemoryStream memoryStream = new();
             using GZipStream gzipStream = new(memoryStream, CompressionMode.Compress);
             gzipStream.Write(userArt.Content, 0, userArt.Content.Length);
@@ -64,8 +62,8 @@ namespace WhiteBoardProject.Service.ClientService
             byte[] compressedBytes = memoryStream.ToArray();
 
             userArt.Content = compressedBytes;
-            clientService.Post(userArt.GetType().Name);
-            clientService.Post(command);
+            clientService.PostNameOfClass(userArt);
+            clientService.PostCommand(command);
             clientService.Post(userArt);
 
             MessageBox.Show("Изображения удачно сохранено)");

@@ -66,6 +66,11 @@ namespace ProjectLib.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<double>("Height")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("float")
+                        .HasDefaultValue(500.0);
+
                     b.Property<string>("PicturePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,6 +80,11 @@ namespace ProjectLib.Migrations
 
                     b.Property<int?>("UserId1")
                         .HasColumnType("int");
+
+                    b.Property<double>("Width")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("float")
+                        .HasDefaultValue(500.0);
 
                     b.HasKey("Id");
 

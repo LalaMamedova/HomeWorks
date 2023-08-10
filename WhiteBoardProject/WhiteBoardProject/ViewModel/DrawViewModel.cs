@@ -18,6 +18,9 @@ using WhiteBoardProject.Service.Interface;
 using WhiteBoardProject.Service.ClientService;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.Generic;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace WhiteBoardProject.ViewModel
 {
@@ -38,7 +41,6 @@ namespace WhiteBoardProject.ViewModel
 
         public ColorList ColorList { get; set; } = new();
         public StrokeCollection Stroke { get; set; } = new();
-        public FigureSizeCollection FigureSizeCollection { get; set; } = new();
         public string WhatIsDrawing { get; set; }
         public double Width { get => width; set { width = value; drawingAttributes.Width = Width; NotifyPropertyChanged(nameof(Width)); } }
         public double Height { get => height; set { height = value; NotifyPropertyChanged(nameof(Height)); } }
@@ -48,26 +50,30 @@ namespace WhiteBoardProject.ViewModel
         public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
         public Point MousePosition { get; set; } = new();
         public UserArt UserArt { get; set; } = new();
-        public User User { get; set; } = new() { UserArts = new List<UserArt>()};
-
-
+        public User User { get; set; } = new() ;
+        public InkCanvas MyInkCanvas
+        {
+            get { return _inkCanvas; }
+            set { _inkCanvas = value; NotifyPropertyChanged(nameof(MyInkCanvas)); }
+        }
+       
         public DrawViewModel(IMessenger messenger)
         {
             _messenger = messenger;
+            DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString("White");
             _messenger.Register<DataMessager>(this, message =>
             {
                 if (message.Data.GetType().Name == nameof(User))
                 {
                     User = message.Data as User;
                 }
+                else if (message.Data.GetType().Name == nameof(UserArt))
+                {
+                    UserArt = message.Data as UserArt;
+                }
             });
         }
-        public InkCanvas MyInkCanvas
-        {
-            get { return _inkCanvas; }
-            set { _inkCanvas = value; NotifyPropertyChanged(nameof(MyInkCanvas)); }
-        }
-
+    
         public RelayCommand Erase
         {
             get => new(() =>
@@ -123,9 +129,9 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((param) => 
             {
-                saveService = new PictureService();
+                saveService = new PictureService(new object[] { param, UserArt,User});
                 UserArt.ArtName += ".png";
-                saveService.Save(new object[] {param, UserArt});
+                saveService.SendToServer("Add");
 
                 User.UserArts.Add(UserArt);
                 saveService = new UserService(User);
@@ -143,8 +149,12 @@ namespace WhiteBoardProject.ViewModel
                 saveFileDialog.ShowDialog();
                 UserArt.ArtName = saveFileDialog.FileName;
 
-                //saveService = new PictureService();
-                //saveService.Save(new object[] { param, UserArt});
+                saveService = new PictureService(new object[] { param, UserArt, User });
+                saveService.SendToServer("Update");
+
+                User.UserArts.Add(UserArt);
+                saveService = new UserService(User);
+                saveService.SendToServer("Update");
 
             });
         }
@@ -153,10 +163,10 @@ namespace WhiteBoardProject.ViewModel
 
         public RelayCommand<InkCanvas> MouseMoveCommand
         {
-            get => new((param) =>
+            get => new((inkcanvas) =>
             {
-                MousePosition = Mouse.GetPosition(param);
-
+                MousePosition = Mouse.GetPosition(inkcanvas);
+                MyInkCanvas = inkcanvas;
                 if (WhatIsDrawing == "Circle")
                 {
                     InkCanvasEditingMode = InkCanvasEditingMode.None;
@@ -180,7 +190,7 @@ namespace WhiteBoardProject.ViewModel
                 else if(WhatIsDrawing == "Text")
                 {
                     InkCanvasEditingMode = InkCanvasEditingMode.None;
-                    param.Children.Add(DrawService.Text(MousePosition, drawingAttributes, Width));
+                    inkcanvas.Children.Add(DrawService.Text(MousePosition, drawingAttributes, Width));
                 }
             });
         }

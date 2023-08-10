@@ -23,11 +23,11 @@ namespace ProjectLib.Model.Class
         public string Password { get; set; }
         public string Email { get; set; }
         public UserArt UserArt { get; set; }
-        public ICollection<UserArt> UserArts { get; set; } = new List<UserArt>();
+        public ICollection<UserArt> UserArts { get; set; }
 
         public override string ToString()
         {
-            return $"{Id} {Username} {Email} {UserArts.Count}";
+            return $"{Id} {Username} {Email}";
         }
     }
 }

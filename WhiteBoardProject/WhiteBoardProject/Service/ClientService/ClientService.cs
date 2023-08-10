@@ -43,7 +43,7 @@ namespace WhiteBoardProject.Service.ClientService
                 using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
                 string jsonData = JsonConvert.SerializeObject(obj);
                 writer.WriteLine(jsonData);
-                //writer.Flush(); 
+                writer.Flush(); 
 
             }
         }
@@ -53,14 +53,14 @@ namespace WhiteBoardProject.Service.ClientService
             using TcpClient TcpClient = new TcpClient(IPAddress, Port);
             using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
             writer.WriteLine(obj.GetType().Name);
-            //stream.Flush();
+            writer.Flush();
         }
         public void PostCommand(string command)
         {
             using TcpClient TcpClient = new TcpClient(IPAddress, Port);
             using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
             writer.WriteLine(command);
-            //stream.Flush();
+            writer.Flush();
         }
 
     }

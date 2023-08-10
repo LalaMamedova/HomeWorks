@@ -13,6 +13,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteboardServer.Service.Interface;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WhiteboardServer.Service.Classes
 {
@@ -24,22 +25,21 @@ namespace WhiteboardServer.Service.Classes
         private IModelService saveService;
         public TcpListener Listener { get; set; }
         public IPAddress IPAddress { get; set; }
+        public int Port { get; set; }   
         public WhiteboardContext WhiteboardContext { get; set; } = new();
 
         public ServerService(IPAddress address, int port)
         {
             IPAddress = address;
+            Port = port;
             Listener = new TcpListener(address, port);
             Listener.Start();
+
+       
         }
         public TcpClient? Connection()
         {
             TcpClient client = Listener.AcceptTcpClient();
-
-            //IPEndPoint? clientIPAddress = ((IPEndPoint)client.Client.RemoteEndPoint);
-            //User user = new() { IPEndPoint = clientIPAddress };
-            //Console.WriteLine("Клиент зашел");
-
             return client;
         }
 
@@ -50,13 +50,12 @@ namespace WhiteboardServer.Service.Classes
                 using StreamReader reader = new StreamReader(client.GetStream());
                 string? jsonData =  reader.ReadLine();
 
-                if (jsonData== nameof(User) || jsonData == nameof(UserArt))
+                if (jsonData == nameof(User) || jsonData == nameof(UserArt))
                     WhatClassIRecived = jsonData;
 
                 else if (!jsonData.Contains('{'))
-                {
                     WhatCommandIRecived = jsonData;
-                }
+                
 
                 else if (!string.IsNullOrEmpty(jsonData))
                 {
@@ -64,40 +63,39 @@ namespace WhiteboardServer.Service.Classes
 
                     if (WhatClassIRecived == nameof(User))
                     {
-                        saveService = new UserSaveService();
-
+                        saveService = new UserServerService();
+                       
                         User user = JsonConvert.DeserializeObject<User>(jsonData)!;
+                        Type? type = saveService.GetType();
+                        MethodInfo? method = type.GetMethod(WhatCommandIRecived);
+                       
+                        if (method != null)
+                        {
+                            return method.Invoke(saveService, new object[] { user, WhiteboardContext });
+                        }
+                    }
+
+                    else if (WhatClassIRecived == nameof(UserArt))
+                    {
+                        saveService = new PictureServerService();
+                        UserArt userArt = JsonConvert.DeserializeObject<UserArt>(jsonData)!;
                         Type? type = saveService.GetType();
                         MethodInfo? method = type.GetMethod(WhatCommandIRecived);
 
                         if (method != null)
                         {
-                            client.Close();
-                            return method.Invoke(saveService, new object[] { user, WhiteboardContext });
+                            return method.Invoke(saveService, new object[] { userArt, WhiteboardContext });
                         }
                     }
-
-                    //else if (WhatClassIRecived == nameof(UserArt))
-                    //{
-                    //    saveService = new PictureSaveService();
-                    //    Type? type = saveService.GetType();
-                    //    MethodInfo? method = type.GetMethod(WhatCommandIRecived);
-                    //    UserArt userArt = JsonConvert.DeserializeObject<UserArt>(jsonData)!;
-
-                    //    if (method != null)
-                    //    {
-                    //        return method.Invoke(saveService, new object[] { userArt, WhiteboardContext });
-                    //    }
-                    //}
                 }
-               
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
+            finally { client.Close(); } 
 
-            client.Close();
             return null;
         }
 
@@ -105,11 +103,15 @@ namespace WhiteboardServer.Service.Classes
 
         public void PostMessage(TcpClient client,object message)
         {
-            WhatCommandIRecived = "";
             client = Listener.AcceptTcpClient();
+            var jsonSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
             using StreamWriter stream = new(client.GetStream());
-            string jsonData = JsonConvert.SerializeObject(message);
-            Console.WriteLine(message);
+            string jsonData = JsonConvert.SerializeObject(message, jsonSettings);
+            Console.WriteLine($"You post a: {message}");
             stream.Write(jsonData);
         }
     }

@@ -12,8 +12,8 @@ using ProjectLib.Model.Context;
 namespace ProjectLib.Migrations
 {
     [DbContext(typeof(WhiteboardContext))]
-    [Migration("20230808135529_FirstUpdate")]
-    partial class FirstUpdate
+    [Migration("20230810193700_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,16 +41,11 @@ namespace ProjectLib.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserArtId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserArtId");
 
                     b.ToTable("Users");
                 });
@@ -74,40 +69,57 @@ namespace ProjectLib.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<double>("Height")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("float")
+                        .HasDefaultValue(500.0);
+
                     b.Property<string>("PicturePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Width")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("float")
+                        .HasDefaultValue(500.0);
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
+                    b.HasIndex("UserId1")
+                        .IsUnique()
+                        .HasFilter("[UserId1] IS NOT NULL");
+
                     b.ToTable("UserArts");
-                });
-
-            modelBuilder.Entity("ProjectLib.Model.Class.User", b =>
-                {
-                    b.HasOne("ProjectLib.Model.Class.UserArt", "UserArt")
-                        .WithMany()
-                        .HasForeignKey("UserArtId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserArt");
                 });
 
             modelBuilder.Entity("ProjectLib.Model.Class.UserArt", b =>
                 {
-                    b.HasOne("ProjectLib.Model.Class.User", null)
+                    b.HasOne("ProjectLib.Model.Class.User", "User")
                         .WithMany("UserArts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectLib.Model.Class.User", null)
+                        .WithOne("UserArt")
+                        .HasForeignKey("ProjectLib.Model.Class.UserArt", "UserId1");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjectLib.Model.Class.User", b =>
                 {
+                    b.Navigation("UserArt")
+                        .IsRequired();
+
                     b.Navigation("UserArts");
                 });
 #pragma warning restore 612, 618

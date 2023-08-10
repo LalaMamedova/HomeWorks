@@ -9,7 +9,7 @@ using WhiteboardServer.Service.Interface;
 
 namespace WhiteboardServer.Service.Classes
 {
-    public class PictureSaveService : IModelService
+    public class PictureServerService : IModelService
     {
         public object? Delete(object? entity, WhiteboardContext whiteboardContext)
         {
@@ -26,14 +26,22 @@ namespace WhiteboardServer.Service.Classes
             UserArt UserArt = (UserArt)entity;
             if (UserArt != null)
             {
-                whiteboardContext.UserArts.Add(UserArt);
-                whiteboardContext.SaveChanges();
-                return UserArt;
+                try
+                {
+                    whiteboardContext.Add(UserArt);
+                    whiteboardContext.SaveChanges();
+                    return UserArt;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+               
             }
             return null;
         }
 
-        public object? Update(object? entity, WhiteboardContext whiteboardContext)
+        public object? Update(object? entity,ref WhiteboardContext whiteboardContext)
         {
             throw new NotImplementedException();
         }

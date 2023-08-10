@@ -10,7 +10,7 @@ namespace WhiteBoardProject.Service.Interface
 {
     public interface IClientService
     {
-        public void Save(object[]? entity);
+        public void Save();
         public void SendToServer(string command);
         public User? Load();
     }

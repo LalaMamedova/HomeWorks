@@ -13,16 +13,14 @@ namespace ProjectLib.Model.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfiguration configuration = new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsetting.json")
-                        .Build();
+            ConfigurationBuilder configurationBuilder = new();
+            configurationBuilder.AddJsonFile("appsetting.json", false, true);
+            IConfiguration configuration = configurationBuilder.Build();
 
             string connection = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(connection);
+
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,7 +38,12 @@ namespace ProjectLib.Model.Context
                  .HasForeignKey(ua => ua.UserId);
 
             usersArt.HasKey(x => x.Id);
+            usersArt.Property(x=>x.Width).HasDefaultValue(500);
+            usersArt.Property(x => x.Height).HasDefaultValue(500);
             usersArt.Property(x => x.ArtName).IsRequired();
+            usersArt.HasOne(ua => ua.User)
+                    .WithMany(u => u.UserArts)
+                    .HasForeignKey(ua => ua.UserId);
 
         }
     }
