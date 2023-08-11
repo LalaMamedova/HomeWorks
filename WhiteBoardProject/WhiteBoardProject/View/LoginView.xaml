@@ -70,7 +70,8 @@
             <CheckBox BorderThickness="0"
                       Content="Запомнить меня"
                       HorizontalAlignment="Center"
-                      Margin="0 0 350 0" FontSize="18">
+                      Margin="0 0 350 0" FontSize="18"
+                      IsChecked="{Binding RememberMe}">
 
             </CheckBox>
 

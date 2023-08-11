@@ -67,6 +67,14 @@
                         <Button Style="{StaticResource MenuButton}"
                                 Content="{Binding isNightMode.MyData}" 
                                 Command="{Binding ChangeMode}"/>
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="В главное меню"
+                                Command="{Binding ToMainMenu}"/>
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="Отправить по почте" 
+                                Command="{Binding ToEmail}"/>
                     </StackPanel>
                 </Popup>
             </ToggleButton>
@@ -121,7 +129,8 @@
             <Button Style="{StaticResource FigureButton}"
                     Command="{Binding Select}">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Img/Select.png" Stretch="Uniform" />
+                    <ImageBrush ImageSource="/Img/Select.png" 
+                                Stretch="Uniform"/>
                 </Button.Background>
             </Button>
 
@@ -156,10 +165,35 @@
 
             <Button Style="{StaticResource FigureButton}" Content="T"
                     CommandParameter="{Binding Width}" Command="{Binding Text}"
-                    Width="70" Height="60"/>
+                    Width="60" Height="65" FontSize="40"
+                    VerticalContentAlignment="Top" />
 
-            
-            
+            <Button Style="{StaticResource FigureButton }" 
+                    Command="{Binding Highlighter}"
+                    CommandParameter= "{Binding ElementName=Myink}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/Marker.png"  Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+
+            <Button Style="{StaticResource FigureButton }" 
+                    Command="{Binding Back}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/Back.png"  Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+
+            <Button Style="{StaticResource FigureButton}" 
+                    Command="{Binding Foward}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/Foward.png"  Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+
+
+
+
+
             <ToggleButton x:Name="SizePickerButton" Width="40"
                           BorderThickness="0"  Height="40"  >
                 <ToggleButton.Background>
@@ -188,14 +222,16 @@
                 </Popup>
             </ToggleButton>
             
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="15 0">
                 <GroupBox Header="Название проекта" Foreground="AliceBlue">
                     <TextBox Height="20" Width="150" Text="{Binding UserArt.ArtName}"/>
                 </GroupBox>
             </StackPanel>
 
-
-            <TextBlock Text="{Binding User.Username}" FontSize="25"/>
+            <GroupBox Header="Ваш Username" Foreground="White">
+                <TextBlock Text="{Binding User.Username}"
+                       FontSize="25" Margin="20 0"/>
+            </GroupBox>
         </StackPanel>
 
 
@@ -203,13 +239,14 @@
                        DefaultDrawingAttributes="{Binding DrawingAttributes}"
                        UseCustomCursor="True" Cursor="Pen"
                        EditingMode ="{Binding InkCanvasEditingMode, Mode=TwoWay}" 
-                       Strokes="{Binding Stroke}"
+                       Strokes="{Binding Stroke}" 
+                       Width="{Binding UserArt.Width}"
+                       Height="{Binding UserArt.Height}"
                        SelectionChanged="Myink_SelectionChanged">
 
             <InkCanvas.Background>
                 <ImageBrush ImageSource="{Binding UserArt.Content, Converter={StaticResource BytetoImg}}" Stretch="Uniform"/>
             </InkCanvas.Background>
-
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseDown">
                     <i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 

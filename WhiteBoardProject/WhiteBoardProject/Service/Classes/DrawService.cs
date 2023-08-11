@@ -72,11 +72,9 @@ namespace WhiteBoardProject.Service.Classes
 
         }
 
-        public static Stroke Rectangle(Point mousePosition, DrawingAttributes color, double Width, double Height)
+        public static Stroke Rectangle(Point mousePosition, DrawingAttributes color, double width, double height)
         {
             var points = new StylusPointCollection();
-            double width = 80;
-            double height = 80;
 
             double topLeftX = mousePosition.X - width / 2;
             double topLeftY = mousePosition.Y - height / 2;

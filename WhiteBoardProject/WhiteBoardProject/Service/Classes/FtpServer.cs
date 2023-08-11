@@ -13,17 +13,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Path = System.IO.Path;
 
 namespace WhiteBoardProject.Service.Classes
 {
     public class FtpServer
     {
         FtpWebRequest? request;
-        bool isConnect = false;
         public string IP { get; set; } 
         public string? DownloadPath { get; set; }
         public string? FileName { get; set; }
-        public ObservableCollection<UserArt> UsersArt { get; set; } = new();
 
         public FtpServer(string Ip)
         {
@@ -49,7 +48,7 @@ namespace WhiteBoardProject.Service.Classes
 
         public void Connection()
         {
-            if (!string.IsNullOrEmpty(IP) && isConnect == false)
+            if (!string.IsNullOrEmpty(IP) )
             {
                 try
                 {
@@ -57,8 +56,7 @@ namespace WhiteBoardProject.Service.Classes
                     request.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
 
                     string allResponse = Response();
-                    isConnect = true;
-                    ParseListing(allResponse);
+                    //ParseListing(allResponse);
 
                 }
                 catch (Exception ex)
@@ -68,47 +66,46 @@ namespace WhiteBoardProject.Service.Classes
             }
         }
 
-        public void ParseListing(string listing)
-        {
-            string[] lines = listing.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        //public void ParseListing(string listing)
+        //{
+        //    string[] lines = listing.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (string line in lines)
-            {
-                string[] oneLine = line.Split(new[] { "\t", " " }, StringSplitOptions.RemoveEmptyEntries);
+        //    foreach (string line in lines)
+        //    {
+        //        string[] oneLine = line.Split(new[] { "\t", " " }, StringSplitOptions.RemoveEmptyEntries);
 
-                int id = int.Parse(oneLine[0]);
-                long size = long.Parse(oneLine[2]);
-                string name = oneLine[3];
-                string picturepath = oneLine[5];
+        //        int id = int.Parse(oneLine[0]);
+        //        long size = long.Parse(oneLine[2]);
+        //        string name = oneLine[3];
+        //        string picturepath = oneLine[5];
 
-                if (oneLine.Length > 4) name += oneLine[4];
+        //        if (oneLine.Length > 4) name += oneLine[4];
 
-                UsersArt.Add(new UserArt { Id = id, ArtName = name, PicturePath = picturepath });
-            }
-        }
+        //        UsersArt.Add(new UserArt { Id = id, ArtName = name, PicturePath = picturepath });
+        //    }
+        //}
 
         public void DownLoadArt()
         {
-            if (isConnect == true)
-            {
-                request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{FileName}");
-                request.Method = WebRequestMethods.Ftp.DownloadFile;
+            request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{FileName}");
+            request.Method = WebRequestMethods.Ftp.DownloadFile;
 
-                using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-                using Stream stream = response.GetResponseStream();
+            using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+            using Stream stream = response.GetResponseStream();
 
-                using FileStream fileStream = new($"{DownloadPath}/{FileName}", FileMode.Create);
-                stream.CopyTo(fileStream);
-            }
-            else
-                MessageBox.Show("Подключитесь в начале");
+            using FileStream fileStream = new($"{DownloadPath}/{FileName}", FileMode.Create);
+            stream.CopyTo(fileStream);
         }
+
         public UserArt? AddArt(string imgPath,UserArt userArt)
         {
             try
             {
-                string path = System.IO.Path.GetFileName(imgPath);
-                userArt.PicturePath = path;
+                string path = Path.GetFileName(imgPath);
+                if (string.IsNullOrEmpty(Path.GetExtension(path))) path = Path.ChangeExtension(path, ".png");
+                
+                userArt.ArtName = path;
+                userArt.PicturePath = Path.GetFullPath(path);
 
                 request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{path}");
                 request.Method = WebRequestMethods.Ftp.UploadFile;
@@ -131,14 +128,20 @@ namespace WhiteBoardProject.Service.Classes
 
 
         }
-        public void DeleteArt()
+        public void DeleteArt(string fileName)
         {
-            request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{FileName}");
-            request.Method = WebRequestMethods.Ftp.DeleteFile;
+            try
+            {
+                request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{fileName}");
+                request.Method = WebRequestMethods.Ftp.DeleteFile;
 
-            using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-            using Stream stream = response.GetResponseStream();
-
+                using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                using Stream stream = response.GetResponseStream();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 

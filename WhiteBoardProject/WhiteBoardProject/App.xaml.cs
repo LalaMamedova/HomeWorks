@@ -35,6 +35,7 @@ namespace WhiteBoardProject
             Container.RegisterSingleton<RegistrationViewModel>();
             Container.RegisterSingleton<LoginViewModel>();
             Container.RegisterSingleton<HomeViewModel>();
+            Container.RegisterSingleton<SendEmailViewModel>();
             Container.Register<DrawViewModel>();
 
         }

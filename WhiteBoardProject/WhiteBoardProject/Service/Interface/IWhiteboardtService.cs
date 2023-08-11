@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace WhiteBoardProject.Service.Interface
 {
-    public interface IClientService
+    public interface IWhiteboardtService
     {
-        public void Save();
-        public void SendToServer(string command);
-        public User? Load();
+        public void Save(object[]? entity);
+        public void SendToServer(string command);  
     }
 }

@@ -20,7 +20,7 @@ using WhiteBoardProject.ViewModel;
 
 namespace WhiteBoardProject.Service.ClientService
 {
-    public class PictureService :IClientService
+    public class ArtService :IWhiteboardtService
     {
         string ipAdress = "192.168.2.9";
         private UserArt? userArt;
@@ -29,17 +29,23 @@ namespace WhiteBoardProject.Service.ClientService
         private ClientService clientService;
         private User ownerUser;
 
-        public PictureService(object[]? entity)
+        public ArtService(UserArt? userArt = null)
         {
             FtpServer = new(ipAdress+":8900");
             clientService = new(ipAdress, 9000);
+            if (userArt != null)
+            {
+                this.userArt = userArt;
+            }
+        }
+
+     
+        public void Save(object[]? entity)
+        {
             inkCanvas = (InkCanvas)entity[0];
             userArt = (UserArt)entity[1];
             ownerUser = (User)entity[2];
-        }
 
-        public void Save()
-        {
             if (userArt != null && inkCanvas != null)
             {
                 BitmapSource bitmapSource = MyInkArtConvert.ConvertToBitmapSource(inkCanvas, userArt);
@@ -50,9 +56,13 @@ namespace WhiteBoardProject.Service.ClientService
 
         }
 
+        public void DeleteFromFtp()
+        {
+            FtpServer.DeleteArt(userArt.PicturePath);
+        }
+
         public void SendToServer(string command)
         {
-            Save();
             using MemoryStream memoryStream = new();
             using GZipStream gzipStream = new(memoryStream, CompressionMode.Compress);
             gzipStream.Write(userArt.Content, 0, userArt.Content.Length);
@@ -66,18 +76,25 @@ namespace WhiteBoardProject.Service.ClientService
             clientService.PostCommand(command);
             clientService.Post(userArt);
 
-            MessageBox.Show("Изображения удачно сохранено)");
+            Message(command);
         }
 
-        //public IWhiteboardcs? Load() 
-        //{
-        //    return clientService.Recive<UserArt>(new UserArt[] {userArt});
-        //    return null;
-        //}
-
-        User? IClientService.Load()
+        private void Message(string message)
         {
-            throw new NotImplementedException();
+            if(message == "Update")
+            {
+                MessageBox.Show("Изображение удачно изменено");
+            }
+            else if(message == "Add")
+            {
+                MessageBox.Show("Изображение удачно сохранено");
+            }
+            else if(message == "Delete")
+            {
+                MessageBox.Show("Изображение удачно удалено");
+            }
         }
+
+       
     }
 }

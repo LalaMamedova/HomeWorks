@@ -53,7 +53,7 @@ namespace WhiteboardServer.Service.Classes
                 if (jsonData == nameof(User) || jsonData == nameof(UserArt))
                     WhatClassIRecived = jsonData;
 
-                else if (!jsonData.Contains('{'))
+                else if (jsonData == "Add" || jsonData == "Update" || jsonData == "Delete" || jsonData == "Exist")
                     WhatCommandIRecived = jsonData;
                 
 
@@ -77,7 +77,7 @@ namespace WhiteboardServer.Service.Classes
 
                     else if (WhatClassIRecived == nameof(UserArt))
                     {
-                        saveService = new PictureServerService();
+                        saveService = new ArtServerService();
                         UserArt userArt = JsonConvert.DeserializeObject<UserArt>(jsonData)!;
                         Type? type = saveService.GetType();
                         MethodInfo? method = type.GetMethod(WhatCommandIRecived);

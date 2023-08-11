@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WhiteBoardProject.View"
-             xmlns:BTI ="clr-namespace:WhiteBoardProject.Converters"
+             xmlns:ByteToImg ="clr-namespace:WhiteBoardProject.Converters"
              xmlns:viewmodel="clr-namespace:WhiteBoardProject.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d"  Name="MainMenu"
@@ -13,7 +13,7 @@
     <UserControl.Resources>
 
         <ResourceDictionary>
-           <BTI:BytesToImageConverter x:Key="bytetoimg"></BTI:BytesToImageConverter>
+            <ByteToImg:BytesToImageConverter x:Key="bytetoimg"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -36,29 +36,61 @@
         <StackPanel Grid.ColumnSpan="2"
                     Background="#FF045452"
                     Orientation="Horizontal">
-            <Button Command="{Binding AddNewArt}"
-                    Content="Создать новый арт"
-                    Style="{StaticResource Login}"/>
+
+            <ToggleButton  x:Name="ArtSizeToggleButton" Width="150" Height="40"
+                           BorderThickness="0" Margin="15 0" >
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="/Img/Background.jpg"/>
+                </ToggleButton.Background>
+                <StackPanel>
+                    <TextBlock Text="Создать арт"/>
+                    
+                    <Popup  IsOpen="{Binding IsChecked, ElementName=ArtSizeToggleButton}"
+                            Placement="Bottom" StaysOpen="False" 
+                            PopupAnimation="Slide">
+                    
+                    <StackPanel Width="120px" Height="100px"
+                                Orientation="Vertical">
+                        <GroupBox Header="Ширина" Foreground="White">
+                                <TextBox Text="{Binding Width}"/>
+                            </GroupBox>
+                            <GroupBox Header="Высота" Foreground="White">
+                                <TextBox Text="{Binding Height}"/>
+                            </GroupBox>
+
+                            <Button Height="20px"
+                                    Content="Создать" Background="White"
+                                    Command="{Binding AddNewArt}"/>
+                        </StackPanel>
+                        
+                </Popup>
+             </StackPanel>
+            </ToggleButton>
+    
         </StackPanel>
 
+        
         <Button HorizontalAlignment="Right"
                     Style="{StaticResource Login}"
                     Width="150" Grid.Column="1"
-                    Content="Выйти"/>
+                    Content="Выйти"
+                Command="{Binding Logout}"/>
 
         <ItemsControl Grid.Row="1" Grid.ColumnSpan="2"
-                      ItemsSource="{Binding ActiveUser.UserArts}">
+                      ItemsSource="{Binding ActiveUser.UserArts, Mode=TwoWay}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel  Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical" Width="350px" Margin="10">
+                        <StackPanel Orientation="Vertical"
+                                    Width="350px" Margin="10">
                           
                             <Button Command="{Binding DataContext.ToRedact, ElementName=MainMenu}" 
                                 Cursor="Hand"
                                 CommandParameter="{Binding Id}">
                             <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="{Binding Content, Converter={StaticResource bytetoimg}}"/>
+                                        <Image Source="{Binding Content, Converter={StaticResource bytetoimg}}"
+                                               Width="150" Height="80"/>
                                     </ControlTemplate>
                             </Button.Template>
                                
@@ -71,6 +103,10 @@
                             <TextBlock Text="{Binding DateTime}" 
                                        Style="{StaticResource TextblockLoginStyle}"
                                        FontSize ="15"/>
+
+                            <Button Content="Удалить"
+                                    CommandParameter="{Binding Id}"
+                                    Command="{Binding DataContext.DeleteArt, ElementName=MainMenu}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

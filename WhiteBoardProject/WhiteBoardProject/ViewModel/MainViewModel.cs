@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore.SqlServer.ValueGeneration.Internal;
+using ProjectLib.Model.Class;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +32,21 @@ namespace WhiteBoardProject.ViewModel
             _navigate = navigate;
             _messanger = messanger;
 
-            CurrentViewModel = App.Container.GetInstance<LoginViewModel>();
+            User ThisUser = RememberMeService.LoadRememberedUser();
+
+            if (ThisUser != null)
+            {
+                CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
+            }
+            else
+            {
+                CurrentViewModel = App.Container.GetInstance<LoginViewModel>();
+            }
+            _messanger.Send(new DataMessager() { Data = ThisUser });
             _messanger.Register<NavigationMessage>(this, ReceiveMessage);
         }
 
-     
+       
+
     }
 }

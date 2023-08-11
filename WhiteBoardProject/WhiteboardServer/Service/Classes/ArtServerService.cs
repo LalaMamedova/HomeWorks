@@ -9,11 +9,20 @@ using WhiteboardServer.Service.Interface;
 
 namespace WhiteboardServer.Service.Classes
 {
-    public class PictureServerService : IModelService
+    public class ArtServerService : IModelService
     {
         public object? Delete(object? entity, WhiteboardContext whiteboardContext)
         {
-            throw new NotImplementedException();
+            UserArt? userArt = entity as UserArt;
+            
+            if (userArt != null)
+            {
+                whiteboardContext.UserArts.Remove(userArt);
+                whiteboardContext.SaveChanges();
+                return userArt;
+            }
+
+            throw new NotImplementedException("Произошла ошибка");
         }
 
         public object? Exist(object? entity, WhiteboardContext whiteboardContext)
@@ -36,14 +45,23 @@ namespace WhiteboardServer.Service.Classes
                 {
                     Console.WriteLine(ex.Message);
                 }
-               
             }
             return null;
         }
 
         public object? Update(object? entity,ref WhiteboardContext whiteboardContext)
         {
-            throw new NotImplementedException();
+            UserArt? userArt = entity as UserArt;
+            var oldArt = whiteboardContext.UserArts.Where(x => x.Id == userArt.Id).FirstOrDefault();
+            if (userArt != null)
+            {
+                oldArt = userArt;
+                whiteboardContext.UserArts.Update(userArt);
+                whiteboardContext.SaveChanges();
+                return userArt;
+            }
+
+            throw new NotImplementedException("Произошла ошибка");
         }
     }
 }

@@ -8,6 +8,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.ClientService;
 using WhiteBoardProject.Service.Interface;
@@ -19,7 +20,9 @@ namespace WhiteBoardProject.ViewModel
         private readonly INavigate _navigate;
         private readonly IMessenger _messenger;
         public User ActiveUser { get; set; } = new();
-
+        public double Width { get; set; } = SystemParameters.PrimaryScreenWidth;
+        public double Height { get; set; } = SystemParameters.PrimaryScreenHeight;
+        public UserArt userArt { get; set; }
 
         public HomeViewModel(INavigate navigate, IMessenger messenger)
         {
@@ -38,7 +41,7 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new(() =>
             {
-                UserArt userArt = new UserArt() { Width = 3500, Height = 2500};
+                userArt = new() { Width = Width, Height = Height};
                 _navigate.NavigateTo<DrawViewModel>(userArt);
                 _messenger.Send(new DataMessager() { Data = ActiveUser });
 
@@ -50,7 +53,35 @@ namespace WhiteBoardProject.ViewModel
             get => new((artId) =>
             {
                 var art = ActiveUser.UserArts.Where(x => x.Id == artId).First();
+                DrawViewModel.isRedact = true;
                 _navigate.NavigateTo<DrawViewModel>(art);
+                _messenger.Send(new DataMessager() { Data = ActiveUser });
+
+            });
+        }
+
+        public RelayCommand<int> DeleteArt
+        {
+            get => new((artId) =>
+            {
+                var art = ActiveUser.UserArts.Where(x => x.Id == artId).First();
+                ArtService pictureService = new ArtService(art);
+                ActiveUser.UserArts.Remove(art);
+                pictureService.SendToServer("Delete");
+
+                RememberMeService.RememberMe(ActiveUser);
+                pictureService.DeleteFromFtp();
+
+            });
+        }
+
+        public RelayCommand Logout
+        {
+            get => new(() =>
+            {
+                ActiveUser = new();
+                RememberMeService.DeleteRememberedUser();
+                _navigate.NavigateTo<LoginViewModel>(ActiveUser);
             });
         }
 

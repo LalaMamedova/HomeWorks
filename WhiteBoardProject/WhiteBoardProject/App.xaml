@@ -30,6 +30,11 @@
                 <View:LoginView></View:LoginView>
             </DataTemplate>
 
+
+            <DataTemplate DataType="{x:Type ViewModel:SendEmailViewModel}">
+                <View:SendEmailView></View:SendEmailView>
+            </DataTemplate>
+            
         </ResourceDictionary>
          
     </Application.Resources>

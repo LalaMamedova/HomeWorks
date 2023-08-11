@@ -13,7 +13,7 @@ using ProjectLib.Model.Interface;
 
 namespace WhiteBoardProject.Service.ClientService
 {
-    public class UserService : IClientService
+    public class UserService : IWhiteboardtService
     {
         private ClientService clientService;
         private string ipAdress = "192.168.2.9";
@@ -24,11 +24,6 @@ namespace WhiteBoardProject.Service.ClientService
         {
             ActiveUser = user;
             clientService = new(ipAdress, 9000);
-        }
-
-        public void Save()
-        {
-            //UserArt = (UserArt)entity[1];
         }
         public User? Load()
         {
@@ -41,6 +36,10 @@ namespace WhiteBoardProject.Service.ClientService
             clientService.PostCommand(command);
             clientService.Post(ActiveUser);
         }
-        
+
+        void IWhiteboardtService.Save(object[]? entity)
+        {
+            
+        }
     }
 }

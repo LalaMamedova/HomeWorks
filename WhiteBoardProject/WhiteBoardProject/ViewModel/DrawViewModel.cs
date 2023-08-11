@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Linq;
+using WhiteBoardProject.View;
 
 namespace WhiteBoardProject.ViewModel
 {
@@ -29,37 +31,36 @@ namespace WhiteBoardProject.ViewModel
         protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private IClientService saveService;
         private readonly IMessenger _messenger;
+        private readonly INavigate _navigate;
+        private IWhiteboardtService saveService;
         private DrawingAttributes drawingAttributes = new();
         private InkCanvasEditingMode inkCanvasEditingMode = InkCanvasEditingMode.Ink;
         private SolidColorBrush selectedBackGround = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
-        private double width = 50;
-        private double height = 50;
-        private InkCanvas _inkCanvas;
+        private List<Stroke> deletedStrokes = new List<Stroke>();
 
 
+
+
+        public static bool isRedact = false;
+        public double Width { get; set; } = 50;
+        public double Height { get; set; } = 50;
         public ColorList ColorList { get; set; } = new();
         public StrokeCollection Stroke { get; set; } = new();
         public string WhatIsDrawing { get; set; }
-        public double Width { get => width; set { width = value; drawingAttributes.Width = Width; NotifyPropertyChanged(nameof(Width)); } }
-        public double Height { get => height; set { height = value; NotifyPropertyChanged(nameof(Height)); } }
         public DrawingAttributes DrawingAttributes { get => drawingAttributes; set { drawingAttributes = value; NotifyPropertyChanged(nameof(DrawingAttributes)); } }
         public SolidColorBrush SelectedBackGround { get => selectedBackGround; set { selectedBackGround = value; NotifyPropertyChanged(nameof(SelectedBackGround)); } }
         public InkCanvasEditingMode InkCanvasEditingMode { get => inkCanvasEditingMode; set { inkCanvasEditingMode = value; NotifyPropertyChanged(nameof(InkCanvasEditingMode)); } }
         public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
-        public Point MousePosition { get; set; } = new();
         public UserArt UserArt { get; set; } = new();
-        public User User { get; set; } = new() ;
-        public InkCanvas MyInkCanvas
-        {
-            get { return _inkCanvas; }
-            set { _inkCanvas = value; NotifyPropertyChanged(nameof(MyInkCanvas)); }
-        }
+        public User User { get; set; } 
        
-        public DrawViewModel(IMessenger messenger)
+       
+        public DrawViewModel(IMessenger messenger, INavigate navigate)
         {
             _messenger = messenger;
+            _navigate = navigate;
+
             DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString("White");
             _messenger.Register<DataMessager>(this, message =>
             {
@@ -123,19 +124,58 @@ namespace WhiteBoardProject.ViewModel
         public RelayCommand DrawDash { get => new(() => { WhatIsDrawing = "Dash";}); }
         public RelayCommand DrawTriangle { get => new(() => {WhatIsDrawing = "Triangle";});}
         public RelayCommand DrawRectangle { get => new(() => {WhatIsDrawing = "Rectangle";}); }
+        public RelayCommand<InkCanvas> Highlighter 
+        {
+            get => new((canvas)  => 
+            {
+                if (canvas.DefaultDrawingAttributes.IsHighlighter == true)
+                    canvas.DefaultDrawingAttributes.IsHighlighter = false;
+                else
+                    canvas.DefaultDrawingAttributes.IsHighlighter = true;
+            });
+        }
+        public RelayCommand Back
+        {
+            get => new(() =>
+            {
+                deletedStrokes.Add(Stroke.Last());
+                Stroke.Remove(Stroke.Last());
+            });
+        }
+
+        public RelayCommand Foward
+        {
+            get => new(() =>
+            {
+                Stroke.Add(deletedStrokes.Last());
+                deletedStrokes.Remove(Stroke.Last());
+
+            });
+        }
+
         public RelayCommand<string> ChoiceColor { get => new(param =>{ DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString(param);});}
 
         public RelayCommand<InkCanvas> SaveImg
         {
             get => new((param) => 
             {
-                saveService = new PictureService(new object[] { param, UserArt,User});
-                UserArt.ArtName += ".png";
-                saveService.SendToServer("Add");
+                saveService = new ArtService();
+                saveService.Save(new object[] { param, UserArt, User });
 
-                User.UserArts.Add(UserArt);
+                if (isRedact == false)
+                {
+                    User.UserArts.Add(UserArt);
+                    saveService.SendToServer("Add");
+                }
+                else
+                {
+                    saveService.SendToServer("Update");
+                    isRedact = false;
+                }
+
                 saveService = new UserService(User);
                 saveService.SendToServer("Update");
+                RememberMeService.RememberMe(User);
             });
         }
 
@@ -149,12 +189,23 @@ namespace WhiteBoardProject.ViewModel
                 saveFileDialog.ShowDialog();
                 UserArt.ArtName = saveFileDialog.FileName;
 
-                saveService = new PictureService(new object[] { param, UserArt, User });
-                saveService.SendToServer("Update");
+                saveService = new ArtService();
+                saveService.Save(new object[] { param, UserArt, User });
 
-                User.UserArts.Add(UserArt);
+                if (isRedact == false)
+                {
+                    User.UserArts.Add(UserArt);
+                    saveService.SendToServer("Add");
+                }
+                else
+                {
+                    saveService.SendToServer("Update");
+                    isRedact = false;
+                }
+
                 saveService = new UserService(User);
                 saveService.SendToServer("Update");
+                RememberMeService.RememberMe(User);
 
             });
         }
@@ -165,8 +216,7 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((inkcanvas) =>
             {
-                MousePosition = Mouse.GetPosition(inkcanvas);
-                MyInkCanvas = inkcanvas;
+                Point MousePosition = Mouse.GetPosition(inkcanvas);
                 if (WhatIsDrawing == "Circle")
                 {
                     InkCanvasEditingMode = InkCanvasEditingMode.None;
@@ -202,9 +252,27 @@ namespace WhiteBoardProject.ViewModel
             });
         }
 
-       
+        public RelayCommand ToMainMenu
+        {
+            get => new(() =>
+            {
+                _navigate.NavigateTo<HomeViewModel>(User);
+            });
+        }
+
+        public RelayCommand ToEmail
+        {
+            get => new(() =>
+            {
+                _navigate.NavigateTo<SendEmailViewModel>(UserArt);
+                _messenger.Send(new DataMessager() { Data = User});
+            });
+        }
+
+
+
     }
 
-    
+
 
 }

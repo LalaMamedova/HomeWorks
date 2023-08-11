@@ -16,7 +16,7 @@ namespace WhiteBoardProject.ViewModel
     public class RegistrationViewModel:ViewModelBase
     {
         private INavigate _navigate;
-        public User User { get; set; } = new() { Email = "lallol606@gmail.com", Username ="lala", Password="lala" };
+        public User User { get; set; } = new();
 
         public RegistrationViewModel(INavigate navigate) 
         {

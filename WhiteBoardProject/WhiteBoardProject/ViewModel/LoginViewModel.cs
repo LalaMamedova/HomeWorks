@@ -3,11 +3,13 @@ using GalaSoft.MvvmLight.Command;
 using ProjectLib.Model.Class;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.ClientService;
 using WhiteBoardProject.Service.Interface;
 
@@ -16,7 +18,11 @@ namespace WhiteBoardProject.ViewModel
     public class LoginViewModel:ViewModelBase
     {
         private INavigate _navigate;
-        public User User { get; set; } =  new User() { Email="lallol606@gmail.com", Password ="lala", UserArts = new List<UserArt>()};
+        public string Email { get; set; }
+        public User? User { get; set; } = new();
+        public bool RememberMe{get; set; }
+
+
         public LoginViewModel(INavigate navigate)
         {
             _navigate = navigate;
@@ -43,9 +49,10 @@ namespace WhiteBoardProject.ViewModel
 
                     if (User != null)
                     {
-                        //_navigate.NavigateTo<DrawViewModel>(User);
-                        _navigate.NavigateTo<HomeViewModel>(User);
+                        if (RememberMe)
+                            RememberMeService.RememberMe(User);
 
+                        _navigate.NavigateTo<HomeViewModel>(User);
                     }
                     else
                     {
@@ -54,6 +61,7 @@ namespace WhiteBoardProject.ViewModel
                             _navigate.NavigateTo<RegistrationViewModel>();
                     }
                 }
+               
             }); 
         }
     }

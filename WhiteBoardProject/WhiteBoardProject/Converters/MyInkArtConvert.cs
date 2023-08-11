@@ -18,8 +18,8 @@ namespace WhiteBoardProject.Converters
         public static BitmapSource ConvertToBitmapSource(InkCanvas Myink,UserArt userArt)
         {
             RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-                (int)Myink.ActualWidth,
-                (int)Myink.ActualHeight,
+                (int)userArt.Width,
+                (int)userArt.Height,
                 96d,
                 96d,
                 PixelFormats.Default);

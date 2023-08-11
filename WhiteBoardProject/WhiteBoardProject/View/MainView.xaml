@@ -27,7 +27,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Background="#FF005852">
+
+        <StackPanel Background="#FF045452">
+
             <StackPanel HorizontalAlignment="Right" 
                         Orientation="Horizontal">
 
@@ -39,8 +41,10 @@
                         Click="Close_Click"/>
 
             </StackPanel>
+            
+            
         </StackPanel>
-
+        
         <ContentControl Grid.Row="1" 
                         Content="{Binding CurrentViewModel}"/>
 
