@@ -7,7 +7,7 @@ while (true)
 {
     try
     {
-        TcpClient client = serverService.Connection();
+        TcpClient client = serverService.Listener.AcceptTcpClient();
         object? postObject = serverService.ReciveMessage(client);
 
         if (postObject != null)

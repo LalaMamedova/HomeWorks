@@ -25,63 +25,72 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*"/>
-            <RowDefinition/>
             <RowDefinition Height="30px"/>
+            <RowDefinition Height="0.55*"/>
+            <RowDefinition/>
+            <RowDefinition Height="40px"/>
 
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.ColumnSpan="1">
-            <GroupBox Header="От" Height="55">
+        <StackPanel Grid.ColumnSpan="1" Grid.Row="1">
+            <GroupBox Header="От"  Style="{StaticResource EmailGroupBox}">
                 <TextBox Height="25" Text="{Binding UserEmail}"/>
             </GroupBox>
             
-            <GroupBox Header="Ваш пароль" Height="55">
+            <GroupBox Header="Ваш пароль"  Style="{StaticResource EmailGroupBox}">
                 <TextBox Height="25" Text="{Binding UserPassword}"/>
             </GroupBox>
 
-            <GroupBox Header="К" Height="55">
+            <GroupBox Header="Кому" Style="{StaticResource EmailGroupBox}">
                 <TextBox Height="25" Text="{Binding ReciverEmail}"/>
             </GroupBox>
-            
-            <GroupBox Header="Тема" Height="55">
+
+            <GroupBox Header="Тема" Style="{StaticResource EmailGroupBox}" >
                 <TextBox Height="25" Text="{Binding MailMessage.Subject}"/>
             </GroupBox>
 
-            <ItemsControl ItemsSource="{Binding MailMessage.Attachments}">
+            <GroupBox Header="Приклепленные файлы" Style="{StaticResource EmailGroupBox}"
+                      BorderThickness="0" >
+                <ItemsControl ItemsSource="{Binding MailMessage.Attachments}"
+                              Name="AttachItemBox">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Name}"/>
+                             <TextBlock Text=", "/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            </GroupBox>
 
-          
         </StackPanel>
             
-        <GroupBox Header="Тело сообщения"  Grid.Row="1" 
-                  Grid.ColumnSpan="2">
+        <GroupBox Header="Тело сообщения"  Grid.Row="2" 
+                  Grid.ColumnSpan="2" Style="{StaticResource EmailGroupBox}" 
+                  Height="auto"  >
             <TextBox Text="{Binding MailMessage.Body}"/>
         </GroupBox>
+        
+      
 
-        <StackPanel Grid.Column="1">
-            <StackPanel.Background>
-                <ImageBrush ImageSource="/Img/Background.png"/>
-            </StackPanel.Background>
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Width="40" Height="30">
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Button Width="60"  Command="{Binding AttachFile}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/Attach.png"/>
                 </Button.Background>
             </Button>
         </StackPanel>
 
-        <Button Grid.Column="1" Grid.Row="2"
-                Width="150" Content="Отправить"
-                Command="{Binding SendMessage}"/>
+        <Button Style="{StaticResource WindowButton}"
+                Content="В главное меню" Grid.Column="1"
+                HorizontalAlignment="Right" Width="150"
+                Command="{Binding ToMainMenu}"/>
+        
+        <Button Grid.Column="1" Grid.Row="3"
+                Content="Отправить" FontSize="25"
+                Command="{Binding SendMessage}" 
+                CommandParameter="{Binding ElementName=AttachItemBox}"
+                Style="{StaticResource MenuButton}"/>
     </Grid>
 </UserControl>

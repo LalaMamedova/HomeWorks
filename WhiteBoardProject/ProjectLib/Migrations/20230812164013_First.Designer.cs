@@ -12,7 +12,7 @@ using ProjectLib.Model.Context;
 namespace ProjectLib.Migrations
 {
     [DbContext(typeof(WhiteboardContext))]
-    [Migration("20230810193700_First")]
+    [Migration("20230812164013_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace ProjectLib.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserArtId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -81,9 +84,6 @@ namespace ProjectLib.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.Property<double>("Width")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("float")
@@ -92,10 +92,6 @@ namespace ProjectLib.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("[UserId1] IS NOT NULL");
 
                     b.ToTable("UserArts");
                 });
@@ -108,18 +104,11 @@ namespace ProjectLib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectLib.Model.Class.User", null)
-                        .WithOne("UserArt")
-                        .HasForeignKey("ProjectLib.Model.Class.UserArt", "UserId1");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjectLib.Model.Class.User", b =>
                 {
-                    b.Navigation("UserArt")
-                        .IsRequired();
-
                     b.Navigation("UserArts");
                 });
 #pragma warning restore 612, 618

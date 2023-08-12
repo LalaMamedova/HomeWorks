@@ -12,28 +12,32 @@ using System.Threading.Tasks;
 
 namespace ProjectLib.Model.Class
 {
-    public class User : IUser,IWhiteboardcs,INotifyPropertyChanged
+    [Serializable]
+    public class User : IUser,IWhiteboardcs
     {
-        [NonSerialized]
-        private ICollection<UserArt> userArts;
-        private IPEndPoint _ipEndPoint;
-        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public IPEndPoint IPEndPoint
-        {
-            get => _ipEndPoint;
-            set => _ipEndPoint = value;
-        }
+        //[NonSerialized]
+        //private IPEndPoint _ipEndPoint;
+        //public IPEndPoint IPEndPoint
+        //{
+        //    get => _ipEndPoint;
+        //    set => _ipEndPoint = value;
+        //}
+
         public int Id {get;set;}
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public UserArt UserArt { get; set; }
-        public ICollection<UserArt> UserArts
+        public int UserArtId { get; set; }
+        //[NonSerialized]
+        private List<UserArt> userArts;
+
+        public List<UserArt> UserArts
         {
             get { return userArts; }
-            set { userArts = value; NotifyPropertyChanged(nameof(UserArts)); }
+            set { userArts = value; }
         }
+
+        //public ICollection<UserArt> UserArts{get;set;}
 
 
         public override string ToString()

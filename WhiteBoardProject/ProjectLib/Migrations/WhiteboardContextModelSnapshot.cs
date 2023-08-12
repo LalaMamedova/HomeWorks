@@ -38,6 +38,9 @@ namespace ProjectLib.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserArtId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -78,9 +81,6 @@ namespace ProjectLib.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.Property<double>("Width")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("float")
@@ -89,10 +89,6 @@ namespace ProjectLib.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("[UserId1] IS NOT NULL");
 
                     b.ToTable("UserArts");
                 });
@@ -105,18 +101,11 @@ namespace ProjectLib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectLib.Model.Class.User", null)
-                        .WithOne("UserArt")
-                        .HasForeignKey("ProjectLib.Model.Class.UserArt", "UserId1");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjectLib.Model.Class.User", b =>
                 {
-                    b.Navigation("UserArt")
-                        .IsRequired();
-
                     b.Navigation("UserArts");
                 });
 #pragma warning restore 612, 618

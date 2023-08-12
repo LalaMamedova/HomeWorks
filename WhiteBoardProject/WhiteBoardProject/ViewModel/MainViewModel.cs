@@ -20,6 +20,7 @@ namespace WhiteBoardProject.ViewModel
         private INavigate _navigate;
         private IMessenger _messanger;
         private ViewModelBase? _currentViewModel;
+        User ThisUser;
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel!;
@@ -45,8 +46,6 @@ namespace WhiteBoardProject.ViewModel
             _messanger.Send(new DataMessager() { Data = ThisUser });
             _messanger.Register<NavigationMessage>(this, ReceiveMessage);
         }
-
        
-
     }
 }

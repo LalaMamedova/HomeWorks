@@ -89,7 +89,9 @@
                                 CommandParameter="{Binding Id}">
                             <Button.Template>
                                     <ControlTemplate>
-                                        <Image Source="{Binding Content, Converter={StaticResource bytetoimg}}"
+                                        <!--<Image Source="{Binding Content, Converter={StaticResource bytetoimg}}"
+                                               Width="150" Height="80"/>-->
+                                        <Image Source="{Binding PicturePath}"
                                                Width="150" Height="80"/>
                                     </ControlTemplate>
                             </Button.Template>

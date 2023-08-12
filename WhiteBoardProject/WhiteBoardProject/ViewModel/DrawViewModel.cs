@@ -52,7 +52,7 @@ namespace WhiteBoardProject.ViewModel
         public SolidColorBrush SelectedBackGround { get => selectedBackGround; set { selectedBackGround = value; NotifyPropertyChanged(nameof(SelectedBackGround)); } }
         public InkCanvasEditingMode InkCanvasEditingMode { get => inkCanvasEditingMode; set { inkCanvasEditingMode = value; NotifyPropertyChanged(nameof(InkCanvasEditingMode)); } }
         public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
-        public UserArt UserArt { get; set; } = new();
+        public UserArt UserArt { get; set; } 
         public User User { get; set; } 
        
        

@@ -10,6 +10,8 @@ using System.Windows.Controls;
 using WhiteBoardProject.Service.Interface;
 using WhiteboardServer.Service.Classes;
 using ProjectLib.Model.Interface;
+using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace WhiteBoardProject.Service.ClientService
 {
@@ -27,7 +29,24 @@ namespace WhiteBoardProject.Service.ClientService
         }
         public User? Load()
         {
-            return clientService.Recive<User>(ActiveUser);
+            //clientService.TcpClient = new(ipAdress, 9000);
+            using TcpClient tcpClient = new(ipAdress, 9000);
+            using NetworkStream networkStream = tcpClient.GetStream();
+            using MemoryStream memoryStream = new MemoryStream();
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = networkStream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                memoryStream.Write(buffer, 0, bytesRead);
+            }
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            User receivedUser = (User)binaryFormatter.Deserialize(memoryStream);
+            return receivedUser;
         }
 
         public void SendToServer(string command)

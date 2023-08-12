@@ -37,7 +37,7 @@ namespace WhiteboardServer.Service.Classes
             {
                 try
                 {
-                    whiteboardContext.Add(UserArt);
+                    whiteboardContext.UserArts.Add(UserArt);
                     whiteboardContext.SaveChanges();
                     return UserArt;
                 }

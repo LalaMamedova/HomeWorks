@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,10 @@ namespace WhiteboardServer.Service.Classes
         private IModelService saveService;
         public TcpListener Listener { get; set; }
         public IPAddress IPAddress { get; set; }
-        public int Port { get; set; }   
         public WhiteboardContext WhiteboardContext { get; set; } = new();
-
+        public int Port { get; set; }
+        UserArt userArt;
+        User user;
         public ServerService(IPAddress address, int port)
         {
             IPAddress = address;
@@ -35,14 +37,7 @@ namespace WhiteboardServer.Service.Classes
             Listener = new TcpListener(address, port);
             Listener.Start();
 
-       
         }
-        public TcpClient? Connection()
-        {
-            TcpClient client = Listener.AcceptTcpClient();
-            return client;
-        }
-
         public object? ReciveMessage(TcpClient? client) 
         {
             try
@@ -65,26 +60,28 @@ namespace WhiteboardServer.Service.Classes
                     {
                         saveService = new UserServerService();
                        
-                        User user = JsonConvert.DeserializeObject<User>(jsonData)!;
+                        user = JsonConvert.DeserializeObject<User>(jsonData)!;
                         Type? type = saveService.GetType();
                         MethodInfo? method = type.GetMethod(WhatCommandIRecived);
                        
                         if (method != null)
                         {
-                            return method.Invoke(saveService, new object[] { user, WhiteboardContext });
+                            user = (User)method.Invoke(saveService, new object[] { user, WhiteboardContext });
+                            return user;
                         }
                     }
 
                     else if (WhatClassIRecived == nameof(UserArt))
                     {
                         saveService = new ArtServerService();
-                        UserArt userArt = JsonConvert.DeserializeObject<UserArt>(jsonData)!;
+                        userArt = JsonConvert.DeserializeObject<UserArt>(jsonData)!;
                         Type? type = saveService.GetType();
                         MethodInfo? method = type.GetMethod(WhatCommandIRecived);
 
                         if (method != null)
                         {
-                            return method.Invoke(saveService, new object[] { userArt, WhiteboardContext });
+                            userArt = (UserArt)method.Invoke(saveService, new object[] { userArt, WhiteboardContext });
+                            return userArt;
                         }
                     }
                 }
@@ -104,15 +101,43 @@ namespace WhiteboardServer.Service.Classes
         public void PostMessage(TcpClient client,object message)
         {
             client = Listener.AcceptTcpClient();
-            var jsonSettings = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
+            //var jsonSettings = new JsonSerializerSettings
+            //{
+            //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            //};
+            //string jsonData = JsonConvert.SerializeObject(message, jsonSettings);
+            //string jsonData = JsonConvert.SerializeObject(message);
 
-            using StreamWriter stream = new(client.GetStream());
-            string jsonData = JsonConvert.SerializeObject(message, jsonSettings);
-            Console.WriteLine($"You post a: {message}");
-            stream.Write(jsonData);
+            //using StreamWriter stream = new(client.GetStream());
+            //Console.WriteLine($"You post a: {message}");
+
+            using MemoryStream memoryStream = new MemoryStream();
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            if (WhatClassIRecived == nameof(User))
+            {
+                binaryFormatter.Serialize(memoryStream, user);
+            }
+            else
+                binaryFormatter.Serialize(memoryStream, userArt);
+
+            using NetworkStream networkStream = client.GetStream();
+            byte[] userBytes = memoryStream.ToArray();
+
+            int bytesSent = 0;
+            while (bytesSent < userBytes.Length)
+            {
+                int bytesToSend = Math.Min(userBytes.Length - bytesSent, 1024); 
+                networkStream.Write(userBytes, bytesSent, bytesToSend);
+                bytesSent += bytesToSend;
+            }
+
+            //if (WhatClassIRecived == nameof(UserArt))
+            //    stream.Write(userArt);
+
+            //else
+            //    stream.Write(user);
+
+            //stream.Write(jsonData);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace WhiteBoardProject.Service.Classes
     public class FtpServer
     {
         FtpWebRequest? request;
-        public string IP { get; set; } 
+        public string IP { get; set; }
         public string? DownloadPath { get; set; }
         public string? FileName { get; set; }
 
@@ -48,7 +48,7 @@ namespace WhiteBoardProject.Service.Classes
 
         public void Connection()
         {
-            if (!string.IsNullOrEmpty(IP) )
+            if (!string.IsNullOrEmpty(IP))
             {
                 try
                 {
@@ -56,8 +56,6 @@ namespace WhiteBoardProject.Service.Classes
                     request.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
 
                     string allResponse = Response();
-                    //ParseListing(allResponse);
-
                 }
                 catch (Exception ex)
                 {
@@ -66,46 +64,14 @@ namespace WhiteBoardProject.Service.Classes
             }
         }
 
-        //public void ParseListing(string listing)
-        //{
-        //    string[] lines = listing.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-        //    foreach (string line in lines)
-        //    {
-        //        string[] oneLine = line.Split(new[] { "\t", " " }, StringSplitOptions.RemoveEmptyEntries);
-
-        //        int id = int.Parse(oneLine[0]);
-        //        long size = long.Parse(oneLine[2]);
-        //        string name = oneLine[3];
-        //        string picturepath = oneLine[5];
-
-        //        if (oneLine.Length > 4) name += oneLine[4];
-
-        //        UsersArt.Add(new UserArt { Id = id, ArtName = name, PicturePath = picturepath });
-        //    }
-        //}
-
-        public void DownLoadArt()
-        {
-            request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{FileName}");
-            request.Method = WebRequestMethods.Ftp.DownloadFile;
-
-            using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-            using Stream stream = response.GetResponseStream();
-
-            using FileStream fileStream = new($"{DownloadPath}/{FileName}", FileMode.Create);
-            stream.CopyTo(fileStream);
-        }
-
-        public UserArt? AddArt(string imgPath,UserArt userArt)
+        public UserArt? AddArt(string imgPath, UserArt userArt)
         {
             try
             {
                 string path = Path.GetFileName(imgPath);
-                if (string.IsNullOrEmpty(Path.GetExtension(path))) path = Path.ChangeExtension(path, ".png");
                 
                 userArt.ArtName = path;
-                userArt.PicturePath = Path.GetFullPath(path);
+                userArt.PicturePath = imgPath;
 
                 request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{path}");
                 request.Method = WebRequestMethods.Ftp.UploadFile;
@@ -118,6 +84,9 @@ namespace WhiteBoardProject.Service.Classes
                 using Stream requestStream = request.GetRequestStream();
                 requestStream.Write(fileContents, 0, fileContents.Length);
 
+                CreateAFolder();
+                requestStream.Close();
+                fileStream.Close();
                 return userArt;
             }
             catch (Exception ex)
@@ -125,9 +94,17 @@ namespace WhiteBoardProject.Service.Classes
                 MessageBox.Show(ex.Message);
             }
             return null;
-
-
         }
+
+        public void CreateAFolder()
+        {
+            string folderPath = @"C:\FolderForYourArt";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+        }
+
         public void DeleteArt(string fileName)
         {
             try

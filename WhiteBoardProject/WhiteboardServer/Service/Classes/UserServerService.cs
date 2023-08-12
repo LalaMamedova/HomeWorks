@@ -41,7 +41,7 @@ namespace WhiteboardServer.Service.Classes
             {
                 whiteboardContext.Users.Add(user);
                 whiteboardContext.SaveChanges();
-                return user; 
+                return user;
             }
             throw new Exception("Такой пользователь уже существует");
         }
@@ -57,8 +57,7 @@ namespace WhiteboardServer.Service.Classes
 
                 foreach (var loginuser in usersWithArts)
                     return loginuser;
-                
-                //return existUser;
+           
             }
             
             throw new ArgumentNullException("Такого пользователя не существует");

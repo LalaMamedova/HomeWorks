@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ProjectLib.Model.Class;
+using ProjectLib.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace WhiteBoardProject.ViewModel
     {
         private INavigate _navigate;
         public string Email { get; set; }
-        public User? User { get; set; } = new();
+        public User? User { get; set; } = new() { Email="lallol606@gmail.com"};
         public bool RememberMe{get; set; }
 
 
@@ -43,6 +44,7 @@ namespace WhiteBoardProject.ViewModel
                 {
                     User.Password = password.Password;
                     UserService userservice = new(User);
+   
                     userservice.SendToServer("Exist");
 
                     User = userservice.Load();

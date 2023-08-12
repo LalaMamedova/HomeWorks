@@ -19,7 +19,8 @@ namespace ProjectLib.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserArtId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,8 +39,7 @@ namespace ProjectLib.Migrations
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Width = table.Column<double>(type: "float", nullable: false, defaultValue: 500.0),
-                    Height = table.Column<double>(type: "float", nullable: false, defaultValue: 500.0),
-                    UserId1 = table.Column<int>(type: "int", nullable: true)
+                    Height = table.Column<double>(type: "float", nullable: false, defaultValue: 500.0)
                 },
                 constraints: table =>
                 {
@@ -50,24 +50,12 @@ namespace ProjectLib.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserArts_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserArts_UserId",
                 table: "UserArts",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserArts_UserId1",
-                table: "UserArts",
-                column: "UserId1",
-                unique: true,
-                filter: "[UserId1] IS NOT NULL");
         }
 
         /// <inheritdoc />
