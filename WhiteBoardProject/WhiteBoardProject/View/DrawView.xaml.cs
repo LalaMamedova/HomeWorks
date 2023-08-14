@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Humanizer;
+using ProjectLib.Model.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -18,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WhiteBoardProject.Converters;
 using WhiteBoardProject.Service.Classes;
+using WhiteBoardProject.Service.ClientService;
 using WhiteBoardProject.ViewModel;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -47,5 +50,7 @@ namespace WhiteBoardProject.View
             {
             }
         }
+
+      
     }
 }

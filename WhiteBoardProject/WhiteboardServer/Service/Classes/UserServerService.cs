@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProjectLib.Model.Class;
 using ProjectLib.Model.Context;
+using ProjectLib.Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteboardServer.Service.Interface;
@@ -15,18 +18,23 @@ namespace WhiteboardServer.Service.Classes
         public object? Delete(object? entity, WhiteboardContext whiteboardContext)
         {
             throw new NotImplementedException();
-
         }
 
         public object? Update(object? entity, ref WhiteboardContext whiteboardContext)
         {
-            User? user = entity as User;
-            var olduser = whiteboardContext.Users.Where(x=> x.Id == user.Id).FirstOrDefault();
-            if (user != null)
+            User? updatedUser = entity as User;
+            var oldUser = whiteboardContext.Users.Where(x=> x.Id == updatedUser.Id).FirstOrDefault();
+            if (updatedUser != null)
             {
-                olduser = user;
-                whiteboardContext.SaveChanges();
-                return user;
+                var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x => x.Id == updatedUser.Id);
+                foreach (var loginuser in usersWithArts)
+                {
+                    return loginuser;
+                }
+                //whiteboardContext.Entry(oldUser).CurrentValues.SetValues(updatedUser);
+                //whiteboardContext.SaveChanges();
+
+                //return oldUser;
             }
 
             throw new NotImplementedException("Произошла ошибка");
@@ -48,19 +56,22 @@ namespace WhiteboardServer.Service.Classes
 
         public object? Exist(object? entity, WhiteboardContext whiteboardContext)
         {
-            User? user = entity as User;
-            User? existUser = whiteboardContext.Users.Where(x => x.Email.Equals(user.Email)).First();
+            UserDTO userDTO = entity as UserDTO;
+            User? existUser = whiteboardContext.Users.Where(x => x.Email.Equals(userDTO.Email) && x.Password == userDTO.Password).FirstOrDefault();
 
             if (existUser != null)
             {
-                var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x=>x.Id == existUser.Id);
+                var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x => x.Id == existUser.Id);
 
                 foreach (var loginuser in usersWithArts)
+                {
                     return loginuser;
-           
+                }
             }
             
             throw new ArgumentNullException("Такого пользователя не существует");
         }
+
+       
     }
 }

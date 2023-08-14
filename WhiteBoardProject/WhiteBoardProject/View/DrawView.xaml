@@ -51,7 +51,7 @@
                         Placement="Bottom" StaysOpen="False" Opacity="0.4"
                         PopupAnimation="Slide">
 
-                    <StackPanel Width="120px" Orientation="Vertical">
+                    <StackPanel Width="220px" Orientation="Vertical">
                         
                         <Button Style="{StaticResource MenuButton}"
                                 Content="Сохранить" 
@@ -61,8 +61,9 @@
                         <Button Style="{StaticResource MenuButton}"
                                 Content="Сохранить как" 
                                 CommandParameter="{Binding ElementName=Myink}"
-                                Command="{Binding SaveAs}"/>
+                                Command="{Binding SaveAs}">
 
+                        </Button>
 
                         <Button Style="{StaticResource MenuButton}"
                                 Content="{Binding isNightMode.MyData}" 
@@ -71,15 +72,19 @@
                         <Button Style="{StaticResource MenuButton}"
                                 Content="Отправить по почте" 
                                 Command="{Binding ToEmail}"/>
+
+                        <Button Style="{StaticResource MenuButton}"
+                                Content="Принт" 
+                                Command="{Binding Print}"/>
                     </StackPanel>
                 </Popup>
             </ToggleButton>
 
 
             <ToggleButton x:Name="ColorPickerButton" Width="40" Height="40"
-                          BorderThickness="0">
+                          BorderThickness="0" Command="{Binding DrawWithPen}">
                 <ToggleButton.Background>
-                    <ImageBrush ImageSource="/Img/Color.png"/>
+                    <ImageBrush ImageSource="/Img/Pen.png"/>
                 </ToggleButton.Background>
 
                 <Popup x:Name="ColorPickerPopup" IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
@@ -108,12 +113,12 @@
             </ToggleButton>
 
 
-            <Button Style="{StaticResource FigureButton}"
+            <!--<Button Style="{StaticResource FigureButton}"
                     Command="{Binding DrawWithPen}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/Pen.png" Stretch="Uniform" />
                 </Button.Background>
-            </Button>
+            </Button>-->
 
             <Button Style="{StaticResource FigureButton}"
                     Command="{Binding Erase}">
@@ -161,8 +166,7 @@
 
             <Button Style="{StaticResource FigureButton}" Content="T"
                     CommandParameter="{Binding Width}" Command="{Binding Text}"
-                    Width="60" Height="65" FontSize="40"
-                    VerticalContentAlignment="Top" />
+                    Width="60"  FontSize="40"/>
 
             <Button Style="{StaticResource FigureButton }" 
                     Command="{Binding Highlighter}"
@@ -185,8 +189,6 @@
                     <ImageBrush ImageSource="/Img/Foward.png"  Stretch="Uniform"/>
                 </Button.Background>
             </Button>
-
-
 
 
 
@@ -224,42 +226,54 @@
                 </GroupBox>
             </StackPanel>
 
-            <GroupBox Header="Ваш Username" Foreground="White">
+            <!--<GroupBox Header="Ваш Username" Foreground="White">
                 <TextBlock Text="{Binding User.Username}"
-                       FontSize="25" Margin="20 0"/>
-            </GroupBox>
+                           FontSize="25" Margin="20 0"/>
+            </GroupBox>-->
+            
+            <Button Height="20"
+                    Command="{Binding ZoomIn}"
+                    Content="Zoom in"
+                    CommandParameter="{Binding ElementName=Myink}"/>
+
+            <Button Height="20"
+                    Command="{Binding ZoomOut}"
+                    Content="Zoom out" 
+                    CommandParameter="{Binding ElementName=Myink}"/>
         </StackPanel>
+
 
         <Button Style="{StaticResource WindowButton}"
                 Content="В главное меню" Grid.Column="1"
-                HorizontalAlignment="Right" Width="150"
-                Command="{Binding ToMainMenu}"/>
+                HorizontalAlignment="Right" Width="180"
+                Command="{Binding ToMainMenu}" Height="40"/>
 
-        <InkCanvas Name="Myink" Grid.ColumnSpan="2" Grid.Row="1" 
-                       DefaultDrawingAttributes="{Binding DrawingAttributes}"
-                       UseCustomCursor="True" Cursor="Pen"
-                       EditingMode ="{Binding InkCanvasEditingMode, Mode=TwoWay}" 
-                       Strokes="{Binding Stroke}" 
-                       Width="{Binding UserArt.Width}"
-                       Height="{Binding UserArt.Height}"
-                       SelectionChanged="Myink_SelectionChanged">
+        <ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      Grid.ColumnSpan="2" Grid.Row="1" >
+            <InkCanvas Name="Myink" Grid.ColumnSpan="2" Grid.Row="1" 
+                   DefaultDrawingAttributes="{Binding DrawingAttributes}"
+                   UseCustomCursor="True" Cursor="Pen"
+                   EditingMode ="{Binding InkCanvasEditingMode, Mode=TwoWay}" 
+                   Strokes="{Binding Stroke}"
+                   Width="{Binding UserArt.Width}"
+                   Height="{Binding UserArt.Height}"
+                   SelectionChanged="Myink_SelectionChanged">
 
-            <InkCanvas.Background>
-                <ImageBrush ImageSource="{Binding UserArt.PicturePath}" Stretch="Uniform"/>
-
-                <!--<ImageBrush ImageSource="{Binding UserArt.Content, Converter={StaticResource BytetoImg}}" Stretch="Uniform"/>-->
-            </InkCanvas.Background>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseDown">
-                    <i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 
+                <InkCanvas.Background>
+                    <!--<ImageBrush ImageSource="{Binding UserArt.PicturePath}" Stretch="Uniform"/>-->
+                    <ImageBrush ImageSource="{Binding UserArt.Content, Converter={StaticResource BytetoImg}}" Stretch="Fill"/>
+                </InkCanvas.Background>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 
                                            Command="{Binding MouseMoveCommand}"/>
-                </i:EventTrigger>
-                <!--<i:EventTrigger EventName="PreviewMouseDown">
+                    </i:EventTrigger>
+                    <!--<i:EventTrigger EventName="PreviewMouseDown">
                     <i:InvokeCommandAction Command="{Binding MouseMoveDownCommand}" CommandParameter="{Binding ElementName=Myink}" />
                 </i:EventTrigger>-->
-            </i:Interaction.Triggers>
-        </InkCanvas>
+                </i:Interaction.Triggers>
+            </InkCanvas>
 
-
+        </ScrollViewer>
     </Grid>
 </UserControl>

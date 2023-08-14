@@ -20,7 +20,8 @@ namespace WhiteBoardProject.ViewModel
     {
         private INavigate _navigate;
         public string Email { get; set; }
-        public User? User { get; set; } = new() { Email="lallol606@gmail.com"};
+        public UserDTO User { get; set; } = new() { Email = "lallol606@gmail.com" };
+      
         public bool RememberMe{get; set; }
 
 
@@ -43,18 +44,18 @@ namespace WhiteBoardProject.ViewModel
                 if (!string.IsNullOrEmpty(password.Password))
                 {
                     User.Password = password.Password;
-                    UserService userservice = new(User);
-   
-                    userservice.SendToServer("Exist");
-
-                    User = userservice.Load();
-
-                    if (User != null)
+                    UserService userservice = new();   
+                    userservice.SendToServer("Exist", User);
+                    User LoginUser = (User)userservice.Recive();
+                    
+                    if (LoginUser != null)
                     {
                         if (RememberMe)
+                        {
+                            User.Id = LoginUser.Id;
                             RememberMeService.RememberMe(User);
-
-                        _navigate.NavigateTo<HomeViewModel>(User);
+                        }
+                        _navigate.NavigateTo<HomeViewModel>(LoginUser);
                     }
                     else
                     {

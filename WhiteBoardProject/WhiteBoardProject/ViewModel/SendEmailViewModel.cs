@@ -48,7 +48,6 @@ namespace WhiteBoardProject.ViewModel
                 else if (message.Data.GetType().Name == nameof(UserArt))
                 {
                     SenderArt = message.Data as UserArt;
-
                     if (isAttachment == false && SenderArt.PicturePath!=null)
                     {
                         isAttachment = Attach(SenderArt.PicturePath);
@@ -102,7 +101,7 @@ namespace WhiteBoardProject.ViewModel
                 openFileDialog.ShowDialog();
 
                 Attach(openFileDialog.FileName);
-                itemControl.Items.Add(openFileDialog.FileName);
+                itemControl.ItemsSource = MailMessage.Attachments;
             });
         }
         private bool Attach(string? senderFile)

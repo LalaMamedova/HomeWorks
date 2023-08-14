@@ -34,8 +34,8 @@ namespace ProjectLib.Model.Context
             users.Property(x => x.Email).IsRequired();
             //users.Ignore(x => x.IPEndPoint);
             users.HasMany(u => u.UserArts)
-                .WithOne(ua => ua.User)
-                .HasForeignKey(ua => ua.UserId);
+                 .WithOne(ua => ua.User)
+                 .HasForeignKey(ua => ua.UserId);
 
             usersArt.HasKey(x => x.Id);
             usersArt.Property(x=>x.Width).HasDefaultValue(500);

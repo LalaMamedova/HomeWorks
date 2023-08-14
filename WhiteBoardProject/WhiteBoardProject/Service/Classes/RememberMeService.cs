@@ -25,7 +25,7 @@ namespace WhiteBoardProject.Service.Classes
             File.WriteAllText(filePath, jsonData);
         }
 
-        public static User? LoadRememberedUser()
+        public static UserDTO? LoadRememberedUser()
         {
             string filePath = Path.Combine(projectFolderPath, fileName);
 
@@ -34,7 +34,7 @@ namespace WhiteBoardProject.Service.Classes
                 if (File.Exists(filePath) && !string.IsNullOrEmpty(File.ReadAllText(filePath)))
                 {
                     string jsonContent = File.ReadAllText(filePath);
-                    User deserializedUser = JsonConvert.DeserializeObject<User>(jsonContent);
+                    UserDTO? deserializedUser = JsonConvert.DeserializeObject<UserDTO>(jsonContent);
 
                     return deserializedUser;
                 }

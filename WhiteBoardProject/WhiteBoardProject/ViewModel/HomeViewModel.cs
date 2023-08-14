@@ -1,14 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Humanizer;
 using ProjectLib.Model.Class;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.ClientService;
 using WhiteBoardProject.Service.Interface;
@@ -19,10 +23,10 @@ namespace WhiteBoardProject.ViewModel
     {
         private readonly INavigate _navigate;
         private readonly IMessenger _messenger;
-        public User ActiveUser { get; set; } = new();
+        public User ActiveUser { get; set; }
+        public UserArt UserArt { get; set; }
         public double Width { get; set; } = SystemParameters.PrimaryScreenWidth;
         public double Height { get; set; } = SystemParameters.PrimaryScreenHeight;
-        public UserArt userArt { get; set; }
 
         public HomeViewModel(INavigate navigate, IMessenger messenger)
         {
@@ -41,8 +45,8 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new(() =>
             {
-                userArt = new() { Width = Width, Height = Height};
-                _navigate.NavigateTo<DrawViewModel>(userArt);
+                UserArt = new() { Width = Width, Height = Height};
+                _navigate.NavigateTo<DrawViewModel>(UserArt);
                 _messenger.Send(new DataMessager() { Data = ActiveUser });
 
             });
@@ -64,13 +68,29 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((artId) =>
             {
-                var art = ActiveUser.UserArts.Where(x => x.Id == artId).First();
-                ArtService pictureService = new ArtService(art);
-                ActiveUser.UserArts.Remove(art);
-                pictureService.SendToServer("Delete");
+                UserArt art = ActiveUser.UserArts.Where(x => x.Id == artId).First();
+                IWhiteboardtService whiteboardtService; 
+                try
+                {
+                    whiteboardtService = new ArtService(art);
+                    whiteboardtService.SendToServer("Delete", art);
+                    //pictureService.DeleteFromFtp();
+                    if (File.Exists(art.PicturePath))
+                    {
+                        File.Delete(art.PicturePath);
+                    }
 
-                RememberMeService.RememberMe(ActiveUser);
-                pictureService.DeleteFromFtp();
+                    //ActiveUser.UserArts.Remove(art);
+                    //whiteboardtService = new UserService();
+                    //whiteboardtService.SendToServer("Update", ActiveUser);
+                    //ActiveUser = (User)whiteboardtService.Recive();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+              
 
             });
         }
@@ -82,6 +102,14 @@ namespace WhiteBoardProject.ViewModel
                 ActiveUser = new();
                 RememberMeService.DeleteRememberedUser();
                 _navigate.NavigateTo<LoginViewModel>(ActiveUser);
+            });
+        }
+
+        public RelayCommand<ItemsControl> Refresh
+        {
+            get => new((itemcontrol) =>
+            {
+                itemcontrol.ItemsSource = ActiveUser.UserArts;
             });
         }
 

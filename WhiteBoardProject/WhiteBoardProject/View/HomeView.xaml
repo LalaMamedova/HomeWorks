@@ -13,7 +13,7 @@
     <UserControl.Resources>
 
         <ResourceDictionary>
-            <ByteToImg:BytesToImageConverter x:Key="bytetoimg"/>
+            <ByteToImg:BytesToImageConverter x:Key="ByteToImg"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -37,13 +37,14 @@
                     Background="#FF045452"
                     Orientation="Horizontal">
 
-            <ToggleButton  x:Name="ArtSizeToggleButton" Width="150" Height="40"
+            <ToggleButton  x:Name="ArtSizeToggleButton" Width="180" Height="40"
                            BorderThickness="0" Margin="15 0" >
                 <ToggleButton.Background>
                     <ImageBrush ImageSource="/Img/Background.jpg"/>
                 </ToggleButton.Background>
                 <StackPanel>
-                    <TextBlock Text="Создать арт"/>
+                    <TextBlock Text="Создать арт" Foreground="White" 
+                               FontSize="18"/>
                     
                     <Popup  IsOpen="{Binding IsChecked, ElementName=ArtSizeToggleButton}"
                             Placement="Bottom" StaysOpen="False" 
@@ -66,50 +67,59 @@
                 </Popup>
              </StackPanel>
             </ToggleButton>
-    
-        </StackPanel>
 
-        
-        <Button HorizontalAlignment="Right"
+
+            <Button HorizontalAlignment="Right"
                     Style="{StaticResource Login}"
                     Width="150" Grid.Column="1"
-                    Content="Выйти"
+                    Content="Обновить"
+                    CommandParameter="{Binding ElementName=ArtItemControl}"
+                    Command="{Binding Refresh}"/>
+        </StackPanel>
+
+
+        <Button HorizontalAlignment="Right"
+                Style="{StaticResource Login}"
+                Width="150" Grid.Column="1"
+                Content="Выйти"
                 Command="{Binding Logout}"/>
 
-        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2"
-                      ItemsSource="{Binding ActiveUser.UserArts, Mode=TwoWay}">
+        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2" Name="ArtItemControl"
+                      ItemsSource="{Binding ActiveUser.UserArts}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel  Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical"
-                                    Width="350px" Margin="10">
-                          
-                            <Button Command="{Binding DataContext.ToRedact, ElementName=MainMenu}" 
-                                Cursor="Hand"
-                                CommandParameter="{Binding Id}">
-                            <Button.Template>
-                                    <ControlTemplate>
-                                        <!--<Image Source="{Binding Content, Converter={StaticResource bytetoimg}}"
-                                               Width="150" Height="80"/>-->
-                                        <Image Source="{Binding PicturePath}"
-                                               Width="150" Height="80"/>
-                                    </ControlTemplate>
-                            </Button.Template>
-                               
-                        </Button>
-                                
-                            <TextBlock Text="{Binding ArtName}" 
+                        <Border BorderBrush="AliceBlue" BorderThickness="2" Margin="5">
+                            <StackPanel Orientation="Vertical"
+                                    Width="350px">
+
+                                <Button Command="{Binding DataContext.ToRedact, ElementName=MainMenu}" 
+                                    Cursor="Hand" CommandParameter="{Binding Id}">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Image Source="{Binding Content, Converter={StaticResource ByteToImg}}"
+                                              Width="250" Height="150" Stretch="Fill"/>
+                                            <!--<Image Source="{Binding PicturePath}"
+                                               Width="250" Height="150" Stretch="Fill"/>-->
+                                        </ControlTemplate>
+                                    </Button.Template>
+
+                                </Button>
+
+                                <TextBlock Text="{Binding ArtName}" 
                                        Style="{StaticResource TextblockLoginStyle}"
                                        FontSize ="20"/>
 
-                            <TextBlock Text="{Binding DateTime}" 
+                                <TextBlock Text="{Binding DateTime}" 
                                        Style="{StaticResource TextblockLoginStyle}"
                                        FontSize ="15"/>
 
-                            <Button Content="Удалить"
+                                <Button Content="Удалить"
+                                    Style="{StaticResource Login}"
                                     CommandParameter="{Binding Id}"
                                     Command="{Binding DataContext.DeleteArt, ElementName=MainMenu}"/>
-                        </StackPanel>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

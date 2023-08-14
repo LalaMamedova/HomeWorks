@@ -3,12 +3,14 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.EntityFrameworkCore.SqlServer.ValueGeneration.Internal;
 using ProjectLib.Model.Class;
+using ProjectLib.Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteBoardProject.Service.Classes;
+using WhiteBoardProject.Service.ClientService;
 using WhiteBoardProject.Service.Interface;
 using WhiteBoardProject.View;
 using WhiteboardServer.Service.Classes;
@@ -20,7 +22,7 @@ namespace WhiteBoardProject.ViewModel
         private INavigate _navigate;
         private IMessenger _messanger;
         private ViewModelBase? _currentViewModel;
-        User ThisUser;
+        private User? RecivedUser;
         public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel!;
@@ -33,19 +35,25 @@ namespace WhiteBoardProject.ViewModel
             _navigate = navigate;
             _messanger = messanger;
 
-            User ThisUser = RememberMeService.LoadRememberedUser();
+            IUser? userDTO = RememberMeService.LoadRememberedUser();
+            UserService userService = new();
 
-            if (ThisUser != null)
+            if (userDTO != null)
             {
-                CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
+                userService.SendToServer("Exist", userDTO);
+                RecivedUser = (User)userService.Recive();
+
+                if (RecivedUser != null)
+                {
+                    CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
+
+                    _messanger.Send(new DataMessager() { Data = RecivedUser });
+                    _messanger.Register<NavigationMessage>(this, ReceiveMessage);
+                }
             }
             else
-            {
                 CurrentViewModel = App.Container.GetInstance<LoginViewModel>();
-            }
-            _messanger.Send(new DataMessager() { Data = ThisUser });
-            _messanger.Register<NavigationMessage>(this, ReceiveMessage);
         }
-       
+
     }
 }

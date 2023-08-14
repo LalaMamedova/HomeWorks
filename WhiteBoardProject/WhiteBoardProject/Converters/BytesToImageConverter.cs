@@ -17,11 +17,11 @@ namespace WhiteBoardProject.Converters
         {
             if (value is byte[] compressedBytes)
             {
-                byte[] decompressedBytes = DecompressData(compressedBytes);
+                //byte[] decompressedBytes = DecompressData(compressedBytes);
 
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
-                image.StreamSource = new MemoryStream(decompressedBytes);
+                image.StreamSource = new MemoryStream(compressedBytes);
                 image.EndInit();
                 return image;
             }

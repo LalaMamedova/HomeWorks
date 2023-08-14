@@ -71,12 +71,11 @@ namespace WhiteBoardProject.Service.Classes
                 string path = Path.GetFileName(imgPath);
                 
                 userArt.ArtName = path;
-                userArt.PicturePath = imgPath;
-
+               
                 request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{path}");
                 request.Method = WebRequestMethods.Ftp.UploadFile;
 
-                using FileStream fileStream = new FileStream(imgPath, FileMode.OpenOrCreate);
+                using FileStream fileStream = new FileStream(imgPath, FileMode.Create);
 
                 byte[] fileContents = new byte[fileStream.Length];
                 fileStream.Read(fileContents, 0, fileContents.Length);
@@ -85,8 +84,6 @@ namespace WhiteBoardProject.Service.Classes
                 requestStream.Write(fileContents, 0, fileContents.Length);
 
                 CreateAFolder();
-                requestStream.Close();
-                fileStream.Close();
                 return userArt;
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using ProjectLib.Model.Class;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectLib.Model.Class;
 using ProjectLib.Model.Context;
 using System;
 using System.Collections.Generic;
@@ -14,52 +15,47 @@ namespace WhiteboardServer.Service.Classes
         public object? Delete(object? entity, WhiteboardContext whiteboardContext)
         {
             UserArt? userArt = entity as UserArt;
-            
-            if (userArt != null)
+            var olduserArt = whiteboardContext.UserArts.AsNoTracking().FirstOrDefault(ua => ua.Id == userArt.Id);
+            if (olduserArt != null)
             {
-                whiteboardContext.UserArts.Remove(userArt);
+                whiteboardContext.UserArts.Remove(olduserArt);
                 whiteboardContext.SaveChanges();
-                return userArt;
+                return olduserArt;
             }
 
             throw new NotImplementedException("Произошла ошибка");
         }
 
-        public object? Exist(object? entity, WhiteboardContext whiteboardContext)
-        {
-            throw new NotImplementedException();
-        }
+        public object? Exist(object? entity, WhiteboardContext whiteboardContext){ return null; }
 
         public object? Add(object? entity, WhiteboardContext whiteboardContext)
         {
             UserArt UserArt = (UserArt)entity;
             if (UserArt != null)
             {
-                try
-                {
-                    whiteboardContext.UserArts.Add(UserArt);
-                    whiteboardContext.SaveChanges();
-                    return UserArt;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                whiteboardContext.UserArts.Add(UserArt);
+                whiteboardContext.SaveChanges();
+                return UserArt;
             }
             return null;
         }
 
         public object? Update(object? entity,ref WhiteboardContext whiteboardContext)
         {
-            UserArt? userArt = entity as UserArt;
-            var oldArt = whiteboardContext.UserArts.Where(x => x.Id == userArt.Id).FirstOrDefault();
-            if (userArt != null)
+            UserArt userArt = entity as UserArt;
+            UserArt notUpdated = whiteboardContext.UserArts.Where(x=>x.Id == userArt.Id).FirstOrDefault();
+            if (userArt != null && notUpdated.ArtName == userArt.ArtName)
             {
-                oldArt = userArt;
-                whiteboardContext.UserArts.Update(userArt);
+                whiteboardContext.Entry(userArt).State = EntityState.Modified;
+                whiteboardContext.Set<UserArt>().Update(userArt);
                 whiteboardContext.SaveChanges();
                 return userArt;
             }
+            else if(notUpdated.ArtName != userArt.ArtName) 
+            {
+                Add(userArt, whiteboardContext);
+            }
+
 
             throw new NotImplementedException("Произошла ошибка");
         }

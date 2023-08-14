@@ -11,6 +11,7 @@ namespace WhiteBoardProject.Service.Interface
     public interface IWhiteboardtService
     {
         public void Save(object[]? entity);
-        public void SendToServer(string command);  
+        public object? Recive();
+        public void SendToServer(string command, object iWhiteBoardobj);
     }
 }

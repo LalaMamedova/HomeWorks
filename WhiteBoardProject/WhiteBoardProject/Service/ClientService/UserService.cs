@@ -22,14 +22,29 @@ namespace WhiteBoardProject.Service.ClientService
 
         public static User ActiveUser { get; set; }
 
+        public UserService() { clientService = new(ipAdress, 9000); }
         public UserService(User user)
         {
             ActiveUser = user;
             clientService = new(ipAdress, 9000);
         }
-        public User? Load()
+
+
+
+        public void  SendToServer(string command, object iWhiteboardobj)
         {
-            //clientService.TcpClient = new(ipAdress, 9000);
+            clientService.PostToServer(iWhiteboardobj.GetType().Name);
+            clientService.PostToServer(command);
+            clientService.PostToServer(iWhiteboardobj);
+        }
+
+        void IWhiteboardtService.Save(object[]? entity)
+        {
+            
+        }
+
+        public object? Recive()
+        {
             using TcpClient tcpClient = new(ipAdress, 9000);
             using NetworkStream networkStream = tcpClient.GetStream();
             using MemoryStream memoryStream = new MemoryStream();
@@ -38,27 +53,13 @@ namespace WhiteBoardProject.Service.ClientService
             int bytesRead;
 
             while ((bytesRead = networkStream.Read(buffer, 0, buffer.Length)) > 0)
-            {
                 memoryStream.Write(buffer, 0, bytesRead);
-            }
 
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             User receivedUser = (User)binaryFormatter.Deserialize(memoryStream);
             return receivedUser;
-        }
-
-        public void SendToServer(string command)
-        {
-            clientService.PostNameOfClass(ActiveUser);
-            clientService.PostCommand(command);
-            clientService.Post(ActiveUser);
-        }
-
-        void IWhiteboardtService.Save(object[]? entity)
-        {
-            
         }
     }
 }

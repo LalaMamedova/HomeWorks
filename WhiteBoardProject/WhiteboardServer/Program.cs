@@ -8,11 +8,11 @@ while (true)
     try
     {
         TcpClient client = serverService.Listener.AcceptTcpClient();
-        object? postObject = serverService.ReciveMessage(client);
+        object? postObject = await Task.Run(()=> serverService.Recive(client));
 
         if (postObject != null)
         {
-            serverService.PostMessage(client, postObject);
+            await Task.Run(()=>serverService.PostMessage(client, postObject));
             client.Close();
         }
 

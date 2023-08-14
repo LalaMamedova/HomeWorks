@@ -27,7 +27,7 @@ namespace WhiteBoardProject.Converters
             BitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
             encoder.Save(fileStream);
-
+         
             return tempImagePath;
         }
     }

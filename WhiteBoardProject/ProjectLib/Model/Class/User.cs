@@ -37,8 +37,6 @@ namespace ProjectLib.Model.Class
             set { userArts = value; }
         }
 
-        //public ICollection<UserArt> UserArts{get;set;}
-
 
         public override string ToString()
         {

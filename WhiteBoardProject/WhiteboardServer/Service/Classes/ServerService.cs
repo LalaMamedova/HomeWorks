@@ -21,15 +21,15 @@ namespace WhiteboardServer.Service.Classes
     public class ServerService
     {
         private string WhatClassIRecived;
-        private string WhatCommandIRecived = "Add";
-
+        private string WhatCommandIRecived;
+        private int Port;
+        private UserArt userArt;
+        private IUser user;
         private IModelService saveService;
+
         public TcpListener Listener { get; set; }
         public IPAddress IPAddress { get; set; }
         public WhiteboardContext WhiteboardContext { get; set; } = new();
-        public int Port { get; set; }
-        UserArt userArt;
-        User user;
         public ServerService(IPAddress address, int port)
         {
             IPAddress = address;
@@ -38,87 +38,83 @@ namespace WhiteboardServer.Service.Classes
             Listener.Start();
 
         }
-        public object? ReciveMessage(TcpClient? client) 
+
+        public async Task<object?> Recive(TcpClient client)
         {
             try
             {
-                using StreamReader reader = new StreamReader(client.GetStream());
-                string? jsonData =  reader.ReadLine();
+                using NetworkStream networkStream = client.GetStream();
+                using MemoryStream memoryStream = new MemoryStream();
 
-                if (jsonData == nameof(User) || jsonData == nameof(UserArt))
-                    WhatClassIRecived = jsonData;
+                byte[] buffer = new byte[1024];
+                int bytesRead;
 
-                else if (jsonData == "Add" || jsonData == "Update" || jsonData == "Delete" || jsonData == "Exist")
-                    WhatCommandIRecived = jsonData;
-                
+                while ((bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    await memoryStream.WriteAsync(buffer, 0, bytesRead);
 
-                else if (!string.IsNullOrEmpty(jsonData))
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                BinaryFormatter? binaryFormatter = new BinaryFormatter();
+                object? deserializeObj = binaryFormatter.Deserialize(memoryStream);
+                if (deserializeObj.GetType().Name == nameof(String))
                 {
-                    Console.WriteLine($"Received object from client: {jsonData}");
+                    if ((string)deserializeObj == nameof(User) || (string)deserializeObj == nameof(UserArt) || (string)deserializeObj == nameof(UserDTO))
+                        WhatClassIRecived = (string)deserializeObj;
+                    else if ((string)deserializeObj == "Add" || (string)deserializeObj == "Update" || (string)deserializeObj == "Delete" || (string)deserializeObj == "Exist")
+                        WhatCommandIRecived = (string)deserializeObj;
+                }
+                else
+                {
+                    Console.WriteLine($"You recived {deserializeObj}");
 
-                    if (WhatClassIRecived == nameof(User))
+                    if (deserializeObj.GetType().Name == nameof(UserDTO))
+                        user = (UserDTO)deserializeObj;
+                    else if (deserializeObj.GetType().Name == nameof(User))
+                        user = (User)deserializeObj;
+                    else if (deserializeObj.GetType().Name == nameof(UserArt))
+                        userArt = (UserArt)deserializeObj;
+                  
+                    if (WhatClassIRecived == nameof(User) || WhatClassIRecived == nameof(UserDTO))
                     {
                         saveService = new UserServerService();
-                       
-                        user = JsonConvert.DeserializeObject<User>(jsonData)!;
                         Type? type = saveService.GetType();
                         MethodInfo? method = type.GetMethod(WhatCommandIRecived);
-                       
+
                         if (method != null)
                         {
                             user = (User)method.Invoke(saveService, new object[] { user, WhiteboardContext });
                             return user;
                         }
                     }
-
                     else if (WhatClassIRecived == nameof(UserArt))
                     {
                         saveService = new ArtServerService();
-                        userArt = JsonConvert.DeserializeObject<UserArt>(jsonData)!;
                         Type? type = saveService.GetType();
                         MethodInfo? method = type.GetMethod(WhatCommandIRecived);
 
                         if (method != null)
                         {
-                            userArt = (UserArt)method.Invoke(saveService, new object[] { userArt, WhiteboardContext });
-                            return userArt;
+                            method.Invoke(saveService, new object[] { userArt, WhiteboardContext });
+                            WhiteboardContext.Entry(userArt).State = EntityState.Detached;
                         }
                     }
+                    Console.WriteLine($"You {WhatCommandIRecived}ed {deserializeObj}");
+                    WhatClassIRecived = "";
+                    WhatCommandIRecived = "";
                 }
             }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally { client.Close(); } 
-
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally { client.Close(); }
             return null;
         }
-
-
-
-        public void PostMessage(TcpClient client,object message)
+      
+        public async Task PostMessage(TcpClient client,object message)
         {
-            client = Listener.AcceptTcpClient();
-            //var jsonSettings = new JsonSerializerSettings
-            //{
-            //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            //};
-            //string jsonData = JsonConvert.SerializeObject(message, jsonSettings);
-            //string jsonData = JsonConvert.SerializeObject(message);
-
-            //using StreamWriter stream = new(client.GetStream());
-            //Console.WriteLine($"You post a: {message}");
+            client = await Listener.AcceptTcpClientAsync();
 
             using MemoryStream memoryStream = new MemoryStream();
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            if (WhatClassIRecived == nameof(User))
-            {
-                binaryFormatter.Serialize(memoryStream, user);
-            }
-            else
-                binaryFormatter.Serialize(memoryStream, userArt);
+            binaryFormatter.Serialize(memoryStream, message);
 
             using NetworkStream networkStream = client.GetStream();
             byte[] userBytes = memoryStream.ToArray();
@@ -127,17 +123,10 @@ namespace WhiteboardServer.Service.Classes
             while (bytesSent < userBytes.Length)
             {
                 int bytesToSend = Math.Min(userBytes.Length - bytesSent, 1024); 
-                networkStream.Write(userBytes, bytesSent, bytesToSend);
+                await networkStream.WriteAsync(userBytes, bytesSent, bytesToSend);
                 bytesSent += bytesToSend;
             }
-
-            //if (WhatClassIRecived == nameof(UserArt))
-            //    stream.Write(userArt);
-
-            //else
-            //    stream.Write(user);
-
-            //stream.Write(jsonData);
+         
         }
     }
 }

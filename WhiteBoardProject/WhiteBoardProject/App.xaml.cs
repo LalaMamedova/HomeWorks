@@ -42,9 +42,17 @@ namespace WhiteBoardProject
 
         private void MainStartup()
         {
-            var mainView = new MainView();
-            mainView.DataContext = Container?.GetInstance<MainViewModel>();
-            mainView.ShowDialog();
+            try
+            {
+                var mainView = new MainView();
+                mainView.DataContext = Container?.GetInstance<MainViewModel>();
+                mainView.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
     }
