@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectLib.Class;
 using ProjectLib.Model.Class;
 using ProjectLib.Model.Interface;
 using System;
@@ -18,13 +19,12 @@ namespace WhiteBoardProject.Service.ClientService
     public class ClientService
     {
         public string IPAddress { get; set; }
-        public int Port { get; set; }
+        public int Port { get; set; } = IpPath.Port;
         public TcpClient TcpClient { get; set; }
         public ClientService(string ipAddress, int port)
         {
             Port = port;
             IPAddress = ipAddress;
-            //TcpClient = new TcpClient(ipAddress,port);
         }
 
         public T? Recive<T>(T? obj) where T : IWhiteboardcs
@@ -40,7 +40,7 @@ namespace WhiteBoardProject.Service.ClientService
         {
             if (obj != null)
             {
-                using TcpClient client = new(IPAddress, 9000);
+                using TcpClient client = new(IPAddress, Port);
                 using MemoryStream memoryStream = new MemoryStream();
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(memoryStream, obj);

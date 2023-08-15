@@ -3,6 +3,7 @@ using ProjectLib.Model.Interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,9 +30,9 @@ namespace ProjectLib.Model.Class
         public string Email { get; set; }
         public int UserArtId { get; set; }
         //[NonSerialized]
-        private List<UserArt> userArts;
+        private ObservableCollection<UserArt> userArts;
 
-        public List<UserArt> UserArts
+        public ObservableCollection<UserArt> UserArts
         {
             get { return userArts; }
             set { userArts = value; }

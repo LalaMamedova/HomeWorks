@@ -67,7 +67,7 @@ namespace WhiteBoardProject.ViewModel
                     ReciverMailAddress = new(ReciverEmail);
                     MailMessage.From = UserMailAddress;
                     MailMessage.To.Add(ReciverMailAddress);
-
+                    MailMessage.IsBodyHtml = true;
                     SmtpClient smtpClient = new("smtp.gmail.com", 587);
 
                     try
@@ -93,15 +93,13 @@ namespace WhiteBoardProject.ViewModel
             });
         }
 
-        public RelayCommand<ItemsControl> AttachFile
+        public RelayCommand AttachFile
         {
-            get => new((itemControl) =>
+            get => new(() =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.ShowDialog();
-
                 Attach(openFileDialog.FileName);
-                itemControl.ItemsSource = MailMessage.Attachments;
             });
         }
         private bool Attach(string? senderFile)

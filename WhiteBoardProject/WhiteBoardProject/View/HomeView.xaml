@@ -129,7 +129,6 @@
                     <WrapPanel />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
         </ItemsControl>
 
     </Grid>

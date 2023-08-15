@@ -29,6 +29,9 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Printing;
 using System.Windows.Xps;
+using System.Reflection;
+using System.Windows.Shapes;
+using Humanizer;
 
 namespace WhiteBoardProject.ViewModel
 {
@@ -39,15 +42,14 @@ namespace WhiteBoardProject.ViewModel
 
         private readonly IMessenger _messenger;
         private readonly INavigate _navigate;
-        private IWhiteboardtService saveService;
+        private ArtService saveService =new ArtService();
         private DrawingAttributes drawingAttributes = new();
         private InkCanvasEditingMode inkCanvasEditingMode = InkCanvasEditingMode.Ink;
         private SolidColorBrush selectedBackGround = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
         private List<Stroke> deletedStrokes = new List<Stroke>();
         private double width = 50;
         private double height = 50;
-        double newWidth;
-        double newHeight;
+      
 
         public static bool isRedact = false;
         public double Width { get { return width; }set { width = value; drawingAttributes.Width = width; }}
@@ -62,6 +64,7 @@ namespace WhiteBoardProject.ViewModel
         public UserArt UserArt { get; set; } 
         public User User { get; set; }
   
+        public string ArtName { get; set; }
 
 
         public DrawViewModel(IMessenger messenger, INavigate navigate)
@@ -79,6 +82,7 @@ namespace WhiteBoardProject.ViewModel
                 else if (message.Data.GetType().Name == nameof(UserArt))
                 {
                     UserArt = message.Data as UserArt;
+                    ArtName = UserArt.ArtName;
                 }
             });
         }
@@ -147,9 +151,11 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new(() =>
             {
-                deletedStrokes.Add(Stroke.Last());
-                if(Stroke.Count > 0)
+                if (Stroke.Count > 0)
+                {
+                    deletedStrokes.Add(Stroke.Last());
                     Stroke.Remove(Stroke.Last());
+                }
             });
         }
 
@@ -157,10 +163,11 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new(() =>
             {
-                Stroke.Add(deletedStrokes.Last());
-                if(deletedStrokes.Count > 0)
+                if (deletedStrokes.Count > 0)
+                {
+                    Stroke.Add(deletedStrokes.Last());
                     deletedStrokes.Remove(Stroke.Last());
-
+                }
             });
         }
 
@@ -170,54 +177,39 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((ink) => 
             {
-                saveService = new ArtService();
-                saveService.Save(new object[] { ink, UserArt, User });
-
-                if (isRedact == false)
-                {
-                    User.UserArts.Add(UserArt);
-                    saveService.SendToServer("Add", UserArt);
-                }
-                else
-                {
-                    saveService.SendToServer("Update", UserArt);
-                }
-
-                //saveService = new UserService(User);
-                //saveService.SendToServer("Update", User);
-                //User = (User)saveService.Recive();
+                UserArt? isThisNameExist = User.UserArts.Where(x=>x.ArtName == ArtName).FirstOrDefault();
+                UserArt.ArtName = ArtName;
+                saveService.Save(new object[] { ink,UserArt, User });
+                UserArt = saveService.SaveInAllPlace(isThisNameExist,isRedact);
+                UserService userService = new UserService();
+                userService.SendToServer("Update", User);
+                User = (User)userService.Recive();
+                
+                
             });
         }
 
         public RelayCommand<InkCanvas> SaveAs
         {
-            get => new((param) =>
+            get => new((ink) =>
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "JPEG Image (.jpeg)|*.jpeg|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf";
-                saveFileDialog.FileName = UserArt.ArtName;
+                saveFileDialog.FileName = ArtName;
                 saveFileDialog.ShowDialog();
 
                 if (saveFileDialog.FileName != null)
                 {
-                    UserArt.ArtName = saveFileDialog.FileName;
-                    UserArt.DateTime = DateTime.Now;
-                    saveService = new ArtService();
-                    saveService.Save(new object[] { param, UserArt, User });
+                    UserArt? isThisNameExist = User.UserArts.Where(x => x.ArtName == ArtName).FirstOrDefault();
+                    UserArt.ArtName = ArtName;
+                    saveService.Save(new object[] { ink, UserArt, User });
+                    UserArt = saveService.SaveInAllPlace(isThisNameExist,isRedact);
 
-                    if (isRedact == false)
-                    {
-                        User.UserArts.Add(UserArt);
-                        saveService.SendToServer("Add", UserArt);
-                    }
-                    else
-                    {
-                        saveService.SendToServer("Update", UserArt);
-                    }
+                    UserService userService = new UserService();
+                    userService.SendToServer("Update", User);
+                    User = (User)userService.Recive();
 
-                    //saveService = new UserService(User);
-                    //saveService.SendToServer("Update", User);
-                    //User = (User)saveService.Recive();
+                    
                 }
             }); 
         }
@@ -229,30 +221,26 @@ namespace WhiteBoardProject.ViewModel
             get => new((inkcanvas) =>
             {
                 Point MousePosition = Mouse.GetPosition(inkcanvas);
-                if (WhatIsDrawing == "Circle")
+                if (!string.IsNullOrEmpty(WhatIsDrawing) && WhatIsDrawing != "None")
                 {
-                    InkCanvasEditingMode = InkCanvasEditingMode.None;
-                    Stroke.Add(DrawService.Circle(MousePosition, drawingAttributes, Width, Height));
-                }
-                else if (WhatIsDrawing == "Rectangle")
-                {
-                    InkCanvasEditingMode = InkCanvasEditingMode.None;
-                    Stroke.Add(DrawService.Rectangle(MousePosition, drawingAttributes, Width, Height));
+                    string methodName = WhatIsDrawing;
 
-                }
-                else if (WhatIsDrawing == "Triangle")
-                {
-                    Stroke.Add(DrawService.Triangle(MousePosition, drawingAttributes, Width, Height));
-                }
-                else if (WhatIsDrawing == "Dash")
-                {
-                    InkCanvasEditingMode = InkCanvasEditingMode.None;
-                    Stroke.Add(DrawService.Dash(MousePosition, drawingAttributes, Width, Height));
-                }
-                else if(WhatIsDrawing == "Text")
-                {
-                    InkCanvasEditingMode = InkCanvasEditingMode.None;
-                    inkcanvas.Children.Add(DrawService.Text(MousePosition, drawingAttributes, Width));
+                    MethodInfo method = typeof(DrawService).GetMethod(methodName, BindingFlags.Static | BindingFlags.Public);
+                    if (method != null)
+                    {
+                        InkCanvasEditingMode = InkCanvasEditingMode.None;
+
+                        object result = method.Invoke(null, new object[] { MousePosition, drawingAttributes, Width, Height });
+
+                        if (result is Stroke shape)
+                        {
+                            Stroke.Add(shape);
+                        }
+                        else if (result is UIElement uiElement)
+                        {
+                            inkcanvas.Children.Add(uiElement);
+                        }
+                    }
                 }
             });
         }

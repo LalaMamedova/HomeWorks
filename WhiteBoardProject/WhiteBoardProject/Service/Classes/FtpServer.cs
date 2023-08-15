@@ -23,67 +23,35 @@ namespace WhiteBoardProject.Service.Classes
         public string IP { get; set; }
         public string? DownloadPath { get; set; }
         public string? FileName { get; set; }
-
         public FtpServer(string Ip)
         {
             IP = Ip;
         }
-        private string? Response()
+
+
+        public UserArt? AddArt(UserArt userArt)
         {
             try
             {
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                string ftpUrl = $"ftp://{IP}/{userArt.ArtName}";
 
-                Stream responseStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream);
-                return reader.ReadToEnd();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            return null;
-        }
-
-        public void Connection()
-        {
-            if (!string.IsNullOrEmpty(IP))
-            {
-                try
-                {
-                    request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}");
-                    request.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-
-                    string allResponse = Response();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        public UserArt? AddArt(string imgPath, UserArt userArt)
-        {
-            try
-            {
-                string path = Path.GetFileName(imgPath);
-                
-                userArt.ArtName = path;
-               
-                request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{path}");
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
                 request.Method = WebRequestMethods.Ftp.UploadFile;
+                request.Credentials = new NetworkCredential(); // Замените на свои учетные данные
 
-                using FileStream fileStream = new FileStream(imgPath, FileMode.Create);
-
-                byte[] fileContents = new byte[fileStream.Length];
-                fileStream.Read(fileContents, 0, fileContents.Length);
-
+                using FileStream fileStream = new FileStream(userArt.PicturePath, FileMode.Open);
                 using Stream requestStream = request.GetRequestStream();
-                requestStream.Write(fileContents, 0, fileContents.Length);
 
-                CreateAFolder();
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    requestStream.Write(buffer, 0, bytesRead);
+                }
+
+
+                CreateAFolder(); // Не знаю, что делает этот метод, но оставлю его здесь
+
                 return userArt;
             }
             catch (Exception ex)
@@ -118,6 +86,25 @@ namespace WhiteBoardProject.Service.Classes
             }
 
         }
+
+        public void UpdateArt(string fileName)
+        {
+            try
+            {
+                request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{fileName}");
+                request.Method = WebRequestMethods.Ftp.UploadFile ;
+
+                using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                using Stream stream = response.GetResponseStream();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
 
     }
 }

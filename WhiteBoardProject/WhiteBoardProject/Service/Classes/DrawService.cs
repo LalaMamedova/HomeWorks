@@ -19,13 +19,15 @@ namespace WhiteBoardProject.Service.Classes
 
         public static Stroke Circle(Point mousePosition, DrawingAttributes color, double Width, double Height)
         {
-            var radius = Height + Width;
+            double radius = Math.Min(Width, Height) / 2; // Радиус будет половиной минимальной стороны
+
             var points = new StylusPointCollection();
 
-            for (int angle = 0; angle < 360; angle += 360 / 360)
+            for (int angle = 0; angle < 360; angle++)
             {
-                double x = mousePosition.X + radius * Math.Cos(angle * Math.PI / 180);
-                double y = mousePosition.Y + radius * Math.Sin(angle * Math.PI / 180);
+                double radians = angle * Math.PI / 180;
+                double x = mousePosition.X + radius * Math.Cos(radians);
+                double y = mousePosition.Y + radius * Math.Sin(radians);
                 points.Add(new StylusPoint(x, y));
             }
 
@@ -65,7 +67,7 @@ namespace WhiteBoardProject.Service.Classes
             var points = new StylusPointCollection();
 
             points.Add(new StylusPoint(mousePosition.X, mousePosition.Y));
-            points.Add(new StylusPoint(mousePosition.X + Width, mousePosition.Y + Height));
+            points.Add(new StylusPoint(mousePosition.X, mousePosition.Y + Height));
 
             var stroke = new Stroke(points, new DrawingAttributes { Width = 2, Color = color.Color });
             return stroke;
@@ -99,15 +101,16 @@ namespace WhiteBoardProject.Service.Classes
 
         }
         
-        public static TextBox Text(Point mousePosition, DrawingAttributes color, double Width)
+        public static TextBox Text(Point mousePosition, DrawingAttributes color, double Width, double Height)
         {
             var center = mousePosition;
 
             TextBox textBox = new TextBox()
             {
                 BorderThickness = new Thickness(0),
-                Text = "Пример текста",
+                Text = "Текст",
                 FontSize = Width,
+                Height = Height
             };
 
             InkCanvas.SetLeft(textBox, center.X);

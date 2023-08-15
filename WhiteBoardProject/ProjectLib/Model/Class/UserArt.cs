@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProjectLib.Model.Class
 {
     [Serializable]
-    public class UserArt:IWhiteboardcs
+    public class UserArt:IWhiteboardcs,ICloneable
     {
         public int Id { get; set; }
         public string ArtName { get; set; } = "Unnamed";
@@ -23,6 +23,19 @@ namespace ProjectLib.Model.Class
         [JsonIgnore]
         public User? User { get; set; }
 
+        public object Clone()
+        {
+            return new UserArt
+            {
+                ArtName = this.ArtName,
+                Width = this.Width,
+                Height = this.Height,
+                PicturePath = this.PicturePath,
+                Content = (byte[])this.Content.Clone(),
+                DateTime = this.DateTime,
+                UserId = this.UserId,
+            };
+        }
 
         public override string ToString()
         {

@@ -15,15 +15,16 @@ namespace WhiteboardServer.Service.Classes
         public object? Delete(object? entity, WhiteboardContext whiteboardContext)
         {
             UserArt? userArt = entity as UserArt;
-            var olduserArt = whiteboardContext.UserArts.AsNoTracking().FirstOrDefault(ua => ua.Id == userArt.Id);
+            var olduserArt = whiteboardContext.UserArts.FirstOrDefault(ua => ua.Id == userArt.Id);
             if (olduserArt != null)
             {
-                whiteboardContext.UserArts.Remove(olduserArt);
+                whiteboardContext.Entry(userArt).State = EntityState.Deleted;
+                whiteboardContext.Set<UserArt>().Remove(olduserArt);
                 whiteboardContext.SaveChanges();
                 return olduserArt;
             }
-
-            throw new NotImplementedException("Произошла ошибка");
+            Console.WriteLine("Произошла ошибка");
+            return null;
         }
 
         public object? Exist(object? entity, WhiteboardContext whiteboardContext){ return null; }
@@ -43,19 +44,15 @@ namespace WhiteboardServer.Service.Classes
         public object? Update(object? entity,ref WhiteboardContext whiteboardContext)
         {
             UserArt userArt = entity as UserArt;
-            UserArt notUpdated = whiteboardContext.UserArts.Where(x=>x.Id == userArt.Id).FirstOrDefault();
-            if (userArt != null && notUpdated.ArtName == userArt.ArtName)
+            if (userArt != null)
             {
                 whiteboardContext.Entry(userArt).State = EntityState.Modified;
                 whiteboardContext.Set<UserArt>().Update(userArt);
                 whiteboardContext.SaveChanges();
+                //whiteboardContext.Entry(userArt).State = EntityState.Detached;
                 return userArt;
             }
-            else if(notUpdated.ArtName != userArt.ArtName) 
-            {
-                Add(userArt, whiteboardContext);
-            }
-
+            
 
             throw new NotImplementedException("Произошла ошибка");
         }

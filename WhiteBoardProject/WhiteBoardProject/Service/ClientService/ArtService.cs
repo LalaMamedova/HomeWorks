@@ -1,52 +1,43 @@
-﻿using Newtonsoft.Json;
+﻿using Humanizer;
 using ProjectLib.Model.Class;
-using ProjectLib.Model.Interface;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using WhiteBoardProject.Class;
 using WhiteBoardProject.Converters;
 using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.Interface;
-using WhiteBoardProject.View;
-using WhiteBoardProject.ViewModel;
 using Path = System.IO.Path;
 
 namespace WhiteBoardProject.Service.ClientService
 {
     public class ArtService :IWhiteboardtService
     {
-        string ipAdress = "192.168.2.9";
+        private string ipAdress = IpPath.Ip;
+        private int port = IpPath.Port;
         private UserArt? userArt;
-        private FtpServer FtpServer;
-        private InkCanvas? inkCanvas;
-        private ClientService clientService;
         private User ownerUser;
-
+        public FtpServer FtpServer;
+        private ClientService clientService;
+        private string tempImagePath;
         public ArtService(UserArt? userArt = null)
         {
             FtpServer = new(ipAdress +":8900");
-            clientService = new(ipAdress, 9000);
+            clientService = new(ipAdress, port);
             if (userArt != null)
             {
                 this.userArt = userArt;
             }
         }
 
-     
         public void Save(object[]? entity)
         {
-            inkCanvas = (InkCanvas)entity[0];
+            InkCanvas inkCanvas = (InkCanvas)entity[0];
             userArt = (UserArt)entity[1];
             ownerUser = (User)entity[2];
 
@@ -56,13 +47,39 @@ namespace WhiteBoardProject.Service.ClientService
                 {
                     userArt.ArtName = Path.ChangeExtension(userArt.ArtName, ".png");
                 }
+
                 BitmapSource bitmapSource = MyInkArtConvert.ConvertToBitmapSource(inkCanvas, userArt);
-                string tempImagePath = ImgToImgPathConverter.SaveTempImage(bitmapSource, userArt.ArtName);
+                tempImagePath = ImgToImgPathConverter.SaveTempImage(bitmapSource, userArt.ArtName);
                 userArt.UserId = ownerUser.Id;
-                DownLoadArt(userArt, tempImagePath);
-                //userArt = FtpServer.AddArt(tempImagePath, userArt);
             }
 
+        }
+
+        public UserArt? SaveInAllPlace(UserArt? isThisNameExist,bool isRedact)
+        {
+            if (isThisNameExist == null)
+            {
+                if(isRedact)
+                {
+                    UserArt newUserArt = userArt.Clone() as UserArt;
+                    userArt = newUserArt;
+                }
+                DownLoadArt(userArt, tempImagePath);
+                SendToServer("Add", userArt);
+                FtpServer.AddArt(userArt);
+            }
+            else
+            {
+                MessageBoxResult mboxRes = MessageBox.Show("Картинка с таким названием уже существует.\nХотите изменить?", "предупреждение", MessageBoxButton.YesNo);
+                if (mboxRes == MessageBoxResult.Yes)
+                {
+                    userArt.DateTime = DateTime.Now;
+                    DownLoadArt(userArt, tempImagePath);
+                    SendToServer("Update", userArt);
+                    FtpServer.UpdateArt(userArt.ArtName);
+                }
+            }
+            return userArt;
         }
 
         public void  DownLoadArt(UserArt userArt, string tempFile)
@@ -75,20 +92,16 @@ namespace WhiteBoardProject.Service.ClientService
             }
             else
             {
-                MessageBoxResult mboxRes = MessageBox.Show("Картинка с таким названием уже существует.\nХотите изменить?", "предупреждение", MessageBoxButton.YesNo);
-                if (mboxRes == MessageBoxResult.Yes)
-                {
-                    using FileStream fileStream = new(userArt.PicturePath,FileMode.Open,FileAccess.Write);
-                    fileStream.Write(userArt.Content, 0, userArt.Content.Length);
-                   
-                }
+                using FileStream fileStream = new(userArt.PicturePath, FileMode.Open, FileAccess.Write);
+                fileStream.Write(userArt.Content, 0, userArt.Content.Length);
+                
             }
 
         }
 
         public void DeleteFromFtp()
         {
-            FtpServer.DeleteArt(userArt.PicturePath);
+            FtpServer.DeleteArt(userArt.ArtName);
         }
 
         public void SendToServer(string command, object iWhiteBoardobj)
@@ -130,7 +143,7 @@ namespace WhiteBoardProject.Service.ClientService
         }
         public object? Recive()
         {
-            using TcpClient tcpClient = new(ipAdress, 9000);
+            using TcpClient tcpClient = new(ipAdress, port);
             using NetworkStream networkStream = tcpClient.GetStream();
             using MemoryStream memoryStream = new MemoryStream();
 

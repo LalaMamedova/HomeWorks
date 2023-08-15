@@ -82,9 +82,9 @@
 
 
             <ToggleButton x:Name="ColorPickerButton" Width="40" Height="40"
-                          BorderThickness="0" Command="{Binding DrawWithPen}">
+                          BorderThickness="0">
                 <ToggleButton.Background>
-                    <ImageBrush ImageSource="/Img/Pen.png"/>
+                    <ImageBrush ImageSource="/Img/Color.png"/>
                 </ToggleButton.Background>
 
                 <Popup x:Name="ColorPickerPopup" IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
@@ -113,12 +113,12 @@
             </ToggleButton>
 
 
-            <!--<Button Style="{StaticResource FigureButton}"
+            <Button Style="{StaticResource FigureButton}"
                     Command="{Binding DrawWithPen}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/Pen.png" Stretch="Uniform" />
                 </Button.Background>
-            </Button>-->
+            </Button>
 
             <Button Style="{StaticResource FigureButton}"
                     Command="{Binding Erase}">
@@ -222,7 +222,7 @@
             
             <StackPanel Orientation="Horizontal" Margin="15 0">
                 <GroupBox Header="Название проекта" Foreground="AliceBlue">
-                    <TextBox Height="20" Width="150" Text="{Binding UserArt.ArtName}"/>
+                    <TextBox Height="20" Width="150" Text="{Binding ArtName}"/>
                 </GroupBox>
             </StackPanel>
 

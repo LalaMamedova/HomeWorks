@@ -83,6 +83,7 @@ namespace WhiteboardServer.Service.Classes
                         if (method != null)
                         {
                             user = (User)method.Invoke(saveService, new object[] { user, WhiteboardContext });
+                            WhiteboardContext.Entry(user).State = EntityState.Detached;
                             return user;
                         }
                     }

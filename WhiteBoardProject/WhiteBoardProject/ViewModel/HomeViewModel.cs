@@ -5,6 +5,7 @@ using Humanizer;
 using ProjectLib.Model.Class;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
@@ -72,19 +73,14 @@ namespace WhiteBoardProject.ViewModel
                 IWhiteboardtService whiteboardtService; 
                 try
                 {
-                    whiteboardtService = new ArtService(art);
-                    whiteboardtService.SendToServer("Delete", art);
-                    //pictureService.DeleteFromFtp();
+                    ArtService artService = new ArtService(art);
+                    artService.SendToServer("Delete", art);
+                    artService.DeleteFromFtp();
                     if (File.Exists(art.PicturePath))
                     {
                         File.Delete(art.PicturePath);
                     }
-
-                    //ActiveUser.UserArts.Remove(art);
-                    //whiteboardtService = new UserService();
-                    //whiteboardtService.SendToServer("Update", ActiveUser);
-                    //ActiveUser = (User)whiteboardtService.Recive();
-
+                    ActiveUser.UserArts.Remove(art);
                 }
                 catch (Exception ex)
                 {
@@ -109,7 +105,12 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((itemcontrol) =>
             {
-                itemcontrol.ItemsSource = ActiveUser.UserArts;
+                ObservableCollection<UserArt> userArts = new();
+
+                //foreach (var item in ActiveUser.UserArts)
+                //    userArts.Add(item);
+                
+                itemcontrol.ItemsSource = ActiveUser.UserArts; 
             });
         }
 

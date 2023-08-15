@@ -1,8 +1,10 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using WhiteBoardProject.Class;
 using WhiteboardServer.Service.Classes;
 
-ServerService serverService = new(IPAddress.Any, 9000);
+
+ServerService serverService = new(IPAddress.Any, IpPath.Port);
 while (true)
 {
     try
