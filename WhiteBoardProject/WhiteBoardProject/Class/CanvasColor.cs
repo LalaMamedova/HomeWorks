@@ -11,7 +11,5 @@ namespace WhiteBoardProject.Class
     {
         public string ColorName { get; set; }
         public Brush ColorValue { get; set; }
-
-        public CanvasColor() { }
     }
 }

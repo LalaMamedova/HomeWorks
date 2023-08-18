@@ -35,25 +35,34 @@ namespace WhiteBoardProject.ViewModel
             _navigate = navigate;
             _messanger = messanger;
 
+            InitializeAsync();
+        }
+
+        private async void InitializeAsync()
+        {
             IUser? userDTO = RememberMeService.LoadRememberedUser();
             UserService userService = new();
 
             if (userDTO != null)
             {
                 userService.SendToServer("Exist", userDTO);
-                RecivedUser = (User)userService.Recive();
+                RecivedUser = await userService.ReciveAsync<User>();
 
                 if (RecivedUser != null)
                 {
                     CurrentViewModel = App.Container.GetInstance<HomeViewModel>();
-
                     _messanger.Send(new DataMessager() { Data = RecivedUser });
                     _messanger.Register<NavigationMessage>(this, ReceiveMessage);
                 }
             }
             else
+            {
                 CurrentViewModel = App.Container.GetInstance<LoginViewModel>();
+                _messanger.Register<NavigationMessage>(this, ReceiveMessage);
+            }
         }
+
+
 
     }
 }

@@ -20,9 +20,8 @@ namespace WhiteBoardProject.ViewModel
     {
         private INavigate _navigate;
         public string Email { get; set; }
-        public UserDTO User { get; set; } = new() { Email = "lallol606@gmail.com" };
-      
         public bool RememberMe{get; set; }
+        public UserDTO User { get; set; } = new();
 
 
         public LoginViewModel(INavigate navigate)
@@ -37,18 +36,20 @@ namespace WhiteBoardProject.ViewModel
             });
         }
 
+       
+
         public RelayCommand<PasswordBox> Login
         {
-            get => new((password) =>
+            get => new(async password =>
             {
                 if (!string.IsNullOrEmpty(password.Password))
                 {
                     User.Password = password.Password;
-                    UserService userservice = new();   
+                    UserService userservice = new();
                     userservice.SendToServer("Exist", User);
-                    User LoginUser = (User)userservice.Recive();
-                    
-                    if (LoginUser != null)
+                    User LoginUser = await userservice.ReciveAsync<User>();
+
+                    if (LoginUser.Id > 0)
                     {
                         if (RememberMe)
                         {
@@ -61,11 +62,13 @@ namespace WhiteBoardProject.ViewModel
                     {
                         MessageBoxResult mboxRes = MessageBox.Show("Неправильный пароль или email.\nХотите зарегистрироваться?", "Ошибка", MessageBoxButton.YesNoCancel);
                         if (mboxRes == MessageBoxResult.Yes)
+                        {
                             _navigate.NavigateTo<RegistrationViewModel>();
+                        }
                     }
                 }
-               
-            }); 
+
+            });
         }
     }
 }

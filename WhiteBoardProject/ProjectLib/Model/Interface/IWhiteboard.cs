@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectLib.Model.Interface
 {
-    public interface IWhiteboardcs
+    public interface IWhiteboard
     {
     }
 }

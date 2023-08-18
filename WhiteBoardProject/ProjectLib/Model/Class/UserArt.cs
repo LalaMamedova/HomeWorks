@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProjectLib.Model.Class
 {
     [Serializable]
-    public class UserArt:IWhiteboardcs,ICloneable
+    public class UserArt:IWhiteboard,ICloneable
     {
         public int Id { get; set; }
         public string ArtName { get; set; } = "Unnamed";

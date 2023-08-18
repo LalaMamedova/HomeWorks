@@ -40,7 +40,7 @@ namespace WhiteBoardProject.View
             try
             {
                 TextBox newTextBox = new TextBox();
-                if (Myink.GetSelectedElements().FirstOrDefault().GetType().Name == newTextBox.GetType().Name)
+                if (Myink.GetSelectedElements().FirstOrDefault().GetType().Name == nameof(TextBox))
                 {
                     newTextBox = (TextBox)Myink.GetSelectedElements().FirstOrDefault();
                     newTextBox!.FontSize = SlidrWidth.Value;
@@ -51,6 +51,24 @@ namespace WhiteBoardProject.View
             }
         }
 
-      
+        
+
+        private void Myink_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Tab)
+            {
+                ColorPickerButton.IsChecked = !ColorPickerButton.IsChecked;
+                ColorPickerPopup.Placement = System.Windows.Controls.Primitives.PlacementMode.Mouse;
+                e.Handled = true;
+
+            }
+            else if(e.Key == Key.LeftShift)
+            {
+                SizePickerButton.IsChecked = !SizePickerButton.IsChecked;
+                SizePopupButton.Placement = System.Windows.Controls.Primitives.PlacementMode.Mouse;
+                e.Handled = true;
+            }
+
+        }
     }
 }

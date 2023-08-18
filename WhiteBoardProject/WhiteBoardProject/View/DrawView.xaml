@@ -65,9 +65,9 @@
 
                         </Button>
 
-                        <Button Style="{StaticResource MenuButton}"
+                        <!--<Button Style="{StaticResource MenuButton}"
                                 Content="{Binding isNightMode.MyData}" 
-                                Command="{Binding ChangeMode}"/>
+                                Command="{Binding ChangeMode}"/>-->
 
                         <Button Style="{StaticResource MenuButton}"
                                 Content="Отправить по почте" 
@@ -92,8 +92,8 @@
 
 
                     <StackPanel Width="140px">
-                        <ItemsControl x:Name="ColorPalette" ItemsSource="{Binding ColorList.AvailableColors}">
 
+                        <ItemsControl x:Name="ColorPalette" ItemsSource="{Binding ColorList.AvailableColors}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Button Width="20" Height="20" Background="{Binding ColorValue}"
@@ -108,6 +108,12 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
+                        <StackPanel>
+                            <TextBox x:Name="colorchoice"/>
+                            <Button Content="Добавить цвет" Style="{StaticResource MenuButton}"
+                                            Command="{Binding  AddColor}"
+                                            CommandParameter="{Binding ElementName=colorchoice}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Popup>
             </ToggleButton>
@@ -158,7 +164,7 @@
             </Button>
 
 
-            <Button Style="{StaticResource FigureButton }">
+            <Button Style="{StaticResource FigureButton }" Command="{Binding DrawDash}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Img/DashPng.png" />
                 </Button.Background>
@@ -198,48 +204,52 @@
                     <ImageBrush ImageSource="/Img/LineSize.png"/>
                 </ToggleButton.Background>
 
-                <Popup x:Name="SizePickerPopup" IsOpen="{Binding IsChecked, ElementName=SizePickerButton}"
-                        Placement="Bottom" StaysOpen="False" PopupAnimation="Slide">
+                <Popup IsOpen="{Binding IsChecked, ElementName=SizePickerButton}"
+                       Name="SizePopupButton"
+                       Placement="Bottom" StaysOpen="False" PopupAnimation="Slide">
 
                     <StackPanel Background="White">
                         <GroupBox Header="Ширина">
-                            <Slider Value="{Binding Width, Mode=TwoWay}"
-                                    Minimum="10" Maximum="400"  Background="LightCyan"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Text="{Binding Width, Mode=TwoWay}"
+                                         HorizontalAlignment="Center" Width="40"/>
+                                <Slider Value="{Binding Width, Mode=TwoWay}"
+                                    Minimum="10" Maximum="800"  Background="LightCyan"
                                     TickFrequency="15"  Width="150" Name="SlidrWidth"/>
+                            </StackPanel>
+                         
                         </GroupBox>
                         
                         <GroupBox Header="Высота">
-                            <Slider Value="{Binding Height, Mode=TwoWay}" 
-                                    Minimum="10" Maximum="400" Background="LightCyan"
-                                    TickFrequency="15"  Width="150"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Text="{Binding Height, Mode=TwoWay}" 
+                                         Width="40" HorizontalAlignment="Center"/>
+                                <Slider Value="{Binding Height, Mode=TwoWay}" 
+                                        Minimum="10" Maximum="800" Background="LightCyan"
+                                        TickFrequency="15"  Width="150"/>
+                            </StackPanel>
                         </GroupBox>
-                
-                        
-                      
+
+                        <GroupBox Header="Угол">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Text="{Binding Angle, Mode=TwoWay}" 
+                                         HorizontalAlignment="Center" Width="40"/>
+                                <Slider Value="{Binding Angle, Mode=TwoWay}" 
+                                    Minimum="0" Maximum="360" Background="LightCyan"
+                                    TickFrequency="15"  Width="150"/>
+                            </StackPanel>
+                           
+                        </GroupBox>
+
                     </StackPanel>
                 </Popup>
             </ToggleButton>
-            
+
             <StackPanel Orientation="Horizontal" Margin="15 0">
                 <GroupBox Header="Название проекта" Foreground="AliceBlue">
                     <TextBox Height="20" Width="150" Text="{Binding ArtName}"/>
                 </GroupBox>
             </StackPanel>
-
-            <!--<GroupBox Header="Ваш Username" Foreground="White">
-                <TextBlock Text="{Binding User.Username}"
-                           FontSize="25" Margin="20 0"/>
-            </GroupBox>-->
-            
-            <Button Height="20"
-                    Command="{Binding ZoomIn}"
-                    Content="Zoom in"
-                    CommandParameter="{Binding ElementName=Myink}"/>
-
-            <Button Height="20"
-                    Command="{Binding ZoomOut}"
-                    Content="Zoom out" 
-                    CommandParameter="{Binding ElementName=Myink}"/>
         </StackPanel>
 
 
@@ -257,6 +267,8 @@
                    Strokes="{Binding Stroke}"
                    Width="{Binding UserArt.Width}"
                    Height="{Binding UserArt.Height}"
+                   KeyDown="Myink_KeyDown"
+                   
                    SelectionChanged="Myink_SelectionChanged">
 
                 <InkCanvas.Background>
@@ -268,9 +280,11 @@
                         <i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 
                                            Command="{Binding MouseMoveCommand}"/>
                     </i:EventTrigger>
-                    <!--<i:EventTrigger EventName="PreviewMouseDown">
-                    <i:InvokeCommandAction Command="{Binding MouseMoveDownCommand}" CommandParameter="{Binding ElementName=Myink}" />
-                </i:EventTrigger>-->
+                    <i:EventTrigger EventName="MouseMove">
+                        <!--<i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 
+                                               Command="{Binding MouseMoveCommand}"/>-->
+                    </i:EventTrigger>
+                    
                 </i:Interaction.Triggers>
             </InkCanvas>
 

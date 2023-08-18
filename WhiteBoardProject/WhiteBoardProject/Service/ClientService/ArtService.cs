@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -16,7 +17,7 @@ using Path = System.IO.Path;
 
 namespace WhiteBoardProject.Service.ClientService
 {
-    public class ArtService :IWhiteboardtService
+    public class ArtService : IWhiteboardtClientService
     {
         private string ipAdress = IpPath.Ip;
         private int port = IpPath.Port;
@@ -25,6 +26,7 @@ namespace WhiteBoardProject.Service.ClientService
         public FtpServer FtpServer;
         private ClientService clientService;
         private string tempImagePath;
+
         public ArtService(UserArt? userArt = null)
         {
             FtpServer = new(ipAdress +":8900");
@@ -35,8 +37,11 @@ namespace WhiteBoardProject.Service.ClientService
             }
         }
 
-        public void Save(object[]? entity)
+        public ArtService(object[]? entity)
         {
+            FtpServer = new(ipAdress + ":8900");
+            clientService = new(ipAdress, port);
+
             InkCanvas inkCanvas = (InkCanvas)entity[0];
             userArt = (UserArt)entity[1];
             ownerUser = (User)entity[2];
@@ -52,12 +57,38 @@ namespace WhiteBoardProject.Service.ClientService
                 tempImagePath = ImgToImgPathConverter.SaveTempImage(bitmapSource, userArt.ArtName);
                 userArt.UserId = ownerUser.Id;
             }
+        }
+
+        public async Task<T> ReciveAsync<T>()
+        {
+            return await clientService.Recive<T>();
+        }
+        
+        public void SendToServer(string command, object iWhiteBoardObj)
+        {
+            //if (command == "Update" || command == "Add")
+            //{
+            //    using MemoryStream memoryStream = new();
+            //    using GZipStream gzipStream = new(memoryStream, CompressionLevel.SmallestSize);
+            //    gzipStream.Write(userArt.Content, 0, userArt.Content.Length);
+
+            //    gzipStream.Flush();
+            //    gzipStream.Close();
+            //    byte[] compressedBytes = memoryStream.ToArray();
+
+            //    userArt.Content = compressedBytes;
+            //}
+
+            clientService.PostToServer(iWhiteBoardObj.GetType().Name);
+            clientService.PostToServer(command);
+            clientService.PostToServer(iWhiteBoardObj);
+            Message(command);
 
         }
 
-        public UserArt? SaveInAllPlace(UserArt? isThisNameExist,bool isRedact)
+        public UserArt? SaveInAllPlace(UserArt? isThisNameExist,bool isRedact, bool isSaved)
         {
-            if (isThisNameExist == null)
+            if (isThisNameExist == null && !isSaved)
             {
                 if(isRedact)
                 {
@@ -70,19 +101,21 @@ namespace WhiteBoardProject.Service.ClientService
             }
             else
             {
-                MessageBoxResult mboxRes = MessageBox.Show("Картинка с таким названием уже существует.\nХотите изменить?", "предупреждение", MessageBoxButton.YesNo);
-                if (mboxRes == MessageBoxResult.Yes)
+                if (!isSaved)
                 {
-                    userArt.DateTime = DateTime.Now;
-                    DownLoadArt(userArt, tempImagePath);
-                    SendToServer("Update", userArt);
-                    FtpServer.UpdateArt(userArt.ArtName);
+                    MessageBoxResult mboxRes = MessageBox.Show("Картинка с таким названием уже существует.\nХотите изменить?", "предупреждение", MessageBoxButton.YesNo);
+                    if (mboxRes == MessageBoxResult.Yes)
+                        DownloadAndUpdate();
                 }
+                else
+                    DownloadAndUpdate();
             }
             return userArt;
         }
 
-        public void  DownLoadArt(UserArt userArt, string tempFile)
+
+        
+        private void  DownLoadArt(UserArt userArt, string tempFile)
         {
             string destinationFilePath = @"C:\FolderForYourArt\" + userArt.ArtName;
             userArt.PicturePath = destinationFilePath;
@@ -104,26 +137,13 @@ namespace WhiteBoardProject.Service.ClientService
             FtpServer.DeleteArt(userArt.ArtName);
         }
 
-        public void SendToServer(string command, object iWhiteBoardobj)
+      
+        private void DownloadAndUpdate()
         {
-            //if (command == "Update" || command == "Add")
-            //{
-            //    using MemoryStream memoryStream = new();
-            //    using GZipStream gzipStream = new(memoryStream, CompressionLevel.SmallestSize);
-            //    gzipStream.Write(userArt.Content, 0, userArt.Content.Length);
-
-            //    gzipStream.Flush();
-            //    gzipStream.Close();
-            //    byte[] compressedBytes = memoryStream.ToArray();
-
-            //    userArt.Content = compressedBytes;
-            //}
-
-            clientService.PostToServer(iWhiteBoardobj.GetType().Name);
-            clientService.PostToServer(command);
-            clientService.PostToServer(iWhiteBoardobj);
-            Message(command);
-
+            userArt.DateTime = DateTime.Now;
+            DownLoadArt(userArt, tempImagePath);
+            SendToServer("Update", userArt);
+            FtpServer.UpdateArt(userArt);
         }
 
         private void Message(string message)
@@ -141,24 +161,7 @@ namespace WhiteBoardProject.Service.ClientService
                 MessageBox.Show("Изображение удачно удалено");
             }
         }
-        public object? Recive()
-        {
-            using TcpClient tcpClient = new(ipAdress, port);
-            using NetworkStream networkStream = tcpClient.GetStream();
-            using MemoryStream memoryStream = new MemoryStream();
 
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-
-            while ((bytesRead = networkStream.Read(buffer, 0, buffer.Length)) > 0)
-                memoryStream.Write(buffer, 0, bytesRead);
-
-            memoryStream.Seek(0, SeekOrigin.Begin);
-
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            UserArt? receivedUser = (UserArt)binaryFormatter.Deserialize(memoryStream);
-            return receivedUser;
-        }
 
 
         public BitmapImage FromByteToImage(UserArt userArt)
@@ -177,7 +180,5 @@ namespace WhiteBoardProject.Service.ClientService
         }
 
        
-
-
     }
 }

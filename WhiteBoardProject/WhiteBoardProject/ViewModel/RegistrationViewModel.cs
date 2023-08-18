@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ProjectLib.Model.Class;
+using ProjectLib.Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,13 @@ namespace WhiteBoardProject.ViewModel
     public class RegistrationViewModel:ViewModelBase
     {
         private INavigate _navigate;
-        public User? RegistratedUser { get; set; } = new();
-        public UserDTO User { get; set; } = new();
+        public User User { get; set; } = new();
+
         public RegistrationViewModel(INavigate navigate) 
         {
             _navigate = navigate;
         }
+
         public RelayCommand ToLogin
         {
             get => new(() => 
@@ -30,26 +32,27 @@ namespace WhiteBoardProject.ViewModel
             });
         }
 
+
         public RelayCommand<object> RegisterCommand
         {
-            get => new(param =>
+            get => new(async passwords =>
             {
-                if (param != null)
+                if (passwords != null)
                 {
-                    object[] passwordArr = (object[])param;
-
+                    object[] passwordArr = (object[])passwords;
                     var password = (PasswordBox)passwordArr[0];
                     var confirm = (PasswordBox)passwordArr[1];
-
                     var checker = new PasswordService(password, confirm);
 
                     if (checker.IsMatch())
                     {
                         User.Password = password.Password;
+
                         UserService userService = new();
-                        userService.SendToServer("Add",User);
-                        RegistratedUser = (User)userService.Recive();
-                        _navigate.NavigateTo<DrawViewModel>(User);
+                        userService.SendToServer("Add", User);
+
+                        User = await userService.ReciveAsync<User>()!;
+                        _navigate.NavigateTo<HomeViewModel>(User);
                     }
 
                 }

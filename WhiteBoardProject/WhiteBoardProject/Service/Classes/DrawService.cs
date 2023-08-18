@@ -17,15 +17,15 @@ namespace WhiteBoardProject.Service.Classes
         protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public static Stroke Circle(Point mousePosition, DrawingAttributes color, double Width, double Height)
+        public static Stroke Circle(Point mousePosition, DrawingAttributes color, double width, double height, double angle)
         {
-            double radius = Math.Min(Width, Height) / 2; // Радиус будет половиной минимальной стороны
+            double radius = Math.Min(width, height) / 2; // Радиус будет половиной минимальной стороны
 
             var points = new StylusPointCollection();
 
-            for (int angle = 0; angle < 360; angle++)
+            for (int angleDegress = 0; angleDegress < 360; angleDegress++)
             {
-                double radians = angle * Math.PI / 180;
+                double radians = angleDegress * Math.PI / 180;
                 double x = mousePosition.X + radius * Math.Cos(radians);
                 double y = mousePosition.Y + radius * Math.Sin(radians);
                 points.Add(new StylusPoint(x, y));
@@ -35,60 +35,76 @@ namespace WhiteBoardProject.Service.Classes
             return stroke;
 
         }
-
-        public static Stroke Triangle(Point mousePosition,DrawingAttributes color,double Width, double Height)
+        public static Stroke Triangle(Point mousePosition, DrawingAttributes color, double width, double height, double angleDegrees)
         {
             var points = new StylusPointCollection();
 
-            double x1 = mousePosition.X; // Точка 
-            double y1 = mousePosition.Y;
+            double angleRadians = angleDegrees * Math.PI / 180;
+            double cos = Math.Cos(angleRadians);
+            double sin = Math.Sin(angleRadians);
+
+            double centerX = mousePosition.X;
+            double centerY = mousePosition.Y;
+
+            double x1 = centerX + (-width / 2) * cos - (-height / 2) * sin;
+            double y1 = centerY + (-width / 2) * sin + (-height / 2) * cos;
             points.Add(new StylusPoint(x1, y1));
 
-            double x2 = mousePosition.X + Width; // Вершина A
-            double y2 = mousePosition.Y + Height;
+            double x2 = centerX + (width / 2) * cos - (-height / 2) * sin;
+            double y2 = centerY + (width / 2) * sin + (-height / 2) * cos;
             points.Add(new StylusPoint(x2, y2));
 
-
-            double x3 = mousePosition.X - Width; // Вершина B
-            double y3 = mousePosition.Y + Height;
+            double x3 = centerX + (0) * cos - (height / 2) * sin;
+            double y3 = centerY + (0) * sin + (height / 2) * cos;
             points.Add(new StylusPoint(x3, y3));
 
-            double x4 = mousePosition.X; // Вершина C
-            double y4 = mousePosition.Y;
+            double x4 = centerX + (-width / 2) * cos - (-height / 2) * sin;
+            double y4 = centerY + (-width / 2) * sin + (-height / 2) * cos;
             points.Add(new StylusPoint(x4, y4));
 
             var stroke = new Stroke(points, new DrawingAttributes { Width = 5, Color = color.Color });
             return stroke;
-
         }
 
-        public static Stroke Dash(Point mousePosition, DrawingAttributes color, double Width, double Height)
+        public static Stroke Dash(Point mousePosition, DrawingAttributes color, double width, double height, double angle)
         {
-            var points = new StylusPointCollection();
+            double angleRadians = angle * Math.PI / 180;
 
+            double endPointX = mousePosition.X + height * Math.Cos(angleRadians);
+            double endPointY = mousePosition.Y + height * Math.Sin(angleRadians);
+
+            var points = new StylusPointCollection();
             points.Add(new StylusPoint(mousePosition.X, mousePosition.Y));
-            points.Add(new StylusPoint(mousePosition.X, mousePosition.Y + Height));
+            points.Add(new StylusPoint(endPointX, endPointY));
 
             var stroke = new Stroke(points, new DrawingAttributes { Width = 2, Color = color.Color });
+
             return stroke;
 
         }
 
-        public static Stroke Rectangle(Point mousePosition, DrawingAttributes color, double width, double height)
+        public static Stroke Rectangle(Point mousePosition, DrawingAttributes color, double width, double height, double angle)
         {
             var points = new StylusPointCollection();
 
-            double topLeftX = mousePosition.X - width / 2;
-            double topLeftY = mousePosition.Y - height / 2;
+            double angleRadians = angle * Math.PI / 180;
+            double cos = Math.Cos(angleRadians);
+            double sin = Math.Sin(angleRadians);
 
-            double topRightX = mousePosition.X + width / 2;
-            double topRightY = mousePosition.Y - height / 2;
+            double centerX = mousePosition.X;
+            double centerY = mousePosition.Y;
 
-            double bottomRightX = mousePosition.X + width / 2;
-            double bottomRightY = mousePosition.Y + height / 2;
+            double topLeftX = centerX + (-width / 2) * cos - (-height / 2) * sin;
+            double topLeftY = centerY + (-width / 2) * sin + (-height / 2) * cos;
 
-            double bottomLeftX = mousePosition.X - width / 2;
-            double bottomLeftY = mousePosition.Y + height / 2;
+            double topRightX = centerX + (width / 2) * cos - (-height / 2) * sin;
+            double topRightY = centerY + (width / 2) * sin + (-height / 2) * cos;
+
+            double bottomRightX = centerX + (width / 2) * cos - (height / 2) * sin;
+            double bottomRightY = centerY + (width / 2) * sin + (height / 2) * cos;
+
+            double bottomLeftX = centerX + (-width / 2) * cos - (height / 2) * sin;
+            double bottomLeftY = centerY + (-width / 2) * sin + (height / 2) * cos;
 
             points.Add(new StylusPoint(topLeftX, topLeftY));
             points.Add(new StylusPoint(topRightX, topRightY));
@@ -101,7 +117,7 @@ namespace WhiteBoardProject.Service.Classes
 
         }
         
-        public static TextBox Text(Point mousePosition, DrawingAttributes color, double Width, double Height)
+        public static TextBox Text(Point mousePosition, DrawingAttributes color, double Width, double Height, double angle)
         {
             var center = mousePosition;
 
@@ -110,7 +126,7 @@ namespace WhiteBoardProject.Service.Classes
                 BorderThickness = new Thickness(0),
                 Text = "Текст",
                 FontSize = Width,
-                Height = Height
+                Height = Height,
             };
 
             InkCanvas.SetLeft(textBox, center.X);

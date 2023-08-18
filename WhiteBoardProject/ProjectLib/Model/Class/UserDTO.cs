@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProjectLib.Model.Class
 {
     [Serializable]
-    public class UserDTO : IUser
+    public class UserDTO : IUser,IWhiteboard
     {
         public int Id { get; set; }
         public string Password { get; set; }

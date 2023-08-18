@@ -14,6 +14,5 @@ namespace WhiteboardServer.Service.Interface
         public object? Update(object? entity, ref WhiteboardContext whiteboardContext);
         public object? Delete(object? entity, WhiteboardContext whiteboardContext);
         public object? Exist(object? entity, WhiteboardContext whiteboardContext);
-        //public IWhiteboardcs ReturnWhiteBoardsItem(IWhiteboardcs whiteboardcs, IModelService saveService, string command);
     }
 }

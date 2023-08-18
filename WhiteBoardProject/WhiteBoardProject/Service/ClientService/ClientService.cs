@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using ProjectLib.Class;
 using ProjectLib.Model.Class;
 using ProjectLib.Model.Interface;
 using System;
@@ -19,7 +18,7 @@ namespace WhiteBoardProject.Service.ClientService
     public class ClientService
     {
         public string IPAddress { get; set; }
-        public int Port { get; set; } = IpPath.Port;
+        public int Port { get; set; } 
         public TcpClient TcpClient { get; set; }
         public ClientService(string ipAddress, int port)
         {
@@ -27,12 +26,31 @@ namespace WhiteBoardProject.Service.ClientService
             IPAddress = ipAddress;
         }
 
-        public T? Recive<T>(T? obj) where T : IWhiteboardcs
+        public async Task<T?> Recive<T>()
         {
-            using TcpClient TcpClient = new TcpClient(IPAddress, Port);
-            using StreamReader reader = new StreamReader(TcpClient.GetStream());
-            string? jsonData = reader.ReadLine();
-            return obj = JsonConvert.DeserializeObject<T>(jsonData);
+            using TcpClient tcpClient = new(IPAddress, Port);
+            using NetworkStream networkStream = tcpClient.GetStream();
+            using MemoryStream memoryStream = new MemoryStream();
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            do
+            {
+                bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length);
+
+                if (bytesRead > 0)
+                    await memoryStream.WriteAsync(buffer, 0, bytesRead);
+                else
+                    break;
+
+            } while (bytesRead>0);
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            T? receivedUser = (T)binaryFormatter.Deserialize(memoryStream);
+            return receivedUser;
         }
 
 
@@ -60,33 +78,8 @@ namespace WhiteBoardProject.Service.ClientService
             }
         }
 
-        public void Post(object? obj)
-        {
-            if (obj != null)
-            {
-                using TcpClient TcpClient = new TcpClient(IPAddress, Port);
-                using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
-                string jsonData = JsonConvert.SerializeObject(obj);
-                writer.WriteLine(jsonData);
-                writer.Flush();
-
-            }
-        }
-
-        public void PostNameOfClass(object obj)
-        {
-            using TcpClient TcpClient = new TcpClient(IPAddress, Port);
-            using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
-            writer.WriteLine(obj.GetType().Name);
-            writer.Flush();
-        }
-        public void PostCommand(string command)
-        {
-            using TcpClient TcpClient = new TcpClient(IPAddress, Port);
-            using StreamWriter writer = new StreamWriter(TcpClient.GetStream());
-            writer.WriteLine(command);
-            writer.Flush();
-        }
+      
+     
 
     }
 }

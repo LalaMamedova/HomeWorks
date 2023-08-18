@@ -75,6 +75,11 @@
                     Content="Обновить"
                     CommandParameter="{Binding ElementName=ArtItemControl}"
                     Command="{Binding Refresh}"/>
+
+            <GroupBox Header="Ваш Username" Foreground="White">
+                <TextBlock Text="{Binding ActiveUser.Username}"
+                           FontSize="25" Margin="20 0"/>
+            </GroupBox>
         </StackPanel>
 
 
@@ -91,14 +96,14 @@
                     <StackPanel  Orientation="Horizontal">
                         <Border BorderBrush="AliceBlue" BorderThickness="2" Margin="5">
                             <StackPanel Orientation="Vertical"
-                                    Width="350px">
+                                    Width="450px">
 
                                 <Button Command="{Binding DataContext.ToRedact, ElementName=MainMenu}" 
                                     Cursor="Hand" CommandParameter="{Binding Id}">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="{Binding Content, Converter={StaticResource ByteToImg}}"
-                                              Width="250" Height="150" Stretch="Fill"/>
+                                              Width="350" Height="200" Stretch="Fill"/>
                                             <!--<Image Source="{Binding PicturePath}"
                                                Width="250" Height="150" Stretch="Fill"/>-->
                                         </ControlTemplate>

@@ -49,11 +49,8 @@ namespace WhiteboardServer.Service.Classes
                 whiteboardContext.Entry(userArt).State = EntityState.Modified;
                 whiteboardContext.Set<UserArt>().Update(userArt);
                 whiteboardContext.SaveChanges();
-                //whiteboardContext.Entry(userArt).State = EntityState.Detached;
                 return userArt;
             }
-            
-
             throw new NotImplementedException("Произошла ошибка");
         }
     }

@@ -27,16 +27,8 @@ namespace WhiteboardServer.Service.Classes
             if (updatedUser != null)
             {
                 var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x => x.Id == updatedUser.Id);
-                foreach (var loginuser in usersWithArts)
-                {
-                    return loginuser;
-                }
-                //whiteboardContext.Entry(oldUser).CurrentValues.SetValues(updatedUser);
-                //whiteboardContext.SaveChanges();
-
-                //return oldUser;
+                foreach (var user in usersWithArts) { return user;}
             }
-
             throw new NotImplementedException("Произошла ошибка");
         }
 
@@ -63,13 +55,10 @@ namespace WhiteboardServer.Service.Classes
             {
                 var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x => x.Id == existUser.Id);
 
-                foreach (var loginuser in usersWithArts)
-                {
-                    return loginuser;
-                }
+                foreach (var loginuser in usersWithArts) { return loginuser; }
+                
             }
-            
-            throw new ArgumentNullException("Такого пользователя не существует");
+            return new User();
         }
 
        

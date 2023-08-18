@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace WhiteBoardProject.Class
 {
     public class ColorList
     {
-        public static List<CanvasColor> AvailableColors { get; set; } = new()
+        public static ObservableCollection<CanvasColor> AvailableColors { get; set; } = new()
         {
             new CanvasColor()
             {
@@ -83,10 +84,6 @@ namespace WhiteBoardProject.Class
                 ColorName = "Lime",
                 ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString("Lime")),
             }
-
-
-
-
 
 
         };

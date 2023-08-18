@@ -70,16 +70,14 @@ namespace WhiteBoardProject.ViewModel
             get => new((artId) =>
             {
                 UserArt art = ActiveUser.UserArts.Where(x => x.Id == artId).First();
-                IWhiteboardtService whiteboardtService; 
                 try
                 {
                     ArtService artService = new ArtService(art);
                     artService.SendToServer("Delete", art);
                     artService.DeleteFromFtp();
                     if (File.Exists(art.PicturePath))
-                    {
                         File.Delete(art.PicturePath);
-                    }
+                    
                     ActiveUser.UserArts.Remove(art);
                 }
                 catch (Exception ex)
@@ -105,14 +103,11 @@ namespace WhiteBoardProject.ViewModel
         {
             get => new((itemcontrol) =>
             {
-                ObservableCollection<UserArt> userArts = new();
-
-                //foreach (var item in ActiveUser.UserArts)
-                //    userArts.Add(item);
-                
                 itemcontrol.ItemsSource = ActiveUser.UserArts; 
             });
         }
+
+
 
 
     }

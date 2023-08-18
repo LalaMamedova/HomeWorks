@@ -19,14 +19,11 @@ namespace WhiteBoardProject.Service.Classes
 {
     public class FtpServer
     {
-        FtpWebRequest? request;
         public string IP { get; set; }
         public string? DownloadPath { get; set; }
         public string? FileName { get; set; }
-        public FtpServer(string Ip)
-        {
-            IP = Ip;
-        }
+        public FtpServer(string Ip) =>IP = Ip;
+        
 
 
         public UserArt? AddArt(UserArt userArt)
@@ -49,8 +46,7 @@ namespace WhiteBoardProject.Service.Classes
                     requestStream.Write(buffer, 0, bytesRead);
                 }
 
-
-                CreateAFolder(); // Не знаю, что делает этот метод, но оставлю его здесь
+                CreateAFolder(); 
 
                 return userArt;
             }
@@ -74,7 +70,7 @@ namespace WhiteBoardProject.Service.Classes
         {
             try
             {
-                request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{fileName}");
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{fileName}");
                 request.Method = WebRequestMethods.Ftp.DeleteFile;
 
                 using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
@@ -87,15 +83,25 @@ namespace WhiteBoardProject.Service.Classes
 
         }
 
-        public void UpdateArt(string fileName)
+        public void UpdateArt(UserArt userArt)
         {
             try
             {
-                request = (FtpWebRequest)WebRequest.Create($"ftp://{IP}/{fileName}");
-                request.Method = WebRequestMethods.Ftp.UploadFile ;
+                string ftpUrl = $"ftp://{IP}/{userArt.ArtName}";
 
-                using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-                using Stream stream = response.GetResponseStream();
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
+                request.Method = WebRequestMethods.Ftp.UploadFile;
+                request.Credentials = new NetworkCredential(); // Замените на свои учетные данные
+
+                using FileStream fileStream = new FileStream(userArt.PicturePath, FileMode.Open);
+                using Stream requestStream = request.GetRequestStream();
+
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    requestStream.Write(buffer, 0, bytesRead);
+                }
             }
             catch (Exception ex)
             {

@@ -42,28 +42,28 @@ namespace WhiteBoardProject.ViewModel
 
         private readonly IMessenger _messenger;
         private readonly INavigate _navigate;
-        private ArtService saveService =new ArtService();
-        private DrawingAttributes drawingAttributes = new();
         private InkCanvasEditingMode inkCanvasEditingMode = InkCanvasEditingMode.Ink;
+        private DrawingAttributes drawingAttributes = new();
         private SolidColorBrush selectedBackGround = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
         private List<Stroke> deletedStrokes = new List<Stroke>();
         private double width = 50;
         private double height = 50;
-      
+        private double angle = 180;
+        private bool isSaved = false;
+        private string WhatIsDrawing;
 
         public static bool isRedact = false;
-        public double Width { get { return width; }set { width = value; drawingAttributes.Width = width; }}
-        public double Height { get { return height; } set { height = value;  drawingAttributes.Height = height; }}
+        public double Angle { get { return (int)angle; } set { angle = value; NotifyPropertyChanged(nameof(Angle)); } }
+        public double Width { get { return (int)width; }set { width = value; NotifyPropertyChanged(nameof(Width)); drawingAttributes.Width = width; }}
+        public double Height { get { return (int)height; } set { height = value; NotifyPropertyChanged(nameof(Height)); drawingAttributes.Height = height; }}
         public ColorList ColorList { get; set; } = new();
         public StrokeCollection Stroke { get; set; } = new();
-        public string WhatIsDrawing { get; set; }
         public DrawingAttributes DrawingAttributes { get => drawingAttributes; set { drawingAttributes = value; NotifyPropertyChanged(nameof(DrawingAttributes)); } }
         public SolidColorBrush SelectedBackGround { get => selectedBackGround; set { selectedBackGround = value; NotifyPropertyChanged(nameof(SelectedBackGround)); } }
         public InkCanvasEditingMode InkCanvasEditingMode { get => inkCanvasEditingMode; set { inkCanvasEditingMode = value; NotifyPropertyChanged(nameof(InkCanvasEditingMode)); } }
         public ChangableObject isNightMode { get; set; } = new() { MyData = "Светлый" };
         public UserArt UserArt { get; set; } 
         public User User { get; set; }
-  
         public string ArtName { get; set; }
 
 
@@ -171,28 +171,33 @@ namespace WhiteBoardProject.ViewModel
             });
         }
 
-        public RelayCommand<string> ChoiceColor { get => new(param =>{ DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString(param);});}
+        public RelayCommand<string> ChoiceColor { get => new(param =>{ DrawingAttributes.Color = (Color)ColorConverter.ConvertFromString(param); });}
 
         public RelayCommand<InkCanvas> SaveImg
         {
-            get => new((ink) => 
+            get => new(async ink =>
             {
-                UserArt? isThisNameExist = User.UserArts.Where(x=>x.ArtName == ArtName).FirstOrDefault();
+
+                ArtService saveService = new ArtService(new object[] { ink, UserArt, User });
+                UserArt? isThisNameExist = User.UserArts.Where(x => x.ArtName.Contains(ArtName)).FirstOrDefault();
                 UserArt.ArtName = ArtName;
-                saveService.Save(new object[] { ink,UserArt, User });
-                UserArt = saveService.SaveInAllPlace(isThisNameExist,isRedact);
+                UserArt = saveService.SaveInAllPlace(isThisNameExist, isRedact, isSaved)!;
+                UserArt = await saveService.ReciveAsync<UserArt>();
+
                 UserService userService = new UserService();
                 userService.SendToServer("Update", User);
-                User = (User)userService.Recive();
-                
-                
+                User = await userService.ReciveAsync<User>();
+                isSaved = true;
+
+
             });
         }
 
         public RelayCommand<InkCanvas> SaveAs
         {
-            get => new((ink) =>
+            get => new(async ink =>
             {
+
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "JPEG Image (.jpeg)|*.jpeg|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf";
                 saveFileDialog.FileName = ArtName;
@@ -200,37 +205,40 @@ namespace WhiteBoardProject.ViewModel
 
                 if (saveFileDialog.FileName != null)
                 {
+                    ArtService saveService = new ArtService(new object[] { ink, UserArt, User });
                     UserArt? isThisNameExist = User.UserArts.Where(x => x.ArtName == ArtName).FirstOrDefault();
                     UserArt.ArtName = ArtName;
-                    saveService.Save(new object[] { ink, UserArt, User });
-                    UserArt = saveService.SaveInAllPlace(isThisNameExist,isRedact);
+                    UserArt = saveService.SaveInAllPlace(isThisNameExist, isRedact, isSaved)!;
+                    UserArt = await saveService.ReciveAsync<UserArt>();
 
                     UserService userService = new UserService();
                     userService.SendToServer("Update", User);
-                    User = (User)userService.Recive();
-
-                    
+                    User = await userService.ReciveAsync<User>();
+                    isSaved = true;
                 }
-            }); 
+
+            });
         }
 
-        
+       
+
+
 
         public RelayCommand<InkCanvas> MouseMoveCommand
         {
-            get => new((inkcanvas) =>
+            get => new(( inkcanvas) =>
             {
                 Point MousePosition = Mouse.GetPosition(inkcanvas);
                 if (!string.IsNullOrEmpty(WhatIsDrawing) && WhatIsDrawing != "None")
                 {
                     string methodName = WhatIsDrawing;
 
-                    MethodInfo method = typeof(DrawService).GetMethod(methodName, BindingFlags.Static | BindingFlags.Public);
+                    MethodInfo? method = typeof(DrawService).GetMethod(methodName, BindingFlags.Static | BindingFlags.Public);
                     if (method != null)
                     {
                         InkCanvasEditingMode = InkCanvasEditingMode.None;
 
-                        object result = method.Invoke(null, new object[] { MousePosition, drawingAttributes, Width, Height });
+                        object? result = method.Invoke(null, new object[] { MousePosition, drawingAttributes, Width, Height,Angle });
 
                         if (result is Stroke shape)
                         {
@@ -245,19 +253,14 @@ namespace WhiteBoardProject.ViewModel
             });
         }
 
-        public RelayCommand<InkCanvas> MouseMoveDownCommand
-        {
-            get => new((param) =>
-            {
-            });
-        }
-
+      
         public RelayCommand ToMainMenu
         {
             get => new(() =>
             {
                 _navigate.NavigateTo<HomeViewModel>(User);
                 isRedact = false;
+                isSaved = false;
 
             });
         }
@@ -268,6 +271,8 @@ namespace WhiteBoardProject.ViewModel
             {
                 _navigate.NavigateTo<SendEmailViewModel>(UserArt);
                 _messenger.Send(new DataMessager() { Data = User});
+                isRedact = false;
+                isSaved = false;
             });
         }
 
@@ -283,7 +288,6 @@ namespace WhiteBoardProject.ViewModel
                 image.Width = UserArt.Width; 
                 image.Height = UserArt.Height;
         
-
                 PrintDialog printDialog = new PrintDialog();
                 if(printDialog.ShowDialog() == true)
                 {
@@ -292,54 +296,30 @@ namespace WhiteBoardProject.ViewModel
 
             });
         }
-   
-        public RelayCommand<InkCanvas> ZoomIn
+
+        public RelayCommand<TextBox> AddColor
         {
-            get => new((inkCanvas) =>
+            get => new((textbox) =>
             {
-                if (inkCanvas.Background is ImageBrush imageBrush && imageBrush.ImageSource is BitmapImage bitmapImage)
+                try
                 {
-                    ScaleTransform transform = new ScaleTransform(1.5, 0.5);
-                    imageBrush.Transform = transform;
-
-                    inkCanvas.LayoutTransform = new ScaleTransform(1.5, 0.5);
+                    ColorList.AvailableColors.Add
+                    (new CanvasColor() { ColorValue = new SolidColorBrush((Color)ColorConverter.ConvertFromString(textbox.Text)),
+                                         ColorName = textbox.Text});
                 }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Такого цвета нет");
+                }
             });
         }
-
-        public RelayCommand<InkCanvas> ZoomOut
+        public RelayCommand<InkCanvas> MouseMoveDownCommand
         {
-            get => new((inkCanvas) =>
+            get => new((param) =>
             {
-                if (inkCanvas.Background is ImageBrush imageBrush && imageBrush.ImageSource is BitmapImage bitmapImage)
-                {
-                    ScaleTransform transform = new ScaleTransform(0.5, 0.5);
-                    imageBrush.Transform = transform;
-
-                    inkCanvas.LayoutTransform = new ScaleTransform(0.5, 0.5);
-                }
-
             });
         }
-
-    
-        public void Zoom(double zoomFactor, InkCanvas inkCanvas)
-        {
-            if (inkCanvas.Background is ImageBrush imageBrush && imageBrush.ImageSource is BitmapImage bitmapImage)
-            {
-                ScaleTransform transform = new ScaleTransform(0.5, 0.5);
-                imageBrush.Transform = transform;
-
-                inkCanvas.LayoutTransform = new ScaleTransform(0.5, 0.5);
-            }
-
-        }
-
 
 
     }
-
-
-
 }
