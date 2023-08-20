@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using WhiteBoardProject.Service.Classes;
 using WhiteBoardProject.Service.ClientService;
@@ -49,10 +50,17 @@ namespace WhiteBoardProject.ViewModel
                         User.Password = password.Password;
 
                         UserService userService = new();
-                        userService.SendToServer("Add", User);
-
+                        userService.SendToServer("IsRegistred", User);
                         User = await userService.ReciveAsync<User>()!;
-                        _navigate.NavigateTo<HomeViewModel>(User);
+
+                        if (User.Id == 0)
+                        {
+                            userService.SendToServer("Add", User);
+                            User = await userService.ReciveAsync<User>()!;
+                            _navigate.NavigateTo<HomeViewModel>(User);
+                        }
+                        else
+                            MessageBox.Show($"Извините, но {User.Email} уже занят, попорбуйте дргой email", "Ошибка при регистрации");
                     }
 
                 }

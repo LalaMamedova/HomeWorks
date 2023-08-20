@@ -9,6 +9,10 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using System.Windows;
+using ProjectLib.Model.Class;
+using System.Windows.Media.Imaging;
+using WhiteBoardProject.Service.ClientService;
+using System.Windows.Media;
 
 namespace WhiteBoardProject.Service.Classes
 {
@@ -116,7 +120,22 @@ namespace WhiteBoardProject.Service.Classes
             return stroke;
 
         }
-        
+
+        public static Color PipetteColor(Point mousePosition, DrawingAttributes color, UserArt userArt)
+        {
+            int pixelX = (int)mousePosition.X;
+            int pixelY = (int)mousePosition.Y;
+
+            ArtService artService = new();
+            BitmapSource imageSource = artService.FromByteToImage(userArt);
+
+            CroppedBitmap croppedBitmap = new CroppedBitmap(imageSource, new Int32Rect(pixelX, pixelY, 1, 1));
+            byte[] pixel = new byte[4];
+            croppedBitmap.CopyPixels(pixel, 4, 0);
+
+            return Color.FromArgb(pixel[3], pixel[2], pixel[1], pixel[0]);
+        }
+
         public static TextBox Text(Point mousePosition, DrawingAttributes color, double Width, double Height, double angle)
         {
             var center = mousePosition;

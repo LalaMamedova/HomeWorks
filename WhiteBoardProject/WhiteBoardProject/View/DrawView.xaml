@@ -9,14 +9,15 @@
              xmlns:Converters ="clr-namespace:WhiteBoardProject.Converters"
              d:DataContext="{d:DesignInstance Type=viewmodel:DrawViewModel}"
              mc:Ignorable="d"  Name="DrawWindow"
-             xmlns:BTI="clr-namespace:WhiteBoardProject.Converters"
              d:DesignHeight="550" d:DesignWidth="1500">
 
     <UserControl.Resources>
 
         <ResourceDictionary>
-            <BTI:BytesToImageConverter x:Key="BytetoImg"></BTI:BytesToImageConverter>
+            <Converters:BytesToImageConverter x:Key="BytetoImg"/>
             <Converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
+            <Converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -172,7 +173,18 @@
 
             <Button Style="{StaticResource FigureButton}" Content="T"
                     CommandParameter="{Binding Width}" Command="{Binding Text}"
-                    Width="60"  FontSize="40"/>
+                    Width="60" Height="60"  FontSize="40"/>
+
+
+            <Button Style="{StaticResource FigureButton}"
+                    Command="{Binding Pipette}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Img/Pipette.png" />
+                </Button.Background>
+            </Button>
+
+            <Button Width="50" Name="ColorButton"
+                    Background="{Binding DrawingAttributes.Color, Converter={StaticResource ColorToBrushConverter}}"/>
 
             <Button Style="{StaticResource FigureButton }" 
                     Command="{Binding Highlighter}"
@@ -247,7 +259,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="15 0">
                 <GroupBox Header="Название проекта" Foreground="AliceBlue">
-                    <TextBox Height="20" Width="150" Text="{Binding ArtName}"/>
+                    <TextBox Height="20" Width="180" Text="{Binding ArtName}"/>
                 </GroupBox>
             </StackPanel>
         </StackPanel>
@@ -260,6 +272,7 @@
 
         <ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                       Grid.ColumnSpan="2" Grid.Row="1" >
+            
             <InkCanvas Name="Myink" Grid.ColumnSpan="2" Grid.Row="1" 
                    DefaultDrawingAttributes="{Binding DrawingAttributes}"
                    UseCustomCursor="True" Cursor="Pen"
@@ -267,8 +280,6 @@
                    Strokes="{Binding Stroke}"
                    Width="{Binding UserArt.Width}"
                    Height="{Binding UserArt.Height}"
-                   KeyDown="Myink_KeyDown"
-                   
                    SelectionChanged="Myink_SelectionChanged">
 
                 <InkCanvas.Background>
@@ -278,13 +289,9 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewMouseDown">
                         <i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 
-                                           Command="{Binding MouseMoveCommand}"/>
+                                               Command="{Binding MouseMoveCommand}"/>
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseMove">
-                        <!--<i:InvokeCommandAction CommandParameter="{Binding ElementName=Myink}" 
-                                               Command="{Binding MouseMoveCommand}"/>-->
-                    </i:EventTrigger>
-                    
+                  
                 </i:Interaction.Triggers>
             </InkCanvas>
 

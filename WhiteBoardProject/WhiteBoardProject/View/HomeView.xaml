@@ -103,26 +103,29 @@
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Image Source="{Binding Content, Converter={StaticResource ByteToImg}}"
-                                              Width="350" Height="200" Stretch="Fill"/>
+                                                    Stretch="Fill"/>
                                             <!--<Image Source="{Binding PicturePath}"
-                                               Width="250" Height="150" Stretch="Fill"/>-->
+                                                Stretch="Fill"/>-->
                                         </ControlTemplate>
                                     </Button.Template>
 
                                 </Button>
 
-                                <TextBlock Text="{Binding ArtName}" 
-                                       Style="{StaticResource TextblockLoginStyle}"
-                                       FontSize ="20"/>
+                                <StackPanel Background="#FF045452">
+                                    
+                                    <TextBlock Text="{Binding ArtName}" 
+                                           Style="{StaticResource TextblockLoginStyle}"
+                                           FontSize ="20"/>
 
-                                <TextBlock Text="{Binding DateTime}" 
-                                       Style="{StaticResource TextblockLoginStyle}"
-                                       FontSize ="15"/>
+                                    <TextBlock Text="{Binding DateTime}" 
+                                           Style="{StaticResource TextblockLoginStyle}"
+                                           FontSize ="15"/>
 
-                                <Button Content="Удалить"
-                                    Style="{StaticResource Login}"
-                                    CommandParameter="{Binding Id}"
-                                    Command="{Binding DataContext.DeleteArt, ElementName=MainMenu}"/>
+                                    <Button Content="Удалить"
+                                        Style="{StaticResource Login}"
+                                        CommandParameter="{Binding Id}"
+                                        Command="{Binding DataContext.DeleteArt, ElementName=MainMenu}"/>
+                                </StackPanel>
                             </StackPanel>
                         </Border>
                     </StackPanel>

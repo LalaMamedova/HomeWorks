@@ -26,21 +26,14 @@ namespace WhiteboardServer.Service.Classes
         private UserArt userArt;
         private IUser? user;
         private IModelService saveService;
-        private MethodInfo[] methods;
 
         public TcpListener Listener { get; set; }
-        public IPAddress IPAddress { get; set; }
         public WhiteboardContext WhiteboardContext { get; set; } = new();
+
         public ServerService(IPAddress address, int port)
         {
-            IPAddress = address;
-            Port = port;
             Listener = new TcpListener(address, port);
             Listener.Start();
-
-            Type interfaceType = typeof(IModelService);
-            methods = interfaceType.GetMethods();
-
         }
 
         public async Task<object?> Recive(TcpClient client)
@@ -54,27 +47,20 @@ namespace WhiteboardServer.Service.Classes
                 int bytesRead;
 
                 while ((bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
                     await memoryStream.WriteAsync(buffer, 0, bytesRead);
-               
+                }
                 memoryStream.Seek(0, SeekOrigin.Begin);
 
                 BinaryFormatter? binaryFormatter = new BinaryFormatter();
-                object? deserializeObj = binaryFormatter.Deserialize(memoryStream);
+                object deserializeObj = binaryFormatter.Deserialize(memoryStream);
+
                 if (deserializeObj.GetType().Name == nameof(String))
                 {
                     if ((string)deserializeObj == nameof(User) || (string)deserializeObj == nameof(UserArt) || (string)deserializeObj == nameof(UserDTO))
                         WhatClassIRecived = (string)deserializeObj;
-                    //else if ((string)deserializeObj == "Add" || (string)deserializeObj == "Update" || (string)deserializeObj == "Delete" || (string)deserializeObj == "Exist")
-                    //    WhatCommandIRecived = (string)deserializeObj;
-
-                    foreach (MethodInfo method in methods)
-                    {
-                        if ((string)deserializeObj == method.Name)
-                        {
-                            WhatCommandIRecived = (string)deserializeObj;
-                            break;
-                        }
-                    }
+                    else
+                        WhatCommandIRecived = (string)deserializeObj;
                 }
                 else
                 {
@@ -99,8 +85,7 @@ namespace WhiteboardServer.Service.Classes
                     if (WhatClassIRecived == nameof(User) || WhatClassIRecived == nameof(UserDTO))
                     {
                         saveService = new UserServerService();
-                        Type? type = saveService.GetType();
-                        MethodInfo? method = type.GetMethod(WhatCommandIRecived);
+                        MethodInfo? method = GetMethod(WhatCommandIRecived);
 
                         if (method != null)
                         {
@@ -111,8 +96,7 @@ namespace WhiteboardServer.Service.Classes
                     else if (WhatClassIRecived == nameof(UserArt))
                     {
                         saveService = new ArtServerService();
-                        Type? type = saveService.GetType();
-                        MethodInfo? method = type.GetMethod(WhatCommandIRecived);
+                        MethodInfo? method = GetMethod(WhatCommandIRecived);
 
                         if (method != null)
                         {
@@ -149,6 +133,13 @@ namespace WhiteboardServer.Service.Classes
             }
             await Console.Out.WriteLineAsync($"You post: {message}") ;
 
+        }
+
+        private MethodInfo? GetMethod(string coomand)
+        {
+            Type? type = saveService.GetType();
+            MethodInfo? method = type.GetMethod(coomand);
+            return method;
         }
     }
 }

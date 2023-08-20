@@ -27,9 +27,9 @@ namespace WhiteboardServer.Service.Classes
             if (updatedUser != null)
             {
                 var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x => x.Id == updatedUser.Id);
-                foreach (var user in usersWithArts) { return user;}
+                return usersWithArts.First();
             }
-            throw new NotImplementedException("Произошла ошибка");
+            throw new NotImplementedException("Произошла при обновление пользователя ошибка");
         }
 
         public object? Add(object? entity, WhiteboardContext whiteboardContext)
@@ -48,19 +48,27 @@ namespace WhiteboardServer.Service.Classes
 
         public object? Exist(object? entity, WhiteboardContext whiteboardContext)
         {
-            UserDTO userDTO = entity as UserDTO;
+            IUser userDTO = entity as UserDTO;
             User? existUser = whiteboardContext.Users.Where(x => x.Email.Equals(userDTO.Email) && x.Password == userDTO.Password).FirstOrDefault();
 
             if (existUser != null)
             {
                 var usersWithArts = whiteboardContext.Users.Include(user => user.UserArts).Where(x => x.Id == existUser.Id);
-
-                foreach (var loginuser in usersWithArts) { return loginuser; }
-                
+                return usersWithArts.First();
             }
             return new User();
         }
 
-       
+        public object? IsRegistred(object? entity, WhiteboardContext whiteboardContext)
+        {
+            User registredUser = entity as User;
+            User? existUser = whiteboardContext.Users.Where(x => x.Email.Equals(registredUser.Email)).FirstOrDefault();
+
+            if (existUser != null)
+            {
+                return existUser;
+            }
+            return new User();
+        }
     }
 }

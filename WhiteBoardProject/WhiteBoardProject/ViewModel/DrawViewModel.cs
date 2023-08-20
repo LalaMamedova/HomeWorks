@@ -178,9 +178,9 @@ namespace WhiteBoardProject.ViewModel
             get => new(async ink =>
             {
 
-                ArtService saveService = new ArtService(new object[] { ink, UserArt, User });
                 UserArt? isThisNameExist = User.UserArts.Where(x => x.ArtName.Contains(ArtName)).FirstOrDefault();
                 UserArt.ArtName = ArtName;
+                ArtService saveService = new ArtService(new object[] { ink, UserArt, User });
                 UserArt = saveService.SaveInAllPlace(isThisNameExist, isRedact, isSaved)!;
                 UserArt = await saveService.ReciveAsync<UserArt>();
 
@@ -202,12 +202,12 @@ namespace WhiteBoardProject.ViewModel
                 saveFileDialog.Filter = "JPEG Image (.jpeg)|*.jpeg|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf";
                 saveFileDialog.FileName = ArtName;
                 saveFileDialog.ShowDialog();
-
+           
                 if (saveFileDialog.FileName != null)
                 {
-                    ArtService saveService = new ArtService(new object[] { ink, UserArt, User });
                     UserArt? isThisNameExist = User.UserArts.Where(x => x.ArtName == ArtName).FirstOrDefault();
                     UserArt.ArtName = ArtName;
+                    ArtService saveService = new ArtService(new object[] { ink, UserArt, User });
                     UserArt = saveService.SaveInAllPlace(isThisNameExist, isRedact, isSaved)!;
                     UserArt = await saveService.ReciveAsync<UserArt>();
 
@@ -226,7 +226,7 @@ namespace WhiteBoardProject.ViewModel
 
         public RelayCommand<InkCanvas> MouseMoveCommand
         {
-            get => new(( inkcanvas) =>
+            get => new((inkcanvas) =>
             {
                 Point MousePosition = Mouse.GetPosition(inkcanvas);
                 if (!string.IsNullOrEmpty(WhatIsDrawing) && WhatIsDrawing != "None")
@@ -238,7 +238,7 @@ namespace WhiteBoardProject.ViewModel
                     {
                         InkCanvasEditingMode = InkCanvasEditingMode.None;
 
-                        object? result = method.Invoke(null, new object[] { MousePosition, drawingAttributes, Width, Height,Angle });
+                        object? result = method.Invoke(null, new object[] { MousePosition, drawingAttributes, Width, Height, Angle });
 
                         if (result is Stroke shape)
                         {
@@ -249,11 +249,23 @@ namespace WhiteBoardProject.ViewModel
                             inkcanvas.Children.Add(uiElement);
                         }
                     }
+                    else if(WhatIsDrawing == "Pipette")
+                    {
+                        drawingAttributes.Color = DrawService.PipetteColor(MousePosition, drawingAttributes, UserArt);
+                    }
                 }
             });
         }
 
-      
+
+        public RelayCommand Pipette
+        {
+            get => new(() =>
+            {
+                WhatIsDrawing = "Pipette";
+                InkCanvasEditingMode = InkCanvasEditingMode.None;
+            });
+        }
         public RelayCommand ToMainMenu
         {
             get => new(() =>
@@ -311,12 +323,6 @@ namespace WhiteBoardProject.ViewModel
                 {
                     MessageBox.Show("Такого цвета нет");
                 }
-            });
-        }
-        public RelayCommand<InkCanvas> MouseMoveDownCommand
-        {
-            get => new((param) =>
-            {
             });
         }
 
