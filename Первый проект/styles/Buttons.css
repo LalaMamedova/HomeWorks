@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap');
+
+
+
+p{
+    color: azure;
+}
+
+h1{
+    color: azure;
+    margin-left: 2%;
+    font-size: 40px;
+    border-radius: 50%;
+    border: 5px solid teal;
+}
+
+
+button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    text-decoration:none;
+
+  }
+
+  .mainbutton{
+    border: 3px white;
+    background: rgb(166, 255, 197);
+    color: white;
+    font-size: 25px;
+    margin-top: 5%;
+    color: teal;
+    border-radius: 5%;
+    width: 280px;
+    transition: background-color 0.3s ease;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+  }
+
+.mainbutton :hover{
+  background-color: rgb(4, 73, 91);
+}
+
+
+a{
+  text-decoration:none;
+  color: white;
+}
+
+.toggle-button {
+    background-color: aquamarine;
+    color: #000;
+    padding: 10px;
+    border: teal 2px;
+    width: 150px;
+    transition: background-color 0.3s ease;
+  }
+
+  .toggle-button:hover {
+    background-color: teal;
+    color: #fff;
+    cursor: pointer;
+  }
