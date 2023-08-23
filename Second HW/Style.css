@@ -1,0 +1,91 @@
+.fruit-div {
+    background-color: rgb(255, 129, 148);
+    padding: 10px;
+}
+
+.fruit-div  li {
+    background-color: rgb(215, 74, 74);
+    padding: 0.5%;
+    margin: 1%;
+    color: aliceblue;
+    font-family: sans-serif;
+    list-style:decimal;
+}
+
+
+.fruit-div li label
+{
+    background-color:rgb(145, 24, 24); 
+    position: relative;
+    padding: 0.5% 2%;
+} 
+
+
+
+.todo-list {
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+    background-image: url("Pixel\ Sun.png") ;
+    background-size: cover;
+}
+
+
+.todo-list li {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+
+.todo-list li label {
+    font-size: 30px;
+}
+
+input:checked + label 
+{
+    text-decoration: line-through;
+    background-color: rgb(255, 147, 169);
+    color: black;
+    display: inline;
+
+}
+
+
+.todo-list li span{
+    background-color: transparent;
+    color:red;
+    border: 0;
+    padding-left: 3%;
+}
+
+.todo-list li:nth-child(odd) {
+    background-color: #ffb3ef;
+}
+
+.todo-list li:nth-child(even) {
+    background-color: #e07cff; 
+}
+
+
+
+.dictonary-div{
+    background-color: rgb(213, 213, 213);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    
+}
+
+.dictonary-div dt {
+    font-weight: bold;
+    font-size: 25px;
+    
+}
+.dictonary-div dl {
+    font-style: italic;
+    font-size: 18px;
+    padding: 1%;
+}
+h1{
+    text-align: center;
+}
