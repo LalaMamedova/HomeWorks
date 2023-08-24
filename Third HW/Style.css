@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+
+@font-face {
+    font-family: Tilt Prism;
+    src: url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
+}
+@font-face {
+    font-family: Hadjet;
+    src:url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+}
+
+
+.main-div{
+    display: flex;
+    background-image: url(Img/Comp.jpg);
+    background-size: cover;
+    background-position:center; 
+}
+
+.contact-nav{
+    font-family: Tilt Prism; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact-nav h1 a{
+    color: rgba(0, 64, 239, 0.758);
+    text-decoration: none;
+    font-size: 40px;
+    display: flex;
+}
+
+.contact-nav li{
+
+    display: flex;
+    height: 100%;
+    width: 70px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.contact-nav li a{
+
+    display: flex;
+    height: 100%;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+
+.auto-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 1%;
+    margin-left: auto;
+
+}
+
+.auto-nav button
+{
+    border-width: 2px;
+    height: 30px;
+    border-radius: 5px;
+    border-color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(255, 207, 143);
+}
