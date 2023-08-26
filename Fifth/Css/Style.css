@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+
+@font-face {
+    font-family: Tilt Prism;
+    src: url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
+    font-family: "Handjet";
+    src:url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+}
+
+
+
+.main-header-div{
+    display: flex;
+    background-image: url("../Img/Caset.jpg");
+    background-size:cover;
+    background-position:center; 
+    align-items: center;
+}
+
+.logo-nav{
+    font-family: Tilt Prism;
+}
+
+.logo-nav h1 a{
+    color: rgba(103, 255, 255, 0.758);
+    font-size: 55px;
+    text-decoration: none;
+    justify-content: space-between;
+    display: flex;
+}
+
+
+
+.search-nav {
+    display: flex;
+    position: relative;
+    margin-left: auto;
+
+}
+
+.search-nav input{
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+}
+
+
+.auto-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-left: auto;
+}
+
+
+.main-div {
+    display: flex;
+}
+
+.list-div{
+    background: linear-gradient(90deg, #b222ff,#ffd319); 
+
+}
+
+.list-div ul {
+    display: flex;
+    list-style: none;
+    font-family: "Handjet";
+    flex-wrap: wrap; 
+    justify-content: space-between;
+}
+
+.list-div ul li {
+    width: 25%;
+    height: 600px;
+    margin: 30px 20px; 
+    padding: 20px;
+    border: 5px solid #ffffff; 
+    border-radius: 5%;
+    background: linear-gradient(135deg, #1e3cff,	#ff1f2e); 
+    box-shadow: 0px 0px 20px black;
+ }
+ 
+ .list-div ul li img {
+     display: flex;
+     border-radius: 5%;
+     width: 100%;
+     height: 45%; 
+ }
+ 
+ .list-div ul li p {
+    font-size: 22px;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    color: white;
+    font-weight: bolder; 
+ }
+ 
+ .list-div ul li a {
+     text-decoration: none;
+     color: white ; 
+     text-align: center;
+     font-size: 30px;
+ }
+
+.side-bar-div{
+
+    display: flex;
+    background: linear-gradient(85deg, #ff1f1f,	#b300c3); 
+}
+/* .side-bar-div ul {
+
+    display: flex;
+    text-decoration: none;
+}
+.side-bar-div ul li{
+    display: flex;
+    text-decoration: none;
+}
+
+.side-bar-div ul li a{
+    display: flex;
+    color: black;
+    text-decoration: none;
+    padding: 0px 10px;
+} */
+
+.range-div{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    position: relative;
+}
+
+.range-div p{
+    padding: 0px 10px;
+}
+.side-bar-div input[type="range"]{
+    display: flex;
+    position: relative;
+    align-self: flex-start;
+    padding: 10% 0%;
+
+}
+
+
+ /* Foot */
+ .foot-div{
+    text-align: center;
+    align-items: center;
+ }
+
+ .contact-nav{
+     display: flex;
+    font-family: "Handjet"; 
+    position: relative;
+    flex-wrap: wrap;
+    background: black;
+}
+
+
+.contact-nav li{
+
+    display: flex;
+    font-size: 30px;
+    margin-left: 18px;
+    justify-content: space-around;
+}
+
+.contact-nav li a{
+
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: bolder;
+}
