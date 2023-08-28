@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+
+@font-face {
+    font-family: Tilt Prism;
+    src: url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
+    font-family: "Handjet";
+    src:url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+}
+
+
+.main-div{
+    background: linear-gradient(90deg, #b222ff,#ffd319); 
+    display: flex;
+    width: 120%;
+}
+
+
+.add-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left:25% ;
+
+}
+
+.add-box input{
+    box-shadow: 0px 0px 20px black;
+    background: linear-gradient(100deg, #f2d9ff,#ff19c2); 
+
+}
+
+.add-box textarea{
+    box-shadow: 0px 0px 20px black;
+    background: linear-gradient(100deg, #f2d9ff,#ff19c2); 
+
+}
+.temp-div li{
+    color: white;
+    font-weight: bold;
+}
+
+.temp-div li{
+    font-family: "Handjet";
+    flex-wrap: wrap; 
+    width: 300px;
+    list-style: none;
+    height: 600px;
+    margin: 30px 20px; 
+    padding: 20px;
+    border: 5px solid #ffffff; 
+    border-radius: 5%;
+    background: linear-gradient(135deg, #1e3cff,	#ff1f2e); 
+    box-shadow: 0px 0px 20px black;
+    margin: 0% 40%;
+
+}
+
+.temp-div li img{
+    display: flex;
+    border-radius: 5%;
+    width: 100%;
+    height: 45%; 
+}
+
+.temp-div  li p {
+    font-size: 22px;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    font-weight: bolder; 
+ }
+ 
+ .temp-div li a {
+     text-decoration: none;
+     text-align: center;
+     font-size: 30px;
+ }

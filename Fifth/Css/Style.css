@@ -22,6 +22,11 @@
     font-family: Tilt Prism;
 }
 
+h1{
+    font-family:  "Handjet";
+    text-align: center;
+}
+
 .logo-nav h1 a{
     color: rgba(103, 255, 255, 0.758);
     font-size: 55px;
@@ -62,7 +67,6 @@
 
 .list-div{
     background: linear-gradient(90deg, #b222ff,#ffd319); 
-
 }
 
 .list-div ul {
@@ -110,44 +114,49 @@
  }
 
 .side-bar-div{
-
-    display: flex;
+    display: block;
     background: linear-gradient(85deg, #ff1f1f,	#b300c3); 
 }
-/* .side-bar-div ul {
 
-    display: flex;
-    text-decoration: none;
-}
-.side-bar-div ul li{
-    display: flex;
-    text-decoration: none;
-}
 
-.side-bar-div ul li a{
+.group-box {
+    border: 5px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     display: flex;
-    color: black;
-    text-decoration: none;
-    padding: 0px 10px;
-} */
-
-.range-div{
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    position: relative;
+    flex-direction: column; 
+    align-items: center; 
+    font-family: "Handjet";
+    height: 85px;
 }
 
-.range-div p{
-    padding: 0px 10px;
-}
-.side-bar-div input[type="range"]{
-    display: flex;
-    position: relative;
-    align-self: flex-start;
-    padding: 10% 0%;
+.group-box input {
+    display: block;
+    font-family: "Handjet";
+    height: 25px;
+    background: linear-gradient(85deg, #ffffff,	#ff60dd); 
 
 }
+
+.group-box select{
+    background-color: pink;
+    color: rgb(125, 78, 255);
+    font-family: "Handjet";
+    font-size: 25px;
+}
+.group-box h3 {
+    margin-top: 0; 
+    margin-bottom: 10px;
+    font-family: "Handjet";
+}
+
+.group-box p {
+    margin: 0;
+    font-weight: bold;
+}
+
+
 
 
  /* Foot */

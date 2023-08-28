@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Css/Style.css">
-    <link rel="stylesheet" href="Css/Button styles.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/Css/Button styles.css">
+    <title>RETRO</title>
     <script src="/JS/main.js" defer></script>
 </head>
 <body>
@@ -31,21 +31,40 @@
         <div style="height: 35px;  background: white;"></div>
 
         <div class="main-div">
-            <div class="side-bar-div">
-                <!-- <ul>
-                    <li><a  href="#">Home</a></li>
-                    <li><a  href="#">Abous us</a></li>
-                    <li><a  href="#">Privacy</a></li>
-                    <li><a  href="#">Contacts</a></li>
-                </ul> -->
-                <div class="side-bar-div range-div">
-                    <p>Год</p>
-                    <input type="range" min="0" max="2023">
+            <!-- <button id="toggleButton" class="header-button"
+                    style="height: 80px;">
+                    Показать фильтры</button> -->
+            <div class="side-bar-div" id="filtersContainer" >
+                <h1>Фильтрация</h1>
+                <div class="group-box">
+                    <h3>Год</h3>
+                    <input type="range" min="1600" id="ageRange">
+                    <p id="ageChoice">1600</p>
+                </div>
+
+                <div class="group-box">
+                    <h3>Название</h3>
+                    <input type="search">
+                </div>
+
+                <div class="group-box">
+                    <h3>Тип технологии</h3>
+                    <select id="tech-type-box">
+                        <option value="Компьютер">Компьютер</option>
+                        <option value="Телефоны">Телефоны</option>
+                        <option value="Радио">Радио</option>
+                        <option value="Приставки">Приставки</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </div>
+                <div class="group-box">
+                    <h3>Описание</h3>
+                    <input type="search">
                 </div>
             </div>
             <div class="list-div">
-                <ul id="tech-list">
-                    <li>
+                <ul  onclick="ulClick(event)" id="tech-list">
+                    <li >
                         <a href="#">
                             <img src="TechImg/iMac-G3.jpeg" alt="Imac-G3">
                             <h2>IMac G3</h2>
@@ -85,6 +104,14 @@
                             <p>Название семейства дешёвых фотоаппаратов простейшего типа, выпускавшихся компанией Eastman Kodak в течение нескольких десятилетий, начиная с 1900 года. Первая модель линейки стоила всего 1 доллар и была самой дешёвой и доступной камерой своего времени.Название «Брауни» позаимствовано у известных персонажей комиксов Палмера Кокса, поскольку фотоаппарат первоначально предназначался для детей</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="#">
+                            <img src="TechImg/Nokia_3310_Blue.png" alt="Nokai 3310">
+                            <h2>Nokia 3310</h2>
+                            <h6>2000</h6>
+                            <p> двухдиапазонный (GSM 900/1800) сотовый телефон фирмы Nokia. Выпущен в сентябре 2000 года, придя на смену модели Nokia 3210. Nokia 3310 — одна из самых удачных моделей в истории: было продано около 126 миллионов аппаратов. Снята с производства в 2005 году</p>
+                        </a>
+                    </li>      
                 </ul>
             </div>
         </div>
