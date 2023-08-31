@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AddTech</title>
     <script src="/js/addRedact.js" defer></script>
-    <link rel="stylesheet" href="/Css/Style.css">
     <link rel="stylesheet" href="/Css/AddPage.css">
     <link rel="stylesheet" href="/Css/Button styles.css">
+
 <body>
     <header>
         <div class="main-header-div">
@@ -37,32 +37,51 @@
                
                 <div class="add-box">
                     <h1>Фотография</h1>
-                    <input type="button" class="header-button" 
-                    value="Добавить" id="input-img"> 
+                    <input type="text" id="input-img" placeholder="Введите URL">
+                    <!-- <input type="button" class="header-button" 
+                    value="Добавить" id="input-img">  -->
                 </div>
 
                 <div class="add-box">
                     <h1>Год релиза</h1>
-                    <input type="text" id="input-date">
+                    <input type="text" id="input-date" >
                 </div>
+
+            
                 <div class="add-box">
                     <h1>Описание</h1>
-                    <textarea rows="10" cols="50" id="input-description">
-                      Описание...
-                    </textarea>
+                    <textarea rows="10" cols="40" id="input-description"  placeholder="Описание"></textarea>
                 </div>
+              
             </div>
-   
 
             <div class="temp-div">
-                <li id="tech-temp">
+                <li id="tech-li">
                     <img id="tech-img">
                     <h2 id="tech-name"></h2>
                     <h3 id="tech-date"></h3>
                     <p id="tech-description"></p>
                 </li>
             </div>
+
         </div>
+
+        <div class="confirm-div">
+            <input type="button" value="Подтвердить" id="confirm-btn">
+        </div>
+       
+       
     </main>
+
+     <footer>
+         <div class="foot-div">
+                <nav class="contact-nav">
+                    <li><a  href="#">Home</a></li>
+                    <li><a  href="#">Abous us</a></li>
+                    <li><a  href="#">Privacy</a></li>
+                    <li><a  href="#">Contacts</a></li>
+                 </nav>
+            </div>
+    </footer>
 </body>
 </html>

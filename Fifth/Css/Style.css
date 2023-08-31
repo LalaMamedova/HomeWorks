@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
 
 @font-face {
-    font-family: Tilt Prism;
+    font-family: "Tilt Prism";
     src: url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
     font-family: "Handjet";
     src:url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
@@ -15,17 +15,13 @@
     background-image: url("../Img/Caset.jpg");
     background-size:cover;
     background-position:center; 
-    align-items: center;
 }
 
 .logo-nav{
-    font-family: Tilt Prism;
+    font-family: "Tilt Prism";
 }
 
-h1{
-    font-family:  "Handjet";
-    text-align: center;
-}
+
 
 .logo-nav h1 a{
     color: rgba(103, 255, 255, 0.758);
@@ -41,16 +37,9 @@ h1{
     display: flex;
     position: relative;
     margin-left: auto;
-
+    align-self: center;
 }
 
-.search-nav input{
-
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-}
 
 
 .auto-nav {
@@ -58,6 +47,17 @@ h1{
     justify-content: space-between;
     align-items: flex-start;
     margin-left: auto;
+    align-self: center;
+}
+
+.music-bar{
+    display: flex;
+    position: absolute;
+    margin-top: 5.7%;
+}
+
+.music-bar button{
+    margin: 5px;
 }
 
 
@@ -67,6 +67,7 @@ h1{
 
 .list-div{
     background: linear-gradient(90deg, #b222ff,#ffd319); 
+    border-radius: 10px;
 }
 
 .list-div ul {
@@ -114,8 +115,15 @@ h1{
  }
 
 .side-bar-div{
+    font-family: "Handjet";
     display: block;
     background: linear-gradient(85deg, #ff1f1f,	#b300c3); 
+    margin-right: 5px;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
 }
 
 
@@ -127,13 +135,13 @@ h1{
     display: flex;
     flex-direction: column; 
     align-items: center; 
-    font-family: "Handjet";
     height: 85px;
+  
+
 }
 
 .group-box input {
     display: block;
-    font-family: "Handjet";
     height: 25px;
     background: linear-gradient(85deg, #ffffff,	#ff60dd); 
 
@@ -142,13 +150,13 @@ h1{
 .group-box select{
     background-color: pink;
     color: rgb(125, 78, 255);
-    font-family: "Handjet";
     font-size: 25px;
+    font-family: "Handjet";
+
 }
 .group-box h3 {
     margin-top: 0; 
     margin-bottom: 10px;
-    font-family: "Handjet";
 }
 
 .group-box p {
@@ -166,7 +174,7 @@ h1{
  }
 
  .contact-nav{
-     display: flex;
+    display: flex;
     font-family: "Handjet"; 
     position: relative;
     flex-wrap: wrap;
