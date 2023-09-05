@@ -1,4 +1,4 @@
-.header-button {
+.main-button {
     display: flex;
     border-width: 3px;
     font-size: 25px;
@@ -12,7 +12,7 @@
     background-size: 200% 100%; 
   }
   
-  .header-button:hover {
+  .main-button:hover {
     color: rgb(255, 255, 255);
     background-image: linear-gradient(135deg, #ffd103, #ff2277); 
     background-position: 0 100% ; 
@@ -21,7 +21,7 @@
   }
 
 
-.header-button:active
+  main-button:active
 {
     border-color: rgb(255, 255, 255);
     font-family: "Handjet";
@@ -80,7 +80,7 @@
 
 
 
-.header-button.search-button {
+.main-button.search-button {
     background-image: url(../Icon/Search.png);
     background-repeat: no-repeat;
     background-size: 20px; 
@@ -102,7 +102,7 @@
     background-image: url(../Icon/Next.png);
     
 }
-.header-button.search-button:hover {
+.main-button.search-button:hover {
     background-color: rgb(152, 86, 0);
 }
 

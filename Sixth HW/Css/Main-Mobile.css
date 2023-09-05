@@ -57,6 +57,12 @@ html,body{
     align-self: center;
 }
 
+.auto-nav button a{
+    text-decoration: none;
+    color: black;
+ }
+ 
+ 
 .music-bar{
     display: flex;
     position: absolute;
