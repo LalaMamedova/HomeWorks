@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap");
+@font-face {
+  font-family: "Tilt Prism";
+  src: url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap");
+  font-family: "Handjet";
+  src: url("https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap");
+}
+html {
+  margin: 0;
+  background: linear-gradient(90deg, #b222ff, #ffd319);
+  transition: all ease-in 0.4s;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(90deg, #b222ff, #ffd319);
+  transition: all ease-in 0.4s;
+}
+
+.main-header-div {
+  display: flex;
+  background-image: url("../Img/Caset.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+}
+
+.logo-nav {
+  font-family: "Tilt Prism";
+  margin: 0;
+}
+.logo-nav h1 a {
+  color: rgba(103, 255, 255, 0.758);
+  font-size: 55px;
+  text-decoration: none;
+  justify-content: space-between;
+  display: flex;
+  font-weight: bold;
+  transition: all ease-in 0.4s;
+}
+.logo-nav h1 a:hover {
+  background: linear-gradient(to bottom, #ff0000, #3300ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-decoration: none;
+  font-size: 75px;
+  margin-left: 30px;
+}
+.logo-nav h1 a:active {
+  background: linear-gradient(to bottom, #ff0000, #ffc508);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-decoration: none;
+  font-size: 90px;
+  margin-left: 40px;
+}
+
+.search-nav {
+  display: none;
+}
+
+.auto-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: auto;
+  align-self: center;
+}
+.auto-nav button a {
+  text-decoration: none;
+  color: black;
+}
+
+.music-bar {
+  display: flex;
+  position: absolute;
+  align-self: center;
+  margin-left: 50%;
+}
+
+.main-div {
+  display: flex;
+  margin-top: 10px;
+}
+
+.list-div {
+  border-radius: 10px;
+}
+.list-div ul {
+  display: flex;
+  list-style: none;
+  font-family: "Handjet";
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.list-div ul li {
+  width: 25%;
+  height: 600px;
+  margin: 30px 20px;
+  padding: 20px;
+  border: 5px solid #ffffff;
+  border-radius: 5%;
+  background: linear-gradient(135deg, #1e3cff, #ff1f2e);
+  box-shadow: 0px 0px 20px black;
+}
+.list-div ul li img {
+  display: flex;
+  border-radius: 5%;
+  width: 100%;
+  height: 45%;
+}
+.list-div ul li p {
+  font-size: 22px;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  color: white;
+  font-weight: bolder;
+}
+.list-div ul li a {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+}
+
+.side-bar-div {
+  font-family: "Handjet";
+  display: block;
+  background: linear-gradient(85deg, #ff1f1f, #b300c3);
+  margin-right: 5px;
+  border-radius: 10px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+}
+
+.group-box {
+  border: 5px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85px;
+}
+.group-box input {
+  display: block;
+  height: 25px;
+  background: linear-gradient(85deg, #ffffff, #ff60dd);
+}
+.group-box select {
+  background-color: pink;
+  color: rgb(125, 78, 255);
+  font-size: 25px;
+  font-family: "Handjet";
+}
+.group-box h3 {
+  margin: 22px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.group-box p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.foot-div {
+  text-align: center;
+  align-items: center;
+}
+
+.contact-nav {
+  display: flex;
+  font-family: "Handjet";
+  position: relative;
+  flex-wrap: wrap;
+  background: black;
+}
+.contact-nav li {
+  display: flex;
+  font-size: 30px;
+  margin-left: 18px;
+  justify-content: space-around;
+}
+.contact-nav li a {
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-weight: bolder;
+}/*# sourceMappingURL=Main.css.map */

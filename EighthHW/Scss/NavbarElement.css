@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap");
+@font-face {
+  font-family: "Tilt Prism";
+  src: url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap");
+  font-family: "Handjet";
+  src: url("https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap");
+}
+.about-us-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.about-us-button:hover {
+  background-color: #ff003b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, #ff1f1f, #b300c3);
+  color: white;
+  text-align: center;
+  font-family: "Handjet";
+}
+
+header nav {
+  background-color: rgba(255, 34, 119, 0.4);
+  padding: 20px 0;
+}
+header nav ul {
+  list-style: none;
+}
+header nav ul li {
+  display: inline;
+  margin: 0 20px;
+}
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+  font-size: 25px;
+}
+header nav ul li a:hover {
+  color: #ffd103;
+}
+header .title {
+  font-size: 36px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+main {
+  padding: 20px;
+  display: flex;
+  position: relative;
+  text-align: center;
+}
+main .about h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  margin-left: 20%;
+}
+main .about p {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-left: 20%;
+  word-wrap: break-word;
+  line-height: 1.5;
+  font-size: 28px;
+  max-width: 35em;
+}
+main .image-gallery img {
+  display: flex;
+  position: absolute;
+  margin-left: 20%;
+  margin-top: 5%;
+  border-radius: 30% 30% 20px 20px;
+}
+
+.privacy {
+  display: inline;
+  text-align: center;
+  position: relative;
+}
+.privacy ol {
+  text-align: center;
+  position: relative;
+  flex-wrap: wrap;
+  margin: 25px;
+}
+.privacy ol li {
+  padding-bottom: 40px;
+  display: inline;
+  list-style: decimal;
+}
+.privacy h2 {
+  display: inline;
+  font-size: 50px;
+}
+.privacy ol li p {
+  display: block;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  font-size: 45px;
+  max-width: 100%;
+  padding-bottom: 50px;
+}
+.privacy ol li p a {
+  text-decoration: none;
+  color: rgb(214, 189, 0);
+  margin-left: 5px;
+}
+.privacy ol li p a:active {
+  color: rgb(0, 0, 0);
+}
+
+.contacts {
+  display: flex;
+  text-align: center;
+  position: relative;
+}
+.contacts ol {
+  display: flex;
+  text-align: center;
+  position: relative;
+  flex-wrap: wrap;
+  margin: 25px;
+}
+.contacts ol li {
+  padding: 40px;
+  display: inline;
+  list-style: decimal;
+}
+.contacts h2 {
+  display: inline;
+  font-size: 50px;
+}
+.contacts ol li p {
+  display: block;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  font-size: 35px;
+  max-width: 100%;
+  padding-bottom: 50px;
+}
+.contacts ol li p a {
+  text-decoration: none;
+  color: rgb(214, 189, 0);
+  margin-left: 5px;
+}
+.contacts ol li p a:active {
+  color: rgb(0, 0, 0);
+}
+
+footer {
+  display: flex;
+  background: #ff2277;
+  padding: 10px 0;
+}
+footer p {
+  font-size: 16px;
+}/*# sourceMappingURL=NavbarElement.css.map */

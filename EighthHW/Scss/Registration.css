@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap");
+@font-face {
+  font-family: "Tilt Prism";
+  src: url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap");
+  font-family: "Handjet";
+  src: url("https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap");
+}
+@keyframes hideButton {
+  0% {
+    width: 180px;
+  }
+  100% {
+    width: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+}
+html {
+  background: linear-gradient(90deg, #4300a1, #f36500);
+}
+
+body {
+  background: linear-gradient(90deg, #4300a1, #f36500);
+}
+
+.main-div {
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+  position: absolute;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  height: 720px;
+  width: 30%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 182, 193, 0.6);
+  font-family: "Handjet";
+  transition: all ease 0.5;
+}
+.main-div input {
+  font-size: 35px;
+}
+
+.login-div {
+  display: flexbox;
+}
+.login-div h1 {
+  font-family: "Tilt Prism";
+  color: #ff2277;
+  font-size: 70px;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.login-div form {
+  display: flex;
+  margin: 15px;
+}
+
+.remember-me {
+  display: flex;
+  font-size: 30px;
+  margin-top: 10px;
+}
+.remember-me input {
+  width: 20px;
+  height: 20px;
+  transition: all ease 0.5s;
+}
+.remember-me input:hover {
+  width: 30px;
+  height: 30px;
+}
+
+.submit-sign-in {
+  width: 180px;
+  font-size: 32px;
+  border-radius: 5px;
+  left: 50%;
+  bottom: 15%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border: none;
+  border-top: solid #ff2277 5px;
+  border-left: solid #ff2277 3px;
+  background-color: rgba(158, 0, 26, 0.7019607843);
+  color: white;
+  font-family: "Handjet";
+  transition: all ease 0.5s;
+}
+.submit-sign-in:hover {
+  border-top: solid rgba(158, 0, 26, 0.7019607843) 3px;
+  border-left: solid rgba(158, 0, 26, 0.7019607843) 8px;
+  background-color: #ff2277;
+}
+.submit-sign-in:active {
+  border-top: solid rgba(158, 0, 26, 0.7019607843) 3px;
+  border-left: solid rgba(158, 0, 26, 0.7019607843) 8px;
+  background-color: #ff2277;
+  width: 100%;
+}
+
+.submit-signup {
+  width: 180px;
+  font-size: 28px;
+  border-radius: 5px;
+  left: 50%;
+  bottom: 15%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border: none;
+  border-top: solid rgba(158, 0, 26, 0.7019607843) 5px;
+  border-left: solid rgba(158, 0, 26, 0.7019607843) 3px;
+  background-color: #ff2277;
+  color: white;
+  font-family: "Handjet";
+  transition: all ease 0.5s;
+}
+.submit-signup:hover {
+  border-top: solid #ff2277 3px;
+  border-left: solid #ff2277 8px;
+  background-color: rgba(158, 0, 26, 0.7019607843);
+}
+.submit-signup:active {
+  animation: hideButton 0.5s forwards;
+}
+
+.new-acc-div {
+  position: absolute;
+  bottom: 3%;
+  font-size: 23px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+.new-acc-div a {
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 1424px) {
+  .main-div {
+    height: 720px;
+    width: 50%;
+  }
+  .login-div h1 {
+    font-size: 60px;
+  }
+  .login-div input {
+    font-size: 35px;
+  }
+  .new-acc-div {
+    flex-wrap: wrap;
+    align-self: center;
+    justify-content: start;
+    font-size: 20px;
+  }
+  .new-acc-div a {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 770px) {
+  .main-div {
+    height: 720px;
+    width: 60%;
+  }
+  .login-div h1 {
+    font-size: 45px;
+  }
+  .login-div input {
+    font-size: 25px;
+  }
+  .new-acc-div {
+    flex-wrap: wrap;
+    bottom: 3%;
+    left: 25%;
+    font-size: 16px;
+  }
+  .new-acc-div a {
+    font-size: 17px;
+  }
+}/*# sourceMappingURL=Registration.css.map */

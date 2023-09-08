@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&family=Wavefont&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+
+@font-face {
+    font-family: "Tilt Prism";
+    src: url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
+    font-family: "Handjet";
+    src:url('https://fonts.googleapis.com/css2?family=Handjet:ELGR@1;1.1&display=swap');
+}
