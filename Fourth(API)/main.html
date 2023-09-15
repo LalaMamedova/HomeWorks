@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <script defer src="main.js"></script>
+    <title>Document</title>
+</head>
+<body class="main-body">
+    <main>
+
+        <div class="main-div">
+            <h1>Weather</h1>
+            <form class="weather-form">
+                <input class="city-name-btn" type="search" placeholder="City" value="Baku">
+                <input class="search-btn" type="button" value="Search">
+            </form>
+            <div class="weather-res-div">
+                <img class="weather-icon" src="asset/cloudy.png">
+                <h1 class="city-name"></h1>
+
+                <form name="temperature" class="temperature-form">
+                    <img src="/asset/temperature.png">
+                    <span class="temperature">25&degC</span>
+                </form>
+
+                <div class="weather-info">
+                    <form name="feels-like">
+                        <img src="/asset/feelslike.png">
+                        <span class="feels-like">3</span>
+                    </form>
+
+                    <form name="humidity">
+                        <img src="asset/humidity.png">
+                        <span class="humidity">2</span>
+                    </form>
+                    <form name="wind">
+                        <img src="asset/wind.png">
+                        <span class="wind">2</span>
+                    </form>
+
+                </div>
+                
+            </div>
+            <div class="null-res-div">
+                <img src="asset/Error.png" alt="Error">
+                <h2>Opps, the are no city</h2>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
