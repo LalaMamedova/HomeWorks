@@ -1,0 +1,253 @@
+@import url(/Scss/Addons.css);
+@import url(/Scss/Animation.css);
+a {
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  margin: 0;
+  transition: all 0.4s ease-in;
+  background: linear-gradient(285deg, #34eeff, #ff269d);
+  animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.main-header-div {
+  display: flex;
+  background-image: url("../Assets/Img/Caset.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: 3px solid black;
+  height: 120px;
+}
+
+.logo-nav {
+  font-family: "Disko teque";
+  position: relative;
+  margin: 0;
+  width: 300px;
+}
+.logo-nav h1 {
+  margin: 0;
+}
+.logo-nav h1 a {
+  color: rgba(0, 0, 0, 0.758);
+  font-size: 60px;
+  text-decoration: none;
+  justify-content: space-between;
+  display: flex;
+  font-weight: bold;
+  transition: all ease-in 0.4s;
+}
+.logo-nav h1 a:hover {
+  background: linear-gradient(to bottom, #ff0000, #3300ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-decoration: none;
+  font-size: 70px;
+  margin-left: 20px;
+}
+
+.auto-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.auto-mob-nav {
+  display: none;
+}
+
+.bottons-div a {
+  text-align: none;
+  color: black;
+}
+
+.music-bar {
+  display: flex;
+  position: absolute;
+  align-self: flex-end;
+  margin-left: 50%;
+}
+
+.main-div {
+  display: block;
+  position: relative;
+}
+
+.all-img-div {
+  display: block;
+  position: relative;
+  top: 30px;
+  width: 70%;
+  left: 30%;
+}
+
+.carousel-item {
+  text-align: center;
+}
+.carousel-item img {
+  position: relative;
+  height: 550px;
+  width: 100%;
+  box-shadow: 40px 20px 0px 0px rgb(0, 0, 0);
+  border: 5px solid black;
+}
+.carousel-item p {
+  position: relative;
+  font-family: "Handjet";
+  font-size: 30px;
+  border-radius: 50px;
+}
+
+.carousel-control-prev {
+  background-color: rgba(0, 0, 0, 0.292);
+  height: 90%;
+  border-radius: 0px 0px 0px 50px;
+}
+
+.carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.292);
+  height: 90%;
+  border-radius: 0px 0px 0px 50px;
+}
+
+.mini-info-div {
+  display: block;
+  position: absolute;
+  max-width: 350px;
+  top: 0;
+}
+
+.interactiv-btn-div {
+  justify-content: space-between;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+  transition: all ease 0.5s;
+  margin: 30px;
+}
+
+section {
+  position: relative;
+  display: block;
+  font-family: "Handjet";
+  border: 5px solid rgb(255, 255, 255);
+  background: linear-gradient(135deg, #8a98ff, #ff78c7);
+  box-shadow: 25px 8px 0px 0px rgb(74, 0, 74);
+  border-radius: 15px;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding: 30px;
+}
+section label {
+  font-size: 33px;
+  font-weight: bolder;
+}
+section span {
+  font-size: 40px;
+  margin-left: 15px;
+  text-wrap: wrap;
+}
+
+.other-info-div {
+  margin-top: 50px;
+  position: relative;
+}
+
+#description-section {
+  max-width: 110em;
+  margin-bottom: 50px;
+}
+
+.fact-and-char-div {
+  display: flex;
+  list-style: none;
+  padding-bottom: 30px;
+}
+
+#fact-section {
+  max-width: 45%;
+}
+
+#char-section {
+  display: block;
+  min-width: 500px;
+}
+
+#tech-char-name {
+  font-weight: normal;
+}
+
+#char-section {
+  position: relative;
+  margin-right: 15%;
+}
+
+@media screen and (max-width: 1200px) {
+  .all-img-div {
+    display: block;
+    position: relative;
+    width: 90%;
+    margin: 5%;
+    left: 0;
+  }
+  .interactiv-btn-div {
+    text-align: start;
+    transition: all ease-in-out 0.5s;
+  }
+  .mini-info-div {
+    position: relative;
+    width: 100%;
+    margin: 0%;
+  }
+  section {
+    margin: 30px;
+  }
+  #description-section {
+    max-width: 100%;
+  }
+  #char-section {
+    margin-right: 0%;
+    width: 50%;
+  }
+  #fact-section {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .interactiv-btn-div {
+    text-align: center;
+    transition: all ease-in-out 0.5s;
+  }
+  .mini-info-div {
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+  .music-bar {
+    align-items: flex-start;
+    margin-left: 0;
+  }
+  .logo-nav {
+    display: none;
+  }
+  .fact-and-char-div {
+    word-wrap: break-word;
+    display: block;
+    margin: 5%;
+  }
+  #char-section {
+    width: 100%;
+    margin: 0%;
+    margin-bottom: 5px;
+  }
+  #fact-section {
+    width: 100%;
+    margin: 0px;
+  }
+}/*# sourceMappingURL=InfoPage.css.map */

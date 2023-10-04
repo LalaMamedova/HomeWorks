@@ -1,0 +1,243 @@
+@import url(/Scss/Addons.css);
+$color_1: rgba(0, 0, 0, 0.758);
+$color_2: #ff2277;
+$color_3: #1fffe9;
+$color_4: white;
+$font-family_1: "Disko teque";
+$font-family_2: "Handjet";
+$font-family_3: "Tilt Prism";
+$background-color_1: rgba(255, 182, 193, 0.6);
+$background-color_2: #9e001ab3;
+$background-color_3: #ff2277;
+
+@keyframes hideButton {
+	0% {
+		width: 180px;
+	}
+	100% {
+		width: 0;
+		padding: 0;
+		margin: 0;
+		border: none;
+	}
+}
+html {
+	background: linear-gradient(285deg, #34eeff, #ff269d);
+	margin: 0;
+}
+body {
+	background: linear-gradient(285deg, #34eeff, #ff269d);
+	margin: 0;
+}
+.main-header-div {
+	display: flex;
+	background-image: url("../Assets/Img/Caset.jpg");
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	border: 3px solid black;
+	height: 120px;
+}
+.logo-nav {
+	font-family: $font-family_1;
+	position: relative;
+	h1 {
+		margin: 0;
+		a {
+			color: $color_1;
+			font-size: 60px;
+			text-decoration: none;
+			justify-content: space-between;
+			display: flex;
+			font-weight: bold;
+			transition: all ease-in 0.4s;
+		}
+	}
+}
+.music-bar {
+	display: flex;
+	position: absolute;
+	align-self: flex-end;
+	margin-left: 50%;
+	margin-bottom: 5px;
+	transition: all 0.5s ease-in-out;
+}
+.main-div {
+	display: flex;
+	flex-direction: column;
+	border: solid black 2px;
+	position: absolute;
+	align-self: center;
+	align-items: center;
+	justify-content: center;
+	border-radius: 25px;
+	height: 750px;
+	width: 60%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: $background-color_1;
+	font-family: $font-family_2;
+	transition: all ease 0.5;
+	input {
+		font-size: 40px;
+	}
+}
+.text-input {
+	position: relative;
+	display: flex;
+}
+.remember-me {
+	label {
+		margin: 0;
+	}
+	display: flex;
+	font-size: 30px;
+	margin-top: 10px;
+	input {
+		width: 20px;
+		height: 20px;
+		transition: all ease 0.5s;
+		&:hover {
+			width: 30px;
+			height: 30px;
+		}
+	}
+}
+.login-div {
+	h1 {
+		font-family: $font-family_3;
+		color: $color_2;
+		position: absolute;
+		font-size: 65px;
+		top: 5%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	display: block;
+	form {
+		display: flex;
+		margin: 15px;
+	}
+}
+.new-acc-div {
+	position: absolute;
+	bottom: 3%;
+	font-size: 23px;
+	cursor: pointer;
+	font-weight: bolder;
+	a {
+		text-decoration: none;
+		color: $color_3;
+		font-size: 25px;
+		&:hover {
+			color: $color_4;
+		}
+	}
+}
+.submit-sign-in {
+	width: 40%;
+	font-size: 32px;
+	border-radius: 5px;
+	left: 50%;
+	bottom: 15%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	border: none;
+	border-top: solid #ff2277 5px;
+	border-left: solid #ff2277 3px;
+	background-color: $background-color_2;
+	color: $color_4;
+	font-family: $font-family_2;
+	transition: all ease 0.5s;
+	&:hover {
+		border-top: solid #9e001ab3 3px;
+		border-left: solid #9e001ab3 8px;
+		background-color: $background-color_3;
+	}
+	&:active {
+		border-top: solid #9e001ab3 3px;
+		border-left: solid #9e001ab3 8px;
+		background-color: $background-color_3;
+		width: 100%;
+	}
+}
+.submit-sign-up {
+	width: 40%;
+	font-size: 28px;
+	border-radius: 5px;
+	left: 50%;
+	bottom: 15%;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	border: none;
+	border-top: solid #9e001ab3 5px;
+	border-left: solid #9e001ab3 3px;
+	background-color: $background-color_3;
+	color: $color_4;
+	font-family: $font-family_2;
+	transition: all ease 0.5s;
+	&:hover {
+		border-top: solid #ff2277 3px;
+		border-left: solid #ff2277 8px;
+		background-color: $background-color_2;
+	}
+	&:active {
+		animation: hideButton 0.5s forwards;
+	}
+}
+@media screen and (max-width: 650px) {
+	.main-div {
+		width: 90%;
+	}
+	.login-div {
+		input {
+			font-size: 30px;
+		}
+	}
+	.text-input {
+		form {
+			input {
+				position: relative;
+				width: 100%;
+			}
+		}
+	}
+	.new-acc-div {
+		flex-wrap: wrap;
+		left: 15%;
+		font-size: 20px;
+		a {
+			font-size: 20px;
+		}
+	}
+	.music-bar {
+		display: flex;
+		position: absolute;
+		align-self: flex-end;
+		margin: 0;
+		margin-bottom: 5px;
+		transition: all 0.5s ease-in-out;
+	}
+}
+@media screen and (max-width: 310px) {
+	.login-div {
+		h1 {
+			font-size: 45px;
+		}
+	}
+	.submit-sign-in {
+		width: 120px;
+	}
+	.submit-sign-up {
+		width: 120px;
+	}
+	.new-acc-div {
+		flex-wrap: wrap;
+		left: 15%;
+		font-size: 20px;
+		a {
+			font-size: 20px;
+		}
+	}
+}

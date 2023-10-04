@@ -1,0 +1,240 @@
+@import url(/Scss/Addons.css);
+@import url(/Scss/Animation.css);
+a {
+  text-decoration: none;
+  color: black;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(285deg, #34eeff, #ff269d);
+  transition: all 0.4s ease;
+}
+
+.main-header-div {
+  display: flex;
+  background-image: url("../Assets/Img/Caset.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: 3px solid black;
+  height: 120px;
+  animation: slide-in-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.logo-nav {
+  font-family: "Disko teque";
+  position: relative;
+  margin: 0;
+  width: 300px;
+}
+.logo-nav h1 {
+  margin: 0;
+}
+.logo-nav h1 a {
+  color: rgba(0, 0, 0, 0.758);
+  font-size: 60px;
+  text-decoration: none;
+  justify-content: space-between;
+  display: flex;
+  font-weight: bold;
+  transition: all ease-in 0.4s;
+}
+.logo-nav h1 a:hover {
+  background: linear-gradient(to bottom, #ff0000, #3300ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-decoration: none;
+  font-size: 70px;
+  margin-left: 20px;
+}
+
+.search-nav {
+  display: none;
+}
+.search-nav input {
+  border-radius: 20px;
+}
+
+.auto-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.auto-mob-nav {
+  display: none;
+}
+
+.bottons-div a {
+  text-align: none;
+  color: black;
+}
+
+.music-bar {
+  display: flex;
+  position: absolute;
+  align-self: flex-end;
+  margin-left: 50%;
+  margin-bottom: 5px;
+}
+
+.main-div {
+  display: flex;
+}
+
+.list-div {
+  display: flex;
+  font-family: "Handjet";
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#tech-card {
+  position: relative;
+  max-height: 700px;
+  width: 35%;
+  margin: 30px 20px;
+  padding: 50px;
+  border: 5px solid #ffffff;
+  font-size: 30px;
+  border-radius: 5%;
+  background: linear-gradient(135deg, #1e38ff, #ff78c7);
+  box-shadow: 20px 20px 0px 0px black;
+  color: white;
+  text-align: center;
+  font-family: "Handjet";
+  animation: swing-in-bottom-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+#tech-card img {
+  display: flex;
+  border-radius: 5%;
+  width: 100%;
+  height: 45%;
+}
+#tech-card h6 {
+  font-size: 20px;
+}
+#tech-card p {
+  font-size: 22px;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  color: white;
+  font-weight: bolder;
+}
+
+.tech-card-buttons {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin-top: 15px;
+}
+.tech-card-buttons button {
+  margin-right: 15px;
+}
+
+.to-full-info-div {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.interest-fact span {
+  font-size: 22px;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  color: rgb(113, 255, 243);
+  font-weight: bolder;
+}
+
+.side-bar-div {
+  font-family: "Handjet";
+  background: linear-gradient(85deg, #ffc273, #b222ff);
+  box-shadow: 20px 30px 0px 0px black;
+  width: 200px;
+  margin-right: 5px;
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  animation: slide-in-left 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.filtration-div {
+  position: relative;
+  width: 200px;
+  padding: 20px 0px;
+  border-radius: 20px 20px 0 0px;
+}
+
+.group-box {
+  border-radius: 5px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85px;
+}
+.group-box input {
+  display: block;
+  height: 25px;
+  border-radius: 5px;
+  background: pink;
+}
+.group-box select {
+  background-color: pink;
+  color: rgb(125, 78, 255);
+  font-size: 25px;
+  font-family: "Handjet";
+  font-weight: bolder;
+  border-radius: 5px;
+}
+.group-box h3 {
+  margin-top: 0;
+  margin: 22px;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.group-box p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.foot-div {
+  display: inline;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.contact-nav {
+  display: flex;
+  font-family: "Handjet";
+  position: relative;
+  flex-wrap: wrap;
+  background: black;
+}
+.contact-nav li {
+  display: flex;
+  font-size: 30px;
+  margin-left: 18px;
+  justify-content: space-around;
+}
+.contact-nav li a {
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-weight: bolder;
+}/*# sourceMappingURL=Main.css.map */
