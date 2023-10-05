@@ -292,7 +292,7 @@ a {
 	}
 	.tech-temp {
 
-		display: flex;
+		display: block;
 		color: $color_5;
 		font-weight: bold;
 		position: relative;
@@ -308,6 +308,7 @@ a {
 			}
 		}
 	}
+	
 	.add-box {
 		align-items: center;
 	}

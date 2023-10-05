@@ -5,7 +5,43 @@ a {
   color: black;
 }
 
-html, body {
+#loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(285deg, #34eeff, #ff269d);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: #fff;
+}
+
+#loader-logo h1 {
+  font-size: 100px;
+  animation: pulse 0.6s;
+}
+
+#loader-progress {
+  width: 80%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+#loader-bar {
+  width: 0;
+  height: 100%;
+  background: #fff;
+  animation: fill 0.6s linear forwards;
+}
+
+body {
   margin: 0;
   min-height: 100vh;
   background: linear-gradient(285deg, #34eeff, #ff269d);
@@ -21,18 +57,19 @@ html, body {
   border: 3px solid black;
   height: 120px;
   animation: slide-in-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.7s;
 }
 
-.logo-nav {
+.logo-nav, #loader-logo {
   font-family: "Disko teque";
   position: relative;
   margin: 0;
   width: 300px;
 }
-.logo-nav h1 {
+.logo-nav h1, #loader-logo h1 {
   margin: 0;
 }
-.logo-nav h1 a {
+.logo-nav h1 a, #loader-logo h1 a {
   color: rgba(0, 0, 0, 0.758);
   font-size: 60px;
   text-decoration: none;
@@ -41,7 +78,7 @@ html, body {
   font-weight: bold;
   transition: all ease-in 0.4s;
 }
-.logo-nav h1 a:hover {
+.logo-nav h1 a:hover, #loader-logo h1 a:hover {
   background: linear-gradient(to bottom, #ff0000, #3300ff);
   background-clip: text;
   -webkit-background-clip: text;
@@ -94,9 +131,29 @@ html, body {
   justify-content: space-evenly;
 }
 
+.list-div:last-child {
+  margin-bottom: 50px;
+}
+
+.side-bar-div {
+  font-family: "Handjet";
+  background: linear-gradient(85deg, #ffc273, #b222ff);
+  box-shadow: 20px 30px 0px 0px black;
+  width: 200px;
+  margin-right: 5px;
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  animation: slide-in-left 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.7s;
+}
+
 #tech-card {
   position: relative;
   max-height: 700px;
+  min-height: 695px;
   width: 35%;
   margin: 30px 20px;
   padding: 50px;
@@ -108,7 +165,8 @@ html, body {
   color: white;
   text-align: center;
   font-family: "Handjet";
-  animation: swing-in-bottom-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  animation: swing-in-bottom-fwd 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  animation-delay: 0.7s;
 }
 #tech-card img {
   display: flex;
@@ -153,20 +211,6 @@ html, body {
   -webkit-box-orient: vertical;
   color: rgb(113, 255, 243);
   font-weight: bolder;
-}
-
-.side-bar-div {
-  font-family: "Handjet";
-  background: linear-gradient(85deg, #ffc273, #b222ff);
-  box-shadow: 20px 30px 0px 0px black;
-  width: 200px;
-  margin-right: 5px;
-  display: block;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  font-weight: bolder;
-  animation: slide-in-left 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .filtration-div {
@@ -237,4 +281,46 @@ html, body {
   color: rgb(255, 255, 255);
   text-decoration: none;
   font-weight: bolder;
+}
+
+body {
+  background: black;
+  font-family: "Oswald", sans-serif;
+  font-style: italic;
+}
+
+.container {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+}
+
+.glitch {
+  color: rgb(223, 191, 191);
+  position: relative;
+  font-size: 9vw;
+  animation: glitch 1s 1.2s infinite;
+}
+
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  text-shadow: -5px 0 magenta;
+  background: black;
+  overflow: hidden;
+  top: 0;
+  animation: noise-1 2s linear infinite alternate-reverse, glitch 3s 3.05s infinite;
+}
+
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  text-shadow: -5px 0 lightgreen;
+  background: black;
+  overflow: hidden;
+  top: 0;
+  animation: noise-2 2s linear infinite alternate-reverse, glitch 1s 2s infinite;
 }/*# sourceMappingURL=Main.css.map */

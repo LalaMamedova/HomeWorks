@@ -1,8 +1,10 @@
 const fact = document.querySelector('#one-fact-in-temp');
-const factsContainer = document.querySelector(".facts-div");
+const factsContainer = document.querySelector(".add-fact-div");
 const addFactsButton = document.getElementById("add-fact-button");
 const firstFact = document.querySelector("#input-fact");
-
+const addImgsButton = document.getElementById("add-img-char-button");
+const imgContainer = document.querySelector(".add-img");
+var allImgInputs = imgContainer.querySelectorAll('#input-img');
 var prevInput = null;
 
 if(firstFact!=null){
@@ -24,7 +26,6 @@ addFactsButton.addEventListener("click", function() {
     var input = document.createElement("input");
     input.type = "text";
     input.id = "input-fact";
-    // input.style.width = "100%";
 
     newFactDiv.appendChild(input);
 
@@ -38,7 +39,6 @@ addFactsButton.addEventListener("click", function() {
 
     }else if (factsContainer.childElementCount < 7 && prevInput.value !== '') {        
         factsContainer.appendChild(newFactDiv);
-
         prevInput = input; 
         
     }else if (prevInput.value === '') {
@@ -93,3 +93,48 @@ addTechButton.addEventListener("click", ()=> {
         alert('Введите характеристику');
     }
 });
+
+
+const imgLimit = 3;
+var prevImg = null;
+
+addImgsButton.addEventListener("click", () => {
+
+    var newImgDiv = document.createElement("div");
+    newImgDiv.id = "add-img-box";
+    newImgDiv.className = "add-box";
+    newImgDiv.style.marginTop = '15px';
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "input-img";
+
+    newImgDiv.appendChild(input);
+
+    if (prevImg === null) {
+        prevImg = document.querySelector("#input-img");
+
+        if (prevImg.value !== '') {
+            imgContainer.appendChild(newImgDiv);
+        }else {
+            alert('Введите URL');
+        }
+
+    } else if (imgContainer.childElementCount <=imgLimit && prevImg.value !== '') {
+        imgContainer.appendChild(newImgDiv);
+    
+    } else if (prevImg.value === '') {
+        alert('Введите URL');
+    } else if(imgContainer.childElementCount > imgLimit){
+        alert(`Лимит фотографий: ${imgLimit}`)
+    }
+
+    // allImgInputs = imgContainer.querySelectorAll('#input-img');
+    // allImgInputs.forEach((imgInput, index) => {
+    //     imgInput.addEventListener('input', (event) => {
+    //         const inputImgValue = event.target.value;
+    //             updateImageAtIndex(inputImgValue, index);
+    //     });
+    // });
+});
+

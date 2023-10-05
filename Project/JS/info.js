@@ -1,22 +1,17 @@
 const modebtn = document.querySelector('#mode-btn');
-var techInfo = '';
-let isDarkMode = false;
+let isDarkMode = true;
 
-function setDarkMode(){
-   if(isDarkMode === false){isDarkMode = true;}
-   else{isDarkMode = false;}
-}
+
 
 
 window.onload = function() {
-    let DarkMode = localStorage.getItem('mode') === 'true'? true:false;
-    isDarkMode= DarkMode;
-    changeMode(DarkMode);
+    isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
+    changeMode(isDarkMode);
     changeTemplate(getFullInfoTech());
 };
 
 modebtn.addEventListener('click',()=>{
-    setDarkMode();
+    if(isDarkMode === false){isDarkMode = true;} else{isDarkMode = false;}
     changeMode(isDarkMode);
     localStorage.setItem('mode',isDarkMode);
 });
@@ -57,8 +52,8 @@ function changeColorAllElement(param,color){
 
 
 function getFullInfoTech(){
-    const tempData = sessionStorage.getItem('tempData');
-    techInfo = JSON.parse(tempData);
+    const tempData = sessionStorage.getItem('infoData');
+    let techInfo = JSON.parse(tempData);
     console.log(techInfo);
     return techInfo;
 }

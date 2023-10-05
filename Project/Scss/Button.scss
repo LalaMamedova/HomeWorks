@@ -275,18 +275,24 @@ $border-color_4: #8ffdff;
 	color: $color_3;
 	border: none;
 	position: relative;
+	
 }
 .dropdown {
 	position: relative;
 	display: inline-block;
+
 	&:hover {
 		.dropdown-content {
+
 			display: block;
 			position: absolute;
 			margin-right: 25px;
+
+			-webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 		}
 		.dropbtn {
-			background: linear-gradient(150deg, #22f8ff, #ff0389);
+			background:#680007;
 			position: relative;
 		}
 	}
@@ -295,8 +301,9 @@ $border-color_4: #8ffdff;
 	display: none;
 	background-color: $background-color_9;
 	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 10px 20px 0px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
+	
 	a {
 		display: block;
 		text-decoration: none;
