@@ -1,63 +1,51 @@
+import {changeDefaultElements,changeClassNameId,btnClick } from "./changeMode.js";
+import { changeBtns } from "./templates.js";
+import {getByEmail, put } from "./apiMethods.js";
+
 const modebtn = document.querySelector('#mode-btn');
-let isDarkMode = true;
+let isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
+let techInfo = '';
+var userRes = '';
 
+window.onload = async function() {
+    if(sessionStorage.getItem('infoData')){
 
+        if(localStorage.getItem('user')!=null){
 
-
-window.onload = function() {
-    isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
-    changeMode(isDarkMode);
-    changeTemplate(getFullInfoTech());
+            let user = JSON.parse(localStorage.getItem('user'));
+            userRes = await getByEmail('users',user.email);    
+        }
+        await changeTemplate(getFullInfoTech());
+    }
+    await changeMode(isDarkMode);
+    changeBtns();
 };
 
 modebtn.addEventListener('click',()=>{
-    if(isDarkMode === false){isDarkMode = true;} else{isDarkMode = false;}
+    isDarkMode = btnClick(isDarkMode);
     changeMode(isDarkMode);
-    localStorage.setItem('mode',isDarkMode);
 });
 
+async function changeMode(isDarkMode){
+    changeDefaultElements(isDarkMode,'#mode-btn')
 
-function changeMode(isDarkMode){
     if(isDarkMode === true){
-        document.body.style.background = 'black';
-        modebtn.querySelector('i').className = 'fa fa-moon-o';
-        document.querySelector('.main-header-div' ).style.filter = 'brightness(60%)';
-        changeBackgroundColorAllElement('section','#182945');
-        changeColorAllElement('label,span',"white");
-        changeColorAllElement('.interactiv-btn',"white");
+        changeClassNameId('.section','dark-section',false);
+        changeClassNameId('.interactiv-btn-div',"interactiv-btn-dark-div",false);
     }else{
-        modebtn.querySelector('i').className = 'fa fa-sun-o';
-        document.querySelector('.main-header-div' ).style.filter = 'brightness(100%)';
-        document.body.style.background = "linear-gradient(285deg, #34eeff, #ff269d)";
-        changeBackgroundColorAllElement('section',"linear-gradient(285deg, #8a98ff, #ff78c7)");
-        changeColorAllElement('label,span',"black");
-        changeColorAllElement('.interactiv-btn',"black");
+        changeClassNameId('.interactiv-btn-dark-div',"interactiv-btn-div",false);
+        changeClassNameId('.dark-section',"section",false);
     }
-
 }
-
-function changeBackgroundColorAllElement(param,color){
-    document.querySelectorAll(`${param}`).forEach(element=>{
-        element.style.background = color;
-
-    });
-}
-
-function changeColorAllElement(param,color){
-    document.querySelectorAll(`${param}`).forEach(element=>{
-        element.style.color = color;
-    });
-}
-
 
 
 function getFullInfoTech(){
     const tempData = sessionStorage.getItem('infoData');
-    let techInfo = JSON.parse(tempData);
-    console.log(techInfo);
+    techInfo = JSON.parse(tempData);
     return techInfo;
 }
-function changeTemplate(techInfo){
+async function changeTemplate(techInfo){
+    let likeBtnType = await addLikeBtn();
     let imgDiv = makeImgDiv(techInfo);
     let charDiv = makeCharLi(techInfo);
     let factDiv = makeFactDiv(techInfo);
@@ -87,21 +75,21 @@ function changeTemplate(techInfo){
 
             <div class="mini-info-div">  
                 <div class="interactiv-btn-div" >
-                    <button class="interactiv-btn"><i class="fa fa-heart-o fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>
-                    <button class="interactiv-btn"><i class="fa fa-share-alt" style="font-size:24px"></i></button>
+                   ${likeBtnType};
+                    <button id='share-btn' class="interactiv-btn"><i class="fa fa-share-alt" style="font-size:24px"></i></button>
                 </div>  
                 <div>
-                    <section id="name-section">
+                    <section class='section' id="name-section">
                         <label for="tech-name">Name:</label>
                         <span id="tech-name">${techInfo.name}</span>
                     </section>
                     
-                    <section id="type-section">
+                    <section  class='section' id="type-section">
                         <label for="tech-type">Type:</label>
                         <span id="tech-type">${techInfo.type}</span>
                     </section>
                     
-                    <section id="date-section">
+                    <section class='section' id="date-section">
                         <label for="tech-date">Release date:</label>
                         <span id="tech-date">${techInfo.year}</span>
                     </section>
@@ -109,66 +97,98 @@ function changeTemplate(techInfo){
             </div>
 
             <div class="other-info-div">
-                <section id="description-section">
+                <section class='section' id="description-section">
                     <label for="tech-description">Description:</label>
                     <span id="tech-description">${techInfo.description}</span>
                 </section>
             </div>
 
             <div class="fact-and-char-div">
-                <section id="char-section">
+                <section class='section' id="char-section">
                     <label for="tech-char-value">Technical characteristics :</label>
                     ${charDiv}
                 </section>
 
-                <section id="fact-section">
+                <section class='section' id="fact-section">
                     <label for="tech-fact">Interesting facts:</label>
                     ${factDiv}
                 </section>
             </div>
         `
-        
+
+        await likeBtnClick();
 }
 
+
+async function likeBtnClick(){
+
+    $('#like-btn').on('click', async function(){
+        if(userRes != '')
+        {
+        
+            const techInfoString = JSON.stringify(techInfo);
+            const likedTechStrings = userRes.likedTechnology.map(item => JSON.stringify(item));
+
+            if(!likedTechStrings.includes(techInfoString)){
+                userRes.likedTechnology.push(techInfo);
+                put('users',userRes.id,userRes);
+                document.querySelector('#like-btn').querySelector('i').className= ('fa fa-heart fa-beat');
+            }else{
+                alert('You alredy liked this');
+            }
+
+        }else{
+            alert('Sign in')
+        };  
+        
+    });
+}
+
+
+async function addLikeBtn(){
+    if(userRes != ''){
+        const techInfoString = JSON.stringify(techInfo);
+        const likedTechStrings = userRes.likedTechnology.map(item => JSON.stringify(item));
+        if(likedTechStrings.includes(techInfoString)){
+            return `<button id='like-btn' class="interactiv-btn"><i class="fa fa-heart fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>`
+        }
+    }      
+    return `<button id='like-btn' class="interactiv-btn"><i class="fa fa-heart-o fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>`
+
+}
 function makeImgDiv(json){
     let div = '';
     if(json.images.length>1){
-        for(i=1;i<json.images.length;i++){
-
+        for(let i=1;i<json.images.length;i++){
+            
             div +=`<div class="carousel-item">
-                <img class="tech-img" src="${json.images[i]}"  alt="${json.name}">
-                <p>${i+1}</p>
+            <img class="tech-img" src="${json.images[i]}"  alt="${json.name}">
+            <p>${i+1}</p>
             </div>`
         }
     }
     return div;
-  
+    
 }
-
 function makeCharLi(json){
     let div = '';
-    for(i=0;i<json.charname.length;i++){
-
+    for(let i=0; i<json.charname.length ; i++){
         div +=` <li> 
                     <span id="tech-char-name">${json.charname[i]}:</span>
                     <span id="tech-char-value">${json.charvalue[i]}</span>
                 </li>`
     }
     return div;
-  
 }
-
 
 function makeFactDiv(json){
     let div = '';
-
-    for(i=0; i<json.interestingfacts.length ;i++){
+    for(let i=0; i<json.interestingfacts.length ;i++){
 
         div +=`<li> 
             <span id="tech-fact">${i+1}. ${json.interestingfacts[i]}</span>
         </li>`
     }
     return div;
-  
-}
 
+}

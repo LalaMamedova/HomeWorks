@@ -1,68 +1,10 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
+@import url(/Scss/MainHeader.css);
 body {
   margin: 0;
   transition: all 0.4s ease-in;
   background: linear-gradient(285deg, #34eeff, #ff269d);
-}
-
-.main-header-div {
-  display: flex;
-  background-image: url("../Assets/Img/Caset.jpg");
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  border: 3px solid black;
-  height: 120px;
-  animation: slide-in-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-.logo-nav {
-  font-family: "Disko teque";
-  position: relative;
-  margin: 0;
-  width: 300px;
-}
-.logo-nav h1 {
-  margin: 0;
-}
-.logo-nav h1 a {
-  color: rgba(0, 0, 0, 0.758);
-  font-size: 60px;
-  text-decoration: none;
-  justify-content: space-between;
-  display: flex;
-  font-weight: bold;
-  transition: all ease-in 0.4s;
-}
-.logo-nav h1 a:hover {
-  background: linear-gradient(to bottom, #ff0000, #3300ff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-decoration: none;
-  font-size: 70px;
-  margin-left: 20px;
-}
-
-.auto-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-left: auto;
-  margin-top: 5px;
-}
-
-.auto-mob-nav {
-  display: none;
-}
-
-.music-bar {
-  display: flex;
-  position: absolute;
-  align-self: flex-end;
-  margin-left: 50%;
-  margin-bottom: 5px;
 }
 
 main {
@@ -219,7 +161,7 @@ a {
   font-size: 30px;
 }
 
-#one-fact-in-temp {
+#tech-fact {
   -webkit-line-clamp: 2;
   color: cyan;
 }

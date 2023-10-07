@@ -1,6 +1,6 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
-@import url(/Scss/Animation.scss);
+@import url(/Scss/Main.css);
 
 $color_1: black;
 $color_2: rgba(0, 0, 0, 0.758);
@@ -12,94 +12,8 @@ $color_7: rgb(255, 255, 255);
 $font-family_1: "Disko teque";
 $font-family_2: "Handjet";
 $background-color_1: pink;
-$animation-delay:0.7s;
 
-body,html {
-	margin: 0;
-	min-height: 100vh;
-    background: linear-gradient(285deg, #34eeff, #ff269d);
-}
 
-#loader-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(285deg, #34eeff, #ff269d);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	z-index: 9999;
-	color: #fff;
-  }
-  
-  #loader-logo h1 {
-	font-family: $font-family_1;
-	font-size: 100px;
-	animation: pulse calc($animation-delay)-0.1;
-  }
-  
-  #loader-progress {
-	width: 80%;
-	height: 20px;
-	background: rgba(255, 255, 255, 0.3);
-	border-radius: 10px;
-	margin-top: 20px;
-	overflow: hidden;
-  }
-  
-  #loader-bar {
-	width: 0;
-	height: 100%;
-	background: #fff;
-	animation: fill calc($animation-delay)-0.1 linear forwards;
-  }
-
-a {
-	text-decoration: none;
-	color: $color_1;
-}
-.main-header-div {
-	height: 110px;
-	display: flex;
-	background-image: url("../Assets/Img/Caset.jpg");
-	background-size: cover;
-	background-position: center;
-	position: relative;
-	border: 3px solid black;
-	-webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-.logo-nav {
-	font-family: $font-family_1;
-	position: relative;
-	margin: 0;
-	width: 300px;
-	h1 {
-		margin: 0;
-		a {
-			color: $color_2;
-			font-size: 60px;
-			text-decoration: none;
-			justify-content: space-between;
-			display: flex;
-			font-weight: bold;
-			transition: all ease-in 0.4s;
-			
-			&:hover {
-				background: linear-gradient(to bottom, #ff0000, #3300ff);
-				background-clip: text;
-				-webkit-background-clip: text;
-				color: $color_3;
-				text-decoration: none;
-				font-size: 70px;
-				margin-left: 20px;
-			}
-		}
-	}
-}
 .search-nav {
 	display: flex;
 	position: relative;
@@ -124,7 +38,6 @@ a {
 	button {
 		width: 110px;
 	}
-	
 }
 .auto-mob-nav {
 	display: none;
@@ -153,7 +66,8 @@ a {
 	text-align: center;
 }
 
-#tech-card {
+#tech-card,
+#tech-card-dark{
 	height: 700px;
 	width: 50%;
 	margin: 30px 20px;
@@ -190,24 +104,31 @@ a {
 		-webkit-box-orient: vertical;
 		color: $color_4;
 		font-weight: bolder;
-		
+	}
+	transition: all 0.3 ease-in-out;
+}
+#tech-card-dark{
+	background: #2B3865;
+	
+	h1,h2,h3,h4,p{
+		color: white;
 	}
 }
 
-.tech-card-buttons {
-	display: flex;
-	position: relative;
-	justify-content: center;
-	margin-top: 10px;
-	button {
-		margin-right: 15px;
-	}
-}
-.to-full-info-div {
-	display: flex;
-	position: relative;
-	justify-content: center;
-}
+// .tech-card-buttons {
+// 	display: flex;
+// 	position: relative;
+// 	justify-content: center;
+// 	margin-top: 10px;
+// 	button {
+// 		margin-right: 15px;
+// 	}
+// }
+// .to-full-info-div {
+// 	display: flex;
+// 	position: relative;
+// 	justify-content: center;
+// }
 .interest-fact {
 	span {
 		font-size: 22px;
@@ -221,36 +142,31 @@ a {
 }
 
 .side-bar-div,
-.side-bar-div-active {
-	z-index:1; 
+.side-bar-div-active{
+	z-index: 1;
 	font-family: $font-family_2;
-	background: linear-gradient(85deg, #ffc273, #b222ff);
 	border-radius: 10px;
 	text-align: start;
 	font-weight: bolder;
 	position: absolute;
 	width: 35%;
-
+	background: linear-gradient(85deg, #ffc273, #b222ff);
+	h1,h2,h3,h4,p {color: black;}
+	--webkit-animation: slide-left 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	animation: slide-left 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	h1 {
 		justify-content: center;
 		text-align: center;
 		position: relative;
 	}
 	
-	
 }
-.side-bar-div {
-	display: none;
 
-	--webkit-animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-.side-bar-div-active {
+.side-bar-div-active{
 	display: block;
-
-	-webkit-animation: scale-in-hor-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-		animation: scale-in-hor-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	
+	background: linear-gradient(85deg, #ffc273, #b222ff);
+	-webkit-animation: scale-in-hor-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+		animation: scale-in-hor-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .filtration-div {
@@ -296,32 +212,7 @@ a {
 		font-weight: bold;
 	}
 }
-.foot-div {
-	display: inline;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-}
-.contact-nav {
-	display: flex;
-	font-family: $font-family_2;
-	position: relative;
-	flex-wrap: wrap;
-	background: black;
-	li {
-		display: flex;
-		font-size: 30px;
-		margin-left: 18px;
-		justify-content: space-around;
-		a {
-			display: flex;
-			align-items: center;
-			color: $color_7;
-			text-decoration: none;
-			font-weight: bolder;
-		}
-	}
-}
+
 @media screen and (max-width: 680px) {
 	.search-nav {
 		display: none;
@@ -367,6 +258,7 @@ a {
 		margin-left: auto;
 		transition: all 0.5s ease;
 	}
+	
 	.music-bar {
 		position: absolute;
 		align-items: flex-start;
@@ -389,32 +281,3 @@ a {
 		}
 	}
 }
-.glitch {
-	color: rgb(223, 191, 191);
-	position: relative;
-	font-size: 9vw;
-	animation: glitch 1s 1.2s infinite;
-  }
-  
-  .glitch::before {
-	content: attr(data-text);
-	position: absolute;
-	left: -2px;
-	text-shadow: -5px 0 magenta;
-	background: black;
-	overflow: hidden;
-	top: 0;
-	animation: noise-1 2s linear infinite alternate-reverse, glitch 3s 3.05s infinite;
-  }
-  
-  .glitch::after {
-	content: attr(data-text);
-	position: absolute;
-	left: 2px;
-	text-shadow: -5px 0 lightgreen;
-	background: black;
-	overflow: hidden;
-	top: 0;
-	animation: noise-2 2s linear infinite alternate-reverse, glitch 1s 2s infinite;
-  }
-  

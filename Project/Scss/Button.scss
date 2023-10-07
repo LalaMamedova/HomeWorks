@@ -1,14 +1,9 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
 $color_1: rgb(255, 59, 173);
-$color_2: rgb(255, 255, 255);
-$color_3: white;
+$color_2: white;
 $color_4: black;
-$color_5: rgb(0, 0, 0);
-$color_6: #ffffff;
-$color_7: #000000;
 $color_8: #120076;
-$color_9: #6b0098;
 $color_10: #22f8ff;
 $color_11: #a319ff;
 $color_12: rgb(0, 92, 92);
@@ -16,25 +11,21 @@ $font-family_1: "Handjet";
 $font-family_2: 'Luckiest Guy';
 $font-family_3: 'Arcade';
 $background-color_1: #8ffdff;
-$background-color_2: rgb(159, 19, 159);
 $background-color_3: rgb(255, 221, 227);
 $background-color_4: #170064;
 $background-color_5: transparent;
-$background-color_6: rgb(129, 113, 255);
-$background-color_7: #a319ff;
 $background-color_8: #22f8ff;
 $background-color_9: #ff8fdf;
 $background-color_10: #f27;
 $border-color_1: #a319ff;
-$border-color_2: #8300bb;
-$border-color_3: rgb(129, 113, 255);
 $border-color_4: #8ffdff;
+$animation-delay: 0.01s;
 
-.main-button {
+
+.main-button,
+.main-button-dark  {
 	display: flex;
-	border-color: $border-color_1;
 	font-family: $font-family_1;
-	background-color: $background-color_1;
 	font-weight: bold;
 	transition: all ease 0.5s;
 	border-width: 0px 0px 6px 0px;
@@ -43,8 +34,9 @@ $border-color_4: #8ffdff;
 	background-position: -100% 0;
 	background-size: 200% 100%;
 	margin: 5px;
+	transition: background-color 1.1s ease-in-out;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 	&:hover {
-		background: linear-gradient(90deg, #22ffe5, #a319ff);
 		background-position: 0 100%;
 		background-size: 200% 100%;
 		transition: all 0.35s ease-in-out;
@@ -61,34 +53,73 @@ $border-color_4: #8ffdff;
 		}
 	}
 	&:active {
-		color: $color_3;
+		color: $color_2;
 		font-family: $font-family_1;
 		
 	}
-
-	
 }
-.music-button {
-	border: 3px solid rgb(255, 221, 227);
+
+.main-button{
+	background-color: $background-color_1;
+	border-color: $border-color_1;
+	color: black;
+	&:hover {
+		background: linear-gradient(90deg, #22ffe5, #a319ff);
+	}
+}
+
+.main-button-dark{
+	background-color: #a319ff;
+	border-color: #8ffdff;
+	color: white;
+	
+   
+	&:hover {
+		background: linear-gradient(180deg, #ffdfc2, #ff87cb);
+		color:black;
+	}
+}
+.music-button,
+.music-button-dark {
+	border: 3px solid  $color_11;
 	justify-content: center;
 	text-align: center;
-	color: $color_3;
+	color: $color_2;
 	border-radius: 10px;
 	height: 35px;
 	width: 60px;
 	font-size: 20px;
-	background-color: $background-color_2;
+	background-color:  rgb(255, 221, 227);
 	box-shadow: 10px 8px 0px 0px rgba(74,0,74,1);
 	margin: 5px;
 	transition: all 0.5s ease-in-out;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+
 	&:hover {
-		border: 4px solid rgb(159, 19, 159);
-		background-color: $background-color_3;
 		color: $color_4;
 		width: 70px;
 
 		-webkit-animation: jello-diagonal-2 0.8s infinite both;
 	        animation: jello-diagonal-2 0.8s infinite both;
+	}
+}
+.music-button{
+	color: $color_4;
+
+	&:hover {
+		border: 4px solid pink;
+		background-color: #a319ff;
+		color: $color_2;
+	}
+}
+.music-button-dark{
+	background-color: $color_11;
+	border: 3px solid rgb(255, 221, 227);
+
+	&:hover {
+		border: 4px solid rgb(21, 18, 21);
+		background: linear-gradient(180deg, #ffdfc2, #ff87cb);
+		color: $color_4;
 	}
 }
 .search-button {
@@ -109,9 +140,23 @@ $border-color_4: #8ffdff;
 	transition: background-color 0.6s, color 0.3s, border-color 0.7s;
 	&:hover {
 		background-color: $background-color_4;
-		color: $color_3;
+		color: $color_2;
 	}
 }
+#cabinet-btn,
+#cabinet-btn-mob{
+	display: none;
+}
+
+#gradient-i,
+i{
+	background-image: linear-gradient(185deg, #56eeff, #ff47af);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	font-size: 25px;
+}
+
 #mode-btn {
 	border-radius: 5px;
 	margin: 10px;
@@ -131,7 +176,7 @@ $border-color_4: #8ffdff;
 	background-color: $background-color_5;
 	transition: all 0.5s ease-in-out;
 	&:hover {
-		color: $color_5;
+		color: $color_4;
 		font-size: 25px;
 	}
 }
@@ -150,13 +195,13 @@ $border-color_4: #8ffdff;
 	border-radius: 15px;
 }
 .edit-btn {
-	color: $color_6;
+	color: $color_2;
 	&:hover {
 		font-size: 30px;
 	}
 }
 .delete-btn {
-	color: $color_7;
+	color: $color_4;
 	&:hover {
 		color: $color_8;
 		font-size: 30px;
@@ -169,7 +214,7 @@ $border-color_4: #8ffdff;
 	height: 60px;
 	border-radius: 5px;
 	border: 3px solid #00b7b7;
-	color: $color_3;
+	color: $color_2;
 	font-family: $font-family_1;
 	cursor: pointer;
 	display: none;
@@ -181,14 +226,14 @@ $border-color_4: #8ffdff;
 	}
 	&:hover {
 		background: linear-gradient(150deg, #22f8ff, #ff0389);
-		color: $color_9;
-		border-color: $border-color_2;
+		color: $color_11;
+		border-color: $border-color_1;
 		font-weight: bolder;
 		transition: all ease-in-out 0.5s;
 	}
 }
 .big-btns {
-	border-color: $border-color_3;
+	border-color: $border-color_1;
 	background-color: $background-color_1;
 	word-wrap: break-word;
 	font-family: $font-family_2;
@@ -199,7 +244,7 @@ $border-color_4: #8ffdff;
 	box-shadow: 0px 6px 0px 0px rgba(74,0,74,1);
 	transition: all 0.6s ease;
 	a {
-		color: $color_5;
+		color: $color_4;
 		text-decoration: none;
 		&:hover {
 			text-decoration: none;
@@ -209,14 +254,14 @@ $border-color_4: #8ffdff;
 	&:hover {
 		border-width: 5px 0px 0px 5px;
 		border-color: $border-color_4;
-		background-color: $background-color_6;
+		background-color: $border-color_1;
 	}
 }
 .add-btn {
 	border: 0px;
 	font-size: 30px;
 	margin-top: 20px;
-	color: $color_3;
+	color: $color_2;
 	font-family: $font-family_3;
 	background-color: $background-color_5;
 	transition: all 0.8s ease-in-out;
@@ -225,7 +270,7 @@ $border-color_4: #8ffdff;
 		font-size: 35px;
 		box-shadow: 10px 8px 0px 0px rgba(74,0,74,1);
 		border-radius: 10px;
-		background-color: $background-color_7;
+		background-color: $border-color_1;
 		color: $color_10;
 	}
 }
@@ -234,14 +279,14 @@ $border-color_4: #8ffdff;
 	border-radius: 10px;
 	font-size: 25px;
 	height: 50px;
-	background-color: $background-color_7;
+	background-color: $border-color_1;
 	color: $color_10;
 	font-family: $font-family_2;
 	transition: all 0.3s ease-in-out;
 	&:hover {
 		border: 5px solid black;
 		height: 55px;
-		color: $color_7;
+		color: $color_4;
 	}
 }
 .to-home-btn {
@@ -272,7 +317,7 @@ $border-color_4: #8ffdff;
 	font-family: $font-family_1;
 	width: 150px;
 	cursor: pointer;
-	color: $color_3;
+	color: $color_2;
 	border: none;
 	position: relative;
 	
@@ -313,4 +358,14 @@ $border-color_4: #8ffdff;
 			background-color: $background-color_10;
 		}
 	}
+}
+
+#reload-btn{
+	display: flex;
+	position: relative;
+	justify-content: center;
+	text-align: center;
+	width: 200px;
+	height: 60px;
+	font-size: 40px;
 }

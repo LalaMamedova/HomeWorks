@@ -1,5 +1,6 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
+@import url(/Scss/MainHeader.css);
 
 $color_1: rgba(0, 0, 0, 0.758);
 $color_2: transparent;
@@ -18,62 +19,7 @@ body {
 	transition: all 0.4s ease-in;
 	background: linear-gradient(285deg, #34eeff, #ff269d);
 }
-.main-header-div {
-	display: flex;
-	background-image: url("../Assets/Img/Caset.jpg");
-	background-size: cover;
-	background-position: center;
-	position: relative;
-	border: 3px solid black;
-	height: 120px;
-	-webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-.logo-nav {
-	font-family: $font-family_1;
-	position: relative;
-	margin: 0;
-	width: 300px;
-	h1 {
-		margin: 0;
-		a {
-			color: $color_1;
-			font-size: 60px;
-			text-decoration: none;
-			justify-content: space-between;
-			display: flex;
-			font-weight: bold;
-			transition: all ease-in 0.4s;
-			&:hover {
-				background: linear-gradient(to bottom, #ff0000, #3300ff);
-				background-clip: text;
-				-webkit-background-clip: text;
-				color: $color_2;
-				text-decoration: none;
-				font-size: 70px;
-				margin-left: 20px;
-			}
-		}
-	}
-}
-.auto-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	margin-left: auto;
-	margin-top: 5px;
-}
 
-.auto-mob-nav {
-	display: none;
-}
-.music-bar {
-	display: flex;
-	position: absolute;
-	align-self: flex-end;
-	margin-left: 50%;
-	margin-bottom: 5px;
-}
 main {
 	min-height: 85vh;
 	position: relative;
@@ -232,7 +178,7 @@ a {
 		font-size: 30px;
 	}
 }
-#one-fact-in-temp {
+#tech-fact {
 	-webkit-line-clamp: 2;
 	color: $color_6;
 }

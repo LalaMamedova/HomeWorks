@@ -3,7 +3,6 @@ const playButton= document.querySelector(".play-music");
 const pauseButton= document.querySelector(".stop-music");
 const nextButton= document.querySelector(".next-music");
 const prevButton= document.querySelector(".prev-music");
-
 let musicState = false;
 let index = 0;
 const songs = [
@@ -13,6 +12,7 @@ const songs = [
     'Stranger Things.mp3',
     "Lady of the 80's.mp3"
 ]
+
 
 playButton.addEventListener("click", () => {
     if(musicState === false){
@@ -57,3 +57,4 @@ prevButton.addEventListener("click", () => {
     },2000);
     
 });
+

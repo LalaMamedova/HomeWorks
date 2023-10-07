@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="/Assets/Icon/Color_Synthwave.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   
     <title>RETRO</title>
 </head>
 <body>
@@ -31,23 +32,34 @@
                 <input type="search">
                 <button class="search-button">Поиск</button>
             </nav>
-
             <nav class="auto-nav">
-                <button class="main-button"><a href="/Html/SignIn.html">
-                    <i class="fa fa-user fa-fw w3-margin-right"></i></a>Sign in</button>
-                    
-                    <button class="main-button">
-                        <a href="SignUp.html"><i class="fa fa-user-plus fa-fw w3-margin-right"></i>
-                        </a>Sign up
-                    </button>
+
+                
+                <button id="cabinet-btn" class="main-button">
+                    <a href="Cabinet.html"><i id="gradient-i" class="fa fa-home fa-fw w3-margin-right"></i>
+                    </a>Cabinet</button>
+
+
+                <button id="sign-in-btn" class="main-button"><a href="/Html/SignIn.html">
+                    <i id="gradient-i" class="fa fa-user fa-fw w3-margin-right"></i></a>Sign in</button>
+                        
+                <button  id="sign-up-btn" class="main-button">
+                        <a href="SignUp.html"><i id="gradient-i" class="fa fa-user-plus fa-fw w3-margin-right"></i>
+                        </a>Sign up</button>
+                  
             </nav>
                 
             <nav class="auto-mob-nav">
-                <button class="main-button"><a href="SignIn.html">
+                <button  id="cabinet-btn" class="main-button"><a id="gradient-i" href="/Html/Cabinet.html">
+                    <i class="fa fa-home" aria-hidden="true"></i></a></button>
+
+                <button id="sign-in-btn" class="main-button"><a id="gradient-i" href="SignIn.html">
                     <i class="fa fa-user" style="font-size:30px;"></a></i></button>
                     
-                <button class="main-button"><a href="SignUp.html">
+                <button id="sign-up-btn" class="main-button"><a id="gradient-i" href="SignUp.html">
                     <i class="fa fa-user-plus" style="font-size:30px;"></a></i></button>
+
+                   
             </nav>
 
             <div>
@@ -88,6 +100,7 @@
                     <div class="group-box">
                         <h3>Technology type</h3>
                         <select id="tech-type-box">
+                            <option value=""></option>
                             <option value="Computer">Computer</option>
                             <option value="Telephone">Telephone</option>
                             <option value="Radio">Radio</option>
@@ -102,7 +115,7 @@
                     </div>
                 </div>
                 <div class="bottons-div"  style="align-items: center; display: block;">
-                    <button class="big-btns" id="filter-btn">Submit</button>
+                    <button class="big-btns" id="filter-btn">Submit filter</button>
                     <button class="big-btns" id="add-tech">Add technology</button>
                     <button class="big-btns" id="add-temp">Add Alredy Made Cards</button>
                 </div>
@@ -126,11 +139,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script  src="https://kit.fontawesome.com/94ed063ed7.js" crossorigin="anonymous"></script>
-    <script  src='/JS/filtration.js' type="module"></script>
-    <script  src="/JS/main.js" type="module"></script>
     <script  src="/JS/main-mobile.js"></script>
-    <script  src="/JS/music.js"></script>
+    <script  src="/JS/main.js" type="module"></script>
     <script  src="/JS/templates.js" type="module"></script>
-
+    <script  src="/JS/apiMethods.js" type="module"></script>
+    <script  src='/JS/filtration.js' type="module"></script>
+    <script  src='/JS/changeMode.js' type="module"></script>
+    <script  src="/JS/music.js"></script>
+    
 </body>
 </html>

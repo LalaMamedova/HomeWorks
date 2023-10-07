@@ -1,93 +1,6 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
-@import url(/Scss/Animation.scss);
-body, html {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(285deg, #34eeff, #ff269d);
-}
-
-#loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(285deg, #34eeff, #ff269d);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  color: #fff;
-}
-
-#loader-logo h1 {
-  font-family: "Disko teque";
-  font-size: 100px;
-  animation: pulse 0.6s;
-}
-
-#loader-progress {
-  width: 80%;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  margin-top: 20px;
-  overflow: hidden;
-}
-
-#loader-bar {
-  width: 0;
-  height: 100%;
-  background: #fff;
-  animation: fill 0.6s linear forwards;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-.main-header-div {
-  height: 110px;
-  display: flex;
-  background-image: url("../Assets/Img/Caset.jpg");
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  border: 3px solid black;
-  animation: slide-in-left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-.logo-nav {
-  font-family: "Disko teque";
-  position: relative;
-  margin: 0;
-  width: 300px;
-}
-.logo-nav h1 {
-  margin: 0;
-}
-.logo-nav h1 a {
-  color: rgba(0, 0, 0, 0.758);
-  font-size: 60px;
-  text-decoration: none;
-  justify-content: space-between;
-  display: flex;
-  font-weight: bold;
-  transition: all ease-in 0.4s;
-}
-.logo-nav h1 a:hover {
-  background: linear-gradient(to bottom, #ff0000, #3300ff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-decoration: none;
-  font-size: 70px;
-  margin-left: 20px;
-}
-
+@import url(/Scss/Main.css);
 .search-nav {
   display: flex;
   position: relative;
@@ -142,7 +55,8 @@ a {
   text-align: center;
 }
 
-#tech-card {
+#tech-card,
+#tech-card-dark {
   height: 700px;
   width: 50%;
   margin: 30px 20px;
@@ -156,8 +70,10 @@ a {
   text-align: center;
   font-family: "Handjet";
   animation: swing-in-bottom-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  transition: all 0.3 ease-in-out;
 }
-#tech-card img {
+#tech-card img,
+#tech-card-dark img {
   display: flex;
   border-radius: 5%;
   width: 100%;
@@ -166,10 +82,12 @@ a {
   border-radius: 5%;
   height: 45%;
 }
-#tech-card h6 {
+#tech-card h6,
+#tech-card-dark h6 {
   font-size: 20px;
 }
-#tech-card p {
+#tech-card p,
+#tech-card-dark p {
   font-size: 19px;
   -webkit-line-clamp: 5;
   overflow: hidden;
@@ -180,20 +98,11 @@ a {
   font-weight: bolder;
 }
 
-.tech-card-buttons {
-  display: flex;
-  position: relative;
-  justify-content: center;
-  margin-top: 10px;
+#tech-card-dark {
+  background: #2B3865;
 }
-.tech-card-buttons button {
-  margin-right: 15px;
-}
-
-.to-full-info-div {
-  display: flex;
-  position: relative;
-  justify-content: center;
+#tech-card-dark h1, #tech-card-dark h2, #tech-card-dark h3, #tech-card-dark h4, #tech-card-dark p {
+  color: white;
 }
 
 .interest-fact span {
@@ -210,12 +119,22 @@ a {
 .side-bar-div-active {
   z-index: 1;
   font-family: "Handjet";
-  background: linear-gradient(85deg, #ffc273, #b222ff);
   border-radius: 10px;
   text-align: start;
   font-weight: bolder;
   position: absolute;
   width: 35%;
+  background: linear-gradient(85deg, #ffc273, #b222ff);
+  --webkit-animation: slide-left 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.side-bar-div h1, .side-bar-div h2, .side-bar-div h3, .side-bar-div h4, .side-bar-div p,
+.side-bar-div-active h1,
+.side-bar-div-active h2,
+.side-bar-div-active h3,
+.side-bar-div-active h4,
+.side-bar-div-active p {
+  color: black;
 }
 .side-bar-div h1,
 .side-bar-div-active h1 {
@@ -224,15 +143,10 @@ a {
   position: relative;
 }
 
-.side-bar-div {
-  display: none;
-  --webkit-animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
 .side-bar-div-active {
   display: block;
-  animation: scale-in-hor-left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  background: linear-gradient(85deg, #ffc273, #b222ff);
+  animation: scale-in-hor-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .filtration-div {
@@ -278,34 +192,6 @@ a {
 .group-box p {
   margin: 0;
   font-weight: bold;
-}
-
-.foot-div {
-  display: inline;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.contact-nav {
-  display: flex;
-  font-family: "Handjet";
-  position: relative;
-  flex-wrap: wrap;
-  background: black;
-}
-.contact-nav li {
-  display: flex;
-  font-size: 30px;
-  margin-left: 18px;
-  justify-content: space-around;
-}
-.contact-nav li a {
-  display: flex;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  font-weight: bolder;
 }
 
 @media screen and (max-width: 680px) {
@@ -364,32 +250,4 @@ a {
     color: white;
     font-weight: bolder;
   }
-}
-.glitch {
-  color: rgb(223, 191, 191);
-  position: relative;
-  font-size: 9vw;
-  animation: glitch 1s 1.2s infinite;
-}
-
-.glitch::before {
-  content: attr(data-text);
-  position: absolute;
-  left: -2px;
-  text-shadow: -5px 0 magenta;
-  background: black;
-  overflow: hidden;
-  top: 0;
-  animation: noise-1 2s linear infinite alternate-reverse, glitch 3s 3.05s infinite;
-}
-
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 2px;
-  text-shadow: -5px 0 lightgreen;
-  background: black;
-  overflow: hidden;
-  top: 0;
-  animation: noise-2 2s linear infinite alternate-reverse, glitch 1s 2s infinite;
 }/*# sourceMappingURL=Main-Mobile.css.map */

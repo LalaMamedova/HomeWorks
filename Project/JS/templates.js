@@ -1,5 +1,8 @@
+const isLogin = localStorage.getItem('isLogin');
+
+
 export function cardTemp(id,images,name,year,type,description,interestingfacts){
-    let card = `<div id="tech-card"">
+    let card = `<div id="tech-card" class='tech-card'">
             <img src="${images}" alt="${name}">
             <h2>${name}</h2>
             <h6>${year}</h6>
@@ -21,4 +24,19 @@ export function cardTemp(id,images,name,year,type,description,interestingfacts){
                 <h5>${id}</h5>
         </div>`       
         return card;
+}
+
+
+export function changeBtns(){
+    if(isLogin!=null ){
+        if(isLogin=='true'){
+            document.querySelector('#sign-in-btn').style.display = 'none';
+            document.querySelector('#sign-up-btn').style.display = 'none';
+            document.querySelector('#cabinet-btn').style.display = 'flex';
+        }else{
+            document.querySelector('#sign-in-btn').style.display = 'flex';
+            document.querySelector('#sign-up-btn').style.display = 'flex';
+            document.querySelector('#cabinet-btn').style.display = 'none';
+        }
+    }    
 }

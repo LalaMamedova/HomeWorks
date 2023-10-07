@@ -19,7 +19,11 @@
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script defer src="https://kit.fontawesome.com/94ed063ed7.js" crossorigin="anonymous"></script>
 
-    <script defer src="/JS/info.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="/JS/info.js"  type="module"></script>
+    <script defer src="/JS/changeMode.js" type="module"></script>
+    <script defer src="/JS/templates.js" type="module"></script>
+    <script defer src="/JS/apiMethods.js" type="module"></script>
     <script defer src="/JS/music.js"></script>
 
 </head>
@@ -37,21 +41,29 @@
                 <button class="music-button next-music"><i class="fa-solid fa-forward-step"></i></button>
             </div>
 
-            
             <nav class="auto-nav">
-                <button class="main-button auto-button "><a href="SignIn.html">
-                    <i class="fa fa-user fa-fw w3-margin-right" style="font-size:20px;color:rgb(255, 59, 173)"></i></a>Sign in</button>
 
-                <button class="main-button auto-button"><a href="SignUp.html">
-                    <i class="fa fa-user-plus fa-fw w3-margin-right" style="font-size:20px;color:rgb(255, 59, 173)"></i></a>Sign up</button>
+                <button id="cabinet-btn" class="main-button">
+                    <a href="Cabinet.html"><i id="gradient-i" class="fa fa-home fa-fw w3-margin-right"></i>
+                    </a>Cabinet</button>
+                    
+                <button id="sign-in-btn" class="main-button"><a href="SignIn.html">
+                    <i id="gradient-i" class="fa fa-user fa-fw w3-margin-right" style="font-size:20px;"></i></a>Sign in</button>
+
+                <button  id="sign-up-btn"  class="main-button"><a href="SignUp.html">
+                    <i id="gradient-i" class="fa fa-user-plus fa-fw w3-margin-right" style="font-size:20px;"></i></a>Sign up</button>
+                
             </nav>
 
             <nav class="auto-mob-nav">
-                <button class="main-button auto-mob-button"><a href="SignIn.html">
-                    <i class="fa fa-user" style="font-size:30px;color:rgb(255, 59, 173)"></a></i></button>
+                <button id="cabinet-btn" id="cabinet-btn" class="main-button"><a id="gradient-i" href="/Html/Cabinet.html">
+                    <i class="fa fa-home" aria-hidden="true"></i></a></button>
 
-                <button class="main-button auto-mob-button"><a href="SignUp.html">
-                    <i class="fa fa-user-plus" style="font-size:30px;color:rgb(255, 59, 173)"></a></i></button>
+                <button id="sign-in-btn" class="main-button"><a id="gradient-i" href="SignIn.html">
+                    <i class="fa fa-user" style="font-size:30px;"></a></i></button>
+                    
+                <button id="sign-up-btn" class="main-button"><a id="gradient-i" href="SignUp.html">
+                    <i class="fa fa-user-plus" style="font-size:30px;"></a></i></button>
             </nav>
             <div>
                 <button  id="mode-btn" class="main-button"><i class="fa fa-sun-o" aria-hidden="true"></i></button>
@@ -92,21 +104,21 @@
 
             <div class="mini-info-div">  
                 <div class="interactiv-btn-div" >
-                    <button class="interactiv-btn"><i class="fa fa-heart-o fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>
-                    <button class="interactiv-btn"><i class="fa fa-share-alt" style="font-size:24px"></i></button>
+                    <button id='like-btn' class="interactiv-btn"><i class="fa fa-heart-o fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>
+                    <button id='share-btn' class="interactiv-btn"><i class="fa fa-share-alt" style="font-size:24px"></i></button>
                 </div>  
                 <div>
-                    <section id="name-section">
+                    <section class="section" id="name-section">
                         <label for="tech-name">Name:</label>
                         <span id="tech-name">Tech</span>
                     </section>
                     
-                    <section id="type-section">
+                    <section class="section" id="type-section">
                         <label for="tech-type">Type:</label>
                         <span id="tech-type">Tech Type</span>
                     </section>
                     
-                    <section id="date-section">
+                    <section class="section" id="date-section">
                         <label for="tech-date">Release date:</label>
                         <span id="tech-date">1990</span>
                     </section>
@@ -114,14 +126,14 @@
             </div>
 
             <div class="other-info-div">
-                <section id="description-section">
+                <section class="section" id="description-section">
                     <label for="tech-description">Description:</label>
                     <span id="tech-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, officiis? Voluptate modi, odit illo corrupti esse officia quam eaque quia delectus repellendus iusto nihil ducimus architecto reiciendis necessitatibus culpa consequatur.</span>
                 </section>
             </div>
 
             <div class="fact-and-char-div">
-                <section id="char-section">
+                <section class="section" id="char-section">
                     <label for="tech-char-value">Technical characteristics :</label>
                     <li> 
                         <span id="tech-char-name">Processor</span>
@@ -134,7 +146,7 @@
                    
                 </section>
 
-                <section id="fact-section">
+                <section class="section" id="fact-section">
                     <label for="tech-fact">Interesting facts:</label>
                     <li> 
                         <span id="tech-fact">Fact 1</span>
