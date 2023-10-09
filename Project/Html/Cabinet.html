@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cabinete</title>
-    <link rel="stylesheet" href="/Scss/Main.css">
+    <link rel="stylesheet" href="/Scss/Cabinet.css">
     <link rel="stylesheet" href="/Scss/Button.css">
     <link rel="shortcut icon" href="/Assets/Icon/Color_Synthwave.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="https://kit.fontawesome.com/94ed063ed7.js" crossorigin="anonymous"></script>
     <script defer src="/js/music.js"></script>
+    <script defer src="/js/apiMethods.js" type="module"></script>
     <script defer src="/js/cabinet.js" type="module"></script>
     <script defer src="/js/templates.js" type="module"></script>
+    <script defer src="/js/changeMode.js" type="module"></script>
 
 </head>
 <body style="background: linear-gradient(285deg, #34eeff, #ff269d);">
@@ -32,23 +35,29 @@
             <nav class="auto-nav">
                 
                 <button id="sign-in-btn" class="main-button"><a href="/Html/SignIn.html">
-                    <i id="gradient-i" class="fa fa-user fa-fw w3-margin-right"></i></a>Sign in</button>
+                    <i class="fa fa-user fa-fw w3-margin-right"></i></a>Sign in</button>
                     
                 <button id="sign-up-btn" class="main-button">
-                        <a href="SignUp.html"><i id="gradient-i" class="fa fa-user-plus fa-fw w3-margin-right"></i>
+                        <a href="SignUp.html"><i class="fa fa-user-plus fa-fw w3-margin-right"></i>
                         </a>Sign up</button>
 
             
                 <button id="sign-out-btn" class="main-button" style="width: 120px;"><a href="Cabinet.html">
-                        <i id="gradient-i" class="fa fa-sign-out fa-fw w3-margin-right">
+                        <i class="fa fa-sign-out fa-fw w3-margin-right">
                         </i></a>Sign out</button>
+
+                <button  id="mode-btn" class="main-button"><i class="fa fa-sun" aria-hidden="true"></i></button>
+
             </nav>
         </div>
     </header>
     <main style="text-align: center;">
 
-        <div style="color: white;">
+        <div class="main-div">
             <h1>YOU'R CABINET</h1>
+            <div class="tech-list">
+
+            </div>
         </div>
         
     </main>

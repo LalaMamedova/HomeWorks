@@ -1,15 +1,12 @@
 import { cardTemp,changeBtns } from "./templates.js";
 import { get,remove } from "./apiMethods.js";
-import { changeDefaultElements,btnClick } from "./changeMode.js";
+import { changeLoadScreen, changeDefaultElements,btnClick,changeArrBackground } from "./changeMode.js";
 let isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
 
 document.addEventListener("DOMContentLoaded", function() {
     
-    const rangeInput = $("#yearRange");
-    const yearChoice= $("#yearChoice");
     const modebtn = $('#mode-btn');
     const addTempBtn = document.querySelector('#add-temp');
-    const currentYear = new Date().getFullYear();
 
     var techList = document.querySelector('#tech-list');
     var cardDiv = '';
@@ -17,21 +14,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
     window.onload = async function () {
       
+        await changeLoadScreen(isDarkMode);
+        await loadPage(1500);
         sessionStorage.clear();
-        await loadPage(700);
         changeBtns();
     };
     
     async function loadPage(loadAnimationDelay) {
-        setTimeout(() => {$('#loader-container').css({'display': 'none'})},loadAnimationDelay);
-        AllCards = await get('technologies');
-
-        AllCards.forEach(data => {
-            var card = cardTemp(data.id,data.images[0],data.name,data.year,data.type,data.description, data.interestingfacts[0]);
-            techList.innerHTML +=`${card} `
-        });
         
-        cardDiv = document.querySelectorAll(".tech-card,#tech-card");
+        setTimeout(() => {$('#loader-container').css({'display': 'none'})},loadAnimationDelay);
+
+        try {
+            AllCards = await get('technologies');
+            if(AllCards.length>0){
+                AllCards.forEach(data => {
+                    techList.innerHTML +=`${cardTemp(data.id,data.images[0],data.name,data.year,data.type,data.description, data.interestingfacts[0])} `
+                });
+                cardDiv = document.querySelectorAll(".tech-card,#tech-card");
+            }else{
+                techList.innerHTML+=
+                `<div class='no-res-div'>
+                    <h1>There are no technology.If you know some, please <a href ='AddRedactPage.html'>add</a></h1>
+                </div>`;
+
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+        
+    
         await changeMode(isDarkMode);
     }
 
@@ -47,18 +59,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if(isDarkMode === true){
             $('.side-bar-div,.side-bar-div-active').css({'background':'#2B3865'});
-            cardDiv.forEach(card=>{
-                card.style.background = '#2B3865';
-            });            
-            
         }else{
             $('.side-bar-div,.side-bar-div-active').css({'background':'linear-gradient(85deg, #ffc273, #b222ff)'});
-            cardDiv.forEach(card=>{
-                card.style.background = 'linear-gradient(135deg, #1e38ff, #ff78c7)';
-            });
-
         }
-    
     }
 
     
@@ -81,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (techs.id == techId) {
                         if(target.value === 'info'){
                             sessionStorage.setItem('infoData', JSON.stringify(techs));
-                            window.location.href = `/Html/InfoPage.html`;
+                            window.location.href = `/Html/InfoPage.html?tech=${techs.name}`;
 
                         }else if(target.value === 'delete'){
                             
@@ -90,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         }
                         else if(target.value === 'edit'){
                             sessionStorage.setItem('editData', JSON.stringify(techs));
-                            window.location.href = `/Html/AddRedactPage.html`;
+                            window.location.href = `/Html/AddRedactPage.html?tech=${techs.name}`;
                             
                         }
                     }
@@ -106,9 +109,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    rangeInput.attr("max", currentYear);
-    rangeInput.on("input", function() {
-        yearChoice.text(rangeInput.val());
-    });
+   
 
 });

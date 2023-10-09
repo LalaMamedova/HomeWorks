@@ -1,5 +1,5 @@
-$color_1: #fff;
-$animation-delay: 0.01s;
+@import url(Addons.css);
+$animation-delay: 1.5s;
 
 #loader-container{
 	position: fixed;
@@ -13,26 +13,69 @@ $animation-delay: 0.01s;
 	justify-content: center;
 	align-items: center;
 	z-index: 9999;
-	color: $color_1;
+	color: white;
+
+	#loader-message{
+		font-size: 25px;
+		font-family: 'Arcade';
+	}
+	#loader-logo {
+		h1 {
+			font-size: 100px;
+			animation: pulse calc($animation-delay)-0.1;
+		}
+	}
+	#loader-progress {
+
+		display: flex;
+		width: 80%;
+		height: 50px;
+		background: rgba(183, 255, 254, 0.479);
+		border-radius: 10px;
+		margin-top: 20px;
+		overflow: hidden;
+
+		#film-roll,
+		#film-roll-pink {
+			background-image: url("../Assets/Icon//film-roll-black.png");
+			background-size:cover;
+			background-position: center;
+			position: relative;
+			height: 100%;
+			width: 50px;
+		}
+		#film-roll-pink{
+			background-image: url("../Assets/Icon//film-roll.png");
+
+		}
+	}
+
+	#loader-bar,
+	#loader-bar-pink {
+		--background: black;
+		--size: 3px;
+		background-image:
+			linear-gradient(to right, var(--background) var(--size), transparent var(--size)),
+			linear-gradient(to bottom, var(--background) var(--size), transparent var(--size)),
+			linear-gradient(to right, var(--background) var(--size), transparent var(--size)),
+			linear-gradient(to bottom, var(--background) var(--size), transparent var(--size)),
+			linear-gradient(to bottom, transparent var(--size), var(--background) var(--size));
+		background-size: calc(var(--size) * 2) var(--size), calc(var(--size) * 2) var(--size), calc(var(--size) * 2) var(--size), calc(var(--size) * 2) var(--size), 100% calc(100% - var(--size) * 3);
+		background-repeat: repeat-x;
+		background-position: 0 var(--size), top left, 0 calc(100% - var(--size)), bottom left, 0 var(--size);
+		padding: calc(var(--size) * 3) calc(var(--size) * 2.5);
+		box-sizing: border-box;
+		margin: 0;
+		width: 0;
+		position: relative;
+		height: 21px;
+		top: 15px;
+		animation: fill calc($animation-delay)-0.1 linear forwards;
+		
+	}
+	#loader-bar-pink{
+		--background: #F76C82;
+	}
+
 }
 
-#loader-logo {
-	h1 {
-		font-size: 100px;
-		animation: pulse calc($animation-delay)-0.1;
-	}
-}
-#loader-progress {
-	width: 80%;
-	height: 20px;
-	background: rgba(255, 255, 255, 0.3);
-	border-radius: 10px;
-	margin-top: 20px;
-	overflow: hidden;
-}
-#loader-bar {
-	width: 0;
-	height: 100%;
-	background: #fff;
-	animation: fill calc($animation-delay)-0.1 linear forwards;
-}

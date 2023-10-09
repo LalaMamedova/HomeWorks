@@ -1,6 +1,7 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
-@import url(/Scss/Main.css);
+@import url(/Scss/MainHeader.css);
+@import url(/Scss/LoadingScreen.css);
 .search-nav {
   display: flex;
   position: relative;
@@ -31,13 +32,6 @@
   display: none;
 }
 
-.music-bar {
-  display: flex;
-  position: absolute;
-  align-self: flex-end;
-  margin-left: 40%;
-}
-
 .filter-div button {
   display: flex;
 }
@@ -55,9 +49,8 @@
   text-align: center;
 }
 
-#tech-card,
-#tech-card-dark {
-  height: 700px;
+#tech-card, .tech-card {
+  height: 720px;
   width: 50%;
   margin: 30px 20px;
   padding: 45px;
@@ -72,8 +65,7 @@
   animation: swing-in-bottom-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
   transition: all 0.3 ease-in-out;
 }
-#tech-card img,
-#tech-card-dark img {
+#tech-card img, .tech-card img {
   display: flex;
   border-radius: 5%;
   width: 100%;
@@ -82,12 +74,10 @@
   border-radius: 5%;
   height: 45%;
 }
-#tech-card h6,
-#tech-card-dark h6 {
+#tech-card h6, .tech-card h6 {
   font-size: 20px;
 }
-#tech-card p,
-#tech-card-dark p {
+#tech-card p, .tech-card p {
   font-size: 19px;
   -webkit-line-clamp: 5;
   overflow: hidden;
@@ -96,13 +86,6 @@
   -webkit-box-orient: vertical;
   color: white;
   font-weight: bolder;
-}
-
-#tech-card-dark {
-  background: #2B3865;
-}
-#tech-card-dark h1, #tech-card-dark h2, #tech-card-dark h3, #tech-card-dark h4, #tech-card-dark p {
-  color: white;
 }
 
 .interest-fact span {
@@ -224,25 +207,14 @@
   }
 }
 @media screen and (max-width: 480px) {
-  .auto-nav {
-    display: none;
-  }
-  .auto-mob-nav {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-self: flex-start;
-    margin-left: auto;
-    transition: all 0.5s ease;
-  }
   .music-bar {
     position: absolute;
     align-items: flex-start;
-    margin-left: 0%;
     transition: all 0.6s ease;
+    margin-left: 0%;
   }
-  .list-div ul li p {
-    -webkit-line-clamp: 5;
+  #tech-card p {
+    -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

@@ -6,11 +6,14 @@ const password =  $('#signin-pass');
 let isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
 
 window.onload = function() {
-    changeMode(isDarkMode);
-
-    if(sessionStorage.getItem('user')!=''){
+    
+    if(localStorage.getItem('isLogin') =='true'){        
+        $('main').html(`<div class='main-div'><h1>You alredy loggined</h1></div>`);
+    }
+    else if(sessionStorage.getItem('user')!='' && localStorage.getItem('isLogin')!='true'){
         email.val(sessionStorage.getItem('user'));
     }
+    changeMode(isDarkMode);
 };
 
 function changeMode(isDarkMode){
@@ -35,16 +38,20 @@ $('.submit-sign-in').on('click', async function(){
 
         if(res.email === email.val() && res.password==password.val()){
             localStorage.setItem('isLogin',true);
+           
             localStorage.setItem('user',JSON.stringify(
             {
                 id:res.id,
-                email:res.email}));
+                email:res.email,
+                likedTechnology: res.likedTechnology,
+            }));
 
             location.href = '/Html/MainPage.html'
         }else{
             $('.error-message').text('Incorrect password or email').css({'display':'flex'});
         } 
-    }else{
+    }
+    else{
         $('.error-message').text('Fill all field please').css({'display':'flex'});
     }
 });

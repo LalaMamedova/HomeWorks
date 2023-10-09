@@ -1,6 +1,7 @@
 @import url(/Scss/Addons.css);
 @import url(/Scss/Animation.css);
-@import url(/Scss/Main.css);
+@import url(/Scss/MainHeader.css);
+@import url(/Scss/LoadingScreen.css);
 
 $color_1: black;
 $color_2: rgba(0, 0, 0, 0.758);
@@ -42,12 +43,7 @@ $background-color_1: pink;
 .auto-mob-nav {
 	display: none;
 }
-.music-bar {
-	display: flex;
-	position: absolute;
-	align-self: flex-end;
-	margin-left: 40%;
-}
+
 .filter-div {
 	button {
 		display: flex;
@@ -58,17 +54,17 @@ $background-color_1: pink;
 	font-family: $font-family_2;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	line-height: 1.1;
-	
+	line-height: 1.1;	
 }
+
+
 .bottons-div{
 	justify-content: center;
 	text-align: center;
 }
 
-#tech-card,
-#tech-card-dark{
-	height: 700px;
+#tech-card,.tech-card{
+	height: 720px;
 	width: 50%;
 	margin: 30px 20px;
 	padding: 45px;
@@ -107,28 +103,7 @@ $background-color_1: pink;
 	}
 	transition: all 0.3 ease-in-out;
 }
-#tech-card-dark{
-	background: #2B3865;
-	
-	h1,h2,h3,h4,p{
-		color: white;
-	}
-}
 
-// .tech-card-buttons {
-// 	display: flex;
-// 	position: relative;
-// 	justify-content: center;
-// 	margin-top: 10px;
-// 	button {
-// 		margin-right: 15px;
-// 	}
-// }
-// .to-full-info-div {
-// 	display: flex;
-// 	position: relative;
-// 	justify-content: center;
-// }
 .interest-fact {
 	span {
 		font-size: 22px;
@@ -247,37 +222,22 @@ $background-color_1: pink;
 	}
 }
 @media screen and (max-width: 480px) {
-	.auto-nav {
-		display: none;
-	}
-	.auto-mob-nav {
-		margin-top: 5px;
-		display: flex;
-		justify-content: space-between;
-		align-self: flex-start;
-		margin-left: auto;
-		transition: all 0.5s ease;
-	}
-	
+
 	.music-bar {
 		position: absolute;
 		align-items: flex-start;
-		margin-left: 0%;
 		transition: all 0.6s ease;
+		margin-left: 0%;
 	}
-	.list-div {
-		ul {
-			li {
-				p {
-					-webkit-line-clamp: 5;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					color: $color_4;
-					font-weight: bolder;
-				}
-			}
+	#tech-card {
+		p {
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			color: $color_4;
+			font-weight: bolder;
 		}
 	}
 }

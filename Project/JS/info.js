@@ -1,4 +1,4 @@
-import {changeDefaultElements,changeClassNameId,btnClick } from "./changeMode.js";
+import {changeDefaultElements,btnClick } from "./changeMode.js";
 import { changeBtns } from "./templates.js";
 import {getByEmail, put } from "./apiMethods.js";
 
@@ -30,11 +30,9 @@ async function changeMode(isDarkMode){
     changeDefaultElements(isDarkMode,'#mode-btn')
 
     if(isDarkMode === true){
-        changeClassNameId('.section','dark-section',false);
-        changeClassNameId('.interactiv-btn-div',"interactiv-btn-dark-div",false);
+        $('.section').css({'background':'#182945'});
     }else{
-        changeClassNameId('.interactiv-btn-dark-div',"interactiv-btn-div",false);
-        changeClassNameId('.dark-section',"section",false);
+        $('.section').css({'background':'linear-gradient(135deg, #8a98ff, #ff78c7)'});
     }
 }
 
@@ -49,6 +47,9 @@ async function changeTemplate(techInfo){
     let imgDiv = makeImgDiv(techInfo);
     let charDiv = makeCharLi(techInfo);
     let factDiv = makeFactDiv(techInfo);
+
+    const link = `http://127.0.0.1:5500/Html/InfoPage.html?${techInfo.name}`;
+    const msg = encodeURIComponent(`Look at this ${techInfo.name}`);
 
     document.querySelector('.main-div').innerHTML = 
     `<div class="all-img-div">
@@ -77,7 +78,12 @@ async function changeTemplate(techInfo){
                 <div class="interactiv-btn-div" >
                    ${likeBtnType};
                     <button id='share-btn' class="interactiv-btn"><i class="fa fa-share-alt" style="font-size:24px"></i></button>
-                </div>  
+                        <div class="share-btns-container">
+                            <a target='_blank' href="https://www.facebook.com/share.php?u=${link}" id="gradient-i" class="fa fa-facebook-square" ></a>
+                            <a target='_blank' href="https://www.twitter.com/share?&url=${link}&text=${msg}" id="gradient-i" class="fa fa-twitter-square"></i></a>
+                            <a target='_blank' href="http://vk.com/share.php?&url=${link}&title=${msg}&image=${techInfo.images[0]}" id="gradient-i" class="fa fa-vk"></a>
+                        </div>
+                    </div>  
                 <div>
                     <section class='section' id="name-section">
                         <label for="tech-name">Name:</label>
@@ -117,24 +123,41 @@ async function changeTemplate(techInfo){
         `
 
         await likeBtnClick();
+        await shareBtnClick();
 }
 
+async function shareBtnClick(){
+    let shareBtn = document.querySelector('#share-btn')
+    shareBtn.addEventListener('click', async function(){
+        var shareBtnContainer = document.querySelector(".share-btns-container");
 
+        if (shareBtnContainer.getAttribute('style') === 'display: none;' || shareBtnContainer.getAttribute('style') === null){
+            shareBtnContainer.style.display = 'flex';
+
+        }else{
+            shareBtnContainer.style.display ='none';
+        }
+
+
+    });
+}
 async function likeBtnClick(){
 
     $('#like-btn').on('click', async function(){
         if(userRes != '')
         {
-        
-            const techInfoString = JSON.stringify(techInfo);
-            const likedTechStrings = userRes.likedTechnology.map(item => JSON.stringify(item));
-
-            if(!likedTechStrings.includes(techInfoString)){
-                userRes.likedTechnology.push(techInfo);
+            const techId = techInfo.id;
+            if(!userRes.likedTechnology.includes(techId)){
+                userRes.likedTechnology.push(techId);
                 put('users',userRes.id,userRes);
+                localStorage.setItem('user', JSON.stringify(userRes));
                 document.querySelector('#like-btn').querySelector('i').className= ('fa fa-heart fa-beat');
             }else{
-                alert('You alredy liked this');
+                let index =  userRes.likedTechnology.indexOf(techId);
+                userRes.likedTechnology.splice(index,1);
+                put('users',userRes.id,userRes);
+                localStorage.setItem('user', JSON.stringify(userRes));
+                document.querySelector('#like-btn').querySelector('i').className= ('fa fa-heart-o fa-beat');
             }
 
         }else{
@@ -146,13 +169,11 @@ async function likeBtnClick(){
 
 
 async function addLikeBtn(){
-    if(userRes != ''){
-        const techInfoString = JSON.stringify(techInfo);
-        const likedTechStrings = userRes.likedTechnology.map(item => JSON.stringify(item));
-        if(likedTechStrings.includes(techInfoString)){
-            return `<button id='like-btn' class="interactiv-btn"><i class="fa fa-heart fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>`
+    if (userRes != '') {
+        if (userRes.likedTechnology.includes(techInfo.id)) {
+            return `<button id='like-btn' class="interactiv-btn"><i class="fa fa-heart fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>`;
         }
-    }      
+    }
     return `<button id='like-btn' class="interactiv-btn"><i class="fa fa-heart-o fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>`
 
 }

@@ -1,5 +1,5 @@
 import { post,put } from "../apiMethods.js";
-import {changeDefaultElements,btnClick } from "../changeMode.js";
+import {changeDefaultElements,btnClick,changeArrBackground } from "../changeMode.js";
 import { changeBtns } from "../templates.js";
 
 const inputName = document.querySelector("#input-name");
@@ -50,7 +50,6 @@ window.onload = function() {
 function checkEditFile(){
     const tempData = sessionStorage.getItem('editData');
     techInfo = JSON.parse(tempData);
-    console.log(techInfo);
     return techInfo;
 }
 
@@ -150,11 +149,9 @@ modebtn.addEventListener('click',()=>{
 function changeMode(isDarkMode){
     changeDefaultElements(isDarkMode,'#mode-btn');
     if(isDarkMode === true){
-        document.querySelector('.tech-temp' ).style.background = '#182945';
-        $('h1').css({'color':"white"});
+        changeArrBackground('input,select,textarea','lightblue');
     }else{
-        document.querySelector('.tech-temp' ).style.background = "linear-gradient(285deg, #1e3cff, #ff1f75)";
-        $('h1').css({'color':"black"});
+        changeArrBackground('input,select,textarea','linear-gradient(100deg, #f2d9ff,#ff89df)');
     }
 }
 
@@ -207,19 +204,37 @@ submit.addEventListener('click', () => {
         }
     }
 
-
-    if( isEmpty === false && sessionStorage.getItem('editData') != null){
+    if(isEmpty === false && sessionStorage.getItem('editData') != null){
         retroTech.id = techInfo.id;
-        put('technologies',retroTech.id,retroTech);
+        put('technologies',retroTech.id,retroTech) .then(result => {
+            if(result){
+                apiStateChange('green','Tech is successfully changed');
+            }else{
+                apiStateChange('red','Something went wrong');
+            }
+        })
+        
     }
     else if(isEmpty === false && sessionStorage.getItem('editData') === null){
-        post('technologies',retroTech);
+        post('technologies',retroTech).then(result=>{
+            if(result.success){
+                apiStateChange('green','Tech is successfully saved');
+            }else{
+                apiStateChange('red','Something went wrong');
+            }
+        });
+
     }else{
-        alert('Fill the empty place please');
+        apiStateChange('red','Fill the empty place please');
     }
   
 });
 
+function apiStateChange(color,text){
+    let apiState = document.querySelector('.api-state')
+    apiState.style.color = color;
+    apiState.textContent = text;
+}
 function isNullOrEmpty(input) {
     return !input || input.value.trim() === '';
 }

@@ -35,21 +35,13 @@ app.MapGet("/technologies", () =>
 });
 app.MapGet("/technologies/{id}", (int id) =>
 {
-   var techs = technologies.Find(x => x.id == id);
+    var techs = technologies.Where(x => x.id == id).First();
    if(techs == null)
         return Results.NotFound("Sorry but we can't found it");
     
     return Results.Ok(techs);
 });
 
-app.MapGet("/technologies/{name}", (string name) =>
-{
-    var techs = technologies.Find(x => x.name == name);
-    if (techs == null)
-        return Results.NotFound("Sorry but we can't found it");
-
-    return Results.Ok(techs);
-});
 
 app.MapPost("/technologies", (Technology tech) =>
 {
@@ -85,6 +77,7 @@ app.MapPut("/technologies/{id}", (int id,Technology editTech) =>
         tech.charname = editTech.charname;
         tech.charvalue = editTech.charvalue;
         tech.interestingfacts = editTech.interestingfacts;
+        tech.images = editTech.images;
         tech.type = editTech.type;
 
         return Results.Ok(tech);
@@ -106,6 +99,7 @@ app.MapGet("/users/{email}", (string email) =>
     }
     return Results.NotFound("User not founded");
 });
+
 
 app.MapPut("/users/{id}", (int id, Users updateUser) =>
 {

@@ -46,14 +46,13 @@ a {
 	        animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 }
 .add-coll-div {
-	
 	font-family: $font-family_2;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	margin: 25px 20px;
+	margin: 25px 50px;
 	
 	input {
 		position: relative;
@@ -73,23 +72,11 @@ a {
 	-webkit-animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 	        animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 }
-.add-fact-div.add-coll-div {
-	display: flex;
+.add-fact-div {
+	display: block;
 	position: relative;
-	width: auto;
-
-
-	.fact-div {
-		display: block;
-		
-		#input-fact {
-			position: relative;
-		}
-	}
-		
-	
 }
-.add-char-div.add-coll-div {
+.add-char-div.add-coll-div{
 	font-size: 20px;
 	position: relative;
 	word-wrap: break-word;
@@ -98,13 +85,7 @@ a {
 .characteristic-input {
 	display: flex;
 }
-#input-tech-char-name {
-	width: 185px;
-	margin-top: 10px;
-	margin-right: 16px;
-}
-
-#input-tech-char-value {
+#input-tech-char-value,#input-tech-char-name  {
 	margin-top: 10px;
 	margin-right: 16px;
 }
@@ -120,68 +101,70 @@ a {
 	}
 }
 .temp-div {
-	display: flex;
+	display: block;
+	position: relative;
 	color: $color_5;
 	font-weight: bold;
 	font-family: $font-family_2;
-	position: relative;
-	margin: 15% 20%;
+	margin: 20% 5%;
 	transition: all 0.5s ease-in-out;
-}
-.tech-temp {
-	flex-wrap: wrap;
-	list-style: none;
-	border: 5px solid #ffffff;
-	position: relative;
-	width: 420px;
-	height: 650px;
-	padding: 40px;
-	border-radius: 5%;
-	background: linear-gradient(135deg, #1e3cff, #ff1f75);
-	box-shadow: 0px 0px 20px black;
 
-	
-	--webkit-animation: scale-in-hor-center 0.5s ease-out both;
-	animation: scale-in-hor-center 0.5s ease-out both;
-
-
-	img {
-		display: flex;
+	.tech-card {
+		flex-wrap: wrap;
+		list-style: none;
+		border: 5px solid #ffffff;
 		position: relative;
+		width: 420px;
+		height: 650px;
+		padding: 40px;
 		border-radius: 5%;
-		width: 100%;
-		height: 220px;
-		margin-bottom: 10px;
-	}
-	p {
-		display: flex;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		font-weight: bolder;
-		position: relative;
-		font-size: 22px;
-		-webkit-line-clamp: 3;
-	}
-	h4 {
-		font-size: 20px;
-	}
-	h5 {
-		font-size: 20px;
-		cursor: pointer;
-	}
-	a {
-		display: flex;
-		text-decoration: none;
-		text-align: center;
-		font-size: 30px;
+		background: linear-gradient(135deg, #1e3cff, #ff1f75);
+		box-shadow: 0px 0px 20px black;
+		--webkit-animation: scale-in-hor-center 0.5s ease-out both;
+		animation: scale-in-hor-center 0.5s ease-out both;
+		transition: all 0.5s ease;
+	
+	
+		img {
+			display: flex;
+			position: relative;
+			border-radius: 5%;
+			width: 100%;
+			height: 220px;
+			margin-bottom: 10px;
+		}
+		p {
+			display: flex;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			font-weight: bolder;
+			position: relative;
+			font-size: 22px;
+			-webkit-line-clamp: 3;
+		}
+		h4 {
+			font-size: 20px;
+		}
+		h5 {
+			font-size: 20px;
+			cursor: pointer;
+		}
+		a {
+			display: flex;
+			text-decoration: none;
+			text-align: center;
+			font-size: 30px;
+		}
+		#tech-fact {
+			-webkit-line-clamp: 2;
+			color: $color_6;
+		}
 	}
 }
-#tech-fact {
-	-webkit-line-clamp: 2;
-	color: $color_6;
-}
+
+
 .confirm-div {
 	display: flex;
 	justify-content: center;
@@ -195,8 +178,17 @@ a {
 	
 	}
 }
+.api-state{
+	position: relative;
+	text-align: center;
+	font-weight: bolder;
+	bottom: 5px;
+	padding: 30px;
+	font-size: 35px;
+	font-family: $font-family_2;
+}
 .foot-div {
-	display: flex;
+	display: fixed;
 	flex-direction: column;
 	position: relative;
 }
@@ -219,53 +211,33 @@ a {
 		}
 	}
 }
-@media screen and (max-width: 1500px) {
-	.temp-div {
-		display: flex;
-		color: $color_5;
-		font-weight: bold;
-		font-family: $font-family_2;
-		position: relative;
-		margin: 30% 0%;
-		width: 500px;
-	}
-}
+
 @media screen and (max-width: 1250px) {
 	.main-div {
 		margin-left: 20%;
 		display: block;
 		transition: all 0.5s ease-in-out;
 	}
-	.tech-temp {
-
+	.temp-div {
 		display: block;
-		color: $color_5;
-		font-weight: bold;
 		position: relative;
-		font-family: $font-family_2;
 		width: 100%;
-		li {
-			flex-wrap: wrap;
-			width: 400px;
-			transition: all 0.5s ease;
-			img {
-				width: 120%;
-				height: 220px;
-			}
-		}
+
 	}
 	
 	.add-box {
 		align-items: center;
 	}
 	.add-coll-div {
-		display: flex;
+		display: block;
 		flex-wrap: wrap;
 		justify-content: space-evenly;
 	}
 	.add-fact-div {
-		flex-basis: calc(50% - 10px);
-		margin: 5px 0px;
+		display: block;
+		position: relative;
+		flex-wrap: wrap;
+		
 	}
 	.add-char-div {
 		flex-basis: calc(50% - 10px);
@@ -274,22 +246,16 @@ a {
 	.confirm-div {
 		position: relative;
 		margin: 0;
+		right: 10%;
 		bottom: 30px;
+	}
+	.api-state{
+		right: 10%;
 	}
 }
 
 @media screen and (max-width: 620px) {
-	.auto-nav {
-		display: none;
-	}
-	.auto-mob-nav {
-		margin-top: 5px;
-		display: flex;
-		justify-content: space-between;
-		align-self: flex-start;
-		margin-left: auto;
-		transition: all 0.5s ease;
-	}
+	
 	
 	.main-div {
 		position: relative;
@@ -302,27 +268,11 @@ a {
 		transition: all 0.6s ease;
 		margin: 0;
 	}
-	.tech-temp {
-
-		display: flex;
-		color: $color_5;
-		font-weight: bold;
-		position: relative;
-		font-family: $font-family_2;
-		width: 400px;
-		li {
-			flex-wrap: wrap;
-			width: 400px;
-			transition: all 0.5s ease;
-			img {
-				width: 120%;
-				height: 220px;
-			}
-		}
-	}
+	
 
 	.confirm-div {
 		margin: 0%;
+		top: 5px;
 		display: inline;
 		position: relative;
 		flex-direction: row;
@@ -332,10 +282,8 @@ a {
 			font-size: 20px;
 		}
 	}
-	
-	
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 480px) {
 	
 	.add-coll-div {
 		position: relative;
@@ -368,11 +316,14 @@ a {
 		width: 250px;
 	}
 	.temp-div {
-		
-			flex-wrap: wrap;
-			width: 300px;
-			transition: all 0.5s ease;
-		
+		position: relative;
+		width: 100px;
+
+		.tech-card{
+			position: relative;
+			width: 250px;
+		}
+
 	}
 	.group-box {
 		select {

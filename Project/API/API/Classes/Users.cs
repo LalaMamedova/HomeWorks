@@ -6,6 +6,6 @@
         public string username { get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        public List<Technology> likedTechnology { get; set; } = new List<Technology>();
+        public List<int>? likedTechnology { get; set; } = new();
     }
 }

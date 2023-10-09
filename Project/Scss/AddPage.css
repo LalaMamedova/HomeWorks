@@ -42,7 +42,7 @@ a {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 25px 20px;
+  margin: 25px 50px;
   animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 .add-coll-div input {
@@ -61,15 +61,8 @@ a {
   border-radius: 10px;
 }
 
-.add-fact-div.add-coll-div {
-  display: flex;
-  position: relative;
-  width: auto;
-}
-.add-fact-div.add-coll-div .fact-div {
+.add-fact-div {
   display: block;
-}
-.add-fact-div.add-coll-div .fact-div #input-fact {
   position: relative;
 }
 
@@ -83,13 +76,7 @@ a {
   display: flex;
 }
 
-#input-tech-char-name {
-  width: 185px;
-  margin-top: 10px;
-  margin-right: 16px;
-}
-
-#input-tech-char-value {
+#input-tech-char-value, #input-tech-char-name {
   margin-top: 10px;
   margin-right: 16px;
 }
@@ -105,16 +92,15 @@ a {
 }
 
 .temp-div {
-  display: flex;
+  display: block;
+  position: relative;
   color: white;
   font-weight: bold;
   font-family: "Handjet";
-  position: relative;
-  margin: 15% 20%;
+  margin: 20% 5%;
   transition: all 0.5s ease-in-out;
 }
-
-.tech-temp {
+.temp-div .tech-card {
   flex-wrap: wrap;
   list-style: none;
   border: 5px solid #ffffff;
@@ -127,8 +113,9 @@ a {
   box-shadow: 0px 0px 20px black;
   --webkit-animation: scale-in-hor-center 0.5s ease-out both;
   animation: scale-in-hor-center 0.5s ease-out both;
+  transition: all 0.5s ease;
 }
-.tech-temp img {
+.temp-div .tech-card img {
   display: flex;
   position: relative;
   border-radius: 5%;
@@ -136,7 +123,7 @@ a {
   height: 220px;
   margin-bottom: 10px;
 }
-.tech-temp p {
+.temp-div .tech-card p {
   display: flex;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -147,21 +134,20 @@ a {
   font-size: 22px;
   -webkit-line-clamp: 3;
 }
-.tech-temp h4 {
+.temp-div .tech-card h4 {
   font-size: 20px;
 }
-.tech-temp h5 {
+.temp-div .tech-card h5 {
   font-size: 20px;
   cursor: pointer;
 }
-.tech-temp a {
+.temp-div .tech-card a {
   display: flex;
   text-decoration: none;
   text-align: center;
   font-size: 30px;
 }
-
-#tech-fact {
+.temp-div .tech-card #tech-fact {
   -webkit-line-clamp: 2;
   color: cyan;
 }
@@ -179,8 +165,18 @@ a {
   margin-left: 15px;
 }
 
+.api-state {
+  position: relative;
+  text-align: center;
+  font-weight: bolder;
+  bottom: 5px;
+  padding: 30px;
+  font-size: 35px;
+  font-family: "Handjet";
+}
+
 .foot-div {
-  display: flex;
+  display: fixed;
   flex-direction: column;
   position: relative;
 }
@@ -205,51 +201,29 @@ a {
   font-weight: bolder;
 }
 
-@media screen and (max-width: 1500px) {
-  .temp-div {
-    display: flex;
-    color: white;
-    font-weight: bold;
-    font-family: "Handjet";
-    position: relative;
-    margin: 30% 0%;
-    width: 500px;
-  }
-}
 @media screen and (max-width: 1250px) {
   .main-div {
     margin-left: 20%;
     display: block;
     transition: all 0.5s ease-in-out;
   }
-  .tech-temp {
+  .temp-div {
     display: block;
-    color: white;
-    font-weight: bold;
     position: relative;
-    font-family: "Handjet";
     width: 100%;
-  }
-  .tech-temp li {
-    flex-wrap: wrap;
-    width: 400px;
-    transition: all 0.5s ease;
-  }
-  .tech-temp li img {
-    width: 120%;
-    height: 220px;
   }
   .add-box {
     align-items: center;
   }
   .add-coll-div {
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
   .add-fact-div {
-    flex-basis: calc(50% - 10px);
-    margin: 5px 0px;
+    display: block;
+    position: relative;
+    flex-wrap: wrap;
   }
   .add-char-div {
     flex-basis: calc(50% - 10px);
@@ -258,21 +232,14 @@ a {
   .confirm-div {
     position: relative;
     margin: 0;
+    right: 10%;
     bottom: 30px;
+  }
+  .api-state {
+    right: 10%;
   }
 }
 @media screen and (max-width: 620px) {
-  .auto-nav {
-    display: none;
-  }
-  .auto-mob-nav {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-self: flex-start;
-    margin-left: auto;
-    transition: all 0.5s ease;
-  }
   .main-div {
     position: relative;
     margin: 10px;
@@ -283,25 +250,9 @@ a {
     transition: all 0.6s ease;
     margin: 0;
   }
-  .tech-temp {
-    display: flex;
-    color: white;
-    font-weight: bold;
-    position: relative;
-    font-family: "Handjet";
-    width: 400px;
-  }
-  .tech-temp li {
-    flex-wrap: wrap;
-    width: 400px;
-    transition: all 0.5s ease;
-  }
-  .tech-temp li img {
-    width: 120%;
-    height: 220px;
-  }
   .confirm-div {
     margin: 0%;
+    top: 5px;
     display: inline;
     position: relative;
     flex-direction: row;
@@ -312,7 +263,7 @@ a {
     font-size: 20px;
   }
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 480px) {
   .add-coll-div {
     position: relative;
     margin: 0;
@@ -342,9 +293,12 @@ a {
     width: 250px;
   }
   .temp-div {
-    flex-wrap: wrap;
-    width: 300px;
-    transition: all 0.5s ease;
+    position: relative;
+    width: 100px;
+  }
+  .temp-div .tech-card {
+    position: relative;
+    width: 250px;
   }
   .group-box select {
     background: linear-gradient(100deg, #f2d9ff, #ff89df);
