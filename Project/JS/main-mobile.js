@@ -36,8 +36,7 @@ setTimeout(() => {
         else {
     
             sideBar.className = sideBar.className.replace('-active','');
-            setTimeout(() => {
-                sideBar.style.display = 'none';}, 250);
+            setTimeout(() => { sideBar.style.display = 'none';}, 250);
             allDivMargin(10);
         }
     });

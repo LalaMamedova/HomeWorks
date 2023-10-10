@@ -81,6 +81,7 @@ body {
 	color: black;
 	width: 50%;
 	margin: 30px;
+	left: 25%;
 }
 
 
@@ -165,10 +166,7 @@ body {
 		margin: 5%;
 		left: 0;
 	}
-	.interactiv-btn-div {
-		text-align: start;
-		transition: all ease-in-out 0.5s;
-	}
+
 	.mini-info-div {
 		position: relative;
 		width: 100%;
@@ -189,10 +187,7 @@ body {
 	}
 }
 @media screen and (max-width: 720px) {
-	.interactiv-btn-div {
-		text-align: center;
-		transition: all ease-in-out 0.5s;
-	}
+
 	.mini-info-div {
 		position: relative;
 		width: 100%;
@@ -216,5 +211,14 @@ body {
 	#fact-section {
 		width: 100%;
 		margin: 0px;
+	}
+}
+@media screen and (max-width: 480px) {
+
+	.interactiv-btn-div{
+		left: 0;
+		#gradient-i{
+			font-size: 30px;
+		}
 	}
 }

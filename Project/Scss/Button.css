@@ -126,7 +126,8 @@
   display: none;
 }
 
-i {
+i,
+#gridient-i {
   background-image: linear-gradient(185deg, #ff89de, rgb(255, 172, 89));
   -webkit-background-clip: text;
   background-clip: text;

@@ -30,19 +30,7 @@ $background-color_1: pink;
 	}
 	
 }
-.auto-nav {
-	display: flex;
-	justify-content: space-between;
-	align-self: flex-start;
-	margin-left: auto;
-	margin-top: 5px;
-	button {
-		width: 110px;
-	}
-}
-.auto-mob-nav {
-	display: none;
-}
+
 
 .filter-div {
 	button {
@@ -63,7 +51,8 @@ $background-color_1: pink;
 	text-align: center;
 }
 
-#tech-card,.tech-card{
+#tech-card,
+.tech-card{
 	height: 720px;
 	width: 50%;
 	margin: 30px 20px;
@@ -187,13 +176,39 @@ $background-color_1: pink;
 		font-weight: bold;
 	}
 }
+.foot-div {
+	display: inline;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.contact-nav {
+	display: flex;
+	font-family: $font-family_2;
+	position: relative;
+	flex-wrap: wrap;
+	background: black;
+	li {
+		display: flex;
+		font-size: 30px;
+		margin-left: 18px;
+		justify-content: space-around;
+		a {
+			display: flex;
+			align-items: center;
+			color: $color_7;
+			text-decoration: none;
+			font-weight: bolder;
+		}
+	}
+}
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 720px) {
 	.search-nav {
 		display: none;
 	}
 }
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 480px) {
 	.side-bar-div {
 		h1 {
 			margin-left: 0%;
@@ -220,8 +235,6 @@ $background-color_1: pink;
 			margin: 0;
 		}
 	}
-}
-@media screen and (max-width: 480px) {
 
 	.music-bar {
 		position: absolute;

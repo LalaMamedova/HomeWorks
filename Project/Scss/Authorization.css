@@ -53,6 +53,7 @@ body {
 }
 
 .text-input {
+  top: 30px;
   position: relative;
   display: flex;
 }
@@ -80,7 +81,7 @@ body {
   position: absolute;
   color: #ff2277;
   font-size: 65px;
-  top: 5%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: block;
@@ -203,9 +204,12 @@ form {
     margin-left: 85%;
   }
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 480px) {
+  .login-div {
+    font-size: 25px;
+  }
   .login-div h1 {
-    font-size: 45px;
+    font-size: 40px;
   }
   .submit-sign-in, .submit-sign-up {
     width: 120px;
@@ -221,4 +225,4 @@ form {
   .new-acc-div a {
     font-size: 20px;
   }
-}/*# sourceMappingURL=Registration.css.map */
+}/*# sourceMappingURL=Authorization.css.map */

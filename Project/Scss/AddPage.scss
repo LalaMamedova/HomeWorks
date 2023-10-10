@@ -30,9 +30,9 @@ a {
 }
 .main-div {
 	display: flex;
-	font-family: $font-family_2;
 	text-align: center;
 	position: relative;
+	font-family: $font-family_2;
 	max-width: calc(33.33% - 20px);
 }
 .add-div {
@@ -53,14 +53,15 @@ a {
 	justify-content: center;
 	position: relative;
 	margin: 25px 50px;
-	
+	-webkit-animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+	        animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 	input {
 		position: relative;
 		box-shadow: 0px 0px 20px black;
 		background: linear-gradient(100deg, #f2d9ff,#ff89df);
 		font-size: 20px;
 		border-radius: 10px;
-		width: 300px;
+		width: 350px;
 		height: 40px;
 	}
 	textarea {
@@ -69,8 +70,18 @@ a {
 		font-size: 22px;
 		border-radius: 10px;
 	}
-	-webkit-animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-	        animation: swing-in-bottom-fwd 1.9s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+	.group-box {
+		select {
+			background: linear-gradient(100deg, #f2d9ff,#ff89df);
+			color: $color_4;
+			font-size: 25px;
+			font-family: $font-family_2;
+			font-weight: bolder;
+			border-radius: 5px;
+			width: 350px;
+		}
+	}
+	
 }
 .add-fact-div {
 	display: block;
@@ -89,17 +100,7 @@ a {
 	margin-top: 10px;
 	margin-right: 16px;
 }
-.group-box {
-	select {
-		background: linear-gradient(100deg, #f2d9ff,#ff89df);
-		color: $color_4;
-		font-size: 25px;
-		font-family: $font-family_2;
-		font-weight: bolder;
-		border-radius: 5px;
-		width: 300px;
-	}
-}
+
 .temp-div {
 	display: block;
 	position: relative;
@@ -212,9 +213,9 @@ a {
 	}
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1200px) {
 	.main-div {
-		margin-left: 20%;
+		margin-left: 25%;
 		display: block;
 		transition: all 0.5s ease-in-out;
 	}
@@ -222,17 +223,18 @@ a {
 		display: block;
 		position: relative;
 		width: 100%;
+	}
+	.add-div{
+		flex-direction: column;
+	}
 
-	}
-	
-	.add-box {
-		align-items: center;
-	}
 	.add-coll-div {
 		display: block;
 		flex-wrap: wrap;
 		justify-content: space-evenly;
+		text-align: center;
 	}
+
 	.add-fact-div {
 		display: block;
 		position: relative;
@@ -240,38 +242,29 @@ a {
 		
 	}
 	.add-char-div {
-		flex-basis: calc(50% - 10px);
 		margin: 5px 0px;
 	}
 	.confirm-div {
 		position: relative;
 		margin: 0;
-		right: 10%;
-		bottom: 30px;
+		right: 5%;
+		bottom: 5%;
 	}
 	.api-state{
 		right: 10%;
 	}
 }
 
-@media screen and (max-width: 620px) {
-	
+@media screen and (max-width: 720px) {
 	
 	.main-div {
 		position: relative;
 		margin: 10px;
 	}
 
-	.music-bar {
-		position: absolute;
-		align-items: flex-start;
-		transition: all 0.6s ease;
-		margin: 0;
-	}
-	
-
 	.confirm-div {
 		margin: 0%;
+		margin-left: 60px;
 		top: 5px;
 		display: inline;
 		position: relative;
@@ -285,15 +278,29 @@ a {
 }
 @media screen and (max-width: 480px) {
 	
+	.music-bar {
+		position: absolute;
+		align-items: flex-start;
+		transition: all 0.6s ease;
+		margin: 0;
+	}
+	
+
 	.add-coll-div {
 		position: relative;
-		margin: 0;
+		margin: 10px;
 		input {
 			width: 250px;
 			position: relative;
 			transition: all 0.4s ease;
 		}
+		.group-box{
+			select{
+				width: 250px;
+			}
+		}
 	}
+	
 	.add-box {
 		textarea {
 			position: relative;
@@ -301,9 +308,11 @@ a {
 		}
 	}
 	.confirm-div {
+		display: block;
 		position: relative;
-		margin: 0;
 		bottom: 10px;
+		margin-left: 40px;
+
 		button {
 			font-size: 15px;
 		}
@@ -311,16 +320,14 @@ a {
 	.characteristic-input {
 		display: block;
 	}
-	#input-fact {
-		position: relative;
-		width: 250px;
-	}
+
 	.temp-div {
 		position: relative;
 		width: 100px;
+		margin: 10px;
 
 		.tech-card{
-			position: relative;
+			margin: 0;
 			width: 250px;
 		}
 

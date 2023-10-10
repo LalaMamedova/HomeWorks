@@ -14,7 +14,6 @@ $background-color_1: rgba(255, 182, 193, 0.6);
 $background-color_2: #9e001ab3;
 $background-color_3: #ff2277;
 
-
 body {
 	background: linear-gradient(285deg, #34eeff, #ff269d);
 	margin: 0;
@@ -62,6 +61,7 @@ body {
 }
 
 .text-input {
+	top: 30px;
 	position: relative;
 	display: flex;
 }
@@ -88,7 +88,7 @@ body {
 		position: absolute;
 		color: $color_2;
 		font-size: 65px;
-		top: 5%;
+		top: 10%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		display: block;
@@ -215,10 +215,11 @@ body {
 		margin-left: 85%;
 	}
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 480px) {
 	.login-div {
+        font-size: 25px;
 		h1 {
-			font-size: 45px;
+			font-size: 40px;
 		}
 	}
 	.submit-sign-in,.submit-sign-up {

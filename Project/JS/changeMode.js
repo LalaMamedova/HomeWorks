@@ -1,4 +1,5 @@
 export function changeDefaultElements(isDarkMode,modebtnId){
+
     if(isDarkMode === true){
         document.body.style.background = '#091324';
         document.querySelector(modebtnId).querySelector('i').className = 'fa fa-moon';
@@ -9,10 +10,10 @@ export function changeDefaultElements(isDarkMode,modebtnId){
         changeClassNameId('.music-button','music-button-dark',false)
         changeClassNameId('#loader-bar','loader-bar-pink',true)
         changeClassNameId('#film-roll','film-roll-pink',true)
-
         $('i,#gradient-i')
         .css({
-            'background-clip': 'text','-webkit-background-clip': 'text','background-clip': 'text','color':'transparent',
+            'background-clip': 'text','-webkit-background-clip': 
+            'text','background-clip': 'text','color':'transparent',
             'background-image': 'linear-gradient(180deg, #667fff, #ff87cb)'});
         changeArrBackground('#tech-card,.tech-card','#2B3865');
             
@@ -31,6 +32,7 @@ export function changeDefaultElements(isDarkMode,modebtnId){
         changeClassNameId('#film-roll-pink','film-roll',true)
 
     }
+    changeArrColor('#tech-fact','lightblue');
 }
 export async function changeLoadScreen(isDarkMode){
     if(isDarkMode){
@@ -58,6 +60,11 @@ export function changeArrBackground(className,color){
     });
 }
 
+export function changeArrColor(className,color){
+    document.querySelectorAll(className).forEach(element=>{
+        element.style.color = color;
+    });
+}
 
 export function btnClick(isDarkMode){
     if(isDarkMode === false) {isDarkMode = true;} else{isDarkMode = false;}

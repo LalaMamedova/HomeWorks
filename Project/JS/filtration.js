@@ -43,7 +43,9 @@ function sortByYear() {
 }
 
 $('#filter-btn').on('click', function () {
-   
+    if(document.querySelector('#sideBar').className = 'side-bar-div-active'){
+        document.querySelector('#sideBar').className = ('side-bar-div');
+    }
     let cardDiv = document.querySelectorAll(".tech-card");
     filtredDivs = Array.from(cardDiv); 
     mainCardDiv.innerHTML = '';

@@ -2,6 +2,7 @@ const isLogin = localStorage.getItem('isLogin');
 
 
 export function cardTemp(id,images,name,year,type,description,interestingfacts){
+ 
     let card = `<div id="tech-card" class='tech-card'">
             <img src="${images}" alt="${name}">
             <h2>${name}</h2>
@@ -10,7 +11,7 @@ export function cardTemp(id,images,name,year,type,description,interestingfacts){
             <p>${description}</p>
             
             <div class="interest-fact">
-                <span id="one-fact-in-temp">${interestingfacts}</span>
+                <span id="tech-fact">${interestingfacts}</span>
             </div>
             
             <div class="tech-card-buttons">

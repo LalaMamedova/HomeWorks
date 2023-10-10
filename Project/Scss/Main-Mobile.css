@@ -17,21 +17,6 @@
   border-radius: 10px;
 }
 
-.auto-nav {
-  display: flex;
-  justify-content: space-between;
-  align-self: flex-start;
-  margin-left: auto;
-  margin-top: 5px;
-}
-.auto-nav button {
-  width: 110px;
-}
-
-.auto-mob-nav {
-  display: none;
-}
-
 .filter-div button {
   display: flex;
 }
@@ -49,7 +34,8 @@
   text-align: center;
 }
 
-#tech-card, .tech-card {
+#tech-card,
+.tech-card {
   height: 720px;
   width: 50%;
   margin: 30px 20px;
@@ -65,7 +51,8 @@
   animation: swing-in-bottom-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
   transition: all 0.3 ease-in-out;
 }
-#tech-card img, .tech-card img {
+#tech-card img,
+.tech-card img {
   display: flex;
   border-radius: 5%;
   width: 100%;
@@ -74,10 +61,12 @@
   border-radius: 5%;
   height: 45%;
 }
-#tech-card h6, .tech-card h6 {
+#tech-card h6,
+.tech-card h6 {
   font-size: 20px;
 }
-#tech-card p, .tech-card p {
+#tech-card p,
+.tech-card p {
   font-size: 19px;
   -webkit-line-clamp: 5;
   overflow: hidden;
@@ -177,12 +166,40 @@
   font-weight: bold;
 }
 
-@media screen and (max-width: 680px) {
+.foot-div {
+  display: inline;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.contact-nav {
+  display: flex;
+  font-family: "Handjet";
+  position: relative;
+  flex-wrap: wrap;
+  background: black;
+}
+.contact-nav li {
+  display: flex;
+  font-size: 30px;
+  margin-left: 18px;
+  justify-content: space-around;
+}
+.contact-nav li a {
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+@media screen and (max-width: 720px) {
   .search-nav {
     display: none;
   }
 }
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 480px) {
   .side-bar-div h1 {
     margin-left: 0%;
     transition: margin-left 0.5s ease;
@@ -205,8 +222,6 @@
     font-size: 20px;
     margin: 0;
   }
-}
-@media screen and (max-width: 480px) {
   .music-bar {
     position: absolute;
     align-items: flex-start;

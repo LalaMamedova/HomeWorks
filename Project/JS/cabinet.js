@@ -8,32 +8,34 @@ let likedTechnology = [];
 
 window.onload = async function () {
 
+    if(localStorage.getItem('user')!=null){
     let user = JSON.parse(localStorage.getItem('user'));
     
-    for(let i=0; i<user.likedTechnology.length; i++){
+        for(let i=0; i<user.likedTechnology.length; i++){
 
-        let data = await getById('technologies', user.likedTechnology[i]);
-        likedTechnology.push(data);
-        
-        document.querySelector('.tech-list').innerHTML +=
-            `<div id="tech-card" class='tech-card'">
-            <img src="${data.images[0]}" alt="${data.name}">
-            <h2>${data.name}</h2>
-            <h6>${data.year}</h6>
-            <h4>${data.type}</h4>
-            <p>${data.description}</p>
+            let data = await getById('technologies', user.likedTechnology[i]);
+            likedTechnology.push(data);
             
-            <div class="interest-fact">
-                <span id="one-fact-in-temp">${data.interestingfacts[0]}</span>
-            </div>
-            
-                <div class="to-full-info-div">
-                    <button id="to-full-info-btn" value="info">More info...</button>
+            document.querySelector('.tech-list').innerHTML +=
+                `<div id="tech-card" class='tech-card'">
+                <img src="${data.images[0]}" alt="${data.name}">
+                <h2>${data.name}</h2>
+                <h6>${data.year}</h6>
+                <h4>${data.type}</h4>
+                <p>${data.description}</p>
+                
+                <div class="interest-fact">
+                    <span id="tech-fact">${data.interestingfacts[0]}</span>
                 </div>
-                <h5>${data.id}</h5>
-        </div>`
-     }
+                
+                    <div class="to-full-info-div">
+                        <button id="to-full-info-btn" value="info">More info...</button>
+                    </div>
+                    <h5>${data.id}</h5>
+            </div>`
+        }
  
+    }
      changeDefaultElements(isDarkMode, "#mode-btn");
    
 }
@@ -72,13 +74,12 @@ if(localStorage.getItem('isLogin')=='true'){
     document.querySelector('#sign-in-btn').style.display = 'none';
     document.querySelector('#sign-up-btn').style.display = 'none';
 }else{
-    signOut.css({ 'display':'none'});
+    signOut.css({'display':'none'});
     document.querySelector('#sign-in-btn').style.display = 'flex';
     document.querySelector('#sign-up-btn').style.display = 'flex';
 }
 
 $('#mode-btn').on('click',function(){
-
     isDarkMode = btnClick(isDarkMode);
     changeDefaultElements(isDarkMode,"#mode-btn");
 });

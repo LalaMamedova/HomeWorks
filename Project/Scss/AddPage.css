@@ -19,9 +19,9 @@ a {
 
 .main-div {
   display: flex;
-  font-family: "Handjet";
   text-align: center;
   position: relative;
+  font-family: "Handjet";
   max-width: calc(33.33% - 20px);
 }
 
@@ -51,7 +51,7 @@ a {
   background: linear-gradient(100deg, #f2d9ff, #ff89df);
   font-size: 20px;
   border-radius: 10px;
-  width: 300px;
+  width: 350px;
   height: 40px;
 }
 .add-coll-div textarea {
@@ -59,6 +59,15 @@ a {
   background: linear-gradient(100deg, #f2d9ff, #ff89df);
   font-size: 22px;
   border-radius: 10px;
+}
+.add-coll-div .group-box select {
+  background: linear-gradient(100deg, #f2d9ff, #ff89df);
+  color: rgb(125, 78, 255);
+  font-size: 25px;
+  font-family: "Handjet";
+  font-weight: bolder;
+  border-radius: 5px;
+  width: 350px;
 }
 
 .add-fact-div {
@@ -79,16 +88,6 @@ a {
 #input-tech-char-value, #input-tech-char-name {
   margin-top: 10px;
   margin-right: 16px;
-}
-
-.group-box select {
-  background: linear-gradient(100deg, #f2d9ff, #ff89df);
-  color: rgb(125, 78, 255);
-  font-size: 25px;
-  font-family: "Handjet";
-  font-weight: bolder;
-  border-radius: 5px;
-  width: 300px;
 }
 
 .temp-div {
@@ -201,9 +200,9 @@ a {
   font-weight: bolder;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1200px) {
   .main-div {
-    margin-left: 20%;
+    margin-left: 25%;
     display: block;
     transition: all 0.5s ease-in-out;
   }
@@ -212,13 +211,14 @@ a {
     position: relative;
     width: 100%;
   }
-  .add-box {
-    align-items: center;
+  .add-div {
+    flex-direction: column;
   }
   .add-coll-div {
     display: block;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    text-align: center;
   }
   .add-fact-div {
     display: block;
@@ -226,32 +226,26 @@ a {
     flex-wrap: wrap;
   }
   .add-char-div {
-    flex-basis: calc(50% - 10px);
     margin: 5px 0px;
   }
   .confirm-div {
     position: relative;
     margin: 0;
-    right: 10%;
-    bottom: 30px;
+    right: 5%;
+    bottom: 5%;
   }
   .api-state {
     right: 10%;
   }
 }
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 720px) {
   .main-div {
     position: relative;
     margin: 10px;
   }
-  .music-bar {
-    position: absolute;
-    align-items: flex-start;
-    transition: all 0.6s ease;
-    margin: 0;
-  }
   .confirm-div {
     margin: 0%;
+    margin-left: 60px;
     top: 5px;
     display: inline;
     position: relative;
@@ -264,23 +258,33 @@ a {
   }
 }
 @media screen and (max-width: 480px) {
+  .music-bar {
+    position: absolute;
+    align-items: flex-start;
+    transition: all 0.6s ease;
+    margin: 0;
+  }
   .add-coll-div {
     position: relative;
-    margin: 0;
+    margin: 10px;
   }
   .add-coll-div input {
     width: 250px;
     position: relative;
     transition: all 0.4s ease;
   }
+  .add-coll-div .group-box select {
+    width: 250px;
+  }
   .add-box textarea {
     position: relative;
     width: 250px;
   }
   .confirm-div {
+    display: block;
     position: relative;
-    margin: 0;
     bottom: 10px;
+    margin-left: 40px;
   }
   .confirm-div button {
     font-size: 15px;
@@ -288,16 +292,13 @@ a {
   .characteristic-input {
     display: block;
   }
-  #input-fact {
-    position: relative;
-    width: 250px;
-  }
   .temp-div {
     position: relative;
     width: 100px;
+    margin: 10px;
   }
   .temp-div .tech-card {
-    position: relative;
+    margin: 0;
     width: 250px;
   }
   .group-box select {

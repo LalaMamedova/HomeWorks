@@ -12,14 +12,15 @@
     
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="https://kit.fontawesome.com/94ed063ed7.js" crossorigin="anonymous"></script>
-    <script defer src="/js/music.js"></script>
     <script defer src="/js/apiMethods.js" type="module"></script>
     <script defer src="/js/cabinet.js" type="module"></script>
     <script defer src="/js/templates.js" type="module"></script>
     <script defer src="/js/changeMode.js" type="module"></script>
+    <script defer src="/js/headerBtns.js"></script>
+    <script defer src="/JS/music.js"></script>
 
 </head>
-<body style="background: linear-gradient(285deg, #34eeff, #ff269d);">
+<body >
     <header>
         <div class="main-header-div">
             <nav class="logo-nav">
@@ -33,22 +34,24 @@
                 <button class="music-button next-music"><i class="fa-solid fa-forward-step"></i></button>
             </div>
             <nav class="auto-nav">
-                
+                <button style="display: none;" id="cabinet-btn" class="main-button">
+                    <a href="Cabinet.html"><i  class="fa fa-home fa-fw w3-margin-right"></i>
+                    </a>Cabinet</button>
+
                 <button id="sign-in-btn" class="main-button"><a href="/Html/SignIn.html">
                     <i class="fa fa-user fa-fw w3-margin-right"></i></a>Sign in</button>
-                    
+                        
                 <button id="sign-up-btn" class="main-button">
                         <a href="SignUp.html"><i class="fa fa-user-plus fa-fw w3-margin-right"></i>
                         </a>Sign up</button>
-
             
-                <button id="sign-out-btn" class="main-button" style="width: 120px;"><a href="Cabinet.html">
-                        <i class="fa fa-sign-out fa-fw w3-margin-right">
-                        </i></a>Sign out</button>
+                <button id="sign-out-btn" class="main-button"><a href="Cabinet.html">
+                    <i class="fa fa-sign-out fa-fw w3-margin-right">
+                    </i></a>Sign out</button>
+
+                </nav>
 
                 <button  id="mode-btn" class="main-button"><i class="fa fa-sun" aria-hidden="true"></i></button>
-
-            </nav>
         </div>
     </header>
     <main style="text-align: center;">
