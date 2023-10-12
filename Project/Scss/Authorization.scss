@@ -65,23 +65,7 @@ body {
 	position: relative;
 	display: flex;
 }
-.remember-me {
-	label {
-		margin: 0;
-	}
-	display: flex;
-	font-size: 30px;
-	margin-top: 10px;
-	input {
-		width: 20px;
-		height: 20px;
-		transition: all ease 0.5s;
-		&:hover {
-			width: 30px;
-			height: 30px;
-		}
-	}
-}
+
 .login-div
 	h1 {
 		font-family: $font-family_1;

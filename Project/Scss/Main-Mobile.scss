@@ -112,7 +112,8 @@ $background-color_1: pink;
 	border-radius: 10px;
 	text-align: start;
 	font-weight: bolder;
-	position: absolute;
+	position: fixed;
+	margin-top: 60px;
 	width: 35%;
 	background: linear-gradient(85deg, #ffc273, #b222ff);
 	h1,h2,h3,h4,p {color: black;}
@@ -203,6 +204,62 @@ $background-color_1: pink;
 	}
 }
 
+.no-res-div{
+	display: block;
+	justify-content: center;
+	align-self: center;
+	align-items: center;
+	text-align: center;
+	position: relative;
+	font-family: $font-family_1;
+	font-size: 180px;
+	margin: 10%;
+	left: 25%;
+	
+	h1 a{
+		color: cyan;
+		font-family: $font-family_2;
+	}
+}
+
+.glitch {
+	display: block;
+	justify-content: center;
+	align-self: center;
+	align-items: center;
+	text-align: center;
+	flex-direction: column;
+	color: rgb(223, 191, 191);
+	position: absolute;
+	font-size: 60px;
+	animation: glitch 1s 1.2s infinite;
+
+	::before {
+		content: attr(data-text);
+		position: absolute;
+		left: -2px;
+		text-shadow: -5px 0 magenta;
+		background: black;
+		overflow: hidden;
+		top: 0;
+		animation: noise-1 2s linear infinite alternate-reverse, glitch 3s 3.05s infinite;
+	}
+
+		::after {
+			content: attr(data-text);
+			position: absolute;
+			left: 2px;
+			text-shadow: -5px 0 lightgreen;
+			background: black;
+			overflow: hidden;
+			top: 0;
+			animation: noise-2 2s linear infinite alternate-reverse, glitch 1s 2s infinite;
+		}
+
+  }
+  .list-div:last-child{
+	margin-bottom: 80px;
+  }
 @media screen and (max-width: 720px) {
 	.search-nav {
 		display: none;

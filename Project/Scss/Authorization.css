@@ -58,24 +58,6 @@ body {
   display: flex;
 }
 
-.remember-me {
-  display: flex;
-  font-size: 30px;
-  margin-top: 10px;
-}
-.remember-me label {
-  margin: 0;
-}
-.remember-me input {
-  width: 20px;
-  height: 20px;
-  transition: all ease 0.5s;
-}
-.remember-me input:hover {
-  width: 30px;
-  height: 30px;
-}
-
 .login-div h1 {
   font-family: "Disko teque";
   position: absolute;

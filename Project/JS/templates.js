@@ -1,6 +1,3 @@
-const isLogin = localStorage.getItem('isLogin');
-
-
 export function cardTemp(id,images,name,year,type,description,interestingfacts){
  
     let card = `<div id="tech-card" class='tech-card'">
@@ -29,8 +26,10 @@ export function cardTemp(id,images,name,year,type,description,interestingfacts){
 
 
 export function changeBtns(){
-    if(isLogin!=null ){
-        if(isLogin=='true'){
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    if(user!=null ){
+        if(user.isLogin==true){
             document.querySelector('#sign-in-btn').style.display = 'none';
             document.querySelector('#sign-up-btn').style.display = 'none';
             document.querySelector('#cabinet-btn').style.display = 'flex';

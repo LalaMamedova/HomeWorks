@@ -1,6 +1,6 @@
 import { cardTemp,changeBtns } from "./templates.js";
 import { get,remove } from "./apiMethods.js";
-import { changeLoadScreen, changeDefaultElements,btnClick,changeArrBackground } from "./changeMode.js";
+import { changeLoadScreen, changeDefaultElements,btnClick } from "./changeMode.js";
 let isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -9,13 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const addTempBtn = document.querySelector('#add-temp');
 
     var techList = document.querySelector('#tech-list');
-    var cardDiv = '';
     var AllCards = [];
 
     window.onload = async function () {
       
         await changeLoadScreen(isDarkMode);
-        await loadPage(1500);
+        await loadPage(700);
         sessionStorage.clear();
         changeBtns();
     };
@@ -107,8 +106,5 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#add-tech').on('click',function(){
         window.location.href = `/Html/AddRedactPage.html`;
     });
-
-
-   
 
 });

@@ -202,6 +202,7 @@ i,
   font-family: "Handjet";
   cursor: pointer;
   display: none;
+  position: fixed;
   transition: background-color 1.1s, color 0.3s, border-color 0.9s;
   background: linear-gradient(90deg, #ff0389, #22f8ff);
 }

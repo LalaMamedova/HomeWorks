@@ -81,7 +81,7 @@ function noFoundTemp(){
     }
     return `<div class='glitch' style="z-index:0; justify-content: center;display:flex; position:relative; margin:20%;">
             <h1 style="font-weight:bolder; color:cyan; font-size: 120px;">Sory,but there are no result</h1>
-            <button id='reload-btn' class=${btnClassName} >Retry</button>
+            <button id='reload-btn' class=${btnClassName}>Retry</button>
         </div>`
     $('#reload-btn').on('click',function(){
         location.reload();

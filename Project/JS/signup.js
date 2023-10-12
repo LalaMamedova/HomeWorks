@@ -71,10 +71,12 @@ function signUp(yourMessage){
     if(localStorage.getItem('mode') === 'true'){
         btnClassName+='-dark';
     }
+    
     document.querySelector('main').innerHTML = '';
     document.querySelector('main').innerHTML += `
+    
     <div class="auto-res">${yourMessage}
-        <button id="reload-btn" lass=${btnClassName}>Retry</button>
+        <button id="reload-btn" class=${btnClassName}>Retry</button>
     </div>`;
 
     $("#reload-btn").on('click',function(){

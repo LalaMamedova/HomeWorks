@@ -5,12 +5,14 @@ const email =  $('#signin-email');
 const password =  $('#signin-pass');
 let isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
 
+
 window.onload = function() {
-    
-    if(localStorage.getItem('isLogin') =='true'){        
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    if(user != null){        
         $('main').html(`<div class='main-div'><h1>You alredy loggined</h1></div>`);
     }
-    else if(sessionStorage.getItem('user')!='' && localStorage.getItem('isLogin')!='true'){
+    else if(sessionStorage.getItem('user')!=null){
         email.val(sessionStorage.getItem('user'));
     }
     changeMode(isDarkMode);
@@ -36,11 +38,10 @@ $('.submit-sign-in').on('click', async function(){
     if(email.val()!='' && password.val()!=''){
         let res = await getByEmail('users', email.val());
 
-        if(res.email === email.val() && res.password==password.val()){
-            localStorage.setItem('isLogin',true);
-           
+        if(res.email === email.val() && res.password==password.val()){           
             localStorage.setItem('user',JSON.stringify(
             {
+                isLogin:true,
                 id:res.id,
                 email:res.email,
                 likedTechnology: res.likedTechnology,

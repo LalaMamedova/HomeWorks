@@ -18,6 +18,7 @@ a {
   font-family: "Disko teque";
   font-size: 100px;
   margin: 10%;
+  left: 25%;
 }
 .no-res-div h1 a {
   color: cyan;
@@ -168,6 +169,7 @@ body {
   position: absolute;
   font-size: 60px;
   animation: glitch 1s 1.2s infinite;
+  left: 25%;
 }
 .glitch ::before {
   content: attr(data-text);

@@ -123,6 +123,7 @@ function updateImageAtIndex(newImageUrl, index) {
     
     const defaultImgPath = 'https://avatars.dzeninfra.ru/get-zen_doc/3137181/pub_622c93eaa228967ff2d727e7_622c94198ae1c12db1140183/scale_1200';
     const allCaruselImg = document.querySelectorAll(".tech-img");
+    
     if (allCaruselImg[index]) {
         if (allCaruselImg[index].src != newImageUrl) {
 

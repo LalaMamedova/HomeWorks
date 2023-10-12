@@ -1,23 +1,18 @@
 import {changeDefaultElements,btnClick } from "./changeMode.js";
-import { changeBtns } from "./templates.js";
-import {getByEmail, put } from "./apiMethods.js";
+import {changeBtns } from "./templates.js";
+import {put} from "./apiMethods.js";
 
 const modebtn = document.querySelector('#mode-btn');
 let isDarkMode = localStorage.getItem('mode') === 'true'? true:false;
 let techInfo = '';
-var userRes = '';
+var user = JSON.parse(localStorage.getItem('user'));
 
 window.onload = async function() {
     if(sessionStorage.getItem('infoData')){
 
-        if(localStorage.getItem('user')!=null){
-
-            let user = JSON.parse(localStorage.getItem('user'));
-            userRes = await getByEmail('users',user.email);    
-        }
         await changeTemplate(getFullInfoTech());
+        await changeMode(isDarkMode);
     }
-    await changeMode(isDarkMode);
     changeBtns();
 };
 
@@ -144,19 +139,19 @@ async function shareBtnClick(){
 async function likeBtnClick(){
 
     $('#like-btn').on('click', async function(){
-        if(userRes != '')
+        if(user != null)
         {
             const techId = techInfo.id;
-            if(!userRes.likedTechnology.includes(techId)){
-                userRes.likedTechnology.push(techId);
-                put('users',userRes.id,userRes);
-                localStorage.setItem('user', JSON.stringify(userRes));
+            if(!user.likedTechnology.includes(techId)){
+                user.likedTechnology.push(techId);
+                put('users',user.id,user);
+                localStorage.setItem('user', JSON.stringify(user));
                 document.querySelector('#like-btn').querySelector('i').className= ('fa fa-heart fa-beat');
             }else{
-                let index =  userRes.likedTechnology.indexOf(techId);
-                userRes.likedTechnology.splice(index,1);
-                put('users',userRes.id,userRes);
-                localStorage.setItem('user', JSON.stringify(userRes));
+                let index =  user.likedTechnology.indexOf(techId);
+                user.likedTechnology.splice(index,1);
+                put('users',user.id,user);
+                localStorage.setItem('user', JSON.stringify(user));
                 document.querySelector('#like-btn').querySelector('i').className= ('fa fa-heart-o fa-beat');
             }
 
@@ -169,8 +164,8 @@ async function likeBtnClick(){
 
 
 async function addLikeBtn(){
-    if (userRes != '') {
-        if (userRes.likedTechnology.includes(techInfo.id)) {
+    if(user != null) {
+        if (user.likedTechnology.includes(techInfo.id)) {
             return `<button id='like-btn' class="interactiv-btn"><i class="fa fa-heart fa-beat" style="font-size:24px" aria-hidden="true"></i> </button>`;
         }
     }

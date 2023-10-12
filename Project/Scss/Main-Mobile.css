@@ -94,7 +94,8 @@
   border-radius: 10px;
   text-align: start;
   font-weight: bolder;
-  position: absolute;
+  position: fixed;
+  margin-top: 60px;
   width: 35%;
   background: linear-gradient(85deg, #ffc273, #b222ff);
   --webkit-animation: slide-left 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
@@ -192,6 +193,60 @@
   color: rgb(255, 255, 255);
   text-decoration: none;
   font-weight: bolder;
+}
+
+.no-res-div {
+  display: block;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  font-family: "Disko teque";
+  font-size: 180px;
+  margin: 10%;
+  left: 25%;
+}
+.no-res-div h1 a {
+  color: cyan;
+  font-family: "Handjet";
+}
+
+.glitch {
+  display: block;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  color: rgb(223, 191, 191);
+  position: absolute;
+  font-size: 60px;
+  animation: glitch 1s 1.2s infinite;
+}
+.glitch ::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  text-shadow: -5px 0 magenta;
+  background: black;
+  overflow: hidden;
+  top: 0;
+  animation: noise-1 2s linear infinite alternate-reverse, glitch 3s 3.05s infinite;
+}
+.glitch ::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  text-shadow: -5px 0 lightgreen;
+  background: black;
+  overflow: hidden;
+  top: 0;
+  animation: noise-2 2s linear infinite alternate-reverse, glitch 1s 2s infinite;
+}
+
+.list-div:last-child {
+  margin-bottom: 80px;
 }
 
 @media screen and (max-width: 720px) {
