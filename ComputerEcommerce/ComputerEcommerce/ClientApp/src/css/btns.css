@@ -1,0 +1,23 @@
+﻿
+.submit-btn {
+  position: relative;
+  margin-top: 45px;
+  font-size: 25px;
+  background-color: #b3c7ff;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: "Impact";
+  width: 60%;
+  border: 1px solid black;
+  box-shadow: 15px 10px 0px 0px #330074;
+}
+.submit-btn:hover {
+  background-color: aliceblue;
+}
+
+.transparent-btn {
+  font-family: "Impact";
+  background-color: transparent;
+  border: 0px;
+  font-size: 20px;
+}
