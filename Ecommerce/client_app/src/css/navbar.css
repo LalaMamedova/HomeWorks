@@ -1,0 +1,112 @@
+@import url(addons.css);
+#light header,
+#dark header {
+  padding: 20px;
+  font-family: "Impact";
+  margin: 0px;
+}
+
+h1 {
+  cursor: pointer;
+  font-family: "Chivo";
+}
+
+#dark header {
+  background-color: rgb(79, 0, 141);
+}
+#dark header .dropdown-btn {
+  color: white;
+}
+#dark header .dropdown-btn:hover {
+  color: rgb(0, 4, 8);
+}
+#dark header .menu {
+  box-shadow: 5px 3px 3px 0px #7c7c7c;
+}
+#dark header .menu > li {
+  background-color: #180b3d;
+  color: white;
+}
+
+#light header {
+  background-color: rgb(160, 110, 255);
+}
+#light header .dropdown-btn {
+  color: black;
+}
+#light header .dropdown-btn:hover {
+  color: rgb(255, 255, 255);
+}
+#light header .menu > li {
+  background-color: white;
+  color: black;
+}
+
+#navbar-div {
+  display: flex;
+  font-family: "Chivo";
+}
+#navbar-div button {
+  font-size: 22px;
+  font-family: "Chivo";
+}
+#navbar-div button i {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+#navbar-div .nav-btn {
+  background-color: transparent;
+  color: azure;
+  font-size: 25px;
+  border: 0px;
+  margin: 20px;
+  cursor: pointer;
+  margin-right: auto;
+}
+#navbar-div #side-bar-div {
+  display: inline-flex;
+  margin-left: auto;
+}
+#navbar-div #side-bar-div #mode-btn {
+  display: flex;
+  cursor: pointer;
+  align-self: center;
+}
+#navbar-div #side-bar-div .dropdown {
+  position: relative;
+  display: flex;
+}
+#navbar-div #side-bar-div .dropdown .dropdown-btn {
+  border: 0px;
+  background-color: transparent;
+}
+#navbar-div #side-bar-div .menu {
+  position: absolute;
+  list-style-type: none;
+  margin: 50px -10%;
+  padding: 0;
+  border: 2px solid grey;
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 5px 3px 3px 0px black;
+}
+#navbar-div #side-bar-div .menu > li {
+  margin: 0;
+}
+#navbar-div #side-bar-div .menu > li > button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 5px;
+  text-align: center;
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+#navbar-div #side-bar-div .menu > li > button:hover {
+  background-color: lightgray;
+  color: black;
+}/*# sourceMappingURL=navbar.css.map */

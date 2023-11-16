@@ -1,0 +1,46 @@
+﻿@import url(addons.css);
+
+#light{
+    .side-bar-btn{
+        background-color: rgb(24, 113, 143);
+        color: white;
+    }
+}
+
+#dark{
+    .side-bar-btn{
+        background-color: rgb(208, 243, 255);
+    }
+}
+.submit-btn {
+    position: relative;
+    font-size: 25px;
+    background-color: #b3c7ff;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Chivo';
+    width: 60%;
+    border: 1px solid black;
+    box-shadow: 10px 10px 0px 0px #330074;
+
+    &:hover {
+        background-color: aliceblue;
+    }
+}
+
+.transparent-btn {
+    font-family: 'Chivo';
+    background-color: transparent;
+    border: 0px;
+    font-size: 20px;
+}
+
+.side-bar-btn {
+    font-family: 'Chivo';
+    border: 0px;
+    font-size: 18px;
+    margin: 3px;
+    border: 1px;
+    border-radius: 10px;
+    width: 150px;
+}

@@ -1,0 +1,146 @@
+@import url(addons.css);
+
+#light header,
+#dark header {
+    padding: 20px;
+    font-family: 'Impact';
+    margin: 0px;
+}
+h1{
+    cursor: pointer;
+    font-family: 'Chivo';
+}
+#dark header  {
+    background-color: rgb(79, 0, 141);
+    .dropdown-btn {
+        color: white;
+
+        &:hover {
+            color: rgb(0, 4, 8);
+        }
+    }
+
+    .menu {
+        box-shadow: 5px 3px 3px 0px #7c7c7c;
+    }
+
+    .menu > li {
+        background-color: #180b3d;
+        color: white;
+    }
+}
+
+
+#light header {
+    background-color: rgb(160, 110, 255);
+
+    .dropdown-btn {
+        color: black;
+        
+        &:hover {
+            color: rgb(255, 255, 255);
+        }
+    }
+
+    .menu > li {
+        background-color: white;
+        color: black;
+    }
+}
+
+#navbar-div {
+
+    display: flex;
+    font-family: 'Chivo';
+
+    button {
+        font-size: 22px;
+        font-family: 'Chivo';
+
+        i {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    }
+
+    .nav-btn {
+        background-color: transparent;
+        color: azure;
+        font-size: 25px;
+        border: 0px;
+        margin: 20px;
+        cursor: pointer;
+        margin-right: auto;
+
+    }
+
+
+    #side-bar-div {
+        display:inline-flex;
+        margin-left: auto;
+        
+        #mode-btn {
+            display: flex;
+            cursor: pointer;
+            align-self: center;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: flex;
+
+            .dropdown-btn {
+                border: 0px;
+                background-color: transparent;
+            }
+        }
+
+
+        .menu {
+            position: absolute;
+            list-style-type: none;
+            margin: 50px -10%;
+            padding: 0;
+            border: 2px solid grey;
+            width: 150px;
+            border-radius: 5px;
+            box-shadow: 5px 3px 3px 0px black;
+        }
+
+        .menu > li {
+            margin: 0;
+        }
+
+        .menu > li > button {
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 5px;
+            text-align: center;
+            font: inherit;
+            font-size: 18px;
+            cursor: pointer;
+
+           
+        }
+
+
+
+        .menu > li > button:hover {
+            background-color: lightgray;
+            color: black;
+        }
+    }
+}
+
+
+
+
+@media screen and (max-width:1200px) {
+   
+  
+}

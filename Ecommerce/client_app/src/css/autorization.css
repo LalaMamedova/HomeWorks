@@ -1,0 +1,71 @@
+@import url(addons.css);
+#dark h1 {
+  color: white;
+}
+
+#light h1 {
+  color: black;
+}
+
+#autorization-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "CodePro";
+}
+#autorization-div h1 {
+  text-align: center;
+  font-family: "CodePro";
+  margin-bottom: 25px;
+}
+#autorization-div .autorization-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(164, 66, 255, 0.65);
+  border-radius: 15px;
+  padding: 100px;
+  padding-bottom: 130px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  width: 35%;
+  font-weight: bold;
+}
+#autorization-div .autorization-form input {
+  position: relative;
+  display: block;
+  position: relative;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 20px;
+  width: 100%;
+  padding: 5px;
+  background-color: rgb(229, 249, 255);
+}
+#autorization-div .autorization-form .auto-nav {
+  display: flex;
+}
+#autorization-div .autorization-form .auto-nav #forgot-pass,
+#autorization-div .autorization-form .auto-nav #account-state {
+  position: relative;
+  margin-top: 30px;
+}
+#autorization-div .autorization-form .auto-nav #account-state {
+  right: 20%;
+}
+#autorization-div .autorization-form .auto-nav #account-state a {
+  color: aqua;
+  cursor: pointer;
+}
+#autorization-div .autorization-form .auto-nav #forgot-pass {
+  cursor: pointer;
+  left: 25%;
+}
+#autorization-div .autorization-form #login {
+  position: absolute;
+  width: 85%;
+  bottom: 4%;
+}/*# sourceMappingURL=autorization.css.map */

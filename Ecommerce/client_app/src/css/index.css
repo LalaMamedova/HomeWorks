@@ -1,0 +1,14 @@
+body, main {
+  margin: 0px;
+  padding-bottom: 80px;
+}
+
+#light main {
+  background-color: #d6f8ff;
+  color: black;
+}
+
+#dark main {
+  background-color: #180b3d;
+  color: white;
+}/*# sourceMappingURL=index.css.map */
